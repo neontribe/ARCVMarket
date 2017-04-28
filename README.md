@@ -9,6 +9,9 @@
 npm install
 
 # serve with hot reload at localhost:8080
+# If you're running homestead you'll need to open some ports in homestead.yaml and repreovision
+# otherwise, I've modified that vaious pbits of webpack config to build and reload every 0.3secs from /dist
+
 npm run dev
 
 # build for production with minification
