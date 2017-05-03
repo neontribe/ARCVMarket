@@ -2,16 +2,24 @@
     <div id="app">
 
         <div id="input">
-            <form id="textVoucher" action="" target="">
+            <form id="textVoucher"  v-on:submit.prevent>
                 <label for="voucherBox" id="lblVoucherBox">enter your vouchers</label>
                 <input id="voucherBox"
                        type="text"
                        v-model="voucherCode"
                        placeholder="Enter Code"
                 >
-                <button id="submitVoucher"></button>
-                <p><span id=output> {{ voucherCode }} </span></p>
+                <button v-on:click="record" id="submitVoucher">Record</button>
+                <p>Current :  <span id=output> {{ voucherCode }} </span></p>
             </form>
+            <div v-if="vouchers.length > 0">
+                <h2> Unsent Queue </h2>
+                    <ul id="unsentVouchers" >
+                        <li v-for="voucher in vouchers">
+                            {{ voucher }}
+                        </li>
+                    </ul>
+            </div>
         </div>
 
     </div>
@@ -25,11 +33,21 @@ export default {
     name: 'app',
     data: function() {
         return {
-        voucherCode : null
+        voucherCode : null,
+        vouchers : Store.vouchers
         }
     },
     mounted: function() {
-        // function here is to get pull data bas
+        //
+    },
+    methods:  {
+        record: function(event) {
+            if (this.voucherCode !== null) {
+                if (Store.addVoucherCode(this.voucherCode)) {
+                    this.voucherCode = null;
+                };
+            }
+        }
     }
 }
 

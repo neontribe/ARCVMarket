@@ -3,7 +3,13 @@ var store = {
     config  : {},
     user    : {},
     trader  : {},
-    vouchers: {}
+    vouchers: [],
+};
+
+store.addVoucherCode = function(voucherCode)
+{
+    return this.vouchers.push(voucherCode);
 };
 
 export default store;
+
