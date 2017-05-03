@@ -5,10 +5,13 @@
 -------------------------------------------------------------- */
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url('./fonts/OpenSans-Regular.ttf');
-    font-weight: normal;
-    font-style: normal;
+    font-family: 'Lato';
+    src: url('./fonts/Lato-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Roboto Slab';
+    src: url('./fonts/RobotoSlab-Bold.ttf');
 }
 
 
@@ -18,7 +21,8 @@
 
 -------------------------------------------------------------- */
 
-$arc_main_font: 'Open Sans', sans-serif;
+$arc_main_font: 'Lato', sans-serif;
+$arc_headings: 'Roboto Slab', serif;
 
 
 /* --------------------------------------------------------------
@@ -27,4 +31,7 @@ $arc_main_font: 'Open Sans', sans-serif;
 
 -------------------------------------------------------------- */
 
-$arc_bg: #f4efef;
+$arc_bg: #F8F7F5;
+$arc_copy: #433740;
+$arc_rose: #a74e94;
+$arc_white: white;

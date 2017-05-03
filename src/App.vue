@@ -1,28 +1,38 @@
 <template>
+
     <div id="app">
 
-        <div id="input">
-            <form id="textVoucher"  v-on:submit.prevent>
-                <label for="voucherBox" id="lblVoucherBox">enter your vouchers</label>
-                <input id="voucherBox"
-                       type="text"
-                       v-model="voucherCode"
-                       placeholder="Enter Code"
-                >
-                <button v-on:click="record" id="submitVoucher">Record</button>
-                <p>Current :  <span id=output> {{ voucherCode }} </span></p>
-            </form>
-            <div v-if="vouchers.length > 0">
-                <h2> Unsent Queue </h2>
-                    <ul id="unsentVouchers" >
-                        <li v-for="voucher in vouchers">
-                            {{ voucher }}
-                        </li>
-                    </ul>
-            </div>
-        </div>
+        <header>
+            <img src="./assets/logo.png">
+        </header>
 
-    </div>
+        <div class="content">
+
+          <h1>You want to add a voucher</h1>
+
+          <div id="input">
+              <form id="textVoucher"  v-on:submit.prevent>
+                  <label for="voucherBox" id="lblVoucherBox">Type a voucher code</label>
+                  <input id="voucherBox"
+                         type="text"
+                         v-model="voucherCode"
+                  >
+                  <button v-on:click="record" id="submitVoucher">Add</button>
+                  <p>Current:  <span id=output> {{ voucherCode }} </span></p>
+              </form>
+              <div v-if="vouchers.length > 0">
+                  <h2>Unsent Queue</h2>
+                      <ul id="unsentVouchers" >
+                          <li v-for="voucher in vouchers">
+                              {{ voucher }}
+                          </li>
+                      </ul>
+              </div>
+          </div>
+
+      </div>
+
+  </div>
 
 </template>
 
