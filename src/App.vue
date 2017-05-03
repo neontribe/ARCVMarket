@@ -54,6 +54,5 @@ export default {
 </script>
 
 <style lang="scss">
-    @import "sass/app.scss";
-    @import "sass/_vars.scss"
+    @import "sass/app.scss"
 </style>
