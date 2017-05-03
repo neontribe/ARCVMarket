@@ -1,3 +1,28 @@
 body {
-  color: pink;
+  font-size: 2em;
+  margin: 0;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  padding: 2em;
+  width: 100%;
+}
+
+.container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.content {
+  position: relative;
+  background-color: #f4efef;
+  margin: 0 auto;
+  padding: 2em;
+  width: 100%;
 }
