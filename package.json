@@ -11,7 +11,8 @@
   "dependencies": {
     "axios": "^0.16.1",
     "vue": "^2.2.1",
-    "vue-axios": "^2.0.2"
+    "vue-axios": "^2.0.2",
+    "normalize.css": "^7.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
