@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    ARC Vouchers Market App
+    ARC Vouchers Market App v0.1.0 pre-alpha
   </div>
 </template>
 

@@ -1,13 +1,28 @@
 var path = require('path')
 var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+
 
 module.exports = {
   entry: './src/main.js',
   output: {
+//    path: path.resolve(__dirname, './dist'),
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    publicPath: '/',
     filename: 'build.js'
   },
+    plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'index.html',
+            inject: true,
+            minify: {
+                removeComments: true,
+                collapseWhitespace: false,
+                removeAttributeQuotes: true
+            }
+        })
+    ],
   module: {
     rules: [
       {
@@ -50,6 +65,7 @@ module.exports = {
   performance: {
     hints: false
   },
+
   devtool: '#eval-source-map'
 }
 
