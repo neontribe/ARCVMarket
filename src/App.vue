@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
 
+  <div id="app">
     <header>
       <img src="./assets/logo.png">
     </header>
@@ -8,6 +8,7 @@
     <div class="content">
       <h1>Log In</h1>
     </div>
+
   </div>
 </template>
 
