@@ -2,7 +2,7 @@ import axios from 'axios';
 import Config from './config.js';
 
 var store = {
-    config  : {},
+    config  : Config,
     user    : {"id" : 1},
     trader  : {"id" : 1},
     vouchers: [],
@@ -13,7 +13,7 @@ store.getServerVouchers = function() {
     if (!navigator.onLine) {
         return false;
     }
-    this.apiGet('traders/1/vouchers', function(response) {
+    this.apiGet('traders/'+this.user.id +'/vouchers', function(response) {
         var newVouchers = response.data.map(function(v) {
             return v.code;
         });
@@ -60,7 +60,7 @@ store.postVouchers = function() {
     };
 
     var self = this;
-    this.apiPost('vouchers',postData, function(response){
+    this.apiPost('vouchers', postData, function(response){
         // reset the voucher list
         console.log(self.vouchers);
         // get the server vouchers

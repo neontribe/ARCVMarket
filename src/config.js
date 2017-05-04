@@ -7,7 +7,7 @@ var env = 'production',
 // --- Env Specific ---
 if (location.hostname.match(/localhost|(\.(dev|app))$/)) {
     env = 'development';
-    apiBase = 'http://service-arcv.app/api';
+    apiBase = 'http://arcv-service.app/api';
 }
 
 export default {
