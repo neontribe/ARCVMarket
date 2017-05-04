@@ -10,9 +10,10 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
+    "es6-promise": "^4.1.0",
+    "normalize.css": "^7.0.0",
     "vue": "^2.2.1",
-    "vue-axios": "^2.0.2",
-    "normalize.css": "^7.0.0"
+    "vue-axios": "^2.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

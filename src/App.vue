@@ -32,7 +32,7 @@
 
       </div>
 
-  </div>
+    </div>
 
 </template>
 
@@ -43,8 +43,9 @@ export default {
     name: 'app',
     data: function() {
         return {
-        voucherCode : null,
-        vouchers : Store.vouchers
+            voucherCode : null,
+            vouchers : Store.vouchers,
+            serverVouchers : Store.serverVouchers
         }
     },
     mounted: function() {
@@ -52,7 +53,8 @@ export default {
     },
     methods:  {
         record: function(event) {
-            if (this.voucherCode !== null) {
+            //TODO: some proper validation
+            if (this.voucherCode !== null && this.voucherCode.length > 0) {
                 if (Store.addVoucherCode(this.voucherCode)) {
                     this.voucherCode = null;
                 };

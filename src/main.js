@@ -12,14 +12,18 @@ Vue.use(VueAxios, axios);
 var vm = new Vue({
     el: '#app',
     render: h => h(App), // I don't like this; feels like witch-craft! Setup the wrong way?
+    data : function() {
+        return {
+        }
+    },
     mounted: function() {
         // runs when app "ready";
         Store.config = Config;
-        console.log(Store);
     },
     watch: {
     },
     methods : {
+
     },
 
 });
