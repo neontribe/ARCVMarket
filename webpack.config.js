@@ -2,13 +2,18 @@ var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
+if (process.env.NODE_ENV === 'production') {
+    var publicPath = 'http://neontribe.github.io/ARCVMarket/';
+} else {
+    var publicPath = '/';
+}
 
 module.exports = {
   entry: './src/main.js',
   output: {
 //    path: path.resolve(__dirname, './dist'),
     path: path.resolve(__dirname, './dist'),
-      publicPath: 'https://neontribe.github.io/ARCVMarket/',
+    publicPath: publicPath,
     filename: 'build.js'
   },
     plugins: [
