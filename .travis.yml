@@ -3,8 +3,9 @@ node_js:
     - "4"
 
 before_deploy:
-  npm run build
-
+    - echo "start"
+    - npm run build
+    - echo "finished"
 deploy:
   provider: pages
   skip_cleanup: true
