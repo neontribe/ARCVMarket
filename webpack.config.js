@@ -8,7 +8,7 @@ module.exports = {
   output: {
 //    path: path.resolve(__dirname, './dist'),
     path: path.resolve(__dirname, './dist'),
-      publicPath: 'https://neontribe.github.io/ARCVMarket/',
+      publicPath: '/',
     filename: 'build.js'
   },
     plugins: [
