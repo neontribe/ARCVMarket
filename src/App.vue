@@ -13,20 +13,22 @@
                 <form id="textVoucher" v-on:submit.prevent>
                     <label for="voucherBox" id="lblVoucherBox">Type a voucher code</label>
 
-                    <input id="sponsorBox"
-                           @keypress.prevent='onChangeSponsorBox'
-                           type="text"
-                           v-model="sponsorCode"
-                           ref="sponsorBox"
-                           maxlength="3"
-                    >
-                    <input id="voucherBox"
-                           v-on:keyup.delete='onDelVoucherBox'
-                           type="text"
-                           v-model="voucherCode"
-                           ref="voucherBox"
-                           maxlength="8"
-                    >
+                    <div class="inputBox">
+                      <input id="sponsorBox"
+                             @keypress.prevent='onChangeSponsorBox'
+                             type="text"
+                             v-model="sponsorCode"
+                             ref="sponsorBox"
+                             maxlength="3"
+                      >
+                      <input id="voucherBox"
+                             v-on:keyup.delete='onDelVoucherBox'
+                             type="text"
+                             v-model="voucherCode"
+                             ref="voucherBox"
+                             maxlength="8"
+                      >
+                    </div>
 
                     <button v-on:click="record" id="submitVoucher">Add</button>
                     <p>Current: <span id=output> {{ sponsorCode+voucherCode }} </span></p>
