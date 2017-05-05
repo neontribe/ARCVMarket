@@ -3,7 +3,7 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 if (process.env.NODE_ENV === 'production') {
-    var publicPath = 'http://neontribe.github.io/ARCVMarket/';
+    var publicPath = 'https://neontribe.github.io/ARCVMarket/';
 } else {
     var publicPath = '/';
 }
