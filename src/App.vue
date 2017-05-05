@@ -56,7 +56,7 @@ export default {
     name: 'app',
     data: function() {
         return {
-            sponsorCode : "SOL",
+            sponsorCode : "RVP",
             voucherCode : "",
             vouchers : Store.vouchers,
             recVouchers : Store.recVouchers
