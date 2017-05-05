@@ -68,14 +68,14 @@ export default {
         record: function(event) {
             //TODO: some proper validation
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
-                if (Store.addVoucherCode(this.voucherCode)) {
-                    this.voucherCode = null;
+                if (Store.addVoucherCode(this.sponsorCode+this.voucherCode)) {
+                    this.voucherCode = "";
                 };
             }
         },
 
         /**
-         * When the deleting an emty vouchCode,
+         * When the deleting an empty voucherCode,
          *  select the text in the other box
          */
         onDelVoucherBox: function() {
@@ -96,24 +96,18 @@ export default {
 
             var char = String.fromCharCode(event.keyCode);
 
-               console.log(this.$refs.sponsorBox);
-
-            if (this.sponsorCode.length < this.$refs.sponsorBox.maxlength) {
-
+            if (this.sponsorCode.length < this.$refs.sponsorBox.getAttribute("maxlength")) {
                 if (char.match(rxCaps)) {
                     this.sponsorCode += char;
                 }
-
                 if (char.match(rxSmalls)) {
                     this.sponsorCode += char.toUpperCase();
                 }
             }
-
             if (char.match(rxNumber)) {
                 this.$refs.voucherBox.focus()
                 this.voucherCode += char;
             }
-
         }
 
     }
