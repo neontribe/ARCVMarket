@@ -26,7 +26,7 @@ input[type="text"] {
 }
 
 input[type="text"]:focus {
-  border: 2px solid #dcb9d2;
+  border: 2px solid $arc_focus;
   outline: none;
 }
 
@@ -80,7 +80,7 @@ form label {
 
 .inputBox {
   display: flex;
-  border: 2px solid #ededed;
+  border: 2px solid $arc_border;
   width: 50%;
   input {
     border: 0;
@@ -91,7 +91,7 @@ form label {
   justify-content: flex-start;
   width: 25%;
   text-align: center;
-  background-color: #F2E4EF;
+  background-color: $arc_gray;
 }
 #voucherBox {
   justify-content: flex-end;
