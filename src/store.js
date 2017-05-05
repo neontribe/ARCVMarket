@@ -23,7 +23,6 @@ store.getRecVouchers = function() {
         newVouchers = response.data.map(function(v) {
             return v.code;
         });
-        console.log(newVouchers);
         // this is a callback. scoping of "this" gets broken, explicitly using "store".
         store.mergeRecVouchers(newVouchers);
     });
@@ -40,7 +39,6 @@ store.apiGet = function(route, cb) {
 };
 
 store.mergeRecVouchers = function(replacements) {
-    console.log(replacements);
     // this zeoros the array and re-add things in a vue-friendly way
     this.recVouchers.splice(0,this.recVouchers.length, replacements);
 };

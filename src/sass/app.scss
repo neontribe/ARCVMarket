@@ -21,12 +21,12 @@ input[type="text"] {
   min-height: 52px;
   font-size: 1em;
   line-height: 20px;
-  padding: 0 1em;
+  padding: 0 0.5em;
   width: 50%;
 }
 
 input[type="text"]:focus {
-  border: 2px solid #dcb9d2;
+  border: 2px solid $arc_focus;
   outline: none;
 }
 
@@ -56,13 +56,8 @@ header {
   }
 }
 
-.container {
-  position: absolute;
-  left: 0;
-  top: 0;
-  margin: 0 auto;
-  height: 100%;
-  width: 100%;
+form label {
+  margin-bottom: 10px;
 }
 
 .content {
@@ -83,6 +78,26 @@ header {
   }
 }
 
+.inputBox {
+  display: flex;
+  border: 2px solid $arc_border;
+  width: 50%;
+  input {
+    border: 0;
+    margin-top: 0;
+  }
+}
+#sponsorBox {
+  justify-content: flex-start;
+  width: 25%;
+  text-align: center;
+  background-color: $arc_gray;
+}
+#voucherBox {
+  justify-content: flex-end;
+  width: 75%;
+}
+
 @media (max-width: 500px) {
   html {
     font-size: 120%;
@@ -99,5 +114,9 @@ header {
 
   button {
     width: calc(100% + 4px);
+  }
+
+  .inputBox {
+    width: 100%;
   }
 }
