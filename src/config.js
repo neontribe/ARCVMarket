@@ -1,7 +1,7 @@
 
 // --- Defaults ---
 var env = 'production',
-    apiBase = 'http://arcvservice-prealpha.neontribe.org/api',
+    apiBase = 'https://arcvservice-prealpha.neontribe.org/api',
     appVersion = 'v0.1.0';
 
 // --- Env Specific ---
