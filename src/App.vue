@@ -7,31 +7,8 @@
         </header>
 
         <div class="content">
-
             <h1>You want to add a voucher</h1>
 
-            <div id="input">
-                <form id="textVoucher" v-on:submit.prevent>
-                    <label for="voucherBox" id="lblVoucherBox">Type a voucher code</label>
-                    <input id="voucherBox"
-                           type="text"
-                           v-model="voucherCode"
-                    >
-                    <button v-on:click="record" id="submitVoucher">Add</button>
-                    <p>Current: <span id=output> {{ voucherCode }} </span></p>
-                </form>
-            </div>
-
-            <div id="registeredVouchers" v-if="recVouchers.length > 0">
-                <h2>Your recorded vouchers</h2>
-                <ul id="recVouchersList">
-                    <li v-for="recVoucher in recVouchers[0]">
-                        {{ recVoucher }}
-                    </li>
-                </ul>
-            </div>
-
-        </div>
             <div id="input">
                 <form id="textVoucher" v-on:submit.prevent>
                     <label for="voucherBox" id="lblVoucherBox">Type a voucher code</label>
@@ -52,22 +29,22 @@
                     >
 
                     <button v-on:click="record" id="submitVoucher">Add</button>
-                    <p>Current: <span id=output> {{ voucherCode }} </span></p>
+                    <p>Current: <span id=output> {{ sponsorCode+voucherCode }} </span></p>
                 </form>
-                <div v-if="vouchers.length > 0">
-                    <h2>Unsent Queue</h2>
-                    <ul id="unsentVouchers">
-                        <li v-for="voucher in vouchers">
-                            {{ voucher }}
-                        </li>
-                    </ul>
-                </div>
             </div>
 
-      </div>
+            <div id="registeredVouchers" v-if="recVouchers.length > 0">
+                <h2>Your recorded vouchers</h2>
+                <ul id="recVouchersList">
+                    <li v-for="recVoucher in recVouchers[0]">
+                        {{ recVoucher }}
+                    </li>
+                </ul>
+            </div>
+
+        </div>
 
     </div>
-
 </template>
 
 <script>
@@ -134,6 +111,9 @@ export default {
         }
     }
 }
+
+
+
 
 </script>
 
