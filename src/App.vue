@@ -6,14 +6,15 @@
             <img src="./assets/logo.png">
         </header>
 
-        <div class="content">
-            <h1>You want to add a voucher</h1>
+        <div class="container">
+          <div class="content">
 
-            <div id="input">
+                <h1>Add a voucher</h1>
+
                 <form id="textVoucher" v-on:submit.prevent>
                     <label for="voucherBox" id="lblVoucherBox">Type a voucher code</label>
 
-                    <div class="inputBox">
+                    <div class="input-box">
                       <input id="sponsorBox"
                              @keypress.prevent='onChangeSponsorBox'
                              type="text"
@@ -31,7 +32,7 @@
                     </div>
 
                     <button v-on:click="record" id="submitVoucher">Add</button>
-                    <p>Current: <span id=output> {{ sponsorCode+voucherCode }} </span></p>
+                    <h2>Current: <span id=output> {{ sponsorCode+voucherCode }} </span></h2>
                 </form>
             </div>
 
