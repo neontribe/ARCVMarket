@@ -16,7 +16,7 @@
 
                     <div class="input-box">
                       <input id="sponsorBox"
-                             @keypress.prevent='onChangeSponsorBox'
+                             @keypress='onChangeSponsorBox'
                              type="text"
                              v-model="sponsorCode"
                              ref="sponsorBox"
@@ -97,27 +97,36 @@ export default {
             var rxSmalls = /^[a-z]$/;
             var rxCaps = /^[A-Z]$/;
 
-            var char = String.fromCharCode(event.keyCode);
+            // Try to cross platform catch the keycode
+            // Note, there's also "event.which" (int) and
+
+            var charCode = event.keyCode ? event.keyCode : event.charCode;
+
+            // There's also "event.key" (string), which MDN thinks is better;
+            var char = String.fromCharCode(charCode);
 
             if (this.sponsorCode.length < this.$refs.sponsorBox.getAttribute("maxlength")) {
                 if (char.match(rxCaps)) {
+                    event.preventDefault();
                     this.sponsorCode += char;
                 }
                 if (char.match(rxSmalls)) {
+                    event.preventDefault();
                     this.sponsorCode += char.toUpperCase();
                 }
             }
+
             if (char.match(rxNumber)) {
-                this.$refs.voucherBox.focus()
-                this.voucherCode += char;
+                event.preventDefault();
+                if (this.voucherCode.length < this.$refs.voucherBox.getAttribute("maxlength")) {
+                    this.$refs.voucherBox.focus();
+                    this.voucherCode += char;
+                }
+                return false;
             }
         }
     }
 }
-
-
-
-
 </script>
 
 <style lang="scss">
