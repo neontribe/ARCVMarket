@@ -12,7 +12,11 @@ body {
 }
 
 h1,
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $arc_headings;
   margin-top: 1.5rem;
 }
@@ -42,7 +46,7 @@ label {
 button {
   background-color: $arc_rose;
   color: $arc_white;
-  font-size: 1em;
+  font-size: 0.8em;
   display: block;
   text-align: center;
   width: 40%;
@@ -99,8 +103,9 @@ header {
 }
 
 @media (max-width: 500px) {
-  html {
-    //font-size: 120%;
+
+  h1 {
+    font-size: 1.5em;
   }
 
   header img {

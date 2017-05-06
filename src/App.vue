@@ -32,7 +32,7 @@
                     </div>
 
                     <button v-on:click="record" id="submitVoucher">Add</button>
-                    <h2>Current: <span id=output> {{ sponsorCode+voucherCode }} </span></h2>
+                    <h3>Current: <span id=output> {{ sponsorCode+voucherCode }} </span></h3>
                 </form>
             </div>
 
