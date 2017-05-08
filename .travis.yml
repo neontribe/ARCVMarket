@@ -2,8 +2,8 @@ language: node_js
 node_js:
 - '7'
 before_deploy:
-  - npm run build
-  - cp src/robots.txt dist/
+- npm run build
+- cp src/robots.txt dist/
 deploy:
   provider: pages
   skip_cleanup: true
