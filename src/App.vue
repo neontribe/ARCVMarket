@@ -32,7 +32,7 @@
                     </div>
 
                     <button v-on:click="record" id="submitVoucher">Add</button>
-                    <h3>Current: <span id=output> {{ sponsorCode+voucherCode }} </span></h3>
+                    <h3>Current: <span id=output> {{ sponsorCode.toUpperCase()+voucherCode }} </span></h3>
                 </form>
             </div>
 
@@ -71,7 +71,7 @@ export default {
         record: function(event) {
             //TODO: some proper validation
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
-                if (Store.addVoucherCode(this.sponsorCode+this.voucherCode)) {
+                if (Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode)) {
                     this.voucherCode = "";
                 };
             }
