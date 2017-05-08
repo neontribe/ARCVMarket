@@ -24,7 +24,8 @@
                       >
                       <input id="voucherBox"
                              v-on:keyup.delete='onDelVoucherBox'
-                             type="text"
+                             type="tel"
+                             pattern="[0-9]*"
                              v-model="voucherCode"
                              ref="voucherBox"
                              maxlength="8"
