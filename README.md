@@ -25,7 +25,7 @@ For detailed explanation on how things work, consult the [docs for vue-loader](h
 # Copyright
 This project was developed by :
 
-NeonTribe Ltd (registered in England and Wales #06165574) 
+Neontribe Ltd (registered in England and Wales #06165574) 
 
 Under contract for
 

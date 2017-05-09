@@ -3,7 +3,7 @@
   "description": "ARCV Market Tool",
   "version": "0.1.0",
   "liscence" : "UNLISCENCED",
-  "author": "Neon Tribe Ltd",
+  "author": "Neontribe Ltd",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
