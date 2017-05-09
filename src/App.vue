@@ -52,6 +52,7 @@
 </template>
 
 <script>
+/* Copyright (c) 2017, Alexander Rose Charity (reg. in England and Wales, #00279157) */
 import Store from './store.js';
 
 export default {
