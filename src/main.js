@@ -1,3 +1,4 @@
+/* Copyright (c) 2017, Alexander Rose Charity (reg. in England and Wales, #00279157) */
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
@@ -11,7 +12,7 @@ Vue.use(VueAxios, axios);
 
 var vm = new Vue({
     el: '#app',
-    render: h => h(App), // I don't like this; feels like witch-craft! Setup the wrong way?
+    render: h => h(App), // TODO: Make sure this builds down to ES5
     data : function() {
         return {
         }

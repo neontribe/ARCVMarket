@@ -21,3 +21,26 @@ npm run build
 2. If the push is to the release branch (as named in .travis.yml), it will build a prod version and deploy to gh-pages branch.
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+# Copyright
+This project was developed by :
+
+NeonTribe Ltd (registered in England and Wales #06165574) 
+
+Under contract for
+
+Alexander Rose Charity (registered in England and Wales #00279157) 
+
+As such, unless otherwise specified in the appropriate component source, associated file or compiled asset, files in this project repository are Copyright &copy; (2017), Alexander Rose Charity. All rights reserved.
+
+If you wish to discuss copyright or licensing issues, please contact:
+
+Alexander Rose Charity
+
+c/o Wise & Co, 
+Wey Court West, 
+Union Road, 
+Farnham, 
+Surrey, 
+England,
+GU9 7PT
