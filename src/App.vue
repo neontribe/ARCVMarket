@@ -34,7 +34,7 @@
                     </div>
 
                     <button v-on:click="record" id="submitVoucher">Add</button>
-                    <h3>Current: <span id=output> {{ sponsorCode.toUpperCase()+voucherCode }} </span></h3>
+        
                 </form>
 
                 <div id="registeredVouchers" v-if="recVouchers.length > 0">

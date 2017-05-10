@@ -6,7 +6,7 @@ html {
 }
 
 body {
-  background-color: white;
+  background-color: $arc_bg;
   color: $arc_copy;
   font-family: $arc_main_font;
   margin: 0;
@@ -61,6 +61,7 @@ button {
 header {
   display: flex;
   justify-content: center;
+  background-color: $arc_white;
   padding: 1.5em;
   img {
     height: auto;
@@ -69,11 +70,8 @@ header {
 
 .container {
   position: relative;
-  background-color: $arc_bg;
-  border-radius: 10px;
   margin: 0 auto;
   padding: 2em;
-  width: calc(90% - 4em);
   max-width: 900px;
 }
 
