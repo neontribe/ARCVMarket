@@ -3,11 +3,12 @@
     <div id="app">
 
         <header>
-            <img src="./assets/logo.png">
+            <img src="./assets/logo.jpg">
         </header>
 
         <div class="container">
-          <div class="content">
+
+            <div class="content">
 
                 <h1>Add a voucher</h1>
 
@@ -35,20 +36,22 @@
                     <button v-on:click="record" id="submitVoucher">Add</button>
                     <h3>Current: <span id=output> {{ sponsorCode.toUpperCase()+voucherCode }} </span></h3>
                 </form>
-            </div>
 
-            <div id="registeredVouchers" v-if="recVouchers.length > 0">
-                <h2>Your recorded vouchers</h2>
-                <ul id="recVouchersList">
-                    <li v-for="recVoucher in recVouchers[0]">
-                        {{ recVoucher }}
-                    </li>
-                </ul>
+                <div id="registeredVouchers" v-if="recVouchers.length > 0">
+                    <h2>Your recorded vouchers</h2>
+                    <ul id="recVouchersList">
+                        <li v-for="recVoucher in recVouchers[0]">
+                            {{ recVoucher }}
+                        </li>
+                    </ul>
+                </div>
+
             </div>
 
         </div>
 
     </div>
+
 </template>
 
 <script>
