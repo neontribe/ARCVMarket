@@ -3,7 +3,7 @@
     <div id="app">
 
         <header>
-            <img src="./assets/logo.jpg">
+            <img src="./assets/logo.png">
         </header>
 
         <div class="container">
