@@ -89,7 +89,7 @@ input {
   margin-bottom: 1em;
   border: 2px solid $arc_dark_border;
   border-radius: 3px;
-  &[type="password"] {
+  &[type=password] {
     text-align: left;
   }
   &:focus {
