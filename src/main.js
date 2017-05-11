@@ -8,12 +8,12 @@ import Store from './store.js';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter)
 
-// Import components
-import Home from './components/Home.vue'
-import Tap from './components/Tap.vue'
-import Scan from './components/Scan.vue'
-import Send from './components/Send.vue'
-import Login from './components/Login.vue'
+// Import pages
+import Home from './pages/Home.vue'
+import Tap from './pages/Tap.vue'
+import Scan from './pages/Scan.vue'
+import Send from './pages/Send.vue'
+import Login from './pages/Login.vue'
 
 // Define routes
 const routes = [
