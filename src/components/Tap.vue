@@ -1,40 +1,55 @@
 <template>
+    <main class="container" id="tap">
 
-    <div id="app">
+        <div class="content">
 
-        <header role="header">
-            <router-link v-bind:to="'/'" class="link"><img src="./assets/logo.png"></router-link>
-            <router-link v-bind:to="'/'" class="link">
-                <div class="counter">
-                    <span class="total">31</span>
-                    <br />vouchers<br />waiting
+            <h1>Add a voucher</h1>
+
+            <form id="textVoucher" v-on:submit.prevent>
+                <label for="voucherBox" id="lblVoucherBox">Type a voucher code</label>
+
+                <div class="input-box">
+                  <input id="sponsorBox"
+                         @keypress='onChangeSponsorBox'
+                         type="text"
+                         v-model="sponsorCode"
+                         ref="sponsorBox"
+                         maxlength="3"
+                  >
+                  <input id="voucherBox"
+                         v-on:keyup.delete='onDelVoucherBox'
+                         type="tel"
+                         pattern="[0-9]*"
+                         v-model="voucherCode"
+                         ref="voucherBox"
+                         maxlength="8"
+                  >
                 </div>
-            </router-link>
-        </header>
 
-        <nav role="navigation">
-            <ul>
-                <li><router-link v-bind:to="'/'"><i class="fa fa-home" aria-hidden="true"></i><br />Home</router-link></li>
-                <li><router-link v-bind:to="'/tap'"><i class="fa fa-keyboard-o" aria-hidden="true"></i><br />Tap</router-link></li>
-                <li><router-link v-bind:to="'/scan'"><i class="fa fa-barcode" aria-hidden="true"></i><br />Scan</router-link></li>
-                <li><router-link v-bind:to="'/send'"><i class="fa fa-paper-plane" aria-hidden="true"></i><br />Send</router-link></li>
-            </ul>
-        </nav>
+                <button v-on:click="record" id="submitVoucher">Add</button>
 
-        <router-link v-bind:to="'/login'"></router-link>
+            </form>
 
-        <transition name="fade"><router-view></router-view></transition>
+            <div id="registeredVouchers" v-if="recVouchers.length > 0">
+                <h2>Your recorded vouchers</h2>
+                <ul id="recVouchersList">
+                    <li v-for="recVoucher in recVouchers[0]">
+                        {{ recVoucher }}
+                    </li>
+                </ul>
+            </div>
 
-    </div>
+        </div>
 
+    </main>
 </template>
 
 <script>
 /* Copyright (c) 2017, Alexander Rose Charity (reg. in England and Wales, #00279157) */
-import Store from './store.js';
+import Store from '../store.js';
 
 export default {
-    name: 'app',
+    name: 'tap',
     data: function() {
         return {
             sponsorCode : "RVP",
@@ -108,7 +123,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss">
-    @import "sass/app.scss";
-</style>

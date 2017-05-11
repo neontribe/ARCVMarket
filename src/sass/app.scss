@@ -1,15 +1,27 @@
 /* Copyright (c) 2017, Alexander Rose Charity (reg. in England and Wales, #00279157) */
 @import 'vars';
 
+$fa-font-path:"../node_modules/font-awesome/fonts";
+@import "../node_modules/font-awesome/scss/font-awesome";
+.icon-user {
+  @extend .fa;
+  @extend .fa-user;
+}
+
+.fa {
+  font-size: 1.5em;
+  padding-bottom: 8px;
+}
+
 html {
   font-size: 16px;
+  font-family: $arc_main_font;
 }
 
 body {
   background-color: $arc_bg;
   color: $arc_copy;
-  font-family: $arc_main_font;
-  margin: 0;
+  margin: 0px 0px 70px 0px;
 }
 
 h1,
@@ -19,10 +31,54 @@ h4,
 h5,
 h6 {
   font-family: $arc_headings;
-  margin-top: 1.5rem;
 }
 
-input[type="text"], input[type="tel"] {
+h1 {
+  font-size: 1.5em;
+}
+
+p {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+ul {
+  padding-left: 0;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+
+nav {
+  background-color: #a74e94;
+  text-align: center;
+  font-size: 0.8em;
+  padding: 0.5em 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+  z-index: 10;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav li {
+  display: inline-block;
+  flex: 1;
+}
+
+nav li:hover,
+nav li:focus {
+    animation: pulse 0.5s linear 1;
+}
+
+input {
   font-family: $arc_headings;
   min-height: 52px;
   font-size: 1.5em;
@@ -33,7 +89,7 @@ input[type="text"], input[type="tel"] {
   text-align: center;
 }
 
-input[type="text"]:focus, input[type="tel"] {
+input:focus {
   border: 2px solid $arc_focus;
   outline: none;
 }
@@ -60,19 +116,36 @@ button {
 
 header {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
   background-color: $arc_white;
-  padding: 1.5em;
   img {
+    justify-content: flex-start;
     height: auto;
+    padding: 1.5em;
+  }
+  .counter {
+    justify-content: flex-end;
+    margin-left: auto;
+    text-align: center;
+    text-decoration: none;
+    color: $arc_copy;
+    .total {
+      font-family: $arc_headings;
+      font-size: 2em;
+      font-weight: bold;
+    }
   }
 }
 
 .container {
   position: relative;
+  background-color: $arc_bg;
   margin: 0 auto;
   padding: 2em;
   max-width: 900px;
+  overflow:auto;
 }
 
 .content {
@@ -90,22 +163,159 @@ header {
     margin-top: 0;
   }
 }
+
 #sponsorBox {
   justify-content: flex-start;
   width: 30%;
   text-align: center;
-  text-transform: uppercase;
   background-color: $arc_gray;
 }
+
 #voucherBox {
   justify-content: flex-end;
+  text-transform: uppercase;
   width: 70%;
 }
 
-@media (max-width: 500px) {
+#voucherNumber {
+  width: 20%;
+  border: 2px solid $arc_copy;
+  border-radius: 3px;
+}
 
-  h1 {
-    font-size: 1.5em;
+.link {
+  text-decoration: none;
+  color: $arc_rose;
+}
+
+.form-group {
+  display: flex;;
+  width: 100%;
+  position: relative;
+}
+
+.multiple-choice {
+  display: block;
+  float: none;
+  clear: left;
+  position: relative;
+  padding: 0 0 0 38px;
+  margin-bottom: 10px;
+  margin-right: 2em;
+}
+
+.multiple-choice input {
+  position: absolute;
+  cursor: pointer;
+  left: 0;
+  top: 0;
+  width: 38px;
+  height: 38px;
+  z-index: 1;
+  margin: 0;
+  zoom: 1;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.multiple-choice label {
+  cursor: pointer;
+  padding: 8px 10px 9px 12px;
+  display: block;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+}
+
+.multiple-choice [type=radio] + label::before {
+  content: "";
+  border: 2px solid;
+  background: $arc_white;
+  width: 34px;
+  height: 34px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.multiple-choice [type=radio] + label::after {
+  content: "";
+  border: 10px solid;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  zoom: 1;
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+
+.multiple-choice [type=radio]:focus + label::before {
+  -webkit-box-shadow: 0 0 0 4px $arc_focus;
+  -moz-box-shadow: 0 0 0 4px $arc_focus;
+  box-shadow: 0 0 0 4px $arc_focus;
+}
+
+.multiple-choice input:checked + label::after {
+  zoom: 1;
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+
+.multiple-choice input:disabled + label {
+  zoom: 1;
+  filter: alpha(opacity=50);
+  opacity: 0.5;
+}
+
+/* view visibility logic and animation */
+
+// main > * {
+//   display: none;
+// }
+
+main > *:last-child {
+  display: block;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1) }
+  50% { transform: scale(1.2) }
+  100% { transform: scale(1) }
+}
+
+main > *:target {
+  display: block;
+  /*animation: pulse 0.5s linear 1;*/
+}
+
+main > *:target ~ * {
+  display: none;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition-property: opacity;
+  transition-duration: .25s;
+}
+
+.fade-enter-active {
+  transition-delay: .25s;
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
+
+@media (max-width: 500px) {
+  html {
+    //font-size: 120%;
   }
 
   header img {
