@@ -4,7 +4,7 @@
     <h1>Log In</h1>
 
     <div id="input">
-      <form name="login" action="index_submit" method="get" accept-charset="utf-8">
+      <form>
         <ul>
           <label for="usermail">Username</label>
           <input type="email" name="usermail" required>
