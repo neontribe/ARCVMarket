@@ -1,9 +1,13 @@
 <template>
-  <main class="container" id="scan">
+    <main class="container" id="scan">
 
-    <h1>Scan a voucher</h1>
+        <div class="content">
 
-  </main>
+            <h1>Scan a voucher</h1>
+
+        </div>
+
+      </main>
 </template>
 
 <script>

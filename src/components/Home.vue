@@ -1,16 +1,20 @@
 <template>
-  <main class="container" id="home">
+    <main class="container" id="home">
 
-    <h1>Hello, Steph.</h1>
+        <div class="content">
 
-    <p>You have added 30 valid vouchers.</p>
+            <h1>Hello, Steph.</h1>
 
-    <router-link v-bind:to="'/tap'" class="link"><button>Add vouchers</button></router-link>
-    <router-link v-bind:to="'/send'" class="link"><button>Request payment</button></router-link>
+            <p>You have added 30 valid vouchers.</p>
 
-   <transition name="fade"><router-view></router-view></transition>
+            <router-link v-bind:to="'/tap'" class="link"><button>Add vouchers</button></router-link>
+            <router-link v-bind:to="'/send'" class="link"><button>Request payment</button></router-link>
 
-  </main>
+            <transition name="fade"><router-view></router-view></transition>
+
+        </div>
+
+    </main>
 </template>
 
 <script>

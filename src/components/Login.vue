@@ -1,21 +1,26 @@
+<!-- Login page in progress -->
 <template>
-  <main class="container" id="login">
+    <main class="container" id="login">
 
-    <h1>Log In</h1>
+        <div class="content">
 
-    <div id="input">
-      <form>
-        <ul>
-          <label for="usermail">Username</label>
-          <input type="email" name="usermail" required>
-          <label for="password">Password</label>
-          <input type="password" name="password" required>
-          <button type="submit" value="Log In">Log In</button>
-        </ul>
-      </form>
-    </div>
+            <h1>Log In</h1>
 
-  </main>
+            <div>
+                <form>
+                    <ul>
+                        <label for="usermail">Username</label>
+                        <input type="email" name="usermail" required>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" required>
+                        <button type="submit" value="Log In">Log In</button>
+                    </ul>
+                </form>
+            </div>
+
+        </div>
+
+    </main>
 </template>
 
 <script>

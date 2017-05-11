@@ -1,40 +1,40 @@
 <template>
-  <main class="container" id="send">
+    <main class="container" id="send">
 
-    <div class="content">
-      <h1>You can request payment for 33 vouchers.</h1>
+        <div class="content">
+            <h1>You can request payment for 33 vouchers.</h1>
 
-      <form>
+            <form>
 
-          <p>How many vouchers should we pay you for?</p>
+            <p>How many vouchers should we pay you for?</p>
 
-          <div class="form-group">
+            <div class="form-group">
 
-            <div class="multiple-choice">
-              <input id="radio-inline-1" type="radio" name="radio-inline-group" :value="false" v-model="selected">
-              <label for="radio-inline-1">All</label>
+                <div class="multiple-choice">
+                    <input id="radio-inline-1" type="radio" name="radio-inline-group" :value="false" v-model="selected">
+                    <label for="radio-inline-1">All</label>
+                </div>
+
+                <div class="multiple-choice">
+                    <input id="radio-inline-2" type="radio" name="radio-inline-group" :value="true" v-model="selected">
+                    <label for="radio-inline-2">Some</label>
+                </div>
+
             </div>
 
-            <div class="multiple-choice">
-              <input id="radio-inline-2" type="radio" name="radio-inline-group" :value="true" v-model="selected">
-              <label for="radio-inline-2">Some</label>
-            </div>
+            <transition name="fade">
+                <div v-if="selected">How many?<br />
+                    <input id="voucherNumber" type="tel" maxlength="3">
+                </div>
+            </transition>
 
-          </div>
+            <button>Request payment</button>
 
-          <transition name="fade">
-            <div v-if="selected">How many?<br />
-              <input id="voucherNumber" type="tel" maxlength="3">
-            </div>
-          </transition>
+            </form>
 
-          <button>Request payment</button>
+        </div>
 
-      </form>
-
-    </div>
-
-  </main>
+    </main>
 </template>
 
 <script>

@@ -44,6 +44,8 @@ p {
 
 ul {
   padding-left: 0;
+  display: block;
+  position: relative;
 }
 
 nav a {
@@ -51,11 +53,10 @@ nav a {
   text-decoration: none;
 }
 
-
 nav {
   background-color: #a74e94;
   text-align: center;
-  font-size: 0.8em;
+  font-size: 0.9em;
   padding: 0.5em 0;
   position: fixed;
   bottom: 0;
@@ -83,15 +84,18 @@ input {
   min-height: 52px;
   font-size: 1.5em;
   line-height: 20px;
-  padding: 0 0.5em;
-  width: 50%;
-  margin-top: 0.5rem;
+  width: 100%;
   text-align: center;
-}
-
-input:focus {
-  border: 2px solid $arc_focus;
-  outline: none;
+  margin-bottom: 1em;
+  border: 2px solid $arc_dark_border;
+  border-radius: 3px;
+  &[type="password"] {
+    text-align: left;
+  }
+  &:focus {
+    border: 2px solid $arc_focus;
+    outline: none;
+  }
 }
 
 label {
@@ -103,10 +107,10 @@ label {
 button {
   background-color: $arc_rose;
   color: $arc_white;
-  font-size: 0.8em;
+  font-size:1em;
   display: block;
   text-align: center;
-  width: 40%;
+  width: 70%;
   height: 48px;
   font-weight: bold;
   border: 0;
@@ -115,15 +119,20 @@ button {
 }
 
 header {
+  background-color: $arc_white;
+}
+
+.header-container {
+  margin: 0 auto;
+  max-width: 900px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0;
-  background-color: $arc_white;
   img {
     justify-content: flex-start;
     height: auto;
     padding: 1.5em;
+    width: 50%;
   }
   .counter {
     justify-content: flex-end;
@@ -136,6 +145,7 @@ header {
       font-family: $arc_headings;
       font-size: 2em;
       font-weight: bold;
+      padding: 0;
     }
   }
 }
@@ -170,18 +180,23 @@ header {
   width: 30%;
   text-align: center;
   background-color: $arc_gray;
+  margin-bottom: 0;
 }
 
 #voucherBox {
   justify-content: flex-end;
   text-transform: uppercase;
   width: 70%;
+  margin-bottom: 0;
 }
 
 #voucherNumber {
-  width: 20%;
-  border: 2px solid $arc_copy;
-  border-radius: 3px;
+  width: 30%;
+  margin-top: 0.5rem;
+}
+
+#registeredVouchers ul {
+  padding-left: 1em;
 }
 
 .link {
@@ -195,6 +210,7 @@ header {
   position: relative;
 }
 
+// A lot of css for some user friendly radio buttons
 .multiple-choice {
   display: block;
   float: none;
@@ -203,84 +219,71 @@ header {
   padding: 0 0 0 38px;
   margin-bottom: 10px;
   margin-right: 2em;
+  input {
+    position: absolute;
+    cursor: pointer;
+    left: 0;
+    top: 0;
+    width: 38px;
+    height: 38px;
+    z-index: 1;
+    margin: 0;
+    zoom: 1;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    &[type=radio] + label::before {
+      content: "";
+      border: 2px solid;
+      background: $arc_white;
+      width: 34px;
+      height: 34px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+    }
+    &[type=radio] + label::after {
+      content: "";
+      border: 10px solid;
+      width: 0;
+      height: 0;
+      position: absolute;
+      top: 9px;
+      left: 9px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      zoom: 1;
+      filter: alpha(opacity=0);
+      opacity: 0;
+    }
+    &[type=radio]:focus + label::before {
+      -webkit-box-shadow: 0 0 0 4px $arc_focus;
+      -moz-box-shadow: 0 0 0 4px $arc_focus;
+      box-shadow: 0 0 0 4px $arc_focus;
+    }
+    &:checked + label::after {
+      zoom: 1;
+      filter: alpha(opacity=100);
+      opacity: 1;
+    }
+    &:disabled + label {
+      zoom: 1;
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+  }
+  label {
+    cursor: pointer;
+    padding: 8px 10px 9px 12px;
+    display: block;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+  }
 }
-
-.multiple-choice input {
-  position: absolute;
-  cursor: pointer;
-  left: 0;
-  top: 0;
-  width: 38px;
-  height: 38px;
-  z-index: 1;
-  margin: 0;
-  zoom: 1;
-  filter: alpha(opacity=0);
-  opacity: 0;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-.multiple-choice label {
-  cursor: pointer;
-  padding: 8px 10px 9px 12px;
-  display: block;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
-}
-
-.multiple-choice [type=radio] + label::before {
-  content: "";
-  border: 2px solid;
-  background: $arc_white;
-  width: 34px;
-  height: 34px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-}
-
-.multiple-choice [type=radio] + label::after {
-  content: "";
-  border: 10px solid;
-  width: 0;
-  height: 0;
-  position: absolute;
-  top: 9px;
-  left: 9px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  zoom: 1;
-  filter: alpha(opacity=0);
-  opacity: 0;
-}
-
-.multiple-choice [type=radio]:focus + label::before {
-  -webkit-box-shadow: 0 0 0 4px $arc_focus;
-  -moz-box-shadow: 0 0 0 4px $arc_focus;
-  box-shadow: 0 0 0 4px $arc_focus;
-}
-
-.multiple-choice input:checked + label::after {
-  zoom: 1;
-  filter: alpha(opacity=100);
-  opacity: 1;
-}
-
-.multiple-choice input:disabled + label {
-  zoom: 1;
-  filter: alpha(opacity=50);
-  opacity: 0.5;
-}
-
-/* view visibility logic and animation */
-
-// main > * {
-//   display: none;
-// }
 
 main > *:last-child {
   display: block;
@@ -314,12 +317,16 @@ main > *:target ~ * {
   opacity: 0
 }
 
-@media (max-width: 500px) {
-  html {
-    //font-size: 120%;
+@media (min-width: 767px) {
+  nav {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
   }
+}
 
-  header img {
+@media (max-width: 500px) {
+  .header-container img {
     height: 60%;
     width: 60%;
   }

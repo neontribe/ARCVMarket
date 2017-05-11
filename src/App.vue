@@ -3,13 +3,15 @@
     <div id="app">
 
         <header role="header">
-            <router-link v-bind:to="'/'" class="link"><img src="./assets/logo.png"></router-link>
-            <router-link v-bind:to="'/'" class="link">
-                <div class="counter">
-                    <span class="total">31</span>
-                    <br />vouchers<br />waiting
-                </div>
-            </router-link>
+            <div class="header-container">
+                <router-link v-bind:to="'/'" class="link"><img src="./assets/logo.png"></router-link>
+                <router-link v-bind:to="'/'" class="link">
+                    <div class="counter">
+                        <span class="total">31</span>
+                        <br />vouchers<br />waiting
+                    </div>
+                </router-link>
+            </div>
         </header>
 
         <nav role="navigation">
