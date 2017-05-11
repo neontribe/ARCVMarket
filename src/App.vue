@@ -34,78 +34,7 @@
 import Store from './store.js';
 
 export default {
-    name: 'app',
-    data: function() {
-        return {
-            sponsorCode : "RVP",
-            voucherCode : "",
-            vouchers : Store.vouchers,
-            recVouchers : Store.recVouchers
-        }
-    },
-    mounted: function() {
-        // initialise the current vouchers list;
-        Store.getRecVouchers();
-    },
-    methods:  {
-        record: function(event) {
-            //TODO: some proper validation
-            if (this.voucherCode !== null && this.voucherCode.length > 0) {
-                if (Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode)) {
-                    this.voucherCode = "";
-                };
-            }
-        },
-
-        /**
-         * When the deleting an empty voucherCode,
-         *  select the text in the other box
-         */
-        onDelVoucherBox: function() {
-            if (this.voucherCode === null || this.voucherCode.length === 0) {
-                this.$refs.sponsorBox.select();
-            }
-        },
-
-        /**
-         * When the sponsorBox is about to change
-         *  have a number in it - switch to the voucherBox;
-         *  have a smalls in it - caps it.
-         */
-        onChangeSponsorBox: function(event) {
-            var rxNumber = /\d/;
-            var rxSmalls = /^[a-z]$/;
-            var rxCaps = /^[A-Z]$/;
-
-            // Try to cross platform catch the keycode
-            // Note, there's also "event.which" (int) and
-
-            var charCode = event.keyCode ? event.keyCode : event.charCode;
-
-            // There's also "event.key" (string), which MDN thinks is better;
-            var char = String.fromCharCode(charCode);
-
-            if (this.sponsorCode.length < this.$refs.sponsorBox.getAttribute("maxlength")) {
-                if (char.match(rxCaps)) {
-                    event.preventDefault();
-                    this.sponsorCode += char;
-                }
-                if (char.match(rxSmalls)) {
-                    event.preventDefault();
-                    this.sponsorCode += char.toUpperCase();
-                }
-            }
-
-            if (char.match(rxNumber)) {
-                event.preventDefault();
-                if (this.voucherCode.length < this.$refs.voucherBox.getAttribute("maxlength")) {
-                    this.$refs.voucherBox.focus();
-                    this.voucherCode += char;
-                }
-                return false;
-            }
-        }
-    }
+    name: 'app'
 }
 </script>
 

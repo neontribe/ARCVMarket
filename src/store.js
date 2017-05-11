@@ -40,7 +40,7 @@ store.apiGet = function(route, cb) {
 };
 
 store.mergeRecVouchers = function(replacements) {
-    // this zeoros the array and re-add things in a vue-friendly way
+    // this zeros the array and re-add things in a vue-friendly way
     this.recVouchers.splice(0,this.recVouchers.length, replacements);
 };
 
@@ -89,4 +89,3 @@ store.logAJAXErrors = function(error) {
 };
 
 export default store;
-
