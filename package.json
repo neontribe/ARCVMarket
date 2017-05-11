@@ -2,7 +2,7 @@
   "name": "arcvmarket",
   "description": "ARCV Market Tool",
   "version": "0.2.0",
-  "liscence": "UNLISCENCED",
+  "licence": "UNLICENSED",
   "author": "Neontribe Ltd",
   "private": true,
   "scripts": {
