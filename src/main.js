@@ -1,4 +1,4 @@
-/* Copyright (c) 2017, Alexander Rose Charity (reg. in England and Wales, #00279157) */
+
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
