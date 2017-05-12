@@ -1,4 +1,4 @@
-/* Copyright (c) 2017, Alexander Rose Charity (reg. in England and Wales, #00279157) */
+
 // --- Defaults ---
 var env = 'production',
     apiBase = 'https://arcvservice-prealpha.neontribe.org/api',
