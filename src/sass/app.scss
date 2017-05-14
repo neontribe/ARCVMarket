@@ -56,17 +56,14 @@ nav a {
 nav {
   background-color: #a74e94;
   text-align: center;
-  font-size: 0.9em;
-  padding: 0.5em 0;
-  position: fixed;
-  bottom: 0;
+  font-size: 0.8em;
   width: 100%;
-  height: 70px;
-  z-index: 10;
 }
 
 nav ul {
   display: flex;
+  margin: 0 auto;
+  padding: 1em;
 }
 
 nav li {
@@ -122,40 +119,41 @@ header {
   background-color: $arc_white;
 }
 
-.header-container {
-  margin: 0 auto;
+#app {
   max-width: 900px;
+  margin: 0 auto;
+  /* Setting height in px for now */
+  height: 700px;
+}
+
+.header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   img {
     justify-content: flex-start;
     height: auto;
-    padding: 1.5em;
+    padding: 1em 1.5em;
     width: 50%;
   }
   .counter {
-    justify-content: flex-end;
-    margin-left: auto;
-    text-align: center;
-    text-decoration: none;
-    padding-right: 1.5em;
+    display: flex;
+    align-items: center;
+    padding: 1em 1.5em;
     color: $arc_copy;
     .total {
-      font-family: $arc_headings;
-      font-size: 2em;
       font-weight: bold;
-      padding: 0;
+      font-size: 2em;
+      padding-right: 8px;
     }
   }
 }
 
 .container {
   position: relative;
-  background-color: $arc_bg;
   margin: 0 auto;
   padding: 2em;
-  max-width: 900px;
+  height: 100%;
   overflow: auto;
 }
 
@@ -193,6 +191,7 @@ header {
 #voucherNumber {
   width: 30%;
   margin-top: 0.5rem;
+  margin-bottom: 0;
 }
 
 #registeredVouchers ul {
@@ -314,15 +313,18 @@ main > *:target ~ * {
 @media (min-width: 767px) {
   nav {
     position: relative;
-    max-width: 900px;
     margin: 0 auto;
   }
 }
 
 @media (max-width: 500px) {
-  .header-container img {
-    height: 60%;
-    width: 60%;
+  h1 {
+    font-size: 1.2em;
+  }
+
+  header-container img,
+  .counter {
+    padding: 1em;
   }
 
   .content,
