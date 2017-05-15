@@ -7,8 +7,8 @@
                 <router-link v-bind:to="'/'" class="link"><img src="./assets/logo.png"></router-link>
                 <router-link v-bind:to="'/'" class="link">
                     <div class="counter">
-                        <span class="total">31</span>
-                        <br />vouchers<br />waiting
+                        <div class="total">31</div>
+                        <div class="counter-text">vouchers<br />waiting</div>
                     </div>
                 </router-link>
             </div>
