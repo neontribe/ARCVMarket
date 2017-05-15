@@ -55,6 +55,7 @@ store.postVouchers = function() {
 
     this.netMgr.apiPost('vouchers', postData, function(response){
         // now we get the return values;
+        console.log(response);
         store.getRecVouchers();
     });
     return true;

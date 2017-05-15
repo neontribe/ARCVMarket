@@ -1,13 +1,13 @@
 import Config from './config.js';
 import Fixtures from '../fixtures/fixtures.js';
-import axios from 'axios';
+import Axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 
 var netMgr = {
     mockAdapter: null,
     mocker: null,
-    axiosInstance : axios.create({
+    axiosInstance : Axios.create({
         baseURL: Config.apiBase,
         timeout: 10000
     })
