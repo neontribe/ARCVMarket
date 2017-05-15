@@ -3,17 +3,20 @@ import Fixtures from '../fixtures/fixtures.js';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
+
 var netMgr = {
     mockAdapter: null,
-    mocker: null
+    mocker: null,
+    axiosInstance : axios.create({
+        baseURL: Config.apiBase
+    })
 };
 
 netMgr.apiGet = function (route, cb) {
     if (!route.match(/^\//)) {
         route = '/' + route;
     }
-    console.log(route);
-    axios.get(Config.apiBase + route)
+    this.axiosInstance.get(route)
         .then(cb)
         .catch(this.logAJAXErrors);
 };
@@ -22,7 +25,7 @@ netMgr.apiPost = function (route, postData, cb) {
     if (!route.match(/^\//)) {
         route = '/' + route;
     }
-    axios.post(Config.apiBase + route, postData)
+    this.axiosInstance.post(route, postData)
         .then(cb)
         .catch(this.logAJAXErrors);
 };
@@ -42,10 +45,10 @@ netMgr.isMocked = function () {
 netMgr.mockOn = function () {
     // if there's a mockAdapter add it back in.
     if (this.mockAdapter instanceof MockAdapter) {
-        axios.defaults.adapter = this.mockAdapter;
+        this.axiosInstance.defaults.adapter = this.mockAdapter;
         this.mocker = this.mockAdapter;
     } else {
-        this.mocker = new MockAdapter(axios);
+        this.mocker = new MockAdapter(this.axiosInstance);
         Fixtures.apply(this.mocker);
     }
 };
@@ -53,7 +56,7 @@ netMgr.mockOn = function () {
 netMgr.mockOff = function () {
     if (this.isMocked()) {
         // save the current mock set
-        this.mockAdapter = axios.defaults.adapter;
+        this.mockAdapter = this.axiosInstance.defaults.adapter;
         // restore axios's previous adapter
         this.mocker.restore();
     }

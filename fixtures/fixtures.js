@@ -15,8 +15,8 @@ var Fixtures = {
 
 Fixtures.apply = function(mock) {
     mock
-        .onGet(Config.apiBase+'/traders/1/vouchers').reply(200,this.traderVouchers["1"])
-        .onPost(Config.apiBase+'/vouchers').reply(200,this.postVouchers)
+        .onGet('/traders/1/vouchers').reply(200,this.traderVouchers["1"])
+        .onPost('/vouchers').reply(200,this.postVouchers)
         .onAny().passThrough();
 };
 
