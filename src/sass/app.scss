@@ -132,14 +132,13 @@ header {
   justify-content: space-between;
   img {
     justify-content: flex-start;
-    height: auto;
-    padding: 1em 1.5em;
+    padding: 1.3em 0 1em 1.3em;
     width: 50%;
   }
   .counter {
     display: flex;
     align-items: center;
-    padding: 1em 1.5em;
+    padding: 0 1em;
     color: $arc_copy;
     .total {
       font-weight: bold;
@@ -320,7 +319,7 @@ main > *:target ~ * {
   #app {
     height: 100%;
   }
-  
+
   h1 {
     font-size: 1.2em;
   }
