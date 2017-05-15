@@ -14,10 +14,6 @@
             </div>
         </header>
 
-        <div>
-          <button @clicked="onClickChild"></button>
-        </div>
-
         <nav role="navigation">
             <ul>
                 <li><router-link v-bind:to="'/'"><i class="fa fa-home" aria-hidden="true"></i><br />Home</router-link></li>
@@ -39,12 +35,7 @@
 import Store from './store.js';
 
 export default {
-    name: 'app',
-    methods: {
-    onClickChild (value) {
-      console.log(value) // someValue
-    }
-  }
+    name: 'app'
 }
 </script>
 
