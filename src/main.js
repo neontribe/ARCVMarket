@@ -1,12 +1,10 @@
 
 import Vue from 'vue';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
 import App from './App.vue';
 import Config from './config.js';
 import Store from './store.js';
 import VueRouter from 'vue-router';
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 // Import pages
 import Home from './pages/Home.vue'
@@ -22,17 +20,13 @@ const routes = [
 { path: '/scan', component: Scan },
 { path: '/send', component: Send },
 { path: '/login', component: Login }
-]
+];
 
 // Create the router instance and pass the 'routes' option
 const router = new VueRouter({
   routes, // short for routes: routes
   mode: 'history'
-})
-
-window.Store = Store;
-
-Vue.use(VueAxios, axios);
+});
 
 var vm = new Vue({
     el: '#app',
@@ -54,4 +48,4 @@ var vm = new Vue({
     components: { App },
     // Pass in the router to the Vue instance
     router
-}).$mount('#app') // Mount the router on the app
+}).$mount('#app'); // Mount the router on the app

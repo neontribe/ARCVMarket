@@ -1,13 +1,11 @@
-
-import axios from 'axios';
-import Config from './config.js';
+import NetMgr from './netMgr.js';
 
 var store = {
-    config  : Config,
     user    : {"id" : 1},
     trader  : {"id" : 1},
     vouchers: [],
-    recVouchers: []
+    recVouchers: [],
+    netMgr : NetMgr
 };
 
 store.getRecVouchers = function() {
@@ -16,7 +14,7 @@ store.getRecVouchers = function() {
         return false;
     }
 
-    this.apiGet('traders/'+this.user.id +'/vouchers', function(response) {
+    this.netMgr.apiGet('traders/'+this.user.id +'/vouchers', function(response) {
         var newVouchers = response.data;
         newVouchers.sort(function(b,a) {
             return new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime()
@@ -28,15 +26,6 @@ store.getRecVouchers = function() {
         store.mergeRecVouchers(newVouchers);
     });
     return true;
-};
-
-store.apiGet = function(route, cb) {
-    if (!route.match(/^\//)) {
-        route = '/' + route;
-    }
-    axios.get(Config.apiBase + route)
-        .then(cb)
-        .catch(this.logAJAXErrors);
 };
 
 store.mergeRecVouchers = function(replacements) {
@@ -64,28 +53,11 @@ store.postVouchers = function() {
         'vouchers'  : this.vouchers
     };
 
-    this.apiPost('vouchers', postData, function(response){
-        // now we et the return values;
+    this.netMgr.apiPost('vouchers', postData, function(response){
+        // now we get the return values;
         store.getRecVouchers();
     });
     return true;
-};
-
-store.apiPost = function(route, postData, cb) {
-    if (!route.match(/^\//)) {
-        route = '/' + route;
-    }
-    axios.post(Config.apiBase+route, postData)
-        .then(cb)
-        .catch(this.logAJAXErrors);
-};
-
-store.logAJAXErrors = function(error) {
-    if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-    }
 };
 
 export default store;
