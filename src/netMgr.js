@@ -8,7 +8,8 @@ var netMgr = {
     mockAdapter: null,
     mocker: null,
     axiosInstance : axios.create({
-        baseURL: Config.apiBase
+        baseURL: Config.apiBase,
+        timeout: 10000
     })
 };
 
@@ -64,10 +65,9 @@ netMgr.mockOff = function () {
 };
 
 // set cookie in devtools to ignore mocks in development and connect directly to local API
-//document.cookie = "arc_ignore_mocks=true;max-age=" + 86400*30;
-if (Config.env === "development" &&
-    document.cookie.indexOf("arcv_ignore_mocks=true") === -1
-) {
-    netMgr.mockOn();
+//document.cookie = "arcv_ignore_mocks=true;max-age=" + 86400*30;
+if ( Config.env === "development" && ( document.cookie.indexOf("arcv_ignore_mocks=true") === -1 ) ) {
+        netMgr.mockOn();
 }
+
 export default netMgr;
