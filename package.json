@@ -13,6 +13,7 @@
     "axios": "^0.16.1",
     "axios-mock-adapter": "^1.8.1",
     "normalize.css": "^7.0.0",
+    "route-parser": "0.0.5",
     "vue": "^2.2.1",
     "vue-axios": "^2.0.2",
     "vue-router": "^2.5.3"

@@ -1,4 +1,4 @@
-import Config from '../src/config.js';
+import Route from 'route-parser';
 
 var Fixtures = {
     traderVouchers : {
