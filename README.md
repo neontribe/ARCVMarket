@@ -15,6 +15,13 @@ npm run dev
 npm run build
 ```
 
+## Mocking
+In a development environment you can disable auto-mocks by adding a cookie in the console.
+
+``` js
+document.cookie = "arcv_ignore_mocks=true;max-age=" + 86400*30;`
+```
+
 ## Deployment setup with Travis CI
 
 1. On every code push Travis will run npm install and tests.
