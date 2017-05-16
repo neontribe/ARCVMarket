@@ -7,20 +7,22 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 // Import pages
-import Home from './pages/Home.vue'
+import Account from './pages/Account.vue'
 import Tap from './pages/Tap.vue'
-import Scan from './pages/Scan.vue'
-import Send from './pages/Send.vue'
+import Payment from './pages/Payment.vue'
 import Login from './pages/Login.vue'
+
+// Import components
+import Masthead from './components/Masthead.vue'
+
 
 // Define routes
 const routes = [
-{ path: '/', component: Home },
+{ path: '/account', component: Account },
 { path: '/tap', component: Tap },
-{ path: '/scan', component: Scan },
-{ path: '/send', component: Send },
-{ path: '/login', component: Login }
-];
+{ path: '/payment', component: Payment },
+{ path: '/', component: Login }
+]
 
 // Create the router instance and pass the 'routes' option
 const router = new VueRouter({
