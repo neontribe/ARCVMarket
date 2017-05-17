@@ -75,7 +75,12 @@ nav li {
 
 nav li:hover,
 nav li:focus {
-    animation: pulse 0.5s linear 1;
+  animation: pulse 0.5s linear 1;
+  background: transparent;
+}
+
+.router-link-exact-active.router-link-active {
+  color: $arc_rose;
 }
 
 input {
@@ -138,6 +143,12 @@ header {
   img {
     padding: 2em 0 1.3em 2em;
     width: 50%;
+  }
+  &.login img {
+    padding: 1.5em 0;
+    width: 70%;
+    margin: 0 auto;
+    display: block;
   }
 }
 
@@ -367,7 +378,7 @@ main > *:target ~ * {
   }
 
   header {
-      box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
   }
 
   button {
@@ -385,6 +396,10 @@ main > *:target ~ * {
     img {
       padding: 1.3em 0 1em 1.3em;
       width: 75%;
+    }
+    &.login img {
+      padding: 1em 0;
+      width: 60%;
     }
   }
 
