@@ -1,59 +1,67 @@
-<template>
-    <main class="container" id="tap">
+<template id="tap">
+    <div>
+        <masthead></masthead>
+        <main class="container" id="tap">
 
-        <div class="content">
+            <div class="content">
 
-            <h1>Type a voucher code</h1>
+                <h1>Type a voucher code</h1>
 
-            <form id="textVoucher" v-on:submit.prevent>
-                <label for="voucherBox" id="lblVoucherBox">Type a voucher code</label>
+                <form id="textVoucher" v-on:submit.prevent>
+                    <label for="voucherBox" id="lblVoucherBox">Type a voucher code</label>
 
-                <div class="input-box">
-                  <input id="sponsorBox"
-                         @keypress='onKeypressSponsorBox'
-                         type="text"
-                         v-model="sponsorCode"
-                         ref="sponsorBox"
-                         maxlength="3"
-                  >
-                  <input id="voucherBox"
-                         v-on:keyup.delete='onDelVoucherBox'
-                         @keypress='onKeypressVoucherBox'
-                         type="tel"
-                         pattern="[0-9]*"
-                         v-model="voucherCode"
-                         ref="voucherBox"
-                         maxlength="8"
-                  >
+                    <div class="input-box">
+                      <input id="sponsorBox"
+                             @keypress='onKeypressSponsorBox'
+                             type="text"
+                             v-model="sponsorCode"
+                             ref="sponsorBox"
+                             maxlength="3"
+                      >
+                      <input id="voucherBox"
+                             v-on:keyup.delete='onDelVoucherBox'
+                             @keypress='onKeypressVoucherBox'
+                             type="tel"
+                             pattern="[0-9]*"
+                             v-model="voucherCode"
+                             ref="voucherBox"
+                             maxlength="8"
+                      >
+                    </div>
+
+                    <button v-on:click="record" id="submitVoucher">Add</button>
+
+                    <div class="counter">
+                      <span>31</span> vouchers added
+                    </div>
+
+                </form>
+
+                <div id="registeredVouchers" v-if="recVouchers.length > 0">
+                    <h2>Your recorded vouchers</h2>
+                    <ul id="recVouchersList">
+                        <li v-for="recVoucher in recVouchers[0]">
+                            {{ recVoucher }}
+                        </li>
+                    </ul>
                 </div>
 
-                <button v-on:click="record" id="submitVoucher">Add</button>
-
-                <div class="counter">
-                  <span>31</span> vouchers added
-                </div>
-
-            </form>
-
-            <div id="registeredVouchers" v-if="recVouchers.length > 0">
-                <h2>Your recorded vouchers</h2>
-                <ul id="recVouchersList">
-                    <li v-for="recVoucher in recVouchers[0]">
-                        {{ recVoucher }}
-                    </li>
-                </ul>
             </div>
 
-        </div>
-
-    </main>
+        </main>
+    </div>
 </template>
 
 <script>
 import Store from '../store.js';
-
+import Logo from '../components/Logo.vue';
+import Masthead from '../components/Masthead.vue';
 export default {
     name: 'tap',
+    components: {
+        Logo,
+        Masthead
+    },
     data: function() {
         return {
             sponsorCode : "RVP",
