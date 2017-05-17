@@ -10,7 +10,7 @@
 
                 <div class="input-box">
                   <input id="sponsorBox"
-                         @keypress='onChangeSponsorBox'
+                         @keypress='onKeypressSponsorBox'
                          type="text"
                          v-model="sponsorCode"
                          ref="sponsorBox"
@@ -18,6 +18,7 @@
                   >
                   <input id="voucherBox"
                          v-on:keyup.delete='onDelVoucherBox'
+                         @keypress='onKeypressVoucherBox'
                          type="tel"
                          pattern="[0-9]*"
                          v-model="voucherCode"
@@ -68,7 +69,7 @@ export default {
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
                 if (Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode)) {
                     this.voucherCode = "";
-                };
+                }
             }
         },
 
@@ -87,18 +88,13 @@ export default {
          *  have a number in it - switch to the voucherBox;
          *  have a smalls in it - caps it.
          */
-        onChangeSponsorBox: function(event) {
+        onKeypressSponsorBox: function(event) {
             var rxNumber = /\d/;
             var rxSmalls = /^[a-z]$/;
             var rxCaps = /^[A-Z]$/;
 
-            // Try to cross platform catch the keycode
-            // Note, there's also "event.which" (int) and
-
-            var charCode = event.keyCode ? event.keyCode : event.charCode;
-
             // There's also "event.key" (string), which MDN thinks is better;
-            var char = String.fromCharCode(charCode);
+            var char = this.getKeyCharCode(event);
 
             if (this.sponsorCode.length < this.$refs.sponsorBox.getAttribute("maxlength")) {
                 if (char.match(rxCaps)) {
@@ -119,6 +115,26 @@ export default {
                 }
                 return false;
             }
+        },
+        onKeypressVoucherBox : function(event) {
+            var rxNumber = /\d/;
+            var char = this.getKeyCharCode(event);
+
+            if (char.match(rxNumber)) {
+                if (this.voucherCode.length < event.target.maxlength) {
+                    this.voucherCode += char;
+                }
+                return;
+            }
+            event.preventDefault();
+            return false;
+        },
+        getKeyCharCode : function(event) {
+            // Try to cross platform catch the keycode
+            // Note, there's also "event.which" (int)
+            // There's also "event.key" (string), which MDN thinks is better;
+            var charCode = event.keyCode ? event.keyCode : event.charCode;
+            return String.fromCharCode(charCode);
         }
     }
 }
