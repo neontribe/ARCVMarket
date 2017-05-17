@@ -1,6 +1,5 @@
-<template id="tap">
+<template>
     <div>
-        <masthead></masthead>
         <main class="container" id="tap">
 
             <div class="content">
@@ -54,14 +53,8 @@
 
 <script>
 import Store from '../store.js';
-import Logo from '../components/Logo.vue';
-import Masthead from '../components/Masthead.vue';
 export default {
     name: 'tap',
-    components: {
-        Logo,
-        Masthead
-    },
     data: function() {
         return {
             sponsorCode : "RVP",

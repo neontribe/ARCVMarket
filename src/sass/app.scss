@@ -337,7 +337,6 @@ main > *:last-child {
 
 main > *:target {
   display: block;
-  /*animation: pulse 0.5s linear 1;*/
 }
 
 main > *:target ~ * {

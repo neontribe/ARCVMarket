@@ -19,7 +19,7 @@ import Logo from './components/Logo.vue'
 
 // Define routes
 const routes = [
-{ path: '/', component: Account },
+{ path: '/', component: Tap },
 { path: '/account', component: Account },
 { path: '/tap', component: Tap },
 { path: '/payment', component: Payment },

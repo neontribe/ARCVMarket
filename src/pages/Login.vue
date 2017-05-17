@@ -1,9 +1,9 @@
-<template id="login">
+<template>
     <div>
         <header role="header">
             <logo></logo>
         </header>
-        <main class="container">
+        <main class="container" id="login">
 
             <div class="content">
 
