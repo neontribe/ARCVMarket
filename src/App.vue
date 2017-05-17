@@ -1,18 +1,15 @@
 <template>
 
     <div id="app">
-
-        <masthead></masthead>
-
+        <masthead v-if="!($route.path==='/login') ? true : false"></masthead>
         <transition name="fade"><router-view></router-view></transition>
-
     </div>
 
 </template>
 
 <script>
-import Store from './store.js';
 import Masthead from './components/Masthead.vue';
+import Store from './store.js';
 export default {
     name: 'app',
     components: {

@@ -1,35 +1,38 @@
 <template>
+    <div>
+        <header role="header">
+            <logo></logo>
+        </header>
+        <main class="container" id="login">
 
-    <main class="container" id="login">
+            <div class="content">
 
-        <div class="content">
+                <h1>Log In</h1>
 
-            <h1>Log In</h1>
+                <div>
+                    <form>
+                        <ul>
+                            <label for="userName">Username</label>
+                            <input type="text" id="userName" required>
+                            <label for="userPassword">Password</label>
+                            <input type="password" id="userPassword" required>
+                            <button type="submit" value="Log In">Log In</button>
+                        </ul>
+                    </form>
+                </div>
 
-            <div>
-                <form>
-                    <ul>
-                        <label for="userName">Username</label>
-                        <input type="text" id="userName" required>
-                        <label for="userPassword">Password</label>
-                        <input type="password" id="userPassword" required>
-                        <button type="submit" value="Log In">Log In</button>
-                    </ul>
-                </form>
             </div>
 
-            <div class="multiple-choice checkbox">
-                <input type="checkbox" id="rememberMe" value="false">
-                <label for="rememberMe">Stay logged in</label>
-            </div>
-
-        </div>
-
-    </main>
+        </main>
+    </div>
 </template>
 
 <script>
+import Logo from '../components/Logo.vue';
 export default {
-  name: 'login'
+    name: 'login',
+    components: {
+        Logo
+    }
 }
 </script>

@@ -14,14 +14,16 @@ import Login from './pages/Login.vue'
 
 // Import components
 import Masthead from './components/Masthead.vue'
+import Logo from './components/Logo.vue'
 
 
 // Define routes
 const routes = [
+{ path: '/', component: Tap },
 { path: '/account', component: Account },
 { path: '/tap', component: Tap },
 { path: '/payment', component: Payment },
-{ path: '/', component: Login }
+{ path: '/login', component: Login }
 ]
 
 // Create the router instance and pass the 'routes' option

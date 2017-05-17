@@ -1,25 +1,26 @@
 <template>
-    <main class="container" id="payment">
+  <div>
+      <main class="container" id="payment">
 
-        <div class="content">
-            <h1>Voucher list</h1>
+          <div class="content">
+              <h1>Voucher list</h1>
 
-            <button>Get a payment</button>
+              <button>Get a payment</button>
 
-            </form>
+          </div>
 
-        </div>
-
-    </main>
+      </main>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'payment',
-  data() {
-    return {
-      selected: false
+    name: 'payment',
+    data() {
+        return {
+            selected: false
+        }
     }
-  }
 }
+
 </script>

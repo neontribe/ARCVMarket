@@ -1,6 +1,8 @@
-<template>
+<template id="masthead">
 
-    <header role="header" id="masthead">
+  <div>
+
+    <header role="header">
         <div class="logo">
             <router-link v-bind:to="'/'" class="link"><img src="../assets/logo.png"></router-link>
         </div>
@@ -14,10 +16,12 @@
         </nav>
     </header>
 
+  </div>
+
 </template>
 
 <script>
 export default {
-  name: 'masthead'
+    name: 'masthead'
 }
 </script>
