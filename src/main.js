@@ -22,7 +22,7 @@ const routes = [
 { path: '/tap', component: Tap },
 { path: '/payment', component: Payment },
 { path: '/', component: Login }
-]
+];
 
 // Create the router instance and pass the 'routes' option
 const router = new VueRouter({
