@@ -3,8 +3,8 @@ import { Selector } from 'testcafe';
 
 const el = Selector(selector => document.querySelector(selector));
 
-fixture 'Home Page'
-	.page 'http://localhost:8080/#/';
+fixture `Home Page`
+	.page `http://localhost:8080/`;
 
 //doesn't seem to be picking up these tests 
 test('Homepage content', async t => {
