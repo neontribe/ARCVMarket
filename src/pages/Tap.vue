@@ -3,7 +3,7 @@
 
         <div class="content">
 
-            <h1>Add a voucher</h1>
+            <h1>Type a voucher code</h1>
 
             <form id="textVoucher" v-on:submit.prevent>
                 <label for="voucherBox" id="lblVoucherBox">Type a voucher code</label>
@@ -29,6 +29,10 @@
 
                 <button v-on:click="record" id="submitVoucher">Add</button>
 
+                <div class="counter">
+                  <span>31</span> vouchers added
+                </div>
+
             </form>
 
             <div id="registeredVouchers" v-if="recVouchers.length > 0">
@@ -46,7 +50,6 @@
 </template>
 
 <script>
-/* Copyright (c) 2017, Alexander Rose Charity (reg. in England and Wales, #00279157) */
 import Store from '../store.js';
 
 export default {

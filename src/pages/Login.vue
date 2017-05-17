@@ -1,5 +1,5 @@
-<!-- Login page in progress -->
 <template>
+
     <main class="container" id="login">
 
         <div class="content">
@@ -9,13 +9,18 @@
             <div>
                 <form>
                     <ul>
-                        <label for="usermail">Username</label>
-                        <input type="email" name="usermail" required>
-                        <label for="password">Password</label>
-                        <input type="password" name="password" required>
+                        <label for="userName">Username</label>
+                        <input type="text" id="userName" required>
+                        <label for="userPassword">Password</label>
+                        <input type="password" id="userPassword" required>
                         <button type="submit" value="Log In">Log In</button>
                     </ul>
                 </form>
+            </div>
+
+            <div class="multiple-choice checkbox">
+                <input type="checkbox" id="rememberMe" value="false">
+                <label for="rememberMe">Stay logged in</label>
             </div>
 
         </div>
