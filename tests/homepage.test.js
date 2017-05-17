@@ -3,8 +3,9 @@ import { Selector } from 'testcafe';
 
 const el = Selector(selector => document.querySelector(selector));
 
+// change the port number to your node's choice of port
 fixture `Home Page`
-	.page `http://localhost:8080/`;
+	.page `http://localhost:8081/`;
 
 //doesn't seem to be picking up these tests 
 test('Homepage content', async t => {
@@ -15,7 +16,7 @@ test('Homepage content', async t => {
 
 test('Add vouchers button', async t => {
 	await t
-		.click(main div.content a.link button);
+		.click('main div.content a.link button');
 
 	const addLocation = await t.eval(() => window.location);
 	expect(addLocation).eql('http://localhost:8080/tap');
