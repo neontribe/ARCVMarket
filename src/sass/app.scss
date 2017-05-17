@@ -9,19 +9,21 @@ $fa-font-path:"../node_modules/font-awesome/fonts";
 }
 
 .fa {
-  font-size: 1.5em;
+  font-size: 2em;
   padding-bottom: 8px;
 }
 
 html {
+  height: 100%;
   font-size: 16px;
   font-family: $arc_main_font;
 }
 
 body {
-  background-color: $arc_bg;
+  background-color: $arc_white;
   color: $arc_copy;
   margin: 0;
+  height: 100%;
 }
 
 h1,
@@ -49,15 +51,14 @@ ul {
 }
 
 nav a {
-  color: white;
   text-decoration: none;
+  width: 60%;
+  color: $arc_copy;
 }
 
 nav {
-  background-color: #a74e94;
   text-align: center;
   font-size: 0.8em;
-  width: 100%;
 }
 
 nav ul {
@@ -69,6 +70,7 @@ nav ul {
 nav li {
   display: inline-block;
   flex: 1;
+  padding: 0.8em;
 }
 
 nav li:hover,
@@ -78,16 +80,17 @@ nav li:focus {
 
 input {
   font-family: $arc_headings;
-  min-height: 52px;
-  font-size: 1.5em;
-  line-height: 20px;
-  width: 100%;
-  text-align: center;
-  margin-bottom: 1em;
+  margin-bottom: 0.8em;
   border: 2px solid $arc_dark_border;
   border-radius: 3px;
-  &[type=password] {
-    text-align: left;
+  &[type=text],
+  &[type=password],
+  &[type=tel] {
+    min-height: 48px;
+    font-size: 1.5em;
+    line-height: 20px;
+    padding: 0 10px;
+    width: calc(100% - 23px);
   }
   &:focus {
     border: 2px solid $arc_focus;
@@ -107,7 +110,7 @@ button {
   font-size: 1em;
   display: block;
   text-align: center;
-  width: 70%;
+  width: 50%;
   height: 48px;
   font-weight: bold;
   border: 0;
@@ -117,34 +120,24 @@ button {
 
 header {
   background-color: $arc_white;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: space-around;
 }
 
 #app {
-  max-width: 900px;
+  background-color: $arc_bg;
+  box-shadow: 0 3px 12px 0px rgba(0, 0, 0, 0.2);
+  max-width: 1200px;
   margin: 0 auto;
-  /* Setting height in px for now */
-  height: 700px;
+  height: 100%;
 }
 
-.header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.logo {
   img {
-    justify-content: flex-start;
-    padding: 1.3em 0 1em 1.3em;
+    padding: 2em 0 1.3em 2em;
     width: 50%;
-  }
-  .counter {
-    display: flex;
-    align-items: center;
-    padding: 0 1em;
-    color: $arc_copy;
-    .total {
-      font-weight: bold;
-      font-size: 2em;
-      padding-right: 8px;
-    }
   }
 }
 
@@ -160,36 +153,48 @@ header {
   margin: 0 auto;
 }
 
+#login-checkbox {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.counter {
+  margin-top: 1.5em;
+  span {
+    font-weight: bold;
+  }
+}
+
+// styling for the div which contains both text fields for adding vouchers
 .input-box {
   display: flex;
-  border: 2px solid $arc_border;
+  border: 2px solid $arc_dark_border;
   border-radius: 3px;
-  width: calc(100% - 3px);
   input {
     border: 0;
     margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
   }
 }
 
 #sponsorBox {
   justify-content: flex-start;
-  width: 30%;
-  text-align: center;
   background-color: $arc_gray;
-  margin-bottom: 0;
+  width: 30%;
 }
 
 #voucherBox {
   justify-content: flex-end;
   text-transform: uppercase;
   width: 70%;
-  margin-bottom: 0;
 }
 
 #voucherNumber {
   width: 30%;
   margin-top: 0.5rem;
   margin-bottom: 0;
+  text-align: center;
 }
 
 #registeredVouchers ul {
@@ -207,14 +212,13 @@ header {
   position: relative;
 }
 
-// A lot of css for some user friendly radio buttons
+// A lot of css for some user friendly radio buttons/checkboxes
 .multiple-choice {
   display: block;
   float: none;
   clear: left;
   position: relative;
   padding: 0 0 0 38px;
-  margin-bottom: 10px;
   margin-right: 2em;
   input {
     position: absolute;
@@ -276,6 +280,44 @@ header {
   }
 }
 
+.multiple-choice [type=checkbox] + label::before {
+    content: "";
+    border: 2px solid $arc_dark_border;
+    background: transparent;
+    background-color: white;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 3px;
+  }
+
+  .multiple-choice [type=checkbox] + label::after {
+    content: "";
+    border: solid;
+    border-width: 0 0 5px 5px;
+    background: transparent;
+    width: 17px;
+    height: 7px;
+    position: absolute;
+    top: 6px;
+    left: 3px;
+    transform: rotate(-45deg);
+    zoom: 1;
+    filter: alpha(opacity=0);
+    opacity: 0;
+  }
+
+  .multiple-choice [type=checkbox]:focus + label::before {
+    box-shadow: 0 0 0 3px $arc_focus;
+  }
+
+  .checkbox label {
+    padding: 5px 0 0 5px;
+    margin-top: 2em;
+  }
+
 main > *:last-child {
   display: block;
 }
@@ -308,33 +350,45 @@ main > *:target ~ * {
   opacity: 0
 }
 
-@media (min-width: 767px) {
+@media (max-width: 768px) {
+  body {
+    background-color: $arc_bg;
+  }
+
   nav {
     position: relative;
     margin: 0 auto;
+    margin-right: 0;
+  }
+
+  #app {
+    box-shadow: none;
+    position: relative;
+  }
+
+  header {
+      box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  button {
+    width: 100%;
+    margin: 1em auto;
   }
 }
 
 @media (max-width: 500px) {
-  #app {
-    height: 100%;
+  .fa {
+    font-size: 1.5em;
   }
 
-  h1 {
-    font-size: 1.2em;
+  .logo {
+    img {
+      padding: 1.3em 0 1em 1.3em;
+      width: 75%;
+    }
   }
 
-  header-container img,
-  .counter {
-    padding: 1em;
-  }
-
-  .content,
-  button {
+  .content {
     width: 100%;
-  }
-
-  button {
-    margin: 1em auto;
   }
 }
