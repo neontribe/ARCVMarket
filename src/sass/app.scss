@@ -115,7 +115,7 @@ button {
   height: 48px;
   font-weight: bold;
   border: 0;
-  border-radius: 3px;
+  border-radius: 1px;
   margin: 2em auto 3em;
 }
 
@@ -282,48 +282,9 @@ header {
     cursor: pointer;
     padding: 8px 10px 9px 12px;
     display: block;
-    -ms-touch-action: manipulation;
     touch-action: manipulation;
   }
 }
-
-.multiple-choice [type=checkbox] + label::before {
-    content: "";
-    border: 2px solid $arc_dark_border;
-    background: transparent;
-    background-color: white;
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 3px;
-  }
-
-  .multiple-choice [type=checkbox] + label::after {
-    content: "";
-    border: solid;
-    border-width: 0 0 5px 5px;
-    background: transparent;
-    width: 17px;
-    height: 7px;
-    position: absolute;
-    top: 6px;
-    left: 3px;
-    transform: rotate(-45deg);
-    zoom: 1;
-    filter: alpha(opacity=0);
-    opacity: 0;
-  }
-
-  .multiple-choice [type=checkbox]:focus + label::before {
-    box-shadow: 0 0 0 3px $arc_focus;
-  }
-
-  .checkbox label {
-    padding: 5px 0 0 5px;
-    margin-top: 2em;
-  }
 
 main > *:last-child {
   display: block;
@@ -356,11 +317,102 @@ main > *:target ~ * {
   opacity: 0
 }
 
-@media (max-width: 768px) {
-  body {
-    background-color: $arc_bg;
+// Accordion styling
+.accordion {
+  box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
+  input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+    &:checked ~ .tab-content {
+      max-height: none;
+    }
+    &[type=checkbox] + label::after {
+      content: "+";
+      &:checked {
+        transform: rotate(315deg);
+      }
+    }
   }
+  label {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    margin-bottom: 0;
+    position: relative;
+    display: block;
+    padding: 0 1em;
+    background: $arc_white;
+    line-height: 3;
+    cursor: pointer;
+    /* Icon */
+    &:after {
+      position: absolute;
+      right: 0;
+      top: 0;
+      display: block;
+      width: 3em;
+      height: 3em;
+      line-height: 3;
+      text-align: center;
+      transition: all .35s;
+    }
+  }
+}
 
+.tab {
+  position: relative;
+  margin-bottom: 1px;
+  width: 100%;
+  color: $arc_copy;
+  overflow: hidden;
+  .row {
+    display: flex;
+    &.thead {
+      font-weight: bold;
+    }
+    div {
+      &:nth-child(1) {
+        width: 30%;
+        text-align: left;
+      }
+      &:nth-child(2) {
+        width: 40%;
+        text-align: right;
+      }
+      &:nth-child(3) {
+        width: 30%;
+        text-align: right;
+        padding-right: 2em;
+      }
+    }
+  }
+}
+
+.row-code {
+  display: flex;
+  div {
+    &:nth-child(1) {
+      width: 50%;
+      text-align: left;
+    }
+    &:nth-child(2) {
+      width: 50%;
+      text-align: right;
+    }
+  }
+}
+
+.tab-content {
+  max-height: 0;
+  overflow: hidden;
+  background: $arc_white;
+  transition: max-height .35s;
+  p {
+    margin: 1em;
+  }
+}
+
+// Media queries
+@media (max-width: 768px) {
   nav {
     position: relative;
     margin: 0 auto;
@@ -377,7 +429,7 @@ main > *:target ~ * {
   }
 
   button {
-    width: 100%;
+    width: 92%;
     margin: 1em auto;
   }
 }
@@ -404,5 +456,13 @@ main > *:target ~ * {
 
   .content {
     width: 100%;
+  }
+
+  .container#payment {
+    padding: 2em 0;
+  }
+
+  #payment h1 {
+    text-align: center;
   }
 }
