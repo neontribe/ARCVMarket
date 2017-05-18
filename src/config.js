@@ -13,9 +13,5 @@ if (location.hostname.match(/localhost|(\.(dev|app))$/)) {
 export default {
     apiBase: apiBase,
     env: env,
-    appVersion: appVersion,
-    apiCredentials : { // change this for your endpoint
-        client_id: 2,
-        client_secret: "GWtzXL3XF9VfarYWJ4ocJQGBg4Rx2Jp7KI1y8PzH"
-    }
+    appVersion: appVersion
 };

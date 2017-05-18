@@ -19,13 +19,24 @@ var NetMgr = {
 };
 
 NetMgr.authenticate = function (userApiCreds, cb) {
-    for (var attr in Config.apiCredentials) {
-        userApiCreds[attr] = Config.apiCredentials[attr];
-    }
-    this.apiPost('/oauth/token',userApiCreds,function(response) {
-        // change token on NetMgr.
-        NetMgr.token = response.data;
-        console.log(NetMgr.token);
+    this.apiPost('/login',userApiCreds,function(response) {
+
+        // Change the token out
+        this.token = response.data;
+
+        // Set a trigger to autorefresh the token
+        this.token.timer = setTimeout(this.refresh(), this.token.expires_in*1000);
+
+        // TODO: intercceptors here;
+        // Add the header to all subsequent axios requests
+        this.axiosInstance.headers.common['Authorization'] = 'Bearer ' + this.token.access_token;
+
+    }.bind(this));
+};
+
+NetMgr.refresh = function (cb) {
+    this.apiPost('/login/refresh', function(response) {
+
     });
 };
 

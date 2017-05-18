@@ -22,9 +22,8 @@ store.getRecVouchers = function() {
         newVouchers = response.data.map(function(v) {
             return v.code;
         });
-        // this is a callback. scoping of "this" gets broken, explicitly using "store".
-        store.mergeRecVouchers(newVouchers);
-    });
+        this.mergeRecVouchers(newVouchers);
+    }.bind(this));
     return true;
 };
 
