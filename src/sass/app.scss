@@ -158,6 +158,9 @@ header {
 .content {
   width: 60%;
   margin: 0 auto;
+  &.fullwidth {
+    width: 100%;
+  }
 }
 
 #login-checkbox {
@@ -320,20 +323,6 @@ main > *:target ~ * {
 // Accordion styling
 .accordion {
   box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
-  input {
-    position: absolute;
-    opacity: 0;
-    z-index: -1;
-    &:checked ~ .tab-content {
-      max-height: none;
-    }
-    &[type=checkbox] + label::after {
-      content: "+";
-      &:checked {
-        transform: rotate(315deg);
-      }
-    }
-  }
   label {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     margin-bottom: 0;
@@ -358,9 +347,27 @@ main > *:target ~ * {
   }
 }
 
+input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+input:checked ~ .tab-content {
+  max-height: none;
+}
+
+input[type=checkbox] + label::after {
+  content: "+";
+}
+
+input[type=checkbox]:checked + label::after {
+  transform: rotate(315deg);
+}
+
 .tab {
   position: relative;
-  margin-bottom: 1px;
+  border-top: 1px solid $arc_border;
   width: 100%;
   color: $arc_copy;
   overflow: hidden;
@@ -392,7 +399,7 @@ main > *:target ~ * {
   div {
     &:nth-child(1) {
       width: 50%;
-      text-align: left;
+      text-align: right;
     }
     &:nth-child(2) {
       width: 50%;
@@ -432,6 +439,14 @@ main > *:target ~ * {
     width: 92%;
     margin: 1em auto;
   }
+
+  .content {
+    width: 90%;
+  }
+
+  .container#payment {
+    padding: 2em 0;
+  }
 }
 
 @media (max-width: 500px) {
@@ -456,10 +471,6 @@ main > *:target ~ * {
 
   .content {
     width: 100%;
-  }
-
-  .container#payment {
-    padding: 2em 0;
   }
 
   #payment h1 {
