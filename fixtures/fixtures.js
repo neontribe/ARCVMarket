@@ -10,32 +10,32 @@ var Fixtures = {
     traderVoucherHistory: {
         "1": [
             {
-                "pended_on": "2017-02-13",
+                "payment_pending_on": "2017-02-13",
                 "vouchers": [
-                    {"code": "RVP12345601", "paid_on": "2017-02-15"},
-                    {"code": "RVP12345602", "paid_on": "2017-02-15"}
+                    {"code": "RVP12345601", "recorded_on" : "2017-02-12", "reimbursed_on": "2017-02-15"},
+                    {"code": "RVP12345602", "recorded_on" : "2017-02-12", "reimbursed_on": "2017-02-15"}
                 ]
             },
             {
-                "pended_on": "2017-03-10",
+                "payment_pending_on": "2017-03-10",
                 "vouchers": [
-                    {"code": "SOL10000012", "paid_on": "2017-03-17"},
-                    {"code": "SOL10000017", "paid_on": "2017-03-17"},
-                    {"code": "RVP12345631", "paid_on": ""},
-                    {"code": "RVP12345632", "paid_on": ""},
-                    {"code": "SOL10000032", "paid_on": ""},
-                    {"code": "SOL10000037", "paid_on": ""}
+                    {"code": "SOL10000012", "recorded_on" : "2017-03-09", "reimbursed_on": "2017-03-17"},
+                    {"code": "SOL10000017", "recorded_on" : "2017-03-09", "reimbursed_on": "2017-03-17"},
+                    {"code": "RVP12345631", "recorded_on" : "2017-03-09", "reimbursed_on": ""},
+                    {"code": "RVP12345632", "recorded_on" : "2017-03-09", "reimbursed_on": ""},
+                    {"code": "SOL10000032", "recorded_on" : "2017-03-09", "reimbursed_on": ""},
+                    {"code": "SOL10000037", "recorded_on" : "2017-03-09", "reimbursed_on": ""}
                 ]
             },
         ],
         "2": [
             {
-                "pended_on": "2017-01-09",
+                "payment_pending_on": "2017-01-09",
                 "vouchers": [
-                    {"code": "RVP12345678", "paid_on": "2017-01-11"},
-                    {"code": "RVP12345679", "paid_on": "2017-01-11"},
-                    {"code": "SOL10000011", "paid_on": "2017-01-11"},
-                    {"code": "SOL10000015", "paid_on": "2017-01-11"}
+                    {"code": "RVP12345678", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"},
+                    {"code": "RVP12345679", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"},
+                    {"code": "SOL10000011", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"},
+                    {"code": "SOL10000015", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"}
                 ]
             }
         ],
