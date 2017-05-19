@@ -7,7 +7,7 @@
                 <h1>Type a voucher code</h1>
 
                 <form id="textVoucher" v-on:submit.prevent>
-                    <label for="voucherBox" id="lblVoucherBox">Type a voucher code</label>
+                    <label for="voucherBox" id="lblVoucherBox" class="hidden">Type a voucher code</label>
 
                     <div class="input-box">
                       <input id="sponsorBox"

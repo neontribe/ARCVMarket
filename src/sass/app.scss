@@ -13,8 +13,12 @@ $fa-font-path:"../node_modules/font-awesome/fonts";
   padding-bottom: 8px;
 }
 
-html {
+html,
+body {
   height: 100%;
+}
+
+html {
   font-size: 16px;
   font-family: $arc_main_font;
 }
@@ -23,6 +27,13 @@ body {
   background-color: $arc_white;
   color: $arc_copy;
   margin: 0;
+}
+
+#app {
+  background-color: $arc_bg;
+  box-shadow: 0 3px 12px 0px rgba(0, 0, 0, 0.2);
+  max-width: 1200px;
+  margin: 0 auto;
   height: 100%;
 }
 
@@ -52,7 +63,7 @@ ul {
 
 nav {
   text-align: center;
-  font-size: 0.8em;
+  font-size: 1em;
   a {
     text-decoration: none;
     width: 60%;
@@ -73,6 +84,10 @@ nav {
       background: transparent;
     }
   }
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 .router-link-exact-active.router-link-active {
@@ -124,15 +139,7 @@ header {
   display: flex;
   align-items: center;
   position: relative;
-  justify-content: space-around;
-}
-
-#app {
-  background-color: $arc_bg;
-  box-shadow: 0 3px 12px 0px rgba(0, 0, 0, 0.2);
-  max-width: 1200px;
-  margin: 0 auto;
-  height: 100%;
+  justify-content: space-between;
 }
 
 .logo {
@@ -141,10 +148,9 @@ header {
     width: 50%;
   }
   &.login img {
-    padding: 1.5em 0;
-    width: 70%;
-    margin: 0 auto;
-    display: block;
+      margin: 0 auto;
+      padding: 2em;
+      display: flex;
   }
 }
 
@@ -158,11 +164,9 @@ header {
 .content {
   width: 60%;
   margin: 0 auto;
-}
-
-#login-checkbox {
-  display: flex;
-  justify-content: flex-start;
+  &.fullwidth {
+    width: 100%;
+  }
 }
 
 .counter {
@@ -219,112 +223,6 @@ header {
   position: relative;
 }
 
-// A lot of css for some user friendly radio buttons/checkboxes
-.multiple-choice {
-  display: block;
-  float: none;
-  clear: left;
-  position: relative;
-  padding: 0 0 0 38px;
-  margin-right: 2em;
-  input {
-    position: absolute;
-    cursor: pointer;
-    left: 0;
-    top: 0;
-    width: 38px;
-    height: 38px;
-    z-index: 1;
-    margin: 0;
-    zoom: 1;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    &[type=radio] + label::before {
-      content: "";
-      border: 2px solid;
-      background: $arc_white;
-      width: 34px;
-      height: 34px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      border-radius: 50%;
-    }
-    &[type=radio] + label::after {
-      content: "";
-      border: 10px solid;
-      width: 0;
-      height: 0;
-      position: absolute;
-      top: 9px;
-      left: 9px;
-      border-radius: 50%;
-      zoom: 1;
-      filter: alpha(opacity=0);
-      opacity: 0;
-    }
-    &[type=radio]:focus + label::before {
-      box-shadow: 0 0 0 4px $arc_focus;
-    }
-    &:checked + label::after {
-      zoom: 1;
-      filter: alpha(opacity=100);
-      opacity: 1;
-    }
-    &:disabled + label {
-      zoom: 1;
-      filter: alpha(opacity=50);
-      opacity: 0.5;
-    }
-  }
-  label {
-    cursor: pointer;
-    padding: 8px 10px 9px 12px;
-    display: block;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-  }
-}
-
-.multiple-choice [type=checkbox] + label::before {
-    content: "";
-    border: 2px solid $arc_dark_border;
-    background: transparent;
-    background-color: white;
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 3px;
-  }
-
-  .multiple-choice [type=checkbox] + label::after {
-    content: "";
-    border: solid;
-    border-width: 0 0 5px 5px;
-    background: transparent;
-    width: 17px;
-    height: 7px;
-    position: absolute;
-    top: 6px;
-    left: 3px;
-    transform: rotate(-45deg);
-    zoom: 1;
-    filter: alpha(opacity=0);
-    opacity: 0;
-  }
-
-  .multiple-choice [type=checkbox]:focus + label::before {
-    box-shadow: 0 0 0 3px $arc_focus;
-  }
-
-  .checkbox label {
-    padding: 5px 0 0 5px;
-    margin-top: 2em;
-  }
-
 main > *:last-child {
   display: block;
 }
@@ -356,11 +254,116 @@ main > *:target ~ * {
   opacity: 0
 }
 
-@media (max-width: 768px) {
-  body {
-    background-color: $arc_bg;
+// Accordion styling
+.accordion {
+  box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
+  font-size: 1.2em;
+  label {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    margin-bottom: 0;
+    position: relative;
+    display: block;
+    padding: 0.5em 1.5em;
+    line-height: 3;
+    cursor: pointer;
+    /* Icon */
+    &:before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+      width: 3em;
+      height: 4em;
+      line-height: 4;
+      text-align: center;
+      transition: all .35s;
+    }
   }
+  input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+    &:checked ~ .tab-content {
+      max-height: none;
+      background-color: $arc_row;
+    }
+    &:checked ~ label {
+      background-color: $arc_selected;
+    }
+    &[type=checkbox] + label::before {
+      font-weight: bold;
+      content: "+";
+    }
+    &[type=checkbox]:checked + label::before {
+      transform: rotate(315deg);
+    }
+  }
+}
 
+.tab {
+  position: relative;
+  border-top: 1px solid $arc_border;
+  width: 100%;
+  overflow: hidden;
+  &.thead {
+    background-color: white;
+  }
+  &.row {
+    background-color: white;
+  }
+  .row {
+    display: flex;
+    div {
+      &:nth-child(1) {
+        width: 30%;
+        text-align: left;
+        padding-left: 2em;
+      }
+      &:nth-child(2) {
+        width: 40%;
+        text-align: right;
+      }
+      &:nth-child(3) {
+        width: 30%;
+        text-align: right;
+      }
+    }
+  }
+  .amount {
+    font-weight: bold;
+  }
+}
+
+.row-code {
+  display: flex;
+  border-bottom: 1px solid $arc_border;
+  margin: 0 auto;
+  width: 70%;
+  &:last-child {
+    border-bottom: none;
+  }
+  div {
+    &:nth-child(1) {
+      width: 50%;
+      text-align: center;
+    }
+    &:nth-child(2) {
+      width: 50%;
+      text-align: center;
+    }
+  }
+}
+
+.tab-content {
+  max-height: 0;
+  transition: max-height .35s;
+  p {
+    margin: 1em;
+  }
+}
+
+// Media queries
+@media (max-width: 768px) {
   nav {
     position: relative;
     margin: 0 auto;
@@ -376,10 +379,35 @@ main > *:target ~ * {
     box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
   }
 
+  .logo img {
+    width: 216px;
+  }
+
+  #payment h1 {
+    padding-left: 0.8em;
+  }
+
   button {
     width: 100%;
-    margin: 1em auto;
+    margin: 2em auto;
+    &.smaller {
+      width: 86%;
+    }
   }
+
+  .content {
+    width: 90%;
+  }
+
+  .container#payment {
+    padding: 2em 0;
+  }
+}
+
+@media (max-width: 580px) {
+  .logo img {
+      width: 75%;
+    }
 }
 
 @media (max-width: 500px) {
@@ -390,19 +418,21 @@ main > *:target ~ * {
   .logo {
     img {
       padding: 1.3em 0 1em 1.3em;
-      width: 75%;
-    }
-    &.login img {
-      padding: 1em 0;
-      width: 60%;
     }
   }
 
-  nav ul {
-    padding: 0.3em;
+  nav {
+    font-size: 0.8em;
+    ul {
+      padding: 0.3em;
+    }
   }
 
   .content {
     width: 100%;
+  }
+
+  .accordion {
+    font-size: 1em;
   }
 }
