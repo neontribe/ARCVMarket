@@ -31,7 +31,6 @@ body {
 
 #app {
   background-color: $arc_bg;
-  box-shadow: 0 3px 12px 0px rgba(0, 0, 0, 0.2);
   max-width: 1200px;
   margin: 0 auto;
   height: 100%;
@@ -154,11 +153,18 @@ header {
   }
 }
 
-.container {
+.rel {
   position: relative;
+}
+
+.container {
+  position: absolute;
+  background-color: $arc_bg;
   margin: 0 auto;
   padding: 2em;
   overflow: auto;
+  min-height: 100%;
+  width: calc(100% - 4em);
 }
 
 .content {
@@ -364,6 +370,10 @@ main > *:target ~ * {
 
 // Media queries
 @media (max-width: 768px) {
+  body {
+    background-color: $arc_bg;
+  }
+
   nav {
     position: relative;
     margin: 0 auto;
@@ -371,12 +381,12 @@ main > *:target ~ * {
   }
 
   #app {
-    box-shadow: none;
     position: relative;
   }
 
   header {
     box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
+    z-index: 1;
   }
 
   .logo img {
@@ -401,6 +411,7 @@ main > *:target ~ * {
 
   .container#payment {
     padding: 2em 0;
+    width: 100%;
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="rel">
         <main class="container" id="account">
 
             <div class="content">

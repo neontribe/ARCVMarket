@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="rel">
         <main class="container" id="payment">
 
             <div class="content fullwidth">
@@ -95,6 +95,8 @@
                     </div>
 
                 </div>
+
+                <div style="clear:both"></div>
 
                 <button class="smaller">Get a payment</button>
 
