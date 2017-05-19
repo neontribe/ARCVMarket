@@ -160,7 +160,6 @@ header {
   margin: 0 auto;
   padding: 2em;
   overflow: auto;
-  min-height: 100%;
   width: calc(100% - 4em);
 }
 
@@ -257,8 +256,9 @@ main > *:target ~ * {
   opacity: 0
 }
 
-// Accordion styling
-.accordion {
+// Accordion and voucher list styling
+.accordion,
+.voucher-list {
   box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
   font-size: 1.2em;
   label {
@@ -365,10 +365,29 @@ main > *:target ~ * {
   }
 }
 
+.voucher-list .row-code {
+  display: flex;
+  width: 100%;
+  div {
+    &:nth-child(1) {
+      width: 50%;
+      text-align: left;
+    }
+    &:nth-child(2) {
+      width: 50%;
+      text-align: right;
+    }
+  }
+}
+
 // Media queries
 @media (max-width: 768px) {
   body {
     background-color: $arc_bg;
+  }
+
+  p {
+    margin: 1.5rem;
   }
 
   nav {
@@ -435,7 +454,8 @@ main > *:target ~ * {
     width: 100%;
   }
 
-  .accordion {
+  .accordion,
+  .voucher-list {
     font-size: 1em;
   }
 }

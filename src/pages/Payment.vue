@@ -1,10 +1,37 @@
 <template>
     <div>
-        <main class="container" id="payment">
+        <main class="container fullwidth" id="payment">
 
-            <div class="content">
-
+            <div class="content fullwidth">
                 <h1>My Voucher List</h1>
+
+                <p>You can request payment for <strong>x</strong> vouchers.</p>
+
+                <div class="voucher-list" id="registeredVouchers" v-if="recVouchers.length > 0">
+
+                    <!-- Tab header -->
+                    <div class="tab thead">
+                        <label>
+                            <div class="row-code">
+                                <div>Voucher code</div>
+                                <div>Date added</div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Tab row -->
+                    <div class="tab row" v-for="recVoucher in recVouchers[0]">
+                        <label>
+                            <div class="row-code">
+                                <div>{{ recVoucher }}</div>
+                                <div>15/2/17</div>
+                            </div>
+                        </label>
+                    </div>
+
+                </div>
+
+                <button class="smaller">Get payment</button>
 
             </div>
 
@@ -13,12 +40,17 @@
 </template>
 
 <script>
+import Store from '../store.js';
 export default {
     name: 'payment',
     data() {
         return {
-            selected: false
+            recVouchers : Store.recVouchers
         }
+    },
+    mounted: function() {
+        // initialise the current vouchers list;
+        Store.getRecVouchers();
     }
 }
 
