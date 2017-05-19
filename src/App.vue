@@ -2,7 +2,7 @@
 
     <div id="app">
         <masthead v-if="!($route.path==='/login') ? true : false"></masthead>
-        <transition name="fade"><router-view></router-view></transition>
+        <router-view></router-view>
     </div>
 
 </template>

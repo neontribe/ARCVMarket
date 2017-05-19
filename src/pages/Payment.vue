@@ -84,7 +84,7 @@
 
               </div>
 
-              <button>Get a payment</button>
+              <button class="smaller">Get a payment</button>
 
           </div>
 

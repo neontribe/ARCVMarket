@@ -14,7 +14,6 @@ $fa-font-path:"../node_modules/font-awesome/fonts";
 }
 
 html {
-  height: 100%;
   font-size: 16px;
   font-family: $arc_main_font;
 }
@@ -23,6 +22,13 @@ body {
   background-color: $arc_white;
   color: $arc_copy;
   margin: 0;
+}
+
+#app {
+  background-color: $arc_bg;
+  box-shadow: 0 3px 12px 0px rgba(0, 0, 0, 0.2);
+  max-width: 1200px;
+  margin: 0 auto;
   height: 100%;
 }
 
@@ -75,6 +81,10 @@ nav {
   }
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .router-link-exact-active.router-link-active {
   color: $arc_rose;
 }
@@ -115,7 +125,7 @@ button {
   height: 48px;
   font-weight: bold;
   border: 0;
-  border-radius: 1px;
+  border-radius: 3px;
   margin: 2em auto 3em;
 }
 
@@ -127,24 +137,13 @@ header {
   justify-content: space-between;
 }
 
-#app {
-  background-color: $arc_bg;
-  box-shadow: 0 3px 12px 0px rgba(0, 0, 0, 0.2);
-  max-width: 1200px;
-  margin: 0 auto;
-  height: 100%;
-}
-
 .logo {
   img {
     padding: 2em 0 1.3em 2em;
     width: 50%;
   }
   &.login img {
-    padding: 1.5em 0;
-    width: 70%;
-    margin: 0 auto;
-    display: block;
+
   }
 }
 
@@ -152,7 +151,7 @@ header {
   position: relative;
   margin: 0 auto;
   padding: 2em;
-  overflow: auto;
+  //overflow: auto;
 }
 
 .content {
@@ -161,11 +160,6 @@ header {
   &.fullwidth {
     width: 100%;
   }
-}
-
-#login-checkbox {
-  display: flex;
-  justify-content: flex-start;
 }
 
 .counter {
@@ -355,7 +349,6 @@ main > *:target ~ * {
 
 .tab-content {
   max-height: 0;
-  overflow: hidden;
   transition: max-height .35s;
   p {
     margin: 1em;
@@ -388,8 +381,11 @@ main > *:target ~ * {
   }
 
   button {
-    width: 92%;
+    width: 100%;
     margin: 1em auto;
+    &.smaller {
+      width: 92%;
+    }
   }
 
   .content {
@@ -417,8 +413,7 @@ main > *:target ~ * {
       padding: 1.3em 0 1em 1.3em;
     }
     &.login img {
-      padding: 1em 0;
-      width: 60%;
+
     }
   }
 
