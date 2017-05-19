@@ -1,5 +1,5 @@
 <template>
-    <div class="rel">
+    <div>
         <main class="container" id="tap">
 
             <div class="content">
