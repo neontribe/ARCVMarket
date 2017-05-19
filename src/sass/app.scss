@@ -51,8 +51,7 @@ h1 {
 }
 
 p {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin: 1.5rem;
 }
 
 ul {
@@ -257,8 +256,9 @@ main > *:target ~ * {
   opacity: 0
 }
 
-// Accordion styling
-.accordion {
+// Accordion and voucher list styling
+.accordion,
+.voucher-list {
   box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
   font-size: 1.2em;
   label {
@@ -435,7 +435,8 @@ main > *:target ~ * {
     width: 100%;
   }
 
-  .accordion {
+  .accordion,
+  .voucher-list {
     font-size: 1em;
   }
 }
