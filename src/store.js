@@ -15,7 +15,6 @@ store.getVoucherPaymentState = function() {
 
     this.netMgr.apiGet('traders/'+this.user.id +'/vouchers/history' , function(response) {
         this.trader.pendedVouchers.splice(0,this.trader.pendedVouchers.length, response.data);
-        console.log(this.trader.pendedVouchers);
     }.bind(this));
     return true;
 
