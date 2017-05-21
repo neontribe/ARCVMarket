@@ -2,7 +2,7 @@
     <div>
         <main class="container" id="tap">
 
-            <div class="content">
+            <div class="content narrow">
 
                 <h1>Type a voucher code</h1>
 
@@ -28,7 +28,7 @@
                       >
                     </div>
 
-                    <button v-on:click="record" id="submitVoucher">Done</button>
+                    <button v-on:click="record" class="smaller" id="submitVoucher">Done</button>
 
                 </form>
 

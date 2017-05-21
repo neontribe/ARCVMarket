@@ -5,7 +5,7 @@
         </header>
         <main class="container" id="login">
 
-            <div class="content">
+            <div class="content narrow">
 
                 <h1>Log In</h1>
 
@@ -16,7 +16,7 @@
                             <input type="text" id="userName" required>
                             <label for="userPassword">Password</label>
                             <input type="password" id="userPassword" required>
-                            <button type="submit" value="Log In">Log In</button>
+                            <button type="submit" class="smaller" value="Log In">Log In</button>
                         </ul>
                     </form>
                 </div>

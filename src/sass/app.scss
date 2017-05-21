@@ -32,7 +32,6 @@ body {
 #app {
   position: relative;
   background-color: $arc_bg;
-  max-width: 1200px;
   margin: 0 auto;
   height: 100%;
 }
@@ -126,16 +125,20 @@ button {
   font-size: 1em;
   display: block;
   text-align: center;
-  width: 50%;
   height: 48px;
   font-weight: bold;
   border: 0;
   border-radius: 3px;
   margin: 2em auto 3em;
+  &.smaller {
+    padding: 0 3em;
+  }
 }
 
 header {
   background-color: $arc_white;
+  box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
+  z-index: 1;
   display: flex;
   align-items: center;
   position: relative;
@@ -147,10 +150,13 @@ header {
     padding: 2em 0 1.3em 2em;
     width: 50%;
   }
-  &.login img {
+  &.login {
+    margin: 0 auto;
+    img {
       margin: 0 auto;
       padding: 2em;
       display: flex;
+    }
   }
 }
 
@@ -164,10 +170,13 @@ header {
 }
 
 .content {
-  width: 60%;
+  width: 50%;
   margin: 0 auto;
   &.fullwidth {
     width: 100%;
+  }
+  &.narrow {
+    width: 40%;
   }
 }
 
@@ -401,35 +410,40 @@ main > *:target ~ * {
     z-index: 1;
   }
 
-  .logo img {
+  .logo img,
+  .logo.login img {
     width: 216px;
   }
 
   button {
     width: 100%;
     margin: 2em auto;
-    &.smaller {
-      width: 50%;
-    }
   }
 
   .container.fullwidth {
+    padding: 2em 0;
+    width: 100%;
+    button {
+      width: 92%;
+    }
     h1 {
       padding-left: 0.8em;
     }
-    padding: 2em 0;
-    width: 100%;
   }
 
   .content {
     width: 90%;
+    &.narrow,
+    &.narrow button {
+      width: 100%;
+    }
   }
 }
 
 @media (max-width: 580px) {
   .logo img {
-      width: 75%;
-    }
+    width: 75%;
+  }
 }
 
 @media (max-width: 500px) {
