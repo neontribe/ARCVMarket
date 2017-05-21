@@ -30,7 +30,7 @@ Fixtures.apply = function(mock) {
         console.log(data);
         return [200, data];
         });
-    mock.onPost('/oauth/token').reply(200,this.oauthUserToken);
+    mock.onPost('/login').reply(200,this.oauthUserToken);
     mock.onAny().passThrough();
 };
 

@@ -29,25 +29,31 @@
 </template>
 
 <script>
-    import NetMgr from '../services/netMgr.js';
+    import Store from '../store.js';
+    import Router from 'vue-router';
     export default {
         name: 'login',
-        data: function() {
+        data: function () {
             return {
-                username : null,
-                password : null,
-                remember : true
+                username: null,
+                password: null,
+                remember: true,
+                auth: Store.auth
+            }
+        },
+        watch: {
+            auth : function() {
+                Router.push('/tap');
             }
         },
         methods: {
-            onLogin : function() {
+            onLogin: function () {
                 var userApiCreds = {
-                    username : this.username,
-                    password : this.password
+                    username: this.username,
+                    password: this.password
                 };
-                NetMgr.authenticate(userApiCreds, function() {
-
-                        console.log("token"+NetMgr.token);
+                Store.authenticate(userApiCreds, function () {
+                    console.log("token" + Store.netMgr.token);
                 });
             }
         }

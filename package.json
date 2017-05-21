@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "axios-mock-adapter": "^1.8.1",
+    "moment": "^2.18.1",
     "normalize.css": "^7.0.0",
     "route-parser": "0.0.5",
     "vue": "^2.2.1",
