@@ -48,7 +48,7 @@
                             <div class="tab">
                                 <label>
                                     <div>
-                                        <div><button class="smaller list">Download list</button></div>
+                                        <button class="smaller list">Download list</button>
                                     </div>
                                 </label>
                             </div>

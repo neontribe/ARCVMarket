@@ -28,7 +28,7 @@
                       >
                     </div>
 
-                    <button v-on:click="record" id="submitVoucher">Done</button>
+                    <button v-on:click="record" id="submitVoucher">Add voucher</button>
 
                 </form>
 
