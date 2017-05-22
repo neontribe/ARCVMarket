@@ -66,10 +66,6 @@
         mounted: function () {
             Store.getVoucherPaymentState();
             console.log(this.voucherPayments);
-        },
-        methods: {
-
-
         }
     }
 </script>

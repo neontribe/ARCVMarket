@@ -2,7 +2,7 @@
     <div>
         <main class="container" id="tap">
 
-            <div class="content">
+            <div class="content narrow">
 
                 <h1>Type a voucher code</h1>
 
@@ -28,22 +28,9 @@
                       >
                     </div>
 
-                    <button v-on:click="record" id="submitVoucher">Add</button>
-
-                    <div class="counter">
-                      <span>31</span> vouchers added
-                    </div>
+                    <button v-on:click="record" class="smaller" id="submitVoucher">Done</button>
 
                 </form>
-
-                <div id="registeredVouchers" v-if="recVouchers.length > 0">
-                    <h2>Your recorded vouchers</h2>
-                    <ul id="recVouchersList">
-                        <li v-for="recVoucher in recVouchers[0]">
-                            {{ recVoucher }}
-                        </li>
-                    </ul>
-                </div>
 
             </div>
 
@@ -59,13 +46,8 @@ export default {
         return {
             sponsorCode : "RVP",
             voucherCode : "",
-            vouchers : Store.vouchers,
-            recVouchers : Store.recVouchers
+            vouchers : Store.vouchers
         }
-    },
-    mounted: function() {
-        // initialise the current vouchers list;
-        Store.getRecVouchers();
     },
     methods:  {
         record: function(event) {
