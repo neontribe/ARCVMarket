@@ -101,7 +101,6 @@ store.postVouchers = function () {
     }
     var postData = {
         'trader_id': this.trader.id,
-        'user_id': this.user.id,
         'vouchers': this.vouchers
     };
 
