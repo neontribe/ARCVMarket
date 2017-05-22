@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import NetMgr from './services/netMgr.js';
 
 var store = {
@@ -9,16 +10,21 @@ var store = {
     auth: false
 };
 
-store.authenticate = function (userApiCreds, cb) {
-    this.netMgr.apiPost('/login', userApiCreds, function (response) {
-        this.netMgr.setToken(response.data);
-
-        this.auth = this.netMgr.isAuth();
-        console.log("auth?"+this.auth);
-    }.bind(this));
+store.authenticate = function (userApiCreds, success, failure) {
+    this.netMgr.apiPost('/login', userApiCreds,
+        function (response) {
+            this.netMgr.setToken(response.data);
+            success();
+        }.bind(this),
+        function (error) {
+            if (failure) {
+                failure(error)
+            }
+        }
+    );
 };
 
-store.unAuthenticate = function() {
+store.unAuthenticate = function () {
     this.netMgr.apiPost('/logout', null, function (response) {
         this.netMgr.setToken(null);
         this.auth = this.netMgr.isAuth();
@@ -72,7 +78,6 @@ store.postVouchers = function () {
 
     this.netMgr.apiPost('vouchers', postData, function (response) {
         // now we get the return values;
-        console.log(response);
         store.getRecVouchers();
     });
     return true;

@@ -29,8 +29,6 @@
 </template>
 
 <script>
-    import Vue from 'vue';
-    import Router from 'vue-router';
     import Store from '../store.js';
 
     export default {
@@ -44,9 +42,11 @@
             }
         },
         watch: {
-            auth : function() {
-                console.log("fire");
-                Router.push('/tap');
+            auth : function(val) {
+                if (this.auth) {
+                    // This doesn't appear to be doing anything...
+                    vm.router.push('/tap');
+                }
             }
         },
         methods: {
@@ -55,11 +55,11 @@
                     username: this.username,
                     password: this.password
                 };
-                console.log(this.auth);
                 Store.authenticate(userApiCreds, function () {
-                    console.log("token" + Store.netMgr.token);
-                });
-                console.log(this.auth);
+                    // I don't like this here, but it's the only place it works for now.
+                    this.auth = true;
+                }.bind(this));
+
             }
         }
     }
