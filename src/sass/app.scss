@@ -231,7 +231,7 @@ header {
 
 #sponsorBox {
   justify-content: flex-start;
-  background-color: $arc_gray;
+  background-color: $arc_bg;
   width: 30%;
 }
 
@@ -628,17 +628,19 @@ main > *:target ~ * {
           }
         }
       }
-      .row-code {
-        width: 100%;
-        div {
-          &:nth-child(1) {
-            padding-left: 1em;
-            width: 40%;
-          }
-          &:nth-child(2) {
-            padding-right: 1em;
-            width: 60%;
-          }
+    }
+  }
+  .voucher-list {
+    .row-code {
+      width: 100%;
+      div {
+        &:nth-child(1) {
+          padding-left: 1em;
+          width: 40%;
+        }
+        &:nth-child(2) {
+          padding-right: 1em;
+          width: 60%;
         }
       }
     }
