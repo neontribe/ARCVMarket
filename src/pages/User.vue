@@ -7,7 +7,7 @@
 
             <div class="content narrow">
 
-                <h1>Add vouchers for:</h1>
+                <h1>Choose a trader account:</h1>
 
                 <div class="form-group">
 
@@ -28,7 +28,7 @@
 
                 </div>
 
-                <button class="smaller" id="submitVoucher">Log in as</button>
+                <button id="submitVoucher">Log in as</button>
 
             </div>
 
