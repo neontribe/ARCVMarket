@@ -29,8 +29,10 @@
 </template>
 
 <script>
-    import Store from '../store.js';
+    import Vue from 'vue';
     import Router from 'vue-router';
+    import Store from '../store.js';
+
     export default {
         name: 'login',
         data: function () {
@@ -43,6 +45,7 @@
         },
         watch: {
             auth : function() {
+                console.log("fire");
                 Router.push('/tap');
             }
         },
@@ -52,9 +55,11 @@
                     username: this.username,
                     password: this.password
                 };
+                console.log(this.auth);
                 Store.authenticate(userApiCreds, function () {
                     console.log("token" + Store.netMgr.token);
                 });
+                console.log(this.auth);
             }
         }
     }

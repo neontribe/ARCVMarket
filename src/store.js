@@ -9,9 +9,10 @@ var store = {
     auth: false
 };
 
-store.authenticate = function (userApiCreds) {
+store.authenticate = function (userApiCreds, cb) {
     this.netMgr.apiPost('/login', userApiCreds, function (response) {
         this.netMgr.setToken(response.data);
+
         this.auth = this.netMgr.isAuth();
         console.log("auth?"+this.auth);
     }.bind(this));

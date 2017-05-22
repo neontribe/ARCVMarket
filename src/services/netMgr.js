@@ -21,7 +21,7 @@ var NetMgr = {
 NetMgr.isAuth = function() {
   if (this.token) {
       var expiryTime = this.token.requestTime + this.token.expires_in;
-      if (expiryTime < Math.floor(Date.now()/1000)) {
+      if (expiryTime > Math.floor(Date.now()/1000)) {
           return true;
       }
   }
@@ -33,25 +33,12 @@ NetMgr.isAuth = function() {
  *
  * @param tokenData
  */
+
 NetMgr.setToken = function (tokenData) {
     this.token = tokenData;
-    this.token.requestTime = Math.floor(Date.now()/1000);
-    // Add the header to all subsequent axios requests
-    this.axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + this.token.access_token;
-    console.log("token and headers set");
-};
-
-/**
- * get new tokens with refresh_token.
- */
-
-NetMgr.refreshAuth = function () {
     if (this.token) {
-        this.apiPost('/login/refresh', this.token.refresh_token, function (response) {
-            this.setToken(response.data);
-        }.bind(this));
-    } else {
-        console.log("reroute to /login")
+        this.token.requestTime = Math.floor(Date.now() / 1000);
+        this.axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + this.token.access_token;
     }
 };
 
@@ -162,27 +149,22 @@ if (Config.env === "development" && ( document.cookie.indexOf("arcv_ignore_mocks
 NetMgr.axiosInstance.interceptors.response.use(
     function (response) {
         // everything fine! return to api get/post
-        console.log("everything fine!");
         return response;
     },
     function (error) {
 
         var origCfg = error.config;
-        console.log(origCfg);
 
         var origResp = error.response;
-        console.log(origResp);
 
         // A 401 we havn't seen before?
         if (origResp.status === 401 && !origCfg._retry && this.token) {
-            console.log("401 refresh available");
             switch (origResp.data.error) {
                 case "invalid_token"    : // oAuth2 token invalid
                 case "Unauthorized"     :
                 case "Unauthenticated." :
                     origCfg._retry = true; // set so we don't hit this one again
 
-                    console.log("Attempting refresh");
                     return NetMgr.apiPost('/login/refresh', NetMgr.token.refresh_token,
                         function (refreshData) {
                             // valid refresh_token, reset and retry
@@ -190,8 +172,7 @@ NetMgr.axiosInstance.interceptors.response.use(
                             return NetMgr.axiosInstance(origCfg) // retry the request that errored out
                         },
                         function (refreshErr) {
-                            //invalid refresh token, logoff
-                            console.log("Refresh failed," + refreshErr + " - need to logoff");
+                            //invalid refresh token, pass that back as a failure
                             return Promise.reject(refreshErr);
                         });
 
