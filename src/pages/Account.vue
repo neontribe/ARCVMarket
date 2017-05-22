@@ -12,7 +12,7 @@
                         <label >
                             <div class="row">
                                 <div>Date</div>
-                                <div>Voucher total</div>
+                                <div class="total"></div>
                                 <div>Amount</div>
                             </div>
                         </label>
@@ -45,18 +45,12 @@
                                     </div>
                                 </label>
                             </div>
-                            <div class="tab">
-                                <label>
-                                    <div>
-                                        <button class="smaller list">Download list</button>
-                                    </div>
-                                </label>
-                            </div>
                         </div>
                     </div>
 
-
                 </div>
+
+                <button class="smaller">Download list</button>
 
                 <button class="smaller">Log out</button>
 

@@ -16,6 +16,14 @@
         </nav>
     </header>
 
+    <nav role="navigation" class="input-tab">
+        <ul>
+            <li><router-link v-bind:to="'/tap'">Type</router-link></li>
+            <li><router-link v-bind:to="'/scan'">Scan</router-link></li>
+            <li><router-link v-bind:to="'/upload'">Upload</router-link></li>
+        </ul>
+    </nav>
+
   </div>
 
 </template>

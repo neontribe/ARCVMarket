@@ -83,6 +83,22 @@ nav {
       background: transparent;
     }
   }
+  &.input-tab {
+    background-color: $arc_rose;
+    .fa {
+      padding-bottom: 0;
+    }
+    a {
+      color: $arc_faded;
+      &.router-link-exact-active.router-link-active {
+        color: $arc_white;
+        font-weight: bold;
+      }
+    }
+    li {
+      padding: 0.5em;
+    }
+  }
 }
 
 section {
@@ -121,6 +137,10 @@ label {
     margin-bottom: 10px;
     display: block;
     text-align: left;
+}
+
+#textVoucher label {
+  margin-bottom: 0;
 }
 
 button {
@@ -336,6 +356,9 @@ main > *:target ~ * {
   .row {
     display: flex;
     div {
+      &.total:before {
+        content: "Voucher total";
+      }
       &:nth-child(1) {
         width: 30%;
         text-align: left;
@@ -545,15 +568,68 @@ main > *:target ~ * {
     ul {
       padding: 0.3em;
     }
+    &.input-tab ul {
+      padding: 1em;
+    }
   }
 
   .content {
-    width: 100%;
+    &.fullwidth {
+      width: 100%;
+      h1,
+      p,
+      section {
+        padding: 0 1.5rem;
+        h1 {
+          padding-left: 0;
+        }
+      }
+    }
   }
 
   .accordion,
   .voucher-list {
     font-size: 1em;
     margin: 2rem 0;
+    label {
+      padding: 0;
+      &:before {
+        height: 3em;
+        line-height: 3;
+      }
+    }
+    .tab {
+      .row {
+        div {
+          &.total:before {
+            content: "Total";
+          }
+          &:nth-child(1) {
+            flex: 1;
+            width: initial;
+            text-align: left;
+            padding-left: 3em;
+          }
+          &:nth-child(2) {
+            flex: 1;
+            width: initial;
+            text-align: right;
+            // &:before {
+            //   content: "x";
+            // }
+          }
+          &:nth-child(3) {
+            flex: 1;
+            width: initial;
+            text-align: right;
+            padding-right: 1em;
+          }
+        }
+      }
+    .row-code {
+      width: 100%;
+    }
   }
+}
+
 }
