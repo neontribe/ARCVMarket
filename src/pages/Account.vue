@@ -28,11 +28,27 @@
                             </div>
                         </label>
                         <div class="tab-content">
+                            <div class="tab inner-thead">
+                                <label>
+                                    <div class="row-code">
+                                        <div>Voucher code</div>
+                                        <div>Date added</div>
+                                    </div>
+                                </label>
+                            </div>
                             <div class="tab" v-for="voucher in payment.vouchers">
+
                                 <label>
                                     <div class="row-code">
                                         <div class="code">{{ voucher.code }}</div>
                                         <div class="date">{{ voucher.recorded_on }}</div>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="tab">
+                                <label>
+                                    <div>
+                                        <button class="smaller list">Download list</button>
                                     </div>
                                 </label>
                             </div>

@@ -85,6 +85,10 @@ nav {
   }
 }
 
+section {
+  margin-top: 3em;
+}
+
 .hidden {
   visibility: hidden;
 }
@@ -122,16 +126,21 @@ label {
 button {
   background-color: $arc_rose;
   color: $arc_white;
-  font-size: 1em;
+  font-size: 1rem;
   display: block;
   text-align: center;
   height: 48px;
   font-weight: bold;
   border: 0;
   border-radius: 3px;
-  margin: 2em auto 3em;
+  margin: 2em auto;
+  padding: 0 3em;
   &.smaller {
     padding: 0 3em;
+    width: initial;
+    &.list {
+      margin: 0.5em auto;
+    }
   }
 }
 
@@ -173,7 +182,7 @@ header {
   width: 50%;
   margin: 0 auto;
   &.fullwidth {
-    width: 100%;
+    width: 90%;
   }
   &.narrow {
     width: 40%;
@@ -305,6 +314,7 @@ main > *:target ~ * {
     &[type=checkbox] + label::before {
       font-weight: bold;
       content: "+";
+      color: $arc_rose;
     }
     &[type=checkbox]:checked + label::before {
       transform: rotate(315deg);
@@ -371,6 +381,9 @@ main > *:target ~ * {
   transition: max-height .35s;
   p {
     margin: 1em;
+  }
+  .inner-thead {
+    font-weight: bold;
   }
 }
 
@@ -462,10 +475,6 @@ main > *:target ~ * {
     background-color: $arc_bg;
   }
 
-  p {
-    margin: 1.5rem;
-  }
-
   nav {
     position: relative;
     margin: 0 auto;
@@ -482,19 +491,26 @@ main > *:target ~ * {
     width: 216px;
   }
 
-  button {
-    width: 100%;
-    margin: 2em auto;
-  }
-
-  .container.fullwidth {
-    padding: 2em 0;
+  .fullwidth {
+    padding: 1em 0 2em 0;
     width: 100%;
     button {
       width: 92%;
+      &.smaller {
+        margin: 2em auto;
+        &.list {
+          margin: 0.5em auto;
+          width: inherit;
+        }
+      }
     }
-    h1 {
-      padding-left: 0.8em;
+  }
+
+  button {
+    width: 100%;
+    margin: 2em auto;
+    &.smaller {
+      width: initial;
     }
   }
 
@@ -538,5 +554,6 @@ main > *:target ~ * {
   .accordion,
   .voucher-list {
     font-size: 1em;
+    margin: 2rem 0;
   }
 }
