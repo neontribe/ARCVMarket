@@ -3,34 +3,34 @@
         <header role="header">
             <logo></logo>
         </header>
-        
-    <main class="container" id="login">
 
-        <div class="content">
+        <main class="container" id="login">
 
-            <h1>Log In</h1>
+            <div class="content">
 
-            <div>
-                <form id="loginForm" v-on:submit.prevent="onLogin">
-                    <ul>
-                        <label for="userName">Username</label>
-                        <input type="text" v-model="username" id="userName" required>
-                        <label for="userPassword">Password</label>
-                        <input type="password" v-model="password" id="userPassword" required>
-                        <button type="submit" class="smaller" value="Log In">Log In</button>
-                    </ul>
-                </form>
+                <h1>Log In</h1>
+
+                <div>
+                    <form id="loginForm" v-on:submit.prevent="onLogin">
+                        <ul>
+                            <label for="userName">Username</label>
+                            <input type="text" v-model="username" id="userName" required>
+                            <label for="userPassword">Password</label>
+                            <input type="password" v-model="password" id="userPassword" required>
+                            <button type="submit" class="smaller" value="Log In">Log In</button>
+                        </ul>
+                    </form>
+                </div>
+
+                <div class="multiple-choice checkbox">
+                    <input type="checkbox" id="rememberMe" v-model="remember">
+                    <label for="rememberMe">Stay logged in</label>
+                </div>
+
             </div>
 
-            <div class="multiple-choice checkbox">
-                <input type="checkbox" id="rememberMe" v-model="remember">
-                <label for="rememberMe">Stay logged in</label>
-            </div>
+        </main>
 
-        </div>
-
-    </main>
-    
     </div>
 </template>
 
@@ -51,11 +51,9 @@
             /**
              *  Watches this.auth to check for changes
              */
-            auth : function(val) {
+            auth: function (val) {
                 if (this.auth) {
-                    // This function fires but router doesn't appear to be doing anything...
-                    // ther must be scope thing going on
-                    // router.push('/tap');
+                    // TODO : router wiring
                 }
             }
         },

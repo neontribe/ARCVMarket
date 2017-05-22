@@ -2,7 +2,7 @@ import Vue from 'vue';
 import NetMgr from './services/netMgr.js';
 
 var store = {
-    user: {"id" : 1},
+    user: {"id": 1},
     trader: {
         "id": 1,
         pendedVouchers: []
@@ -46,9 +46,9 @@ store.unAuthenticate = function () {
     }.bind(this));
 };
 
-store.getVoucherPaymentState = function() {
-    this.netMgr.apiGet('traders/'+this.user.id +'/vouchers/history' , function(response) {
-        this.trader.pendedVouchers.splice(0,this.trader.pendedVouchers.length, response.data);
+store.getVoucherPaymentState = function () {
+    this.netMgr.apiGet('traders/' + this.user.id + '/vouchers/history', function (response) {
+        this.trader.pendedVouchers.splice(0, this.trader.pendedVouchers.length, response.data);
     }.bind(this));
     return true;
 };
@@ -56,7 +56,7 @@ store.getVoucherPaymentState = function() {
 /**
  * Gets the server's idea of a trader's recorder voucher list
  */
-store.getRecVouchers = function() {
+store.getRecVouchers = function () {
     this.netMgr.apiGet('/traders/' + this.user.id + '/vouchers',
         function (response) {
             var newVouchers = response.data;

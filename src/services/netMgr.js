@@ -31,7 +31,7 @@ var NetMgr = {
 
 /**
  * A function that works out if we really are Authenticated.
- * Rather than what the Store.auth actially claims.
+ * Rather than what the Store.auth actually claims.
  *
  * @returns {boolean}
  */
@@ -88,7 +88,7 @@ NetMgr.apiGet = function (route, cb, err) {
  * @returns {Promise.<TResult>}
  */
 
-// TODO: these are awefully similar functions... merege them?
+// TODO: these are awefully similar functions... merge them?
 
 NetMgr.apiPost = function (route, postData, cb, err) {
     if (!route.match(/^\//)) {
@@ -185,8 +185,8 @@ NetMgr.axiosInstance.interceptors.response.use(
         if (origResp.status === 401 && !origCfg._retry && this.token) {
             switch (origResp.data.error) {
                 case "invalid_token"    : // oAuth2 token invalid.
-                case "Unauthorized"     : // Official "you're logged out".
-                case "Unauthenticated." : // What Passport is returning for "your'e token has expired. Odd.
+                // case "Unauthorized"     : // Logged in BUT denied resource.
+                case "Unauthenticated." : // User not logged on.
                     origCfg._retry = true; // Set so we don't hit this one again.
 
                     // Let's hit the refresh with the refresh token
