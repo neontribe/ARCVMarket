@@ -46,7 +46,6 @@ store.unAuthenticate = function () {
 /**
  * Gets the server's idea of a trader's recorder voucher list
  */
-/
 store.getRecVouchers = function () {
 
     if (!navigator.onLine) {
