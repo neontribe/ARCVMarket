@@ -5,10 +5,10 @@
             <div class="content fullwidth">
                 <h1>My Voucher List</h1>
 
-                <p v-if="recVouchers.length > 0">You can request payment for <strong>{{ recVouchers[0].length }}</strong> vouchers.</p>
+                <p v-if="recVouchers[0].length > 0">You can request payment for <strong>{{ recVouchers[0].length }}</strong> vouchers.</p>
                 <p v-else>You haven't added any vouchers yet.</p>
 
-                <div class="voucher-list" id="registeredVouchers" v-if="recVouchers.length > 0">
+                <div class="voucher-list" id="registeredVouchers" v-if="recVouchers[0].length > 0">
 
                     <!-- Tab header -->
                     <div class="tab thead">
