@@ -24,9 +24,9 @@ const routes = [
 { path: '/', component: Login }
 ];
 
-// Create the router instance and pass the 'routes' option
+// Create the router instance and pass the 'routes' option.
 const router = new VueRouter({
-  routes, // short for routes: routes
+  routes, // Short for routes: routes.
   mode: 'history'
 });
 

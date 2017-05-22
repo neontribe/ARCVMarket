@@ -3,6 +3,17 @@ import Fixtures from '../../fixtures/fixtures.js';
 import Axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
+/*
+NetMgr is a place to put all the
+- AJAX axios stuff;
+- Mock binding
+- Authentication
+
+Though, in theory it could have been split into a series of modules.
+
+*/
+
+
 var NetMgr = {
     token: null,
     mockAdapter: null,
@@ -18,6 +29,13 @@ var NetMgr = {
     })
 };
 
+/**
+ * A function that works out if we really are Authenticated.
+ * Rather than what the Store.auth actially claims.
+ *
+ * @returns {boolean}
+ */
+
 NetMgr.isAuth = function() {
   if (this.token) {
       var expiryTime = this.token.requestTime + this.token.expires_in;
@@ -29,7 +47,7 @@ NetMgr.isAuth = function() {
 };
 
 /**
- * Sets the token, and preps transmission headers
+ * Sets the token data with real data, and preps transmission headers
  *
  * @param tokenData
  */
@@ -70,6 +88,8 @@ NetMgr.apiGet = function (route, cb, err) {
  * @returns {Promise.<TResult>}
  */
 
+// TODO: these are awefully similar functions... merege them?
+
 NetMgr.apiPost = function (route, postData, cb, err) {
     if (!route.match(/^\//)) {
         route = '/' + route;
@@ -80,7 +100,7 @@ NetMgr.apiPost = function (route, postData, cb, err) {
 };
 
 /**
- * Default error handler, if one isn't provided.
+ * Default error handler, if one isn't provided to the api* ones.
  * @param error
  */
 
@@ -126,7 +146,7 @@ NetMgr.mockOn = function () {
 };
 
 /**
- * Removes and stores Mock Adapter and restores original axios
+ * Removes and stores Mock Adapter and restores original Axios instance it hides
  */
 
 NetMgr.mockOff = function () {
@@ -139,6 +159,8 @@ NetMgr.mockOff = function () {
     this.mocker = false;
 };
 
+
+// FIRED on instantiation/
 // set cookie in devtools to ignore mocks in development and connect directly to local API
 // document.cookie = "arcv_ignore_mocks=true;max-age=" + 86400*30;
 if (Config.env === "development" && ( document.cookie.indexOf("arcv_ignore_mocks=true") === -1 )) {
@@ -148,40 +170,44 @@ if (Config.env === "development" && ( document.cookie.indexOf("arcv_ignore_mocks
 // Add interceptor to detect an expired access_token and refresh;
 NetMgr.axiosInstance.interceptors.response.use(
     function (response) {
-        // everything fine! return to api get/post
+        // everything fine! return the response to apiGet/apiPost
         return response;
     },
     function (error) {
 
+        // Get the original request configuration.
         var origCfg = error.config;
 
+        // Get the error from that request.
         var origResp = error.response;
 
-        // A 401 we havn't seen before?
+        // Is it a 401 we havn't seen before? (and do we have an old token set)
         if (origResp.status === 401 && !origCfg._retry && this.token) {
             switch (origResp.data.error) {
-                case "invalid_token"    : // oAuth2 token invalid
-                case "Unauthorized"     :
-                case "Unauthenticated." :
-                    origCfg._retry = true; // set so we don't hit this one again
+                case "invalid_token"    : // oAuth2 token invalid.
+                case "Unauthorized"     : // Official "you're logged out".
+                case "Unauthenticated." : // What Passport is returning for "your'e token has expired. Odd.
+                    origCfg._retry = true; // Set so we don't hit this one again.
 
+                    // Let's hit the refresh with the refresh token
                     return NetMgr.apiPost('/login/refresh', NetMgr.token.refresh_token,
                         function (refreshData) {
-                            // valid refresh_token, reset and retry
-                            NetMgr.setToken(refreshData); //set the token
-                            return NetMgr.axiosInstance(origCfg) // retry the request that errored out
+                            // Valid refresh_token, reset and retry.
+                            NetMgr.setToken(refreshData); // Set the token.
+                            return NetMgr.axiosInstance(origCfg) // Retry the request that errored out.
                         },
                         function (refreshErr) {
-                            //invalid refresh token, pass that back as a failure
+                            // Invalid refresh token, pass that back as a failure, so someone else deals with it.
                             return Promise.reject(refreshErr);
                         });
 
                     break;
                 default :
+                    // Fall through...
             }
 
         }
-        // all other errors returned to api get/post
+        // So all other errors returned to api get/post.
         return Promise.reject(error);
 
     }.bind(this));

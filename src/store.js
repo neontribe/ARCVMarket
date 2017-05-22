@@ -10,6 +10,13 @@ var store = {
     auth: false
 };
 
+/**
+ * Called from vue componenets, proxies logon process for them.
+ * @param userApiCreds
+ * @param success
+ * @param failure
+ */
+
 store.authenticate = function (userApiCreds, success, failure) {
     this.netMgr.apiPost('/login', userApiCreds,
         function (response) {
@@ -24,13 +31,22 @@ store.authenticate = function (userApiCreds, success, failure) {
     );
 };
 
+/**
+ * Logs the user off*
+ */
 store.unAuthenticate = function () {
     this.netMgr.apiPost('/logout', null, function (response) {
         this.netMgr.setToken(null);
         this.auth = this.netMgr.isAuth();
+        // TODO: add store reset code.
     }.bind(this));
 };
 
+
+/**
+ * Gets the server's idea of a trader's recorder voucher list
+ */
+/
 store.getRecVouchers = function () {
 
     if (!navigator.onLine) {
@@ -51,20 +67,37 @@ store.getRecVouchers = function () {
     return true;
 };
 
+/**
+ * Vue's observation of arrays is tricky. This replaces the an array.
+ * @param replacements
+ */
+
 store.mergeRecVouchers = function (replacements) {
     // this zeros the array and re-add things in a vue-friendly way
     this.recVouchers.splice(0, this.recVouchers.length, replacements);
 };
 
+/**
+ * Adds a voucher code and submits it.
+ */
 store.addVoucherCode = function (voucherCode) {
     this.vouchers.push(voucherCode);
     return this.postVouchers();
 };
 
+/**
+ * empties the vouchers
+ */
 store.clearVouchers = function () {
     // alter current array, not swap for new one or vue gets sad!
     this.vouchers.splice(0, this.vouchers.length);
 };
+
+
+/**
+ * Post vouchers to api.
+ * @returns {boolean}
+ */
 
 store.postVouchers = function () {
     if (!navigator.onLine) {

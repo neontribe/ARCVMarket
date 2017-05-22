@@ -42,14 +42,21 @@
             }
         },
         watch: {
+            /**
+             *  Watches this.auth to check for changes
+             */
             auth : function(val) {
                 if (this.auth) {
-                    // This doesn't appear to be doing anything...
-                    vm.router.push('/tap');
+                    // This function fires but router doesn't appear to be doing anything...
+                    // ther must be scope thing going on
+                    // router.push('/tap');
                 }
             }
         },
         methods: {
+            /**
+             * prods the store to make it login
+             */
             onLogin: function () {
                 var userApiCreds = {
                     username: this.username,
