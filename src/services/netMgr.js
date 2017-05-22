@@ -13,7 +13,6 @@ Though, in theory it could have been split into a series of modules.
 
 */
 
-
 var NetMgr = {
     token: null,
     mockAdapter: null,
@@ -35,7 +34,6 @@ var NetMgr = {
  *
  * @returns {boolean}
  */
-
 NetMgr.isAuth = function() {
   if (this.token) {
       var expiryTime = this.token.requestTime + this.token.expires_in;
@@ -51,7 +49,6 @@ NetMgr.isAuth = function() {
  *
  * @param tokenData
  */
-
 NetMgr.setToken = function (tokenData) {
     this.token = tokenData;
     if (this.token) {
@@ -68,7 +65,6 @@ NetMgr.setToken = function (tokenData) {
  * @param err
  * @returns {Promise.<TResult>}
  */
-
 NetMgr.apiGet = function (route, cb, err) {
     if (!route.match(/^\//)) {
         route = '/' + route;
@@ -87,9 +83,6 @@ NetMgr.apiGet = function (route, cb, err) {
  * @param err
  * @returns {Promise.<TResult>}
  */
-
-// TODO: these are awefully similar functions... merge them?
-
 NetMgr.apiPost = function (route, postData, cb, err) {
     if (!route.match(/^\//)) {
         route = '/' + route;
@@ -103,7 +96,6 @@ NetMgr.apiPost = function (route, postData, cb, err) {
  * Default error handler, if one isn't provided to the api* ones.
  * @param error
  */
-
 NetMgr.logAJAXErrors = function (error) {
     if (error.response) {
         // non 2xx response
@@ -124,7 +116,6 @@ NetMgr.logAJAXErrors = function (error) {
  *
  * @returns {null}
  */
-
 NetMgr.isMocked = function () {
     // TODO: make tis more effective
     return this.mocker;
@@ -133,7 +124,6 @@ NetMgr.isMocked = function () {
 /**
  * Sets up or restores a Mock Adapter
  */
-
 NetMgr.mockOn = function () {
     // if there's a mockAdapter add it back in.
     if (this.mockAdapter instanceof MockAdapter) {
@@ -148,7 +138,6 @@ NetMgr.mockOn = function () {
 /**
  * Removes and stores Mock Adapter and restores original Axios instance it hides
  */
-
 NetMgr.mockOff = function () {
     if (this.isMocked()) {
         // save the current mock set
@@ -159,8 +148,6 @@ NetMgr.mockOff = function () {
     this.mocker = false;
 };
 
-
-// FIRED on instantiation/
 // set cookie in devtools to ignore mocks in development and connect directly to local API
 // document.cookie = "arcv_ignore_mocks=true;max-age=" + 86400*30;
 if (Config.env === "development" && ( document.cookie.indexOf("arcv_ignore_mocks=true") === -1 )) {
@@ -211,6 +198,5 @@ NetMgr.axiosInstance.interceptors.response.use(
         return Promise.reject(error);
 
     }.bind(this));
-
 
 export default NetMgr;

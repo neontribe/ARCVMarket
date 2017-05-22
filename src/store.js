@@ -13,14 +13,12 @@ var store = {
     auth: false
 };
 
-
 /**
  * Called from vue componenets, proxies logon process for them.
  * @param userApiCreds
  * @param success
  * @param failure
  */
-
 store.authenticate = function (userApiCreds, success, failure) {
     this.netMgr.apiPost('/login', userApiCreds,
         function (response) {
@@ -36,7 +34,7 @@ store.authenticate = function (userApiCreds, success, failure) {
 };
 
 /**
- * Logs the user off*
+ * Logs the user off
  */
 store.unAuthenticate = function () {
     this.netMgr.apiPost('/logout', null, function (response) {
@@ -72,7 +70,6 @@ store.getRecVouchers = function () {
  * Vue's observation of arrays is tricky. This replaces the an array.
  * @param replacements
  */
-
 store.mergeRecVouchers = function (replacements) {
     // this zeros the array and re-add things in a vue-friendly way
     this.recVouchers.splice(0, this.recVouchers.length, replacements);
@@ -94,12 +91,10 @@ store.clearVouchers = function () {
     this.vouchers.splice(0, this.vouchers.length);
 };
 
-
 /**
  * Post vouchers to api.
  * @returns {boolean}
  */
-
 store.postVouchers = function () {
     if (!navigator.onLine) {
         return false;

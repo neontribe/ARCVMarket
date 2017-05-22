@@ -16,7 +16,6 @@ import User from './pages/User.vue'
 import Masthead from './components/Masthead.vue';
 import Logo from './components/Logo.vue';
 
-
 // Define routes
 const routes = [
     {path: '/account', component: Account},
@@ -25,7 +24,7 @@ const routes = [
     {path: '/', component: Login},
     {path: '/login', component: Login},
     {path: '/user', component: User}
-]
+];
 
 // Create the router instance and pass the 'routes' option.
 const router = new VueRouter({
