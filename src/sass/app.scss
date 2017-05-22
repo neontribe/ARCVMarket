@@ -90,9 +90,9 @@ nav {
     }
     a {
       color: $arc_faded;
+      font-weight: bold;
       &.router-link-exact-active.router-link-active {
         color: $arc_white;
-        font-weight: bold;
       }
     }
     li {
@@ -166,7 +166,7 @@ button {
 
 header {
   background-color: $arc_white;
-  box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
+  //box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
   z-index: 1;
   display: flex;
   align-items: center;
@@ -297,7 +297,7 @@ main > *:target ~ * {
 // Accordion and voucher list styling
 .accordion,
 .voucher-list {
-  box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
+  //box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
   font-size: 1.2em;
   label {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -329,15 +329,18 @@ main > *:target ~ * {
       background-color: $arc_row;
     }
     &:checked ~ label {
-      background-color: $arc_selected;
+      background-color: $arc_rose;
+      color: $arc-white;
     }
     &[type=checkbox] + label::before {
       font-weight: bold;
-      content: "+";
+      font-family: FontAwesome;
+      content: "\f0da";
       color: $arc_rose;
     }
     &[type=checkbox]:checked + label::before {
-      transform: rotate(315deg);
+      transform: rotate(450deg);
+      color: $arc_white;
     }
   }
 }
@@ -349,6 +352,7 @@ main > *:target ~ * {
   overflow: hidden;
   &.thead {
     background-color: white;
+    border: 0;
   }
   &.row {
     background-color: white;
@@ -505,7 +509,7 @@ main > *:target ~ * {
   }
 
   header {
-    box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
+    //box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
     z-index: 1;
   }
 
@@ -568,15 +572,21 @@ main > *:target ~ * {
     ul {
       padding: 0.3em;
     }
-    &.input-tab ul {
-      padding: 1em;
+    &.input-tab {
+      font-size: 1em;
+      ul {
+        padding: 0.5em;
+      }
     }
   }
 
   .content {
     &.fullwidth {
       width: 100%;
-      h1,
+      h1 {
+        font-size: 1.4em;
+        padding: 0 1.5rem;
+      }
       p,
       section {
         padding: 0 1.5rem;
@@ -590,13 +600,8 @@ main > *:target ~ * {
   .accordion,
   .voucher-list {
     font-size: 1em;
-    margin: 2rem 0;
     label {
-      padding: 0;
-      &:before {
-        height: 3em;
-        line-height: 3;
-      }
+      padding: 0.5em 0;
     }
     .tab {
       .row {
@@ -614,9 +619,6 @@ main > *:target ~ * {
             flex: 1;
             width: initial;
             text-align: right;
-            // &:before {
-            //   content: "x";
-            // }
           }
           &:nth-child(3) {
             flex: 1;
@@ -626,10 +628,19 @@ main > *:target ~ * {
           }
         }
       }
-    .row-code {
-      width: 100%;
+      .row-code {
+        width: 100%;
+        div {
+          &:nth-child(1) {
+            padding-left: 1em;
+            width: 40%;
+          }
+          &:nth-child(2) {
+            padding-right: 1em;
+            width: 60%;
+          }
+        }
+      }
     }
   }
-}
-
 }
