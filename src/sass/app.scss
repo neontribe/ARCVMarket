@@ -635,7 +635,7 @@ main > *:target ~ * {
       width: 100%;
       div {
         &:nth-child(1) {
-          padding-left: 1em;
+          padding-left: 1.5em;
           width: 40%;
         }
         &:nth-child(2) {
