@@ -2,13 +2,17 @@ import Vue from 'vue';
 import NetMgr from './services/netMgr.js';
 
 var store = {
-    user: {"id": 1},
-    trader: {"id": 1},
+    user: {"id" : 1},
+    trader: {
+        "id": 1,
+        pendedVouchers: []
+    },
     vouchers: [],
     recVouchers: [],
     netMgr: NetMgr,
     auth: false
 };
+
 
 /**
  * Called from vue componenets, proxies logon process for them.
@@ -42,24 +46,22 @@ store.unAuthenticate = function () {
     }.bind(this));
 };
 
+store.getVoucherPaymentState = function() {
+    this.netMgr.apiGet('traders/'+this.user.id +'/vouchers/history' , function(response) {
+        this.trader.pendedVouchers.splice(0,this.trader.pendedVouchers.length, response.data);
+    }.bind(this));
+    return true;
+};
 
 /**
  * Gets the server's idea of a trader's recorder voucher list
  */
-store.getRecVouchers = function () {
-
-    if (!navigator.onLine) {
-        return false;
-    }
-
+store.getRecVouchers = function() {
     this.netMgr.apiGet('/traders/' + this.user.id + '/vouchers',
         function (response) {
             var newVouchers = response.data;
             newVouchers.sort(function (b, a) {
                 return new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime()
-            });
-            newVouchers = response.data.map(function (v) {
-                return v.code;
             });
             this.mergeRecVouchers(newVouchers);
         }.bind(this));
