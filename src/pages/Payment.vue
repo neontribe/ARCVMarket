@@ -5,9 +5,9 @@
             <div class="content fullwidth">
                 <h1>My Voucher List</h1>
 
-                <p>You can request payment for <strong>x</strong> vouchers.</p>
+                <p>You can request payment for <strong>{{ recVouchers[0].length }}</strong> vouchers.</p>
 
-                <div class="voucher-list" id="registeredVouchers" v-if="recVouchers.length > 0">
+                <div class="voucher-list" id="registeredVouchers">
 
                     <!-- Tab header -->
                     <div class="tab thead">
@@ -23,8 +23,8 @@
                     <div class="tab row" v-for="recVoucher in recVouchers[0]">
                         <label>
                             <div class="row-code">
-                                <div>{{ recVoucher }}</div>
-                                <div>15/2/17</div>
+                                <div>{{ recVoucher.code }}</div>
+                                <div>{{ recVoucher.updated_at }}</div>
                             </div>
                         </label>
                     </div>

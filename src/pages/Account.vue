@@ -56,8 +56,7 @@
         name: 'account',
         data() {
             return {
-                voucherPayments: Store.trader.pendedVouchers,
-                selected: false
+                voucherPayments: Store.trader.pendedVouchers
             }
         },
         created: function () {
