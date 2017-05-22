@@ -31,9 +31,6 @@ store.getRecVouchers = function() {
         newVouchers.sort(function(b,a) {
             return new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime()
         });
-        newVouchers = response.data.map(function(v) {
-            return v.code;
-        });
         // this is a callback. scoping of "this" gets broken, explicitly using "store".
         store.mergeRecVouchers(newVouchers);
     });
