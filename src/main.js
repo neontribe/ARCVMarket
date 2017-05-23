@@ -13,8 +13,9 @@ import Login from './pages/Login.vue'
 import User from './pages/User.vue'
 
 // Import components
-import Masthead from './components/Masthead.vue';
-import Logo from './components/Logo.vue';
+import Masthead from './components/Masthead.vue'
+import Logo from './components/Logo.vue'
+import Instructions from './components/Instructions.vue'
 
 // Define routes
 const routes = [
