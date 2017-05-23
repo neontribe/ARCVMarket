@@ -1,8 +1,6 @@
 /* Copyright (c) 2017, Alexander Rose Charity (reg. in England and Wales, #00279157) */
 @import 'vars';
 
-
-
 $fa-font-path:"../node_modules/font-awesome/fonts";
 @import "../node_modules/font-awesome/scss/font-awesome";
 .icon-user {
@@ -96,10 +94,6 @@ nav {
       &.router-link-exact-active.router-link-active {
         color: $arc_rose;
       }
-    }
-    li {
-      padding: 1em;
-      flex: initial;
     }
     ul {
       justify-content: flex-end;
@@ -521,7 +515,6 @@ main > *:target ~ * {
         flex: 1;
         padding: 1.2em;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        &:active,
         &:focus,
         &:hover,
         &.router-link-exact-active.router-link-active {
