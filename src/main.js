@@ -8,6 +8,8 @@ Vue.use(VueRouter);
 // Import pages
 import Account from './pages/Account.vue'
 import Tap from './pages/Tap.vue'
+import Scan from './pages/Scan.vue'
+import Upload from './pages/Upload.vue'
 import Payment from './pages/Payment.vue'
 import Login from './pages/Login.vue'
 import User from './pages/User.vue'
@@ -19,12 +21,14 @@ import Instructions from './components/Instructions.vue'
 
 // Define routes
 const routes = [
-    {path: '/account', component: Account},
-    {path: '/tap', component: Tap},
-    {path: '/payment', component: Payment},
-    {path: '/', component: Login},
-    {path: '/login', component: Login},
-    {path: '/user', component: User}
+{ path: '/', component: Tap },
+{ path: '/account', component: Account },
+{ path: '/tap', component: Tap },
+{ path: '/scan', component: Scan },
+{ path: '/upload', component: Upload },
+{ path: '/payment', component: Payment },
+{ path: '/login', component: Login },
+{ path: '/user', component: User }
 ];
 
 // Create the router instance and pass the 'routes' option.
