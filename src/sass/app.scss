@@ -84,19 +84,23 @@ nav {
     }
   }
   &.input-tab {
-    background-color: $arc_rose;
+    background-color: $arc_bg;
     .fa {
       padding-bottom: 0;
     }
     a {
-      color: $arc_faded;
+      color: $arc_copy;
       font-weight: bold;
       &.router-link-exact-active.router-link-active {
-        color: $arc_white;
+        color: $arc_rose;
       }
     }
     li {
       padding: 0.5em;
+      flex: initial;
+    }
+    ul {
+      justify-content: center;
     }
   }
 }
@@ -506,6 +510,19 @@ main > *:target ~ * {
     position: relative;
     margin: 0 auto;
     margin-right: 0;
+    &.input-tab {
+      background-color: $arc_rose;
+      li {
+        flex: 1;
+      }
+      a {
+        color: $arc_faded;
+        font-weight: bold;
+        &.router-link-exact-active.router-link-active {
+          color: $arc_white;
+        }
+      }
+    }
   }
 
   header {
