@@ -1,6 +1,8 @@
 /* Copyright (c) 2017, Alexander Rose Charity (reg. in England and Wales, #00279157) */
 @import 'vars';
 
+
+
 $fa-font-path:"../node_modules/font-awesome/fonts";
 @import "../node_modules/font-awesome/scss/font-awesome";
 .icon-user {
@@ -65,7 +67,6 @@ nav {
   font-size: 1em;
   a {
     text-decoration: none;
-    width: 60%;
     color: $arc_copy;
   }
   ul {
@@ -91,16 +92,18 @@ nav {
     a {
       color: $arc_copy;
       font-weight: bold;
+      padding: 1em;
       &.router-link-exact-active.router-link-active {
         color: $arc_rose;
       }
     }
     li {
-      padding: 0.5em;
+      padding: 1em;
       flex: initial;
     }
     ul {
-      justify-content: center;
+      justify-content: flex-end;
+      padding: 1em 1.5em;
     }
   }
 }
@@ -512,21 +515,27 @@ main > *:target ~ * {
     margin-right: 0;
     &.input-tab {
       background-color: $arc_rose;
-      li {
-        flex: 1;
-      }
       a {
         color: $arc_faded;
         font-weight: bold;
+        flex: 1;
+        padding: 1.2em;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        &:active,
+        &:focus,
+        &:hover,
         &.router-link-exact-active.router-link-active {
           color: $arc_white;
         }
+      }
+      ul {
+        justify-content: center;
+        padding: 0;
       }
     }
   }
 
   header {
-    //box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
     z-index: 1;
   }
 
@@ -588,12 +597,6 @@ main > *:target ~ * {
     font-size: 0.8em;
     ul {
       padding: 0.3em;
-    }
-    &.input-tab {
-      font-size: 1em;
-      ul {
-        padding: 0.5em;
-      }
     }
   }
 
