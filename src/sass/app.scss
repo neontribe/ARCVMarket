@@ -65,7 +65,6 @@ nav {
   font-size: 1em;
   a {
     text-decoration: none;
-    width: 60%;
     color: $arc_copy;
   }
   ul {
@@ -84,19 +83,24 @@ nav {
     }
   }
   &.input-tab {
-    background-color: $arc_rose;
+    background-color: $arc_bg;
     .fa {
       padding-bottom: 0;
     }
     a {
-      color: $arc_faded;
+      color: $arc_copy;
       font-weight: bold;
+      padding: 1.5em;
       &.router-link-exact-active.router-link-active {
-        color: $arc_white;
+        color: $arc_rose;
       }
     }
+    ul {
+      justify-content: flex-end;
+      padding: 0 1.5em;
+    }
     li {
-      padding: 0.5em;
+      padding: 0;
     }
   }
 }
@@ -155,18 +159,11 @@ button {
   border-radius: 3px;
   margin: 2em auto;
   padding: 0 3em;
-  &.smaller {
-    padding: 0 3em;
-    width: initial;
-    &.list {
-      margin: 0.5em auto;
-    }
-  }
+  box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
 }
 
 header {
   background-color: $arc_white;
-  //box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
   z-index: 1;
   display: flex;
   align-items: center;
@@ -206,6 +203,9 @@ header {
   }
   &.narrow {
     width: 40%;
+    .two-buttons {
+      width: 100%;
+    }
   }
 }
 
@@ -213,6 +213,41 @@ header {
   margin-top: 1.5em;
   span {
     font-weight: bold;
+  }
+}
+
+.two-buttons {
+  display: flex;
+  width: 40%;
+  flex: 1;
+  padding: 0;
+  margin: 1em auto;
+  a {
+    text-decoration: none;
+  }
+  button {
+    padding: 0;
+    margin: 1em auto;
+    font-size: 0.9rem;
+    width: 50%;
+  }
+  .left {
+    margin-right: 0.5em;
+    background-color: $arc_white;
+    color: $arc_copy;
+    &.cta {
+      background-color: $arc_rose;
+      color: $arc_white;
+      width: 100%;
+    }
+  }
+  .right {
+    margin-left: 0.5em;
+    &::after {
+      font-family: FontAwesome;
+      content: "\f0da";
+      padding-left: 0.5em;
+    }
   }
 }
 
@@ -308,7 +343,7 @@ main > *:target ~ * {
     line-height: 3;
     cursor: pointer;
     /* Icon */
-    &:before {
+    &::before {
       position: absolute;
       left: 0;
       top: 0;
@@ -360,7 +395,7 @@ main > *:target ~ * {
   .row {
     display: flex;
     div {
-      &.total:before {
+      &.total::before {
         content: "Voucher total";
       }
       &:nth-child(1) {
@@ -506,10 +541,28 @@ main > *:target ~ * {
     position: relative;
     margin: 0 auto;
     margin-right: 0;
+    &.input-tab {
+      background-color: $arc_rose;
+      a {
+        color: $arc_faded;
+        font-weight: bold;
+        flex: 1;
+        padding: 1em;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        &:focus,
+        &:hover,
+        &.router-link-exact-active.router-link-active {
+          color: $arc_white;
+        }
+      }
+      ul {
+        justify-content: center;
+        padding: 0;
+      }
+    }
   }
 
   header {
-    //box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
     z-index: 1;
   }
 
@@ -521,24 +574,11 @@ main > *:target ~ * {
   .fullwidth {
     padding: 1em 0 2em 0;
     width: 100%;
-    button {
-      width: 92%;
-      &.smaller {
-        margin: 2em auto;
-        &.list {
-          margin: 0.5em auto;
-          width: inherit;
-        }
-      }
-    }
   }
 
   button {
     width: 100%;
     margin: 2em auto;
-    &.smaller {
-      width: initial;
-    }
   }
 
   .content {
@@ -572,12 +612,6 @@ main > *:target ~ * {
     ul {
       padding: 0.3em;
     }
-    &.input-tab {
-      font-size: 1em;
-      ul {
-        padding: 0.5em;
-      }
-    }
   }
 
   .content {
@@ -594,6 +628,9 @@ main > *:target ~ * {
           padding-left: 0;
         }
       }
+      .two-buttons {
+        width: 92%;
+      }
     }
   }
 
@@ -606,7 +643,7 @@ main > *:target ~ * {
     .tab {
       .row {
         div {
-          &.total:before {
+          &.total::before {
             content: "Total";
           }
           &:nth-child(1) {
