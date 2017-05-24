@@ -13,8 +13,12 @@ $fa-font-path:"../node_modules/font-awesome/fonts";
   padding-bottom: 8px;
 }
 
-html {
+html,
+body {
   height: 100%;
+}
+
+html {
   font-size: 16px;
   font-family: $arc_main_font;
 }
@@ -23,6 +27,12 @@ body {
   background-color: $arc_white;
   color: $arc_copy;
   margin: 0;
+}
+
+#app {
+  position: relative;
+  background-color: $arc_bg;
+  margin: 0 auto;
   height: 100%;
 }
 
@@ -50,32 +60,61 @@ ul {
   position: relative;
 }
 
-nav a {
-  text-decoration: none;
-  width: 60%;
-  color: $arc_copy;
-}
-
 nav {
   text-align: center;
-  font-size: 0.8em;
+  font-size: 1em;
+  a {
+    text-decoration: none;
+    color: $arc_copy;
+  }
+  ul {
+    display: flex;
+    margin: 0 auto;
+    padding: 1em;
+  }
+  li {
+    display: inline-block;
+    flex: 1;
+    padding: 0.8em;
+    &:hover,
+    &:focus {
+      animation: pulse 0.5s linear 1;
+      background: transparent;
+    }
+  }
+  &.input-tab {
+    background-color: $arc_bg;
+    .fa {
+      padding-bottom: 0;
+    }
+    a {
+      color: $arc_copy;
+      font-weight: bold;
+      padding: 1.5em;
+      &.router-link-exact-active.router-link-active {
+        color: $arc_rose;
+      }
+    }
+    ul {
+      justify-content: flex-end;
+      padding: 0 1.5em;
+    }
+    li {
+      padding: 0;
+    }
+  }
 }
 
-nav ul {
-  display: flex;
-  margin: 0 auto;
-  padding: 1em;
+section {
+  margin-top: 3em;
 }
 
-nav li {
-  display: inline-block;
-  flex: 1;
-  padding: 0.8em;
+.hidden {
+  visibility: hidden;
 }
 
-nav li:hover,
-nav li:focus {
-    animation: pulse 0.5s linear 1;
+.router-link-exact-active.router-link-active {
+  color: $arc_rose;
 }
 
 input {
@@ -104,34 +143,39 @@ label {
     text-align: left;
 }
 
+#textVoucher label {
+  margin-bottom: 0;
+}
+
 button {
   background-color: $arc_rose;
   color: $arc_white;
-  font-size: 1em;
+  font-size: 1rem;
   display: block;
   text-align: center;
-  width: 50%;
   height: 48px;
   font-weight: bold;
   border: 0;
   border-radius: 3px;
-  margin: 2em auto 3em;
+  margin: 2em auto;
+  padding: 0 3em;
+  &.smaller {
+    padding: 0 3em;
+    width: initial;
+    &.list {
+      margin: 0.5em auto;
+    }
+  }
 }
 
 header {
   background-color: $arc_white;
+  //box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
+  z-index: 1;
   display: flex;
   align-items: center;
   position: relative;
-  justify-content: space-around;
-}
-
-#app {
-  background-color: $arc_bg;
-  box-shadow: 0 3px 12px 0px rgba(0, 0, 0, 0.2);
-  max-width: 1200px;
-  margin: 0 auto;
-  height: 100%;
+  justify-content: space-between;
 }
 
 .logo {
@@ -139,23 +183,34 @@ header {
     padding: 2em 0 1.3em 2em;
     width: 50%;
   }
+  &.login {
+    margin: 0 auto;
+    img {
+      margin: 0 auto;
+      padding: 2em;
+      display: flex;
+    }
+  }
 }
 
 .container {
-  position: relative;
+  position: absolute;
+  background-color: $arc_bg;
   margin: 0 auto;
   padding: 2em;
   overflow: auto;
+  width: calc(100% - 4em);
 }
 
 .content {
-  width: 60%;
+  width: 50%;
   margin: 0 auto;
-}
-
-#login-checkbox {
-  display: flex;
-  justify-content: flex-start;
+  &.fullwidth {
+    width: 90%;
+  }
+  &.narrow {
+    width: 40%;
+  }
 }
 
 .counter {
@@ -180,7 +235,7 @@ header {
 
 #sponsorBox {
   justify-content: flex-start;
-  background-color: $arc_gray;
+  background-color: $arc_bg;
   width: 30%;
 }
 
@@ -207,9 +262,175 @@ header {
 }
 
 .form-group {
-  display: flex;;
+  padding-top: 1em;
   width: 100%;
   position: relative;
+}
+
+main > *:last-child {
+  display: block;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1) }
+  50% { transform: scale(1.2) }
+  100% { transform: scale(1) }
+}
+
+main > *:target {
+  display: block;
+}
+
+main > *:target ~ * {
+  display: none;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition-property: opacity;
+  transition-duration: .25s;
+}
+
+.fade-enter-active {
+  transition-delay: .25s;
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
+
+// Accordion and voucher list styling
+.accordion,
+.voucher-list {
+  //box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
+  font-size: 1.2em;
+  label {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    margin-bottom: 0;
+    position: relative;
+    display: block;
+    padding: 0.5em 1.5em;
+    line-height: 3;
+    cursor: pointer;
+    /* Icon */
+    &:before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+      width: 3em;
+      height: 4em;
+      line-height: 4;
+      text-align: center;
+      transition: all .35s;
+    }
+  }
+  input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+    &:checked ~ .tab-content {
+      max-height: none;
+      background-color: $arc_row;
+    }
+    &:checked ~ label {
+      background-color: $arc_rose;
+      color: $arc-white;
+    }
+    &[type=checkbox] + label::before {
+      font-weight: bold;
+      font-family: FontAwesome;
+      content: "\f0da";
+      color: $arc_rose;
+    }
+    &[type=checkbox]:checked + label::before {
+      transform: rotate(450deg);
+      color: $arc_white;
+    }
+  }
+}
+
+.tab {
+  position: relative;
+  border-top: 1px solid $arc_border;
+  width: 100%;
+  overflow: hidden;
+  &.thead {
+    background-color: white;
+    border: 0;
+  }
+  &.row {
+    background-color: white;
+  }
+  .row {
+    display: flex;
+    div {
+      &.total:before {
+        content: "Voucher total";
+      }
+      &:nth-child(1) {
+        width: 30%;
+        text-align: left;
+        padding-left: 2em;
+      }
+      &:nth-child(2) {
+        width: 40%;
+        text-align: right;
+      }
+      &:nth-child(3) {
+        width: 30%;
+        text-align: right;
+      }
+    }
+  }
+  .amount {
+    font-weight: bold;
+  }
+}
+
+.row-code {
+  display: flex;
+  border-bottom: 1px solid $arc_border;
+  margin: 0 auto;
+  width: 70%;
+  &:last-child {
+    border-bottom: none;
+  }
+  div {
+    &:nth-child(1) {
+      width: 50%;
+      text-align: center;
+    }
+    &:nth-child(2) {
+      width: 50%;
+      text-align: center;
+    }
+  }
+}
+
+.tab-content {
+  max-height: 0;
+  transition: max-height .35s;
+  p {
+    margin: 1em;
+  }
+  .inner-thead {
+    font-weight: bold;
+  }
+}
+
+.voucher-list .row-code {
+  display: flex;
+  width: 100%;
+  div {
+    &:nth-child(1) {
+      width: 50%;
+      text-align: left;
+    }
+    &:nth-child(2) {
+      width: 50%;
+      text-align: right;
+    }
+  }
 }
 
 // A lot of css for some user friendly radio buttons/checkboxes
@@ -219,7 +440,7 @@ header {
   clear: left;
   position: relative;
   padding: 0 0 0 38px;
-  margin-right: 2em;
+  margin-bottom: 1.5em;
   input {
     position: absolute;
     cursor: pointer;
@@ -275,81 +496,11 @@ header {
     cursor: pointer;
     padding: 8px 10px 9px 12px;
     display: block;
-    -ms-touch-action: manipulation;
     touch-action: manipulation;
   }
 }
 
-.multiple-choice [type=checkbox] + label::before {
-    content: "";
-    border: 2px solid $arc_dark_border;
-    background: transparent;
-    background-color: white;
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 3px;
-  }
-
-  .multiple-choice [type=checkbox] + label::after {
-    content: "";
-    border: solid;
-    border-width: 0 0 5px 5px;
-    background: transparent;
-    width: 17px;
-    height: 7px;
-    position: absolute;
-    top: 6px;
-    left: 3px;
-    transform: rotate(-45deg);
-    zoom: 1;
-    filter: alpha(opacity=0);
-    opacity: 0;
-  }
-
-  .multiple-choice [type=checkbox]:focus + label::before {
-    box-shadow: 0 0 0 3px $arc_focus;
-  }
-
-  .checkbox label {
-    padding: 5px 0 0 5px;
-    margin-top: 2em;
-  }
-
-main > *:last-child {
-  display: block;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1) }
-  50% { transform: scale(1.2) }
-  100% { transform: scale(1) }
-}
-
-main > *:target {
-  display: block;
-  /*animation: pulse 0.5s linear 1;*/
-}
-
-main > *:target ~ * {
-  display: none;
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition-property: opacity;
-  transition-duration: .25s;
-}
-
-.fade-enter-active {
-  transition-delay: .25s;
-}
-
-.fade-enter, .fade-leave-active {
-  opacity: 0
-}
-
+// Media queries
 @media (max-width: 768px) {
   body {
     background-color: $arc_bg;
@@ -359,20 +510,71 @@ main > *:target ~ * {
     position: relative;
     margin: 0 auto;
     margin-right: 0;
-  }
-
-  #app {
-    box-shadow: none;
-    position: relative;
+    &.input-tab {
+      background-color: $arc_rose;
+      a {
+        color: $arc_faded;
+        font-weight: bold;
+        flex: 1;
+        padding: 1em;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        &:focus,
+        &:hover,
+        &.router-link-exact-active.router-link-active {
+          color: $arc_white;
+        }
+      }
+      ul {
+        justify-content: center;
+        padding: 0;
+      }
+    }
   }
 
   header {
-      box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .logo img,
+  .logo.login img {
+    width: 216px;
+  }
+
+  .fullwidth {
+    padding: 1em 0 2em 0;
+    width: 100%;
+    button {
+      width: 92%;
+      &.smaller {
+        margin: 2em auto;
+        &.list {
+          margin: 0.5em auto;
+          width: inherit;
+        }
+      }
+    }
   }
 
   button {
     width: 100%;
-    margin: 1em auto;
+    margin: 2em auto;
+    &.smaller {
+      width: initial;
+    }
+  }
+
+  .content {
+    width: 90%;
+    &.narrow,
+    &.narrow button {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 580px) {
+  .logo img {
+    width: 75%;
   }
 }
 
@@ -384,11 +586,79 @@ main > *:target ~ * {
   .logo {
     img {
       padding: 1.3em 0 1em 1.3em;
-      width: 75%;
+    }
+  }
+
+  nav {
+    font-size: 0.8em;
+    ul {
+      padding: 0.3em;
     }
   }
 
   .content {
-    width: 100%;
+    &.fullwidth {
+      width: 100%;
+      h1 {
+        font-size: 1.4em;
+        padding: 0 1.5rem;
+      }
+      p,
+      section {
+        padding: 0 1.5rem;
+        h1 {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+
+  .accordion,
+  .voucher-list {
+    font-size: 1em;
+    label {
+      padding: 0.5em 0;
+    }
+    .tab {
+      .row {
+        div {
+          &.total:before {
+            content: "Total";
+          }
+          &:nth-child(1) {
+            flex: 1;
+            width: initial;
+            text-align: left;
+            padding-left: 3em;
+          }
+          &:nth-child(2) {
+            flex: 1;
+            width: initial;
+            text-align: right;
+          }
+          &:nth-child(3) {
+            flex: 1;
+            width: initial;
+            text-align: right;
+            padding-right: 1em;
+          }
+        }
+      }
+    }
+  }
+  .voucher-list {
+    .row-code {
+      width: 100%;
+      div {
+        &:nth-child(1) {
+          padding-left: 1.5em;
+          width: 40%;
+        }
+        &:nth-child(2) {
+          padding-right: 1em;
+          width: 60%;
+        }
+      }
+    }
   }
 }

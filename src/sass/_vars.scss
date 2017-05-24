@@ -33,10 +33,13 @@ $arc_headings: 'Roboto Slab', serif;
 -------------------------------------------------------------- */
 
 $arc_white: white;
-$arc_bg: #F8F7F5;
-$arc_border: #e2e2e2;
+$arc_faded: rgba(255,255,255,0.8);
+$arc_bg: #f9f9f9;
+$arc_border: #f1f1f1;
 $arc_gray: #eceaea;
 $arc_focus: #dcb9d2;
 $arc_rose: #a74e94;
 $arc_copy: #433740;
+$arc_selected: #efeeed;
+$arc_row: lighten($arc_bg, 1%);
 $arc_dark_border: #ededed;

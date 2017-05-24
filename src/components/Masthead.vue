@@ -1,6 +1,8 @@
-<template>
+<template id="masthead">
 
-    <header role="header" id="masthead">
+  <div>
+
+    <header role="header">
         <div class="logo">
             <router-link v-bind:to="'/'" class="link"><img src="../assets/logo.png"></router-link>
         </div>
@@ -14,10 +16,20 @@
         </nav>
     </header>
 
+    <nav role="navigation" class="input-tab" v-if="($route.path==='/' || $route.path==='/tap' || $route.path==='/scan' || $route.path==='/upload') ? true : false">
+        <ul>
+            <router-link v-bind:to="'/tap'"><li>Type</li></router-link>
+            <router-link v-bind:to="'/scan'"><li>Scan</li></router-link>
+            <router-link v-bind:to="'/upload'"><li>Upload</li></router-link>
+        </ul>
+    </nav>
+
+  </div>
+
 </template>
 
 <script>
 export default {
-  name: 'masthead'
+    name: 'masthead'
 }
 </script>
