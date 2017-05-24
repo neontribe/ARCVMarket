@@ -18,7 +18,6 @@
                             <label for="userPassword">Password</label>
                             <input type="password" v-model="password" id="userPassword" required>
                             <button type="submit" value="Log In">Log In</button>
-
                         </ul>
                     </form>
                 </div>
@@ -46,7 +45,7 @@
                 password: null,
                 remember: true
             }
-        },,
+        },
         methods: {
             /**
              * prods the store to make it login
@@ -58,7 +57,15 @@
                 };
                 Store.authenticate(userApiCreds, function () {
                     // I don't like this here, but it's the only place it works for now.
-                        this.$router.push({path: '/tap'});
+
+                    var redirect = this.$route.query.redirect;
+                    console.log(redirect);
+                    if (!redirect) {
+                        redirect = '/tap';
+                    }
+
+                    this.$router.push({path: redirect});
+
                 }.bind(this));
 
             }

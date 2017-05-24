@@ -14,10 +14,13 @@ import Payment from './pages/Payment.vue';
 import Login from './pages/Login.vue';
 import User from './pages/User.vue';
 
-// Import components
-// import Masthead from './components/Masthead.vue';
-// import Logo from './components/Logo.vue';
-// import Instructions from './components/Instructions.vue';
+/*
+route access rules
+auth -> true, user MUST be auth'd - friends only
+auth -> false, user MUST NOT be auth'd - stranger's only
+auth -> undefined, auth not important - public
+
+*/
 
 // Define routes
 const routes = [
@@ -28,7 +31,7 @@ const routes = [
     { path: '/upload', component: Upload, meta: { auth: true }  },
     { path: '/payment', component: Payment, meta: { auth: true }  },
     { path: '/login', component: Login, meta: { auth: false }  },
-    { path: '/user', component: User },
+    { path: '/user', component: User, meta: {auth : true } },
     { path: '*', redirect : "/" }
 ];
 
@@ -43,15 +46,17 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     var auth = Store.netMgr.isAuth();
     if (!auth && to.meta.auth) {
+        // not logged in, accessing friends-only page
         next({
             path: '/login',
             query: {redirect: to.fullPath} // TODO : redirect for deep logins
         });
     } else if (auth && !to.meta.auth)  {
-        console.log("hello");
-        next('/tap'); // if logged in, default to tap for guest-only routes
+        // logged in, accessing stranger's-only page
+        next('/tap');
     } else {
-        next(); // just do the link
+        // auth'd+friends-only || unauth'd+strangers-only, go where they asked
+        next();
     }
 });
 
