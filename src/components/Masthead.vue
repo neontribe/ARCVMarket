@@ -19,11 +19,11 @@
 
     <profile></profile>
 
-    <nav role="navigation" v-if="($route.path==='/' || $route.path==='/scan' || $route.path==='/upload') ? true : false">
+    <nav role="navigation" class="input-tab" v-if="($route.path==='/' || $route.path==='/scan' || $route.path==='/upload') ? true : false">
         <ul>
-            <router-link v-bind:to="'/'"><li>Type</li></router-link>
-            <router-link v-bind:to="'/scan'"><li>Scan</li></router-link>
-            <router-link v-bind:to="'/upload'"><li>Upload</li></router-link>
+            <router-link v-bind:to="'/'"><li class="tap"></li></router-link>
+            <router-link v-bind:to="'/scan'"><li class="scan"></li></router-link>
+            <router-link v-bind:to="'/upload'"><li class="upload"></li></router-link>
         </ul>
     </nav>
 
