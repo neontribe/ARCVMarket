@@ -18,14 +18,8 @@
                             <label for="userPassword">Password</label>
                             <input type="password" v-model="password" id="userPassword" required>
                             <button type="submit" value="Log In">Log In</button>
-
                         </ul>
                     </form>
-                </div>
-
-                <div class="multiple-choice checkbox">
-                    <input type="checkbox" id="rememberMe" v-model="remember">
-                    <label for="rememberMe">Stay logged in</label>
                 </div>
 
             </div>
@@ -39,6 +33,7 @@
     import Logo from '../components/Logo.vue';
     import Store from '../store.js';
 
+
     export default {
         name: 'login',
         components: {
@@ -48,18 +43,7 @@
             return {
                 username: null,
                 password: null,
-                remember: true,
-                auth: Store.auth
-            }
-        },
-        watch: {
-            /**
-             *  Watches this.auth to check for changes
-             */
-            auth: function (val) {
-                if (this.auth) {
-                    // TODO : router wiring
-                }
+                remember: true
             }
         },
         methods: {
@@ -72,8 +56,15 @@
                     password: this.password
                 };
                 Store.authenticate(userApiCreds, function () {
+
                     // I don't like this here, but it's the only place it works for now.
-                    this.auth = true;
+                    var redirect = this.$route.query.redirect;
+                    if (!redirect) {
+                        redirect = '/';
+                    }
+
+                    this.$router.push({path: redirect});
+
                 }.bind(this));
 
             }
