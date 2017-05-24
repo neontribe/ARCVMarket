@@ -19,14 +19,12 @@ route access rules
 auth -> true, user MUST be auth'd - friends only
 auth -> false, user MUST NOT be auth'd - stranger's only
 auth -> undefined, auth not important - public
-
 */
 
 // Define routes
 const routes = [
     { path: '/', component: Tap, meta: { auth: true } },
     { path: '/account', component: Account, meta: { auth: true }  },
-    { path: '/tap', component: Tap, meta: { auth: true }  },
     { path: '/scan', component: Scan, meta: { auth: true }  },
     { path: '/upload', component: Upload, meta: { auth: true }  },
     { path: '/payment', component: Payment, meta: { auth: true }  },
@@ -46,14 +44,14 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     var auth = Store.netMgr.isAuth();
     if (!auth && to.meta.auth) {
-        // auth'd, accessing friends-only page
+        // auth'd, accessing friends-only page, go to /login
         next({
             path: '/login',
             query: {redirect: to.fullPath}
         });
     } else if (auth && !to.meta.auth)  {
-        // auth'd, accessing stranger's-only page
-        next('/tap');
+        // auth'd, accessing stranger's-only page, go to /
+        next('/');
     } else {
         // auth'd+friends-only || unauth'd+strangers-only, go where they asked
         next();
