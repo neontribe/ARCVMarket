@@ -14,9 +14,12 @@
                 <li><router-link v-bind:to="'/account'"><i class="fa fa-user" aria-hidden="true"></i><br />My<br />Account</router-link></li>
             </ul>
         </nav>
+
     </header>
 
-    <nav role="navigation" class="input-tab" v-if="($route.path==='/' || $route.path==='/scan' || $route.path==='/upload') ? true : false">
+    <profile></profile>
+
+    <nav role="navigation" v-if="($route.path==='/' || $route.path==='/scan' || $route.path==='/upload') ? true : false">
         <ul>
             <router-link v-bind:to="'/'"><li>Type</li></router-link>
             <router-link v-bind:to="'/scan'"><li>Scan</li></router-link>
@@ -29,7 +32,11 @@
 </template>
 
 <script>
+import Profile from '../components/Profile.vue';
 export default {
-    name: 'masthead'
+    name: 'masthead',
+    components: {
+        Profile
+    }
 }
 </script>

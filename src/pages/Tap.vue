@@ -33,8 +33,6 @@
                         <button class="right" v-if="recVouchers[0].length > 0">Get payment</button>
                     </div>
 
-                    <div v-if="recVouchers[0] && recVouchers[0].length > 0">You have added <strong>{{ recVouchers[0].length }}</strong> vouchers.</div>
-
                 </form>
 
             </div>
@@ -45,8 +43,12 @@
 
 <script>
 import Store from '../store.js';
+import Profile from '../components/Profile.vue';
 export default {
     name: 'tap',
+    components: {
+        Profile
+    },
     data: function() {
         return {
             sponsorCode : "RVP",

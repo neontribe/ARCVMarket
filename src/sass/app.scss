@@ -45,6 +45,8 @@ h6 {
   font-family: $arc_headings;
 }
 
+.blah { float: right; }
+
 h1 {
   font-size: 1.5em;
 }
@@ -145,6 +147,7 @@ label {
 
 #textVoucher label {
   margin-bottom: 0;
+  height: 0;
 }
 
 button {
@@ -157,7 +160,7 @@ button {
   font-weight: bold;
   border: 0;
   border-radius: 3px;
-  margin: 2em auto;
+  margin: 0 auto;
   padding: 0 3em;
   box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
 }
@@ -227,7 +230,6 @@ header {
   }
   button {
     padding: 0;
-    margin: 1em auto;
     font-size: 0.9rem;
     width: 50%;
   }
@@ -332,7 +334,6 @@ main > *:target ~ * {
 // Accordion and voucher list styling
 .accordion,
 .voucher-list {
-  //box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
   font-size: 1.2em;
   label {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -531,6 +532,16 @@ main > *:target ~ * {
   }
 }
 
+.profile-bar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1em;
+  padding: 1.2em 2em;
+  background-color: $arc_white;
+  border-bottom: 1px solid rgba($arc_copy, 0.1);
+  border-top: 1px solid rgba($arc_copy, 0.1);
+}
+
 // Media queries
 @media (max-width: 768px) {
   body {
@@ -547,7 +558,7 @@ main > *:target ~ * {
         color: $arc_faded;
         font-weight: bold;
         flex: 1;
-        padding: 1em;
+        padding: 1.2em;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         &:focus,
         &:hover,
@@ -571,6 +582,10 @@ main > *:target ~ * {
     width: 216px;
   }
 
+  .profile-bar {
+    font-size: 0.8em;
+  }
+
   .fullwidth {
     padding: 1em 0 2em 0;
     width: 100%;
@@ -581,7 +596,6 @@ main > *:target ~ * {
 
   button {
     width: 100%;
-    margin: 2em auto;
   }
 
   .content {
@@ -595,13 +609,13 @@ main > *:target ~ * {
 
 @media (max-width: 580px) {
   .logo img {
-    width: 75%;
+    width: 70%;
   }
 }
 
 @media (max-width: 500px) {
   .fa {
-    font-size: 1.5em;
+    font-size: 1.3em;
   }
 
   .logo {
@@ -617,11 +631,14 @@ main > *:target ~ * {
     }
   }
 
+  h1 {
+    font-size: 1.3em;
+  }
+
   .content {
     &.fullwidth {
       width: 100%;
       h1 {
-        font-size: 1.4em;
         padding: 0 1.5rem;
       }
       p,
