@@ -50,7 +50,10 @@
 
                 </div>
 
-                <button class="smaller">Download list</button><button class="smaller">Log out</button>
+                <div class="two-buttons">
+                    <button class="left">Log out</button>
+                    <button class="right">Download list</button>
+                </div>
 
             </div>
 
