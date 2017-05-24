@@ -1,6 +1,6 @@
 <template id="masthead">
 
-  <div>
+  <div class="parent">
 
     <header role="header">
         <div class="logo">
@@ -19,13 +19,7 @@
 
     <profile></profile>
 
-    <nav role="navigation" class="input-tab" v-if="($route.path==='/' || $route.path==='/scan' || $route.path==='/upload') ? true : false">
-        <ul>
-            <router-link v-bind:to="'/'"><li class="tap"></li></router-link>
-            <router-link v-bind:to="'/scan'"><li class="scan"></li></router-link>
-            <router-link v-bind:to="'/upload'"><li class="upload"></li></router-link>
-        </ul>
-    </nav>
+    <toggle></toggle>
 
   </div>
 
@@ -33,10 +27,12 @@
 
 <script>
 import Profile from '../components/Profile.vue';
+import Toggle from '../components/Toggle.vue';
 export default {
     name: 'masthead',
     components: {
-        Profile
+        Profile,
+        Toggle
     }
 }
 </script>

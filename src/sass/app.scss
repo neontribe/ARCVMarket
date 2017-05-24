@@ -84,27 +84,6 @@ nav {
       background: transparent;
     }
   }
-  &.input-tab {
-    background-color: $arc_bg;
-    .fa {
-      padding-bottom: 0;
-    }
-    a {
-      color: $arc_copy;
-      font-weight: bold;
-      padding: 1.5em;
-      &.router-link-exact-active.router-link-active {
-        color: $arc_rose;
-      }
-    }
-    ul {
-      justify-content: flex-end;
-      padding: 0 1.5em;
-    }
-    li {
-      padding: 0;
-    }
-  }
 }
 
 section {
@@ -117,6 +96,16 @@ section {
 
 .router-link-exact-active.router-link-active {
   color: $arc_rose;
+}
+
+.parent {
+  position: relative;
+}
+
+.child {
+  position: absolute;
+  z-index: 9999;
+  right: 0;
 }
 
 input {
@@ -193,12 +182,15 @@ header {
   position: absolute;
   background-color: $arc_bg;
   margin: 0 auto;
-  padding: 0 2em 2em 2em;
+  padding: 2em;
   overflow: auto;
   width: calc(100% - 4em);
 }
 
-
+#login.container,
+#user.container {
+  padding: 2em;
+}
 
 .content {
   width: 50%;
@@ -554,38 +546,6 @@ main > *:target ~ * {
     position: relative;
     margin: 0 auto;
     margin-right: 0;
-    &.input-tab {
-      font-size: 1.3em;
-      a {
-        color: $arc_copy;
-        font-weight: normal;
-        padding: 0.8em;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        &:focus,
-        &:hover,
-        &.router-link-exact-active.router-link-active {
-          color: $arc_rose;
-        }
-      }
-      ul {
-        padding: 0;
-      }
-      .scan::before {
-        font-family: FontAwesome;
-        content: "\f030";
-        padding-right: 0.5em;
-      }
-      .upload::before {
-        font-family: FontAwesome;
-        content: "\f093";
-        padding-right: 0.5em;
-      }
-      .tap::before {
-        font-family: FontAwesome;
-        content: "\f11c";
-        padding-right: 0.5em;
-      }
-    }
   }
 
   header {
