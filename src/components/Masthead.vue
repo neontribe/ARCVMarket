@@ -19,7 +19,7 @@
 
     <profile></profile>
 
-    <toggle></toggle>
+    <transition name="fade"><toggle></toggle></transition>
 
   </div>
 

@@ -102,11 +102,6 @@ section {
   position: relative;
 }
 
-.child {
-  position: absolute;
-  z-index: 9999;
-  right: 0;
-}
 
 input {
   font-family: $arc_headings;
@@ -175,6 +170,30 @@ header {
       padding: 2em;
       display: flex;
     }
+  }
+}
+
+.profile-bar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1em;
+  padding: 1.2em 2em;
+  background-color: $arc_white;
+  border-bottom: 1px solid rgba($arc_copy, 0.1);
+  border-top: 1px solid $arc_faded;
+}
+
+.toggle {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  padding: 1.5em 2em;
+  a {
+    color: $arc_copy;
+    margin-left: 1.6em;
+  }
+  .fa {
+    margin-bottom: 0;
   }
 }
 
@@ -526,16 +545,6 @@ main > *:target ~ * {
   }
 }
 
-.profile-bar {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1em;
-  padding: 1.2em 2em;
-  background-color: $arc_white;
-  border-bottom: 1px solid rgba($arc_copy, 0.1);
-  border-top: 1px solid rgba($arc_copy, 0.1);
-}
-
 // Media queries
 @media (max-width: 768px) {
   body {
@@ -552,9 +561,20 @@ main > *:target ~ * {
     z-index: 1;
   }
 
+  h1 {
+    font-size: 1.4em;
+  }
+
   .logo img,
   .logo.login img {
     width: 216px;
+  }
+
+  .toggle {
+    padding: 1.5em 2em;
+    a {
+      font-size: 0.9em;
+    }
   }
 
   .fullwidth {
@@ -608,6 +628,15 @@ main > *:target ~ * {
 
   .profile-bar {
     font-size: 0.8em;
+    padding: 1.2em 1.5em;
+  }
+
+  .toggle {
+    padding: 1.2em 1.5em;
+    a {
+      margin-left: 1em;
+      font-size: 1em;
+    }
   }
 
   .content {
