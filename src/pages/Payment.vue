@@ -30,11 +30,12 @@
 
                 </div>
 
-                <button class="smaller">Download list</button>
+                <div class="two-buttons">
+                    <button class="left">Download list</button>
+                    <button class="right">Get payment</button>
+                </div>
 
                 <instructions></instructions>
-
-                <button class="smaller">Get payment</button>
 
             </div>
 

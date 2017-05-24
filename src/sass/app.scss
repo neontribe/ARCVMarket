@@ -222,6 +222,7 @@ header {
 
 .two-buttons {
   display: flex;
+  width: 100%;
   flex: 1;
   padding: 0;
   margin: 1em auto;
@@ -234,12 +235,16 @@ header {
     font-size: 0.9rem;
     width: 50%;
   }
-  #submitVoucher {
+  .left {
     margin-right: 0.5em;
     background-color: $arc_white;
     color: $arc_copy;
+    &.cta {
+      background-color: $arc_rose;
+      color: $arc_white;
+    }
   }
-  #getPayment {
+  .right {
     margin-left: 0.5em;
     &::after {
       font-family: FontAwesome;
