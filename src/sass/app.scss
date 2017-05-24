@@ -574,6 +574,9 @@ main > *:target ~ * {
   .fullwidth {
     padding: 1em 0 2em 0;
     width: 100%;
+    .two-buttons {
+      width: 100%;
+    }
   }
 
   button {
