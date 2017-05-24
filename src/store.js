@@ -103,7 +103,6 @@ store.postVouchers = function () {
         'trader_id': this.trader.id,
         'vouchers': this.vouchers
     };
-
     this.netMgr.apiPost('vouchers', postData, function (response) {
         // now we get the return values;
         store.getRecVouchers();

@@ -23,11 +23,6 @@
                     </form>
                 </div>
 
-                <div class="multiple-choice checkbox">
-                    <input type="checkbox" id="rememberMe" v-model="remember">
-                    <label for="rememberMe">Stay logged in</label>
-                </div>
-
             </div>
 
         </main>
@@ -39,6 +34,7 @@
     import Logo from '../components/Logo.vue';
     import Store from '../store.js';
 
+
     export default {
         name: 'login',
         components: {
@@ -48,20 +44,9 @@
             return {
                 username: null,
                 password: null,
-                remember: true,
-                auth: Store.auth
+                remember: true
             }
-        },
-        watch: {
-            /**
-             *  Watches this.auth to check for changes
-             */
-            auth: function (val) {
-                if (this.auth) {
-                    // TODO : router wiring
-                }
-            }
-        },
+        },,
         methods: {
             /**
              * prods the store to make it login
@@ -73,7 +58,7 @@
                 };
                 Store.authenticate(userApiCreds, function () {
                     // I don't like this here, but it's the only place it works for now.
-                    this.auth = true;
+                        this.$router.push({path: '/tap'});
                 }.bind(this));
 
             }
