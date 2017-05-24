@@ -210,6 +210,9 @@ header {
   }
   &.narrow {
     width: 40%;
+    .two-buttons {
+      width: 100%;
+    }
   }
 }
 
@@ -222,7 +225,7 @@ header {
 
 .two-buttons {
   display: flex;
-  width: 100%;
+  width: 40%;
   flex: 1;
   padding: 0;
   margin: 1em auto;
@@ -242,6 +245,7 @@ header {
     &.cta {
       background-color: $arc_rose;
       color: $arc_white;
+      width: 100%;
     }
   }
   .right {
@@ -578,7 +582,6 @@ main > *:target ~ * {
     padding: 1em 0 2em 0;
     width: 100%;
     button {
-      width: 92%;
       &.smaller {
         margin: 2em auto;
         &.list {
@@ -643,6 +646,9 @@ main > *:target ~ * {
         h1 {
           padding-left: 0;
         }
+      }
+      .two-buttons {
+        width: 92%;
       }
     }
   }
