@@ -1,6 +1,6 @@
 <template id="masthead">
 
-  <div class="parent">
+  <div class="wrapper">
 
     <header role="header">
         <div class="logo">
