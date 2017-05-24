@@ -159,6 +159,7 @@ button {
   border-radius: 3px;
   margin: 2em auto;
   padding: 0 3em;
+  box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
   &.smaller {
     padding: 0 3em;
     width: initial;
@@ -170,7 +171,6 @@ button {
 
 header {
   background-color: $arc_white;
-  //box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
   z-index: 1;
   display: flex;
   align-items: center;
@@ -217,6 +217,35 @@ header {
   margin-top: 1.5em;
   span {
     font-weight: bold;
+  }
+}
+
+.two-buttons {
+  display: flex;
+  flex: 1;
+  padding: 0;
+  margin: 1em auto;
+  a {
+    text-decoration: none;
+  }
+  button {
+    padding: 0;
+    margin: 1em auto;
+    font-size: 0.9rem;
+    width: 50%;
+  }
+  #submitVoucher {
+    margin-right: 0.5em;
+    background-color: $arc_white;
+    color: $arc_copy;
+  }
+  #getPayment {
+    margin-left: 0.5em;
+    &::after {
+      font-family: FontAwesome;
+      content: "\f0da";
+      padding-left: 0.5em;
+    }
   }
 }
 

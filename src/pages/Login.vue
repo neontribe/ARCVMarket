@@ -23,11 +23,6 @@
                     </form>
                 </div>
 
-                <div class="multiple-choice checkbox">
-                    <input type="checkbox" id="rememberMe" v-model="remember">
-                    <label for="rememberMe">Stay logged in</label>
-                </div>
-
             </div>
 
         </main>
