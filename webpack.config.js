@@ -4,7 +4,7 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 if (process.env.NODE_ENV === 'production') {
-    var publicPath = './';
+    var publicPath = 'https://neontribe.github.io/ARCVMarket/';
 } else {
     var publicPath = '/';
 }
