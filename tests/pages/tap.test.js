@@ -9,6 +9,11 @@ fixture `Type Page`
     .page(url);
 
 test('Page has h1', async t => {
+    await t
+        .typeText('#userName', 'arc+greta@neontribe.co.uk')
+        .typeText('#userPassword', 'market_pass')
+        .pressKey('enter')
+    ;
     const pageTitle = await el('main#tap h1').innerText;
     expect(pageTitle).to.equal('Type a voucher code');
 });
