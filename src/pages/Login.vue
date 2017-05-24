@@ -60,7 +60,7 @@
                     // I don't like this here, but it's the only place it works for now.
                     var redirect = this.$route.query.redirect;
                     if (!redirect) {
-                        redirect = '/tap';
+                        redirect = '/';
                     }
 
                     this.$router.push({path: redirect});
