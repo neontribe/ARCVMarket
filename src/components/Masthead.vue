@@ -18,9 +18,9 @@
 
     <nav role="navigation" class="input-tab" v-if="($route.path==='/' || $route.path==='/tap' || $route.path==='/scan' || $route.path==='/upload') ? true : false">
         <ul>
-            <router-link v-bind:to="'/tap'">Type</router-link>
-            <router-link v-bind:to="'/scan'">Scan</router-link>
-            <router-link v-bind:to="'/upload'">Upload</router-link>
+            <router-link v-bind:to="'/tap'"><li>Type</li></router-link>
+            <router-link v-bind:to="'/scan'"><li>Scan</li></router-link>
+            <router-link v-bind:to="'/upload'"><li>Upload</li></router-link>
         </ul>
     </nav>
 
