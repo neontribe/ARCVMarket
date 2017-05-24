@@ -28,9 +28,12 @@
                       >
                     </div>
 
-                    <button v-on:click="record" id="submitVoucher">Add voucher</button>
+                    <div class="two-buttons">
+                        <button v-on:click="record" id="submitVoucher" class="left" v-bind:class="{ cta : recVouchers[0].length === 0 }">Add <span v-if="recVouchers[0].length > 0">another </span></button>
+                        <button class="right" v-if="recVouchers[0].length > 0">Get payment</button>
+                    </div>
 
-                    <p v-if="recVouchers[0] && recVouchers[0].length > 0">You have added <strong>{{ recVouchers[0].length }}</strong> vouchers.</p>
+                    <div v-if="recVouchers[0] && recVouchers[0].length > 0">You have added <strong>{{ recVouchers[0].length }}</strong> vouchers.</div>
 
                 </form>
 

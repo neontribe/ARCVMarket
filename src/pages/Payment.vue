@@ -3,10 +3,8 @@
         <main class="container fullwidth" id="payment">
 
             <div class="content fullwidth">
-                <h1>My Voucher List</h1>
-
-                <p v-if="recVouchers[0].length > 0">You can request payment for <strong>{{ recVouchers[0].length }}</strong> vouchers.</p>
-                <p v-else>You haven't added any vouchers yet.</p>
+                <h1 v-if="recVouchers[0].length > 0">You can request payment for <strong>{{ recVouchers[0].length }}</strong> vouchers.</h1>
+                <h1 v-else>You haven't added any vouchers yet.</h1>
 
                 <div class="voucher-list" id="registeredVouchers" v-if="recVouchers[0].length > 0">
 
@@ -32,11 +30,12 @@
 
                 </div>
 
-                <button class="smaller">Download list</button>
+                <div class="two-buttons">
+                    <button class="left">Download list</button>
+                    <button class="right">Get payment</button>
+                </div>
 
                 <instructions></instructions>
-
-                <button class="smaller">Get payment</button>
 
             </div>
 
