@@ -160,13 +160,6 @@ button {
   margin: 2em auto;
   padding: 0 3em;
   box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
-  &.smaller {
-    padding: 0 3em;
-    width: initial;
-    &.list {
-      margin: 0.5em auto;
-    }
-  }
 }
 
 header {
@@ -581,23 +574,11 @@ main > *:target ~ * {
   .fullwidth {
     padding: 1em 0 2em 0;
     width: 100%;
-    button {
-      &.smaller {
-        margin: 2em auto;
-        &.list {
-          margin: 0.5em auto;
-          width: inherit;
-        }
-      }
-    }
   }
 
   button {
     width: 100%;
     margin: 2em auto;
-    &.smaller {
-      width: initial;
-    }
   }
 
   .content {
