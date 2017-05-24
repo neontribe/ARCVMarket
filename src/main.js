@@ -37,7 +37,7 @@ const routes = [
 
 // Create the router instance and pass the 'routes' option
 const router = new VueRouter({
-    routes, // short for routes: routes
+    routes,
     mode: 'history',
     base: '/'
 });
@@ -46,13 +46,13 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     var auth = Store.netMgr.isAuth();
     if (!auth && to.meta.auth) {
-        // not logged in, accessing friends-only page
+        // auth'd, accessing friends-only page
         next({
             path: '/login',
-            query: {redirect: to.fullPath} // TODO : redirect for deep logins
+            query: {redirect: to.fullPath}
         });
     } else if (auth && !to.meta.auth)  {
-        // logged in, accessing stranger's-only page
+        // auth'd, accessing stranger's-only page
         next('/tap');
     } else {
         // auth'd+friends-only || unauth'd+strangers-only, go where they asked
