@@ -30,7 +30,7 @@
 
                     <button v-on:click="record" id="submitVoucher">Add voucher</button>
 
-                    <p v-if="recVouchers[0].length > 0">You have added <strong>{{ recVouchers[0].length }}</strong> vouchers.</p>
+                    <p v-if="recVouchers[0] && recVouchers[0].length > 0">You have added <strong>{{ recVouchers[0].length }}</strong> vouchers.</p>
 
                 </form>
 
