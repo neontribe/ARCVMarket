@@ -30,6 +30,8 @@
 
                     <button v-on:click="record" id="submitVoucher">Add voucher</button>
 
+                    <p v-if="recVouchers[0] && recVouchers[0].length > 0">You have added <strong>{{ recVouchers[0].length }}</strong> vouchers.</p>
+
                 </form>
 
             </div>
@@ -46,7 +48,8 @@ export default {
         return {
             sponsorCode : "RVP",
             voucherCode : "",
-            vouchers : Store.vouchers
+            vouchers : Store.vouchers,
+            recVouchers : Store.recVouchers
         }
     },
     methods:  {
@@ -122,6 +125,9 @@ export default {
             var charCode = event.keyCode ? event.keyCode : event.charCode;
             return String.fromCharCode(charCode);
         }
+    },
+    mounted: function() {
+        Store.getRecVouchers();
     }
 }
 </script>
