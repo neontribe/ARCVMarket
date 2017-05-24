@@ -3,7 +3,7 @@ import { Selector } from 'testcafe';
 
 const el = Selector(selector => document.querySelector(selector));
 
-const url = 'https://neontribe.github.io';
+const url = 'https://neontribe.github.io/ARCVMarket';
 
 fixture `Type Page`
     .page(url);
