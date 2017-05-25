@@ -7,28 +7,18 @@
 
             <div class="content narrow">
 
-                <h1>Choose a trader account:</h1>
+                <h1>Choose a trader account to act for:</h1>
 
-                <div class="form-group">
-
-                    <div class="multiple-choice">
-                        <input id="radio-1" type="radio" name="radio-group">
-                        <label for="radio-1">{{ user1 }}</label>
-                    </div>
+                <div class="form-group" v-for="(trader, index) in userTraders">
 
                     <div class="multiple-choice">
-                        <input id="radio-2" type="radio" name="radio-group">
-                        <label for="radio-2">{{ user2 }}</label>
-                    </div>
-
-                    <div class="multiple-choice">
-                        <input id="radio-3" type="radio" name="radio-group">
-                        <label for="radio-3">{{ user3 }}</label>
+                        <input :id="'radio-'+index" type="radio" name="radio-group">
+                        <label :for="'radio-'+index">{{ trader }}</label>
                     </div>
 
                 </div>
 
-                <button id="submitVoucher">Log in as</button>
+                <button id="submitVoucher">Continue</button>
 
             </div>
 
@@ -38,17 +28,22 @@
 
 <script>
 import Logo from '../components/Logo.vue';
+import Store from "../store.js";
 export default {
     name: 'user',
     data() {
         return {
-            user1: "P and J Millward",
-            user2: "Dave and Dave Ltd",
-            user3: "Steve's Fruit and Veg",
+            userTraders : Store.user.traders
         }
     },
     components: {
         Logo
+    },
+    mounted : function() {
+        Store.getUserTraders();
+    },
+    methods : {
+
     }
 }
 </script>
