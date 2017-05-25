@@ -132,9 +132,21 @@ input {
     border: 2px solid $arc_focus;
     outline: none;
   }
+  // get rid of pale yellow background in input fields
   &:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px $arc_white inset;
   }
+}
+
+// remove dotted outline/borders in Firefox
+button:focus,
+a:focus,
+a:active,
+button::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner {
+  outline: none;
+  border: 0;
 }
 
 label {
@@ -156,8 +168,8 @@ button {
   color: $arc_white;
   display: block;
   text-align: center;
-  height: 48px;
   font-size: 1rem;
+  height: 48px;
   font-weight: bold;
   border: 0;
   border-radius: 3px;
@@ -188,17 +200,6 @@ button {
     opacity: .2;
     transition: 0s;
   }
-}
-
-// remove dotted outline/border in Firefox
-button:focus,
-a:focus,
-a:active,
-button::-moz-focus-inner,
-input[type="button"]::-moz-focus-inner,
-input[type="submit"]::-moz-focus-inner {
-  outline: none;
-  border: 0;
 }
 
 header {
