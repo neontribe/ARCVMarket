@@ -3,15 +3,15 @@ import { Selector } from 'testcafe';
 
 const el = Selector(selector => document.querySelector(selector));
 
-const url = 'http://localhost:8081/tap';
+const url = 'http://localhost:8081';
 
 fixture `Type Page`
     .page(url);
 
 test('Page has h1', async t => {
     await t
-        .typeText('#userName', 'arc+greta@neontribe.co.uk')
-        .typeText('#userPassword', 'market_pass')
+        .typeText('#userName', 'email@exapmle.com')
+        .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
     ;
     const pageTitle = await el('main#tap h1').innerText;
@@ -20,8 +20,8 @@ test('Page has h1', async t => {
 
 test('Page has masthead with logo and 2 nav', async t => {
     await t
-        .typeText('#userName', 'arc+greta@neontribe.co.uk')
-        .typeText('#userPassword', 'market_pass')
+        .typeText('#userName', 'email@example.com')
+        .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
     ;
     const logo = await el('header .logo').exists;
@@ -35,8 +35,8 @@ test('Page has masthead with logo and 2 nav', async t => {
 
 test('I can type and submit a voucher code ', async t => {
     await t
-        .typeText('#userName', 'arc+greta@neontribe.co.uk')
-        .typeText('#userPassword', 'market_pass')
+        .typeText('#userName', 'email@example.co.uk')
+        .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
     ;
     const sponsorCode = await el('#sponsorBox').value;
@@ -57,11 +57,11 @@ test('I can type and submit a voucher code ', async t => {
 
 test('Page displays number of recorded vouchers', async t => {
     await t
-        .typeText('#userName', 'arc+greta@neontribe.co.uk')
-        .typeText('#userPassword', 'market_pass')
+        .typeText('#userName', 'email@example.co.uk')
+        .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
     ;
-    const pageTitle = await el('main#tap form p').innerText;
+    const voucherCount = await el('main#tap form+div').innerText;
 
-    expect(pageTitle).to.contain('You have added 2 vouchers.');
+    expect(voucherCount).to.contain('You have added 2 vouchers.');
 });

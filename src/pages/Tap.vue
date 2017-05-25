@@ -33,11 +33,10 @@
                         <button class="right" v-if="recVouchers[0].length > 0">Get payment</button>
                     </div>
 
-                    <div v-if="recVouchers[0] && recVouchers[0].length > 0">You have added <strong>{{ recVouchers[0].length }}</strong> vouchers.</div>
-
                 </form>
 
-            </div>
+                <div v-if="recVouchers[0] && recVouchers[0].length > 0">You have added <strong>{{ recVouchers[0].length }}</strong> vouchers.</div>
+           </div>
 
         </main>
     </div>
