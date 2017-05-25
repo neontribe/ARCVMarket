@@ -36,6 +36,17 @@ body {
   height: 100%;
 }
 
+a {
+  text-decoration: none;
+  &:hover,
+  &.router-link-exact-active.router-link-active {
+    color: $arc_rose;
+  }
+  &:visited {
+    color: $arc_copy;
+  }
+}
+
 h1,
 h2,
 h3,
@@ -179,9 +190,15 @@ header {
   background-color: $arc_white;
   border-bottom: 1px solid rgba($arc_copy, 0.1);
   border-top: 1px solid $arc_faded;
+  a {
+    &:hover,
+    &.router-link-exact-active.router-link-active {
+      color: $arc_copy;
+    }
+  }
 }
 
-.toggle {
+.toolbar {
   position: absolute;
   z-index: 1;
   right: 0;
@@ -563,7 +580,7 @@ main > *:target ~ * {
     width: 216px;
   }
 
-  .toggle {
+  .toolbar {
     padding: 1.5em 2em;
     a {
       font-size: 0.9em;
@@ -624,7 +641,7 @@ main > *:target ~ * {
     padding: 1.2em 1.5em;
   }
 
-  .toggle {
+  .toolbar {
     padding: 1.2em 1.5em;
     a {
       margin-left: 1em;

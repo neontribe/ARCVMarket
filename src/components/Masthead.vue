@@ -19,7 +19,7 @@
 
     <profile></profile>
 
-    <transition name="fade"><toggle></toggle></transition>
+    <transition name="fade"><toolbar></toolbar></transition>
 
   </div>
 
@@ -27,12 +27,12 @@
 
 <script>
 import Profile from '../components/Profile.vue';
-import Toggle from '../components/Toggle.vue';
+import Toolbar from '../components/Toolbar.vue';
 export default {
     name: 'masthead',
     components: {
         Profile,
-        Toggle
+        Toolbar
     }
 }
 </script>
