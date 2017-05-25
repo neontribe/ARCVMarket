@@ -1,6 +1,6 @@
 <template id="masthead">
 
-  <div>
+  <div class="wrapper">
 
     <header role="header">
         <div class="logo">
@@ -14,22 +14,25 @@
                 <li><router-link v-bind:to="'/account'"><i class="fa fa-user" aria-hidden="true"></i><br />My<br />Account</router-link></li>
             </ul>
         </nav>
+
     </header>
 
-    <nav role="navigation" class="input-tab" v-if="($route.path==='/' || $route.path==='/scan' || $route.path==='/upload') ? true : false">
-        <ul>
-            <router-link v-bind:to="'/'"><li>Type</li></router-link>
-            <router-link v-bind:to="'/scan'"><li>Scan</li></router-link>
-            <router-link v-bind:to="'/upload'"><li>Upload</li></router-link>
-        </ul>
-    </nav>
+    <profile></profile>
+
+    <transition name="fade"><toolbar></toolbar></transition>
 
   </div>
 
 </template>
 
 <script>
+import Profile from '../components/Profile.vue';
+import Toolbar from '../components/Toolbar.vue';
 export default {
-    name: 'masthead'
+    name: 'masthead',
+    components: {
+        Profile,
+        Toolbar
+    }
 }
 </script>
