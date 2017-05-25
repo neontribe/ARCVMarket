@@ -101,11 +101,7 @@ Fixtures.apply = function (mock) {
     // route to get nicely structured user vouchers.
     mock.onGet('/traders/1/vouchers/history').reply(200, this.traderVoucherHistory["1"]);
 
-    mock.onGet('/traders/').reply(200, function() {
-        var data = this.userTraders[Store.user.id];
-        console.log(data);
-        return [200, data];
-    });
+    mock.onGet('/traders').reply(200, this.userTraders["2"]);
 
     // pass any other routes to actual endpoints
     mock.onAny().passThrough();

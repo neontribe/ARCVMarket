@@ -7,18 +7,20 @@
 
             <div class="content narrow">
 
-                <h1>Choose a trader account to act for:</h1>
+                <form id="frmTrader" v-on:submit.prevent>
 
-                <div class="form-group" v-for="(trader, index) in userTraders">
+                <h1>Choose a trader to manage</h1>
 
+                <div class="form-group" v-for="(trader, index) in this.userTraders[0]">
                     <div class="multiple-choice">
-                        <input :id="'radio-'+index" type="radio" name="radio-group">
-                        <label :for="'radio-'+index">{{ trader }}</label>
+                        <input :id="'radio-'+index" :value="trader" v-model="selectedTrader" type="radio" name="radio-group">
+                        <label :for="'radio-'+index">{{ trader.name }}</label>
                     </div>
-
                 </div>
 
-                <button id="submitVoucher">Continue</button>
+                <button id="submitVoucher" v-on:click="onContinue">Continue</button>
+
+                </form>
 
             </div>
 
@@ -33,17 +35,29 @@ export default {
     name: 'user',
     data() {
         return {
-            userTraders : Store.user.traders
+            userTraders: Store.user.traders,
+            selectedTrader: Store.trader
         }
     },
     components: {
         Logo
     },
+    watch: {
+        selectedTrader: function(val) {
+            console.log(val);
+        }
+    },
     mounted : function() {
         Store.getUserTraders();
     },
     methods : {
-
+        onContinue : function() {
+            var redirect = this.$route.query.redirect;
+            if (!redirect) {
+                redirect = '/';
+            }
+            this.$router.push({path: redirect});
+        }
     }
 }
 </script>

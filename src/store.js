@@ -3,6 +3,7 @@ import NetMgr from './services/netMgr.js';
 
 var store = {
     user: {
+        id : 1,
         traders : []
     },
     trader: {
