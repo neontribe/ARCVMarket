@@ -8,12 +8,16 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:8081
 npm run dev
 
 # build for production with minification
 npm run build
 ```
+
+## Testing
+Uses [Testcafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and [Chai](http://chaijs.com/)
+run with `npm test`
 
 ## Mocking
 In a development environment you can disable auto-mocks by adding a cookie in the console.
