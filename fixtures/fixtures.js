@@ -9,8 +9,7 @@ var Fixtures = {
                 "market_id": 2,
                 "created_at": "2017-05-24 14:19:22",
                 "updated_at": "2017-05-24 14:19:22",
-                "deleted_at": null,
-                "trader_id": 2
+                "deleted_at": null
             }
         ],
         "2": [
@@ -21,8 +20,7 @@ var Fixtures = {
                 "market_id": 4,
                 "created_at": "2017-05-24 14:19:22",
                 "updated_at": "2017-05-24 14:19:22",
-                "deleted_at": null,
-                "trader_id": 4,
+                "deleted_at": null
             },
             {
                 "id": 5,
@@ -31,8 +29,7 @@ var Fixtures = {
                 "market_id": 5,
                 "created_at": "2017-05-24 14:19:22",
                 "updated_at": "2017-05-24 14:19:22",
-                "deleted_at": null,
-                "trader_id": 5,
+                "deleted_at": null
             }
         ]
     },
