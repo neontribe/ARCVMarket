@@ -3,7 +3,7 @@ import { Selector } from 'testcafe';
 
 const el = Selector(selector => document.querySelector(selector));
 
-const url = 'http://localhost:8081';
+const url = 'http://localhost:8081/tap';
 
 fixture `Type Page`
     .page(url);
@@ -19,6 +19,11 @@ test('Page has h1', async t => {
 });
 
 test('Page has masthead with logo and 2 nav', async t => {
+    await t
+        .typeText('#userName', 'arc+greta@neontribe.co.uk')
+        .typeText('#userPassword', 'market_pass')
+        .pressKey('enter')
+    ;
     const logo = await el('header .logo').exists;
     const primaryNavItems = await el('header nav').find('li').count;
     const secondNavItems = await el('header+nav').find('a').count;
@@ -29,6 +34,11 @@ test('Page has masthead with logo and 2 nav', async t => {
 });
 
 test('I can type and submit a voucher code ', async t => {
+    await t
+        .typeText('#userName', 'arc+greta@neontribe.co.uk')
+        .typeText('#userPassword', 'market_pass')
+        .pressKey('enter')
+    ;
     const sponsorCode = await el('#sponsorBox').value;
     expect(sponsorCode).eql('RVP');
 
@@ -46,6 +56,11 @@ test('I can type and submit a voucher code ', async t => {
 });
 
 test('Page displays number of recorded vouchers', async t => {
+    await t
+        .typeText('#userName', 'arc+greta@neontribe.co.uk')
+        .typeText('#userPassword', 'market_pass')
+        .pressKey('enter')
+    ;
     const pageTitle = await el('main#tap form p').innerText;
 
     expect(pageTitle).to.contain('You have added 2 vouchers.');
