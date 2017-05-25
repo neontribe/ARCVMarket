@@ -29,11 +29,9 @@
                     </div>
 
                     <div class="two-buttons">
-                        <button v-on:click="record" id="submitVoucher" class="left" v-bind:class="{ cta : recVouchers[0].length === 0 }">Add <span v-if="recVouchers[0].length > 0">another </span></button>
+                        <button v-on:click="record" id="submitVoucher" class="left" v-bind:class="{ cta : recVouchers[0].length === 0 }">Add voucher</button>
                         <button class="right" v-if="recVouchers[0].length > 0">Get payment</button>
                     </div>
-
-                    <div v-if="recVouchers[0] && recVouchers[0].length > 0">You have added <strong>{{ recVouchers[0].length }}</strong> vouchers.</div>
 
                 </form>
 
@@ -45,8 +43,12 @@
 
 <script>
 import Store from '../store.js';
+import Profile from '../components/Profile.vue';
 export default {
     name: 'tap',
+    components: {
+        Profile
+    },
     data: function() {
         return {
             sponsorCode : "RVP",
