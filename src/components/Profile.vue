@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import Store from '../store.js';
 export default {
     name: 'profile',
     data: function() {
