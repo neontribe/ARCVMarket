@@ -18,7 +18,7 @@ test('Page has h1', async t => {
     expect(pageTitle).to.equal('Type a voucher code');
 });
 
-test('Page has masthead with logo and 2 nav', async t => {
+test('Page has masthead with logo, nav, profile bar and toolbar', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
@@ -26,10 +26,12 @@ test('Page has masthead with logo and 2 nav', async t => {
     ;
     const logo = await el('header .logo').exists;
     const primaryNavItems = await el('header nav').find('li').count;
-    const secondNavItems = await el('header+nav').find('a').count;
+    const profileBar = await el('header~.profile-bar');
+    const toolbar = await el('header~.toolbar').find('a').count;
 
     expect(primaryNavItems).to.equal(3);
-    expect(secondNavItems).to.equal(3);
+    expect(profileBar).to.exist;
+    expect(toolbar).to.equal(3);
     expect(logo).to.be.ok;
 });
 
