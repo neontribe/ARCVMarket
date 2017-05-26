@@ -76,7 +76,7 @@
         mounted: function () {
             Store.getVoucherPaymentState();
             console.log(this.voucherPayments);
-        }
+        },
         methods: {
             onLogout : function() {
                 Store.unAuthenticate();
