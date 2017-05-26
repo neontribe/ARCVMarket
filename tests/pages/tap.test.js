@@ -13,9 +13,6 @@ test('Page has h1', async t => {
         .typeText('#userName', 'email@exapmle.com')
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
-    ;
-    // trader picker
-    await t
         .click("#radio-0")
         .pressKey('enter')
     ;
@@ -30,8 +27,6 @@ test('Page has masthead with logo, nav, profile bar and toolbar', async t => {
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
-    ;
-    await t
         .click('input#radio-0')
         .pressKey('enter')
     ;
@@ -52,8 +47,6 @@ test('I can type and submit a voucher code ', async t => {
         .typeText('#userName', 'email@example.co.uk')
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
-    ;
-    await t
         .click('input#radio-0')
         .pressKey('enter')
     ;
@@ -79,8 +72,6 @@ test('Page displays number of recorded vouchers', async t => {
         .typeText('#userName', 'email@example.co.uk')
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
-    ;
-    await t
         .click('input#radio-0')
         .pressKey('enter')
     ;
