@@ -29,7 +29,7 @@ const routes = [
     { path: '/upload', component: Upload, meta: { auth: true }  },
     { path: '/payment', component: Payment, meta: { auth: true }  },
     { path: '/login', component: Login, meta: { auth: false }  },
-    { path: '/user', component: User, meta: {auth : true } },
+    { path: '/user', component: User, meta: { auth : true } },
     { path: '*', redirect : "/" }
 ];
 
@@ -42,20 +42,30 @@ const router = new VueRouter({
 
 // Route Guard rules for directing users
 router.beforeEach((to, from, next) => {
+
     var auth = Store.netMgr.isAuth();
     if (!auth && to.meta.auth) {
-        // auth'd, accessing friends-only page, go to /login
+        // not auth'd, accessing friends-only page, go to /login
         next({
             path: '/login',
             query: {redirect: to.fullPath}
         });
-    } else if (auth && !to.meta.auth)  {
-        // auth'd, accessing stranger's-only page, go to /
-        next('/');
-    } else {
-        // auth'd+friends-only || unauth'd+strangers-only, go where they asked
-        next();
+    } else if (auth) {
+        if (!Store.trader.id && to.path != "/user") {
+            // No trader? We need to go to the trader chooser next, then on to where-ever.
+            // "Wherever" will be dealt with *after* that page.
+            next({
+                path: '/user',
+                query: {redirect: to.path}
+            });
+        }
+        if (!to.meta.auth) {
+            // auth'd, trader'd but strangers-only page? Nope, go to '/'
+            next('/');
+        }
     }
+    // public || auth'd, trader'd+friends-only || unauth'd+strangers-only, go where they asked;
+    next();
 });
 
 var vm = new Vue({
