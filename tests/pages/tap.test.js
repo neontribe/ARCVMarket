@@ -14,7 +14,10 @@ test('Page has h1', async t => {
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
     ;
+    cosnt pageTitle =
+
     const pageTitle = await el('main#tap h1').innerText;
+
     expect(pageTitle).to.equal('Type a voucher code');
 });
 
