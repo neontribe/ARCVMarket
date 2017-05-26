@@ -13,8 +13,8 @@ test('Page has h1', async t => {
         .typeText('#userName', 'email@exapmle.com')
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
-        .click("#radio-0")
-        .pressKey('enter')
+        //.click("#radio-0")
+        //.pressKey('enter')
     ;
 
     const pageTitle = await el('main#tap h1').innerText;
@@ -27,8 +27,8 @@ test('Page has masthead with logo, nav, profile bar and toolbar', async t => {
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
-        .click('input#radio-0')
-        .pressKey('enter')
+        //.click('input#radio-0')
+        //.pressKey('enter')
     ;
 
     const logo = await el('header .logo').exists;
