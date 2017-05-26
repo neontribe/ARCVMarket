@@ -277,13 +277,6 @@ header {
   }
 }
 
-.counter {
-  margin-top: 1.5em;
-  span {
-    font-weight: bold;
-  }
-}
-
 h1.expandable {
   cursor: pointer;
   margin-bottom: 1.5em;
@@ -300,10 +293,6 @@ h1.expandable {
   }
 }
 
-.is-collapsed {
-  display: none;
-}
-
 .two-buttons {
   display: flex;
   width: 40%;
@@ -317,7 +306,7 @@ h1.expandable {
     padding: 0;
     font-size: 0.9rem;
     width: 50%;
-    margin: 0
+    margin: 0;
   }
   .left {
     margin-right: 0.5em;
@@ -422,6 +411,9 @@ main > *:target ~ * {
 
 .list-wrapper {
   margin-bottom: 2em;
+  &.is-collapsed {
+    display: none;
+  }
 }
 
 // Accordion and voucher list styling
