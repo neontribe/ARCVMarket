@@ -1,10 +1,12 @@
-import Vue from 'vue';
 import NetMgr from './services/netMgr.js';
 
 var store = {
-    user: {"id": 1},
+    user: {
+        id : 1,
+        traders : []
+    },
     trader: {
-        "id": 1,
+        id: null,
         pendedVouchers: []
     },
     vouchers: [],
@@ -44,6 +46,34 @@ store.unAuthenticate = function () {
     }.bind(this));
 };
 
+/**
+ * Updates the current User's Traders
+ * @returns {boolean}
+ */
+store.getUserTraders = function() {
+    this.netMgr.apiGet('/traders', function(response) {
+        this.user.traders.splice(0, this.user.traders.length, response.data);
+    }.bind(this));
+    return true;
+};
+
+/**
+ * User.trader to assign to trader.
+ * @param id
+ * @returns {boolean}
+ */
+store.setUserTrader = function(id) {
+    this.trader = this.user.traders[0].filter(function(userTrader) {
+        return userTrader.id === id;
+    })[0];
+    this.trader.pendedVouchers = [];
+    return (this.trader.id === id);
+};
+
+/**
+ *
+ * @returns {boolean}
+ */
 store.getVoucherPaymentState = function () {
     this.netMgr.apiGet('traders/' + this.user.id + '/vouchers/history', function (response) {
         this.trader.pendedVouchers.splice(0, this.trader.pendedVouchers.length, response.data);
