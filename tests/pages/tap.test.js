@@ -14,7 +14,11 @@ test('Page has h1', async t => {
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
     ;
-    cosnt pageTitle =
+    // trader picker
+    await t
+        .click("#radio-0")
+        .pressKey('enter')
+    ;
 
     const pageTitle = await el('main#tap h1').innerText;
 
@@ -27,6 +31,11 @@ test('Page has masthead with logo, nav, profile bar and toolbar', async t => {
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
     ;
+    await t
+        .click('input#radio-0')
+        .pressKey('enter')
+    ;
+
     const logo = await el('header .logo').exists;
     const primaryNavItems = await el('header nav').find('li').count;
     const profileBar = await el('header~.profile-bar');
@@ -44,6 +53,11 @@ test('I can type and submit a voucher code ', async t => {
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
     ;
+    await t
+        .click('input#radio-0')
+        .pressKey('enter')
+    ;
+
     const sponsorCode = await el('#sponsorBox').value;
     expect(sponsorCode).eql('RVP');
 
@@ -66,6 +80,11 @@ test('Page displays number of recorded vouchers', async t => {
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
     ;
+    await t
+        .click('input#radio-0')
+        .pressKey('enter')
+    ;
+
     const voucherCount = await el('#app > div.wrapper > div.profile-bar > div:nth-child(1)').innerText;
 
     expect(voucherCount).to.contain('2 vouchers waiting');
