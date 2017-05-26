@@ -1,9 +1,8 @@
 <template id="profile">
 
     <div class="profile-bar">
-        <div>Acting for <router-link v-bind:to="'/user'"><strong>P &amp; J Millward</strong></router-link></div>
+        <div>Managing <router-link v-bind:to="'/user'"><strong>{{ selectedTrader.name }}</strong></router-link></div>
         <div v-if="recVouchers[0] && recVouchers[0].length > 0"><strong>{{ recVouchers[0].length }}</strong> vouchers waiting</div>
-        <div>Managing <router-link v-bind:to="'/user'">{{ selectedTrader.name }}</router-link></div>
     </div>
 
 </template>
