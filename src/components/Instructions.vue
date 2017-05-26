@@ -8,6 +8,10 @@
             laboris nisi ut aliquip ex ea commodo consequat. Duis auteirure dolor in reprehenderit in
             voluptate velit esse cillum dolore eu fugiat nulla pariatur.
         </section>
+
+        <section>
+            <button class="left cta">Get payment</button>
+        </section>
     </div>
 
 </template>

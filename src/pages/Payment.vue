@@ -31,8 +31,8 @@
                 </div>
 
                 <div class="two-buttons">
-                    <button class="left">Download list</button>
-                    <button class="right">Get payment</button>
+                    <button class="left alt">Download .csv</button>
+                    <button class="right">Download .xlsx</button>
                 </div>
 
                 <instructions></instructions>

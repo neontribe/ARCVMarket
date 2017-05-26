@@ -306,9 +306,12 @@ header {
     margin-right: 0.5em;
     background-color: $arc_white;
     color: $arc_copy;
-    &.cta {
+    &.cta,
+    &.alt {
       background-color: $arc_rose;
       color: $arc_white;
+    }
+    &.cta {
       width: 100%;
     }
   }
@@ -698,15 +701,13 @@ main > *:target ~ * {
   .content {
     &.fullwidth {
       width: 100%;
-      h1 {
-        padding: 0 1.5rem;
-      }
+      h1,
       p,
       section {
-        padding: 0 1.5rem;
-        h1 {
-          padding-left: 0;
-        }
+        padding: 0 1rem;
+      }
+      section h1 {
+        padding-left: 0;
       }
       .two-buttons {
         width: 92%;
