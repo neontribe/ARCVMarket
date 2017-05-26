@@ -1,8 +1,6 @@
 <template>
     <div>
-        <header role="header">
-            <logo></logo>
-        </header>
+
         <main class="container" id="user">
 
             <div class="content narrow">
@@ -37,7 +35,6 @@
 </template>
 
 <script>
-import Logo from '../components/Logo.vue';
 export default {
     name: 'user',
     data() {
@@ -46,9 +43,6 @@ export default {
             user2: "Dave and Dave Ltd",
             user3: "Steve's Fruit and Veg",
         }
-    },
-    components: {
-        Logo
     }
 }
 </script>
