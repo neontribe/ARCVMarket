@@ -41,6 +41,8 @@
 
                 <instructions></instructions>
 
+                <router-link v-bind:to="'/account'"><button v-if="recVouchers[0] && recVouchers[0].length > 0">Get payment</button></router-link>
+
             </div>
 
         </main>

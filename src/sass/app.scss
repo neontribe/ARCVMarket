@@ -99,10 +99,6 @@ nav {
   }
 }
 
-section {
-  margin-top: 3em;
-}
-
 .hidden {
   visibility: hidden;
 }
@@ -175,7 +171,7 @@ button {
   font-weight: bold;
   border: 0;
   border-radius: 3px;
-  margin: 0 auto;
+  margin: 2em auto;
   padding: 0 3em;
   box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
   &:focus {
@@ -290,6 +286,7 @@ header {
 
 h1.expandable {
   cursor: pointer;
+  margin-bottom: 1.5em;
   &:before {
     font-weight: bold;
     font-family: FontAwesome;
@@ -320,6 +317,7 @@ h1.expandable {
     padding: 0;
     font-size: 0.9rem;
     width: 50%;
+    margin: 0
   }
   .left {
     margin-right: 0.5em;
@@ -422,8 +420,8 @@ main > *:target ~ * {
   opacity: 0
 }
 
-.list-wrapper .two-buttons {
-  margin: 2em auto;
+.list-wrapper {
+  margin-bottom: 2em;
 }
 
 // Accordion and voucher list styling
@@ -728,11 +726,12 @@ main > *:target ~ * {
       p,
       section {
         padding: 0 1rem;
+        h1 {
+          padding-left: 0;
+        }
       }
-      section h1 {
-        padding-left: 0;
-      }
-      .two-buttons {
+      .two-buttons,
+      button {
         width: 92%;
       }
       .list-wrapper .two-buttons {
