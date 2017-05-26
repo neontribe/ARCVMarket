@@ -24,7 +24,7 @@ test('Must fill both input boxes to log in successfully', async t => {
         .pressKey('enter')
     ;
     const pagePath = await t.eval(() => document.documentURI);
-    expect(pagePath).to.equal('http://localhost:8081/login?redirect=%2F');
+    expect(pagePath).to.equal(url + '/login?redirect=%2F');
 });
 
 test('Can log in', async t => {
