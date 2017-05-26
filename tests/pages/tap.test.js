@@ -63,7 +63,7 @@ test('Page displays number of recorded vouchers', async t => {
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
     ;
-    const voucherCount = await el('main#tap form+div').innerText;
+    const voucherCount = await el('#app > div.wrapper > div.profile-bar > div:nth-child(1)').innerText;
 
-    expect(voucherCount).to.contain('You have added 2 vouchers.');
+    expect(voucherCount).to.contain('2 vouchers waiting');
 });
