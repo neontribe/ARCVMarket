@@ -34,6 +34,8 @@ body {
   background-color: $arc_bg;
   margin: 0 auto;
   height: 100%;
+  // hide blue highlight on clicking
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 a {
@@ -47,8 +49,6 @@ a {
   &:visited {
     color: $arc_copy;
   }
-  // hide blue highlight when clicking a link
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 h1,
@@ -97,10 +97,6 @@ nav {
       background: transparent;
     }
   }
-}
-
-section {
-  margin-top: 3em;
 }
 
 .hidden {
@@ -175,7 +171,7 @@ button {
   font-weight: bold;
   border: 0;
   border-radius: 3px;
-  margin: 0 auto;
+  margin: 2em auto;
   padding: 0 3em;
   box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
   &:focus {
@@ -281,10 +277,19 @@ header {
   }
 }
 
-.counter {
-  margin-top: 1.5em;
-  span {
+h1.expandable {
+  cursor: pointer;
+  margin-bottom: 1.5em;
+  &:before {
     font-weight: bold;
+    font-family: FontAwesome;
+    content: "\f055";
+    padding-right: 0.5em;
+  }
+  &.expanded:before {
+    font-weight: bold;
+    font-family: FontAwesome;
+    content: "\f056";
   }
 }
 
@@ -301,14 +306,18 @@ header {
     padding: 0;
     font-size: 0.9rem;
     width: 50%;
+    margin: 0;
   }
   .left {
     margin-right: 0.5em;
     background-color: $arc_white;
     color: $arc_copy;
-    &.cta {
+    &.cta,
+    &.alt {
       background-color: $arc_rose;
       color: $arc_white;
+    }
+    &.cta {
       width: 100%;
     }
   }
@@ -398,6 +407,13 @@ main > *:target ~ * {
 
 .fade-enter, .fade-leave-active {
   opacity: 0
+}
+
+.list-wrapper {
+  margin-bottom: 2em;
+  &.is-collapsed {
+    display: none;
+  }
 }
 
 // Accordion and voucher list styling
@@ -698,18 +714,20 @@ main > *:target ~ * {
   .content {
     &.fullwidth {
       width: 100%;
-      h1 {
-        padding: 0 1.5rem;
-      }
+      h1,
       p,
       section {
-        padding: 0 1.5rem;
+        padding: 0 1rem;
         h1 {
           padding-left: 0;
         }
       }
-      .two-buttons {
+      .two-buttons,
+      button {
         width: 92%;
+      }
+      .list-wrapper .two-buttons {
+        margin: 1.5em auto;
       }
     }
   }

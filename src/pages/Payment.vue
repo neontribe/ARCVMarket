@@ -3,39 +3,45 @@
         <main class="container fullwidth" id="payment">
 
             <div class="content fullwidth">
-                <h1 v-if="recVouchers[0].length > 0">You can request payment for <strong>{{ recVouchers[0].length }}</strong> vouchers.</h1>
+                <h1 v-if="recVouchers[0] && recVouchers[0].length > 0" v-on:click="collapsed = !collapsed" class="expandable" v-bind:class="{'expanded' : !collapsed}">You can request payment for <strong>{{ recVouchers[0].length }}</strong> vouchers.</h1>
                 <h1 v-else>You haven't added any vouchers yet.</h1>
 
-                <div class="voucher-list" id="registeredVouchers" v-if="recVouchers[0].length > 0">
+                <div class="list-wrapper" v-bind:class="{'is-collapsed' : collapsed }">
 
-                    <!-- Tab header -->
-                    <div class="tab thead">
-                        <label>
-                            <div class="row-code">
-                                <div>Voucher code</div>
-                                <div>Date added</div>
-                            </div>
-                        </label>
+                    <div class="two-buttons">
+                        <button class="left alt">Download .csv</button>
+                        <button class="right">Download .xlsx</button>
                     </div>
 
-                    <!-- Tab row -->
-                    <div class="tab row" v-for="recVoucher in recVouchers[0]">
-                        <label>
-                            <div class="row-code">
-                                <div>{{ recVoucher.code }}</div>
-                                <div>{{ recVoucher.updated_at }}</div>
-                            </div>
-                        </label>
+                    <div class="voucher-list" id="registeredVouchers" v-if="recVouchers[0] && recVouchers[0].length > 0">
+
+                        <!-- Tab header -->
+                        <div class="tab thead">
+                            <label>
+                                <div class="row-code">
+                                    <div>Voucher code</div>
+                                    <div>Date added</div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Tab row -->
+                        <div class="tab row" v-for="recVoucher in recVouchers[0]">
+                            <label>
+                                <div class="row-code">
+                                    <div>{{ recVoucher.code }}</div>
+                                    <div>{{ recVoucher.updated_at }}</div>
+                                </div>
+                            </label>
+                        </div>
+
                     </div>
 
-                </div>
-
-                <div class="two-buttons">
-                    <button class="left">Download list</button>
-                    <button class="right">Get payment</button>
                 </div>
 
                 <instructions></instructions>
+
+                <router-link v-bind:to="'/account'"><button v-if="recVouchers[0] && recVouchers[0].length > 0">Get payment</button></router-link>
 
             </div>
 
@@ -53,7 +59,8 @@ export default {
     },
     data() {
         return {
-            recVouchers : Store.recVouchers
+            recVouchers : Store.recVouchers,
+            collapsed: true
         }
     },
     mounted: function() {
