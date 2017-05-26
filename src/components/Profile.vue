@@ -2,7 +2,7 @@
 
     <div class="profile-bar">
         <div v-if="recVouchers[0] && recVouchers[0].length > 0"><strong>{{ recVouchers[0].length }}</strong> vouchers waiting</div>
-        <div>Logged in as <router-link v-bind:to="'/user'"> {{ selectedTrader.name }} </router-link></div>
+        <div>Managing <router-link v-bind:to="'/user'">{{ selectedTrader.name }}</router-link></div>
     </div>
 
 </template>
@@ -11,10 +11,10 @@
 import Store from '../store.js';
 export default {
     name: 'profile',
-    data() {
+    data: function() {
         return {
-            recVouchers : Store.recVouchers,
-            selectedTrader: Store.trader
+            selectedTrader: Store.trader,
+            recVouchers : Store.recVouchers
         }
     },
     mounted: function() {
