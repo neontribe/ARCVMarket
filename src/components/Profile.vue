@@ -11,22 +11,14 @@
 import Store from '../store.js';
 export default {
     name: 'profile',
-    data: function() {
+    data() {
         return {
-            recVouchers : Store.recVouchers
+            recVouchers : Store.recVouchers,
+            selectedTrader: Store.trader
         }
     },
     mounted: function() {
         Store.getRecVouchers();
-    }
-    name: 'profile',
-    data() {
-        return {
-            selectedTrader: Store.trader
-        }
-    },
-    created : function() {
-        console.log(this.selectedTrader);
     }
 }
 </script>
