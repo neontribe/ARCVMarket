@@ -7,13 +7,13 @@
 
             <div class="content narrow">
 
-                <form id="frmTrader" v-on:submit.prevent>
+                <form id="frmChooseTrader" v-on:submit.prevent >
 
                 <h1>Choose a trader to manage</h1>
 
                 <div class="form-group" v-for="(trader, index) in this.userTraders[0]">
                     <div class="multiple-choice">
-                        <input :id="'radio-'+index" :value="trader" v-model="selectedTrader" type="radio" name="radio-group">
+                        <input :id="'radio-'+index" :value="trader.id" v-model="checked" type="radio" name="radio-group">
                         <label :for="'radio-'+index">{{ trader.name }}</label>
                     </div>
                 </div>
@@ -36,28 +36,26 @@ export default {
     data() {
         return {
             userTraders: Store.user.traders,
-            selectedTrader: Store.trader
+            checked : [] // Is at least one radio button clicked.
         }
     },
     components: {
         Logo
-    },
-    watch: {
-        selectedTrader: function(val) {
-            console.log(val);
-        }
     },
     mounted : function() {
         Store.getUserTraders();
     },
     methods : {
         onContinue : function() {
-            var redirect = this.$route.query.redirect;
-            if (!redirect) {
-                redirect = '/';
+            if (Store.setUserTrader(this.checked)) {
+                var redirect = this.$route.query.redirect;
+                if (!redirect) {
+                    redirect = '/';
+                }
+                this.$router.push({path: redirect});
             }
-            this.$router.push({path: redirect});
         }
+
     }
 }
 </script>

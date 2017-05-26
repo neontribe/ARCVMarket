@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import NetMgr from './services/netMgr.js';
 
 var store = {
@@ -56,6 +55,19 @@ store.getUserTraders = function() {
         this.user.traders.splice(0, this.user.traders.length, response.data);
     }.bind(this));
     return true;
+};
+
+/**
+ * User.trader to assign to trader.
+ * @param id
+ * @returns {boolean}
+ */
+store.setUserTrader = function(id) {
+    this.trader = this.user.traders[0].filter(function(userTrader) {
+        return userTrader.id === id;
+    })[0];
+    this.trader.pendedVouchers = [];
+    return (this.trader.id === id);
 };
 
 /**
