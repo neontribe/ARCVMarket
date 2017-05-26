@@ -6,7 +6,7 @@
 
         <main class="container" id="login">
 
-            <div class="content">
+            <div class="content narrow">
 
                 <h1>Log In</h1>
 
