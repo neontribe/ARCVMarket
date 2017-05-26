@@ -1,8 +1,6 @@
 <template>
     <div>
-        <header role="header">
-            <logo></logo>
-        </header>
+
         <main class="container" id="user">
 
             <div class="content narrow">
@@ -29,7 +27,6 @@
 </template>
 
 <script>
-import Logo from '../components/Logo.vue';
 import Store from "../store.js";
 export default {
     name: 'user',
@@ -38,9 +35,6 @@ export default {
             userTraders: Store.user.traders,
             checked : [] // Is at least one radio button clicked.
         }
-    },
-    components: {
-        Logo
     },
     mounted : function() {
         Store.getUserTraders();

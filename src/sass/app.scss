@@ -47,6 +47,8 @@ a {
   &:visited {
     color: $arc_copy;
   }
+  // hide blue highlight when clicking a link
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 h1,
