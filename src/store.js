@@ -7,7 +7,7 @@ var store = {
     },
     trader: {
         id: null,
-        pendedVouchers: [],
+        pendedVouchers: []
     },
     vouchers: [],
     recVouchers: [],
