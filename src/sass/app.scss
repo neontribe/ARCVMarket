@@ -34,6 +34,8 @@ body {
   background-color: $arc_bg;
   margin: 0 auto;
   height: 100%;
+  // hide blue highlight when clicking a link
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 a {
@@ -47,8 +49,6 @@ a {
   &:visited {
     color: $arc_copy;
   }
-  // hide blue highlight when clicking a link
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 h1,
@@ -288,6 +288,25 @@ header {
   }
 }
 
+h1.expandable {
+  cursor: pointer;
+  &:before {
+    font-weight: bold;
+    font-family: FontAwesome;
+    content: "\f055";
+    padding-right: 0.5em;
+  }
+  &.expanded:before {
+    font-weight: bold;
+    font-family: FontAwesome;
+    content: "\f056";
+  }
+}
+
+.is-collapsed {
+  display: none;
+}
+
 .two-buttons {
   display: flex;
   width: 40%;
@@ -401,6 +420,10 @@ main > *:target ~ * {
 
 .fade-enter, .fade-leave-active {
   opacity: 0
+}
+
+.list-wrapper .two-buttons {
+  margin: 2em auto;
 }
 
 // Accordion and voucher list styling
@@ -711,6 +734,9 @@ main > *:target ~ * {
       }
       .two-buttons {
         width: 92%;
+      }
+      .list-wrapper .two-buttons {
+        margin: 1.5em auto;
       }
     }
   }
