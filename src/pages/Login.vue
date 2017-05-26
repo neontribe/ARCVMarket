@@ -1,8 +1,5 @@
 <template>
     <div>
-        <header role="header">
-            <logo></logo>
-        </header>
 
         <main class="container" id="login">
 
@@ -30,15 +27,11 @@
 </template>
 
 <script>
-    import Logo from '../components/Logo.vue';
     import Store from '../store.js';
 
 
     export default {
         name: 'login',
-        components: {
-            Logo
-        },
         data: function () {
             return {
                 username: null,
