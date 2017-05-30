@@ -14,7 +14,7 @@ var store = {
     netMgr: NetMgr,
     auth: false,
     error: null
-  }
+  };
 
 
 
@@ -112,7 +112,7 @@ store.setUserTrader = function(id) {
  * @returns {boolean}
  */
 store.getVoucherPaymentState = function () {
-    this.netMgr.apiGet('traders/' + this.user.id + '/voucher-history', function (response) {
+    this.netMgr.apiGet('traders/' + this.trader.id + '/voucher-history', function (response) {
         this.trader.pendedVouchers.splice(0, this.trader.pendedVouchers.length, response.data);
     }.bind(this));
     return true;
@@ -122,7 +122,7 @@ store.getVoucherPaymentState = function () {
  * Gets the server's idea of a trader's recorder voucher list
  */
 store.getRecVouchers = function () {
-    this.netMgr.apiGet('/traders/' + this.user.id + '/vouchers',
+    this.netMgr.apiGet('/traders/' + this.trader.id + '/vouchers',
         function (response) {
             var newVouchers = response.data;
             newVouchers.sort(function (b, a) {
