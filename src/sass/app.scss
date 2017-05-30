@@ -171,7 +171,7 @@ button {
   font-weight: bold;
   border: 0;
   border-radius: 3px;
-  margin: 2em auto;
+  margin: 1em auto;
   padding: 0 3em;
   box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.2);
   &:focus {
@@ -293,6 +293,12 @@ h1.expandable {
   }
 }
 
+.cta {
+  background-color: $arc_rose;
+  color: $arc_white;
+  width: 100%;
+}
+
 .two-buttons {
   display: flex;
   width: 40%;
@@ -312,13 +318,9 @@ h1.expandable {
     margin-right: 0.5em;
     background-color: $arc_white;
     color: $arc_copy;
-    &.cta,
     &.alt {
       background-color: $arc_rose;
       color: $arc_white;
-    }
-    &.cta {
-      width: 100%;
     }
   }
   .right {
