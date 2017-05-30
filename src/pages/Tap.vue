@@ -28,10 +28,7 @@
                       >
                     </div>
 
-                    <div class="two-buttons">
-                        <button v-on:click="record" id="submitVoucher" class="left" v-bind:class="{ cta : recVouchers[0] && recVouchers[0].length === 0 }">Add <span v-if="recVouchers[0] && recVouchers[0].length > 0">another </span><span v-else>voucher</span></button>
-                        <button class="right" v-if="recVouchers[0] && recVouchers[0].length > 0">Get payment</button>
-                    </div>
+                    <button v-on:click="record" id="submitVoucher" class="cta">Submit code</button>
 
                 </form>
 
