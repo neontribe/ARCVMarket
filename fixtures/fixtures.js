@@ -99,7 +99,7 @@ Fixtures.apply = function (mock) {
     mock.onPost('/login').reply(200, this.oauthUserToken);
 
     // route to get nicely structured user vouchers.
-    mock.onGet('/traders/1/vouchers/history').reply(200, this.traderVoucherHistory["1"]);
+    mock.onGet('/traders/1/voucher-history').reply(200, this.traderVoucherHistory["1"]);
 
     mock.onGet('/traders').reply(200, this.userTraders["2"]);
 
