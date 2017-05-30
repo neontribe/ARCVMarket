@@ -10,7 +10,7 @@ fixture `Scan Page`
 
 test('Header text is correct', async t => {
 	await t
-		.typeText('#userName', 'email@example.com')
+	    .typeText('#userName', 'email@example.com')
 	    .typeText('#userPassword', 'secretpass')
 	    .pressKey('enter')
 	;

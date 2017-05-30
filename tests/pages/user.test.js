@@ -10,7 +10,7 @@ fixture `User Page`
 
 test('Header text is correct', async t => {
 	await t
-		.typeText('#userName', 'email@example.com')
+	    .typeText('#userName', 'email@example.com')
 	    .typeText('#userPassword', 'secretpass')
 	    .pressKey('enter')
 	;
@@ -25,7 +25,7 @@ test('Header text is correct', async t => {
 
 test('The correct amout of traders exist', async t => {
 	await t
-		.typeText('#userName', 'email@example.com')
+	    .typeText('#userName', 'email@example.com')
 	    .typeText('#userPassword', 'secretpass')
 	    .pressKey('enter')
 	;
@@ -40,7 +40,7 @@ test('The correct amout of traders exist', async t => {
 
 test('Submit button exists', async t => {
 	await t
-		.typeText('#userName', 'email@example.com')
+	    .typeText('#userName', 'email@example.com')
 	    .typeText('#userPassword', 'secretpass')
 	    .pressKey('enter')
 	;

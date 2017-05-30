@@ -40,7 +40,7 @@ test('Header text is correct', async t => {
 
 test('Requested payments accordion exists', async t => {
 	await t
-		.typeText('#userName', 'email@example.com')
+	    .typeText('#userName', 'email@example.com')
 	    .typeText('#userPassword', 'secretpass')
 	    .pressKey('enter')
 	;
@@ -55,7 +55,7 @@ test('Requested payments accordion exists', async t => {
 
 test('Logout and download buttons exist', async t => {
 	await t
-		.typeText('#userName', 'email@example.com')
+	    .typeText('#userName', 'email@example.com')
 	    .typeText('#userPassword', 'secretpass')
 	    .pressKey('enter')
 	;
