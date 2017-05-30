@@ -12,7 +12,8 @@ var store = {
     vouchers: [],
     recVouchers: [],
     netMgr: NetMgr,
-    auth: false
+    auth: false,
+    errors: ["The username and password combination entered was not recognised. Please check your details and try again."]
 };
 
 

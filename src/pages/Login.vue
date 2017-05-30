@@ -7,7 +7,7 @@
 
                 <h1>Log In</h1>
 
-                <div class="message">The username and password combination entered was not recognised. Please check your details and try again.</div>
+                <div class="message">{{ errorMessage }}</div>
 
                 <div>
                     <form id="loginForm" v-on:submit.prevent="onLogin">
@@ -28,16 +28,20 @@
 
 <script>
     import Store from '../store.js';
-
-
     export default {
         name: 'login',
         data: function () {
             return {
                 username: null,
                 password: null,
-                remember: true
+                remember: true,
+                errorMessage : Store.errors[0]
             }
+        },
+        watch: {
+          errorMessage: function() {
+              return this.errorMessage
+          }
         },
         methods: {
             /**
