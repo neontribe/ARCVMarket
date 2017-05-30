@@ -9,8 +9,12 @@
                 <div class="list-wrapper" v-bind:class="{'is-collapsed' : collapsed }">
 
                     <div class="two-buttons">
-                        <button class="left alt">Download .csv</button>
-                        <button class="right">Download .xlsx</button>
+                        <button class="left alt" 
+                            v-on:click="getRecVouchers('application/csv')"
+                        >Download .csv</button>
+                        <button class="right"
+                            v-on:click="getRecVouchers('application/xlsx')"
+                        >Download .xlsx</button>
                     </div>
 
                     <div class="voucher-list" id="registeredVouchers" v-if="recVouchers[0] && recVouchers[0].length > 0">
@@ -52,6 +56,7 @@
 <script>
 import Store from '../store.js';
 import Instructions from '../components/Instructions.vue';
+import NetMgr from '../services/netMgr.js';
 export default {
     name: 'payment',
     components: {
@@ -62,6 +67,13 @@ export default {
             recVouchers : Store.recVouchers,
             collapsed: true
         }
+    },
+    methods: {
+        getRecVouchers(format) {
+            NetMgr.apiGet('/traders/' + Store.trader.id + '/vouchers',
+                {headers: {'Accept' : format}}
+            );
+        },
     },
     mounted: function() {
         // initialise the current vouchers list;
