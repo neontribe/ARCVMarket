@@ -275,6 +275,8 @@ header {
     }
   }
   .input-icons {
+    position: absolute;
+    right: 2em;
     a {
       margin-left: 1.6em;
       font-size: 1em;
@@ -757,6 +759,8 @@ main > *:target ~ * {
       font-size: 1em;
     }
     .input-icons {
+      position: absolute;
+      right: 1.3em;
       a {
         margin-left: 1em;
         font-size: 1em;
