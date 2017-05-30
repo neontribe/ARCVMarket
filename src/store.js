@@ -100,7 +100,6 @@ store.setUserTrader = function(id) {
  * @returns {boolean}
  */
 store.getVoucherPaymentState = function () {
-    console.log(this.trader);
     this.netMgr.apiGet('traders/' + this.trader.id + '/voucher-history', function (response) {
         this.trader.pendedVouchers.splice(0, this.trader.pendedVouchers.length, response.data);
     }.bind(this));
@@ -111,7 +110,6 @@ store.getVoucherPaymentState = function () {
  * Gets the server's idea of a trader's recorder voucher list
  */
 store.getRecVouchers = function () {
-    console.log(this.trader);
     this.netMgr.apiGet('/traders/' + this.trader.id + '/vouchers',
         function (response) {
             var newVouchers = response.data;
