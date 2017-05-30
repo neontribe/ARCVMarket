@@ -75,12 +75,11 @@
         },
         mounted: function () {
             Store.getVoucherPaymentState();
-            console.log(this.voucherPayments);
         },
         methods: {
             onLogout : function() {
                 Store.unAuthenticate();
-                this.$router.go('/login');
+                this.$router.push('/login');
             }
         }
     }
