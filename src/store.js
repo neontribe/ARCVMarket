@@ -14,7 +14,7 @@ var store = {
     netMgr: NetMgr,
     auth: false,
     error: null
-  }
+  };
 
 
 
