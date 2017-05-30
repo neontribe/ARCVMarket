@@ -293,6 +293,12 @@ h1.expandable {
   }
 }
 
+.cta {
+  background-color: $arc_rose;
+  color: $arc_white;
+  width: 100%;
+}
+
 .two-buttons {
   display: flex;
   width: 40%;
@@ -312,13 +318,9 @@ h1.expandable {
     margin-right: 0.5em;
     background-color: $arc_white;
     color: $arc_copy;
-    &.cta,
     &.alt {
       background-color: $arc_rose;
       color: $arc_white;
-    }
-    &.cta {
-      width: 100%;
     }
   }
   .right {
