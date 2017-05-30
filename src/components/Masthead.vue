@@ -10,7 +10,7 @@
             <nav role="navigation" v-if="headerFull">
                 <ul>
                     <li><router-link v-bind:to="'/'"><i class="fa fa-keyboard-o" aria-hidden="true"></i><br />Add Voucher</router-link></li>
-                    <li><router-link v-bind:to="'/payment'"><i class="fa fa-rocket" aria-hidden="true"></i><br />Queued<br />Vouchers</router-link></li>
+                    <li><router-link v-bind:to="'/payment'"><i class="fa fa-rocket" aria-hidden="true"></i><br />Get<br />Payment</router-link></li>
                     <li><router-link v-bind:to="'/account'"><i class="fa fa-user" aria-hidden="true"></i><br />My<br />Account</router-link></li>
                 </ul>
             </nav>
