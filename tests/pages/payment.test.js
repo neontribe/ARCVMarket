@@ -18,14 +18,14 @@ test('Payments page can be accessed', async t => {
     const paymentNavButton = await el('a[href*="/payment"');
 
     await t
-    	.click(paymentNavButton)
+        .click(paymentNavButton)
     ;
     const pagePath = await t.eval(() => window.location);
     expect(pagePath.pathname).eql('/payment');
 });
 
 test('Voucher code list exists', async t => {
-	await t
+    await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
@@ -33,14 +33,14 @@ test('Voucher code list exists', async t => {
     const paymentNavButton = await el('a[href*="/payment"');
 
     await t
-    	.click(paymentNavButton)
+        .click(paymentNavButton)
     ;
-	const voucherList = await el('#registeredVouchers').exists;
-	expect(voucherList).to.be.ok;
+    const voucherList = await el('#registeredVouchers').exists;
+    expect(voucherList).to.be.ok;
 });
 
 test('Download and Payment buttons exist', async t => {
-	await t
+    await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
@@ -48,7 +48,7 @@ test('Download and Payment buttons exist', async t => {
     const paymentNavButton = await el('a[href*="/payment"');
 
     await t
-    	.click(paymentNavButton)
+        .click(paymentNavButton)
     ;
     const downloadButton = await el('button.left').exists;
     const paymentButton = await el('button.right').exists;

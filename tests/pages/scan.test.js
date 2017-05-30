@@ -9,16 +9,16 @@ fixture `Scan Page`
     .page(url);
 
 test('Header text is correct', async t => {
-	await t
-	    .typeText('#userName', 'email@example.com')
-	    .typeText('#userPassword', 'secretpass')
-	    .pressKey('enter')
-	;
-	const scanButton = await el('a[href*="/scan"');
+    await t
+        .typeText('#userName', 'email@example.com')
+        .typeText('#userPassword', 'secretpass')
+        .pressKey('enter')
+    ;
+    const scanButton = await el('a[href*="/scan"');
 
-	await t
-		.click(scanButton)
-	;
-	const header = await el('main#scan .content h1').innerText;
+    await t
+        .click(scanButton)
+    ;
+    const header = await el('main#scan .content h1').innerText;
     expect(header).to.equal('Scan a voucher code');
 });
