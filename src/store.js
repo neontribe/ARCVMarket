@@ -12,8 +12,11 @@ var store = {
     vouchers: [],
     recVouchers: [],
     netMgr: NetMgr,
-    auth: false
-};
+    auth: false,
+    error: null
+  }
+
+
 
 
 store.resetStore = function() {
@@ -28,6 +31,7 @@ store.resetStore = function() {
     };
     this.vouchers = this.vouchers.splice(0, this.vouchers);
     this.recVouchers = this.recVouchers.splice(0, this.recVouchers);
+    this.error = null;
 };
 
 /**
@@ -43,10 +47,18 @@ store.authenticate = function (userApiCreds, success, failure) {
             success();
         }.bind(this),
         function (error) {
-            if (failure) {
-                failure(error)
+            var err = null;
+            switch (error.response.status) {
+              case 401 :
+                err = "The username and password combination entered was not recognised. Please check your details and try again.";
+                break;
+              default :
+                err = "Something unusual has happened.";
             }
-        }
+            if (failure) {
+              failure(err);
+            }
+        }.bind(this)
     );
 };
 
