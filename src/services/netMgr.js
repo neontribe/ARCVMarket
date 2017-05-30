@@ -62,8 +62,9 @@ NetMgr.setToken = function (tokenData) {
  *
  * @param format 
  */
-NetMgr.setAccess = function (format) {
-    this.axiosInstance.defaults.headers.common['Access'] = format;
+NetMgr.setAccept = function (format) {
+    console.log(this.axiosInstance.defaults.headers);
+    this.axiosInstance.defaults.headers.common['Accept'] = format;
 };
 
 /**

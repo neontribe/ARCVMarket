@@ -70,7 +70,7 @@ export default {
     },
     methods: {
         getRecVouchers(format) {
-            NetMgr.setAccess(format);
+            NetMgr.setAccept(format);
             NetMgr.apiGet('/traders/' + Store.trader.id + '/vouchers');
         },
     },
