@@ -7,15 +7,15 @@
 
                 <h1>Log In</h1>
 
+                <div class="message">The username and password combination entered was not recognised. Please check your details and try again.</div>
+
                 <div>
                     <form id="loginForm" v-on:submit.prevent="onLogin">
-                        <ul>
-                            <label for="userName">Username</label>
-                            <input type="text" v-model="username" id="userName" required>
-                            <label for="userPassword">Password</label>
-                            <input type="password" v-model="password" id="userPassword" required>
-                            <button type="submit" value="Log In">Log In</button>
-                        </ul>
+                        <label for="userName">Username</label>
+                        <input type="text" v-model="username" id="userName" required>
+                        <label for="userPassword">Password</label>
+                        <input type="password" v-model="password" id="userPassword" required>
+                        <button type="submit" value="Log In">Log In</button>
                     </form>
                 </div>
 
