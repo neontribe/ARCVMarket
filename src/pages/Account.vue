@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="two-buttons">
-                    <button class="left">Log out</button>
+                    <button class="left" v-on:click="onLogout">Log out</button>
                     <button class="right">Download list</button>
                 </div>
 
@@ -75,7 +75,12 @@
         },
         mounted: function () {
             Store.getVoucherPaymentState();
-            console.log(this.voucherPayments);
+        },
+        methods: {
+            onLogout : function() {
+                Store.unAuthenticate();
+                this.$router.push('/login');
+            }
         }
     }
 </script>

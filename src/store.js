@@ -15,6 +15,21 @@ var store = {
     auth: false
 };
 
+
+store.resetStore = function() {
+    // TODO : I'm thinking we need some user/trader objects that manage this.
+    this.user = {
+        id: null,
+        traders : []
+    };
+    this.trader = {
+        id : null,
+        pendedVouchers : []
+    };
+    this.vouchers = this.vouchers.splice(0, this.vouchers);
+    this.recVouchers = this.recVouchers.splice(0, this.recVouchers);
+};
+
 /**
  * Called from vue componenets, proxies logon process for them.
  * @param userApiCreds
@@ -38,12 +53,22 @@ store.authenticate = function (userApiCreds, success, failure) {
 /**
  * Logs the user off
  */
-store.unAuthenticate = function () {
-    this.netMgr.apiPost('/logout', null, function (response) {
-        this.netMgr.setToken(null);
-        this.auth = this.netMgr.isAuth();
-        // TODO: add store reset code.
-    }.bind(this));
+store.unAuthenticate = function (success, failure) {
+    // Hit the logout endpoint.
+    this.netMgr.apiPost('/logout', null,
+        function (response) {
+            if (success) {
+                success(response);
+            }
+        }.bind(this),
+        function (error) {
+            if (failure) {
+                failure(error);
+            }
+        });
+    // tidy up store stuff.
+    this.resetStore();
+    this.netMgr.setToken(null);
 };
 
 /**

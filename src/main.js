@@ -42,7 +42,6 @@ const router = new VueRouter({
 
 // Route Guard rules for directing users
 router.beforeEach((to, from, next) => {
-
     var auth = Store.netMgr.isAuth();
     if (!auth && to.meta.auth) {
         // not auth'd, accessing friends-only page, go to /login
@@ -67,6 +66,14 @@ router.beforeEach((to, from, next) => {
     // public || auth'd, trader'd+friends-only || unauth'd+strangers-only, go where they asked;
     next();
 });
+
+// The routing isn't foolproof; EG if the "back" button is hammered - this tries to catch that *after* transition.
+router.afterEach(function(transition){
+    var auth = Store.netMgr.isAuth();
+    if (!auth && transition.meta.auth) {
+        this.go('/');
+    }
+}.bind(router));
 
 var vm = new Vue({
     el: '#app',
