@@ -120,7 +120,7 @@ nav {
 input {
   font-family: $arc_headings;
   margin-bottom: 1em;
-  border: 2px solid $arc_dark_border;
+  border: 2px solid $arc_border;
   border-radius: 3px;
   &[type=text],
   &[type=password],
@@ -268,6 +268,13 @@ header {
   width: calc(100% - 4em);
 }
 
+// Add top margin to pages which have the row of icons
+#tap.container,
+#scan.container,
+#upload.container {
+  margin-top: 2em;
+}
+
 .content {
   width: 50%;
   margin: 0 auto;
@@ -341,7 +348,7 @@ h1.expandable {
 // styling for the div which contains both text fields for adding vouchers
 .input-box {
   display: flex;
-  border: 2px solid $arc_dark_border;
+  border: 2px solid $arc_border;
   border-radius: 3px;
   input {
     border: 0;
@@ -353,8 +360,9 @@ h1.expandable {
 
 #sponsorBox {
   justify-content: flex-start;
-  background-color: $arc_bg;
+  background-color: $arc_gray;
   width: 30%;
+  font-weight: bold;
 }
 
 #voucherBox {
