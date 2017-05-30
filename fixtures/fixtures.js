@@ -83,7 +83,7 @@ var Fixtures = {
 Fixtures.apply = function (mock) {
     //TODO: example regex route;
     //TODO: example route-parsed route;
-    mock.onGet('/traders/1/vouchers').reply(200, this.traderVouchers["1"]);
+    mock.onGet(/\/traders\/\d+\/vouchers/).reply(200, this.traderVouchers["1"]);
 
     mock.onPost('/vouchers').reply(function (request) {
         // returns a success regardless!
