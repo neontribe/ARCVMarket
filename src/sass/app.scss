@@ -268,13 +268,13 @@ header {
   .fa {
     margin-bottom: 0;
   }
-  #count {
+  .count {
     a {
       font-size: 1.1em;
       color: $arc_rose;
     }
   }
-  #input-icons {
+  .input-icons {
     a {
       margin-left: 1.6em;
       font-size: 1em;
@@ -682,7 +682,7 @@ main > *:target ~ * {
 
   .toolbar {
     padding: 1.5em 2em;
-    #input-icons {
+    .input-icons {
       a {
         margin-left: 1.2em;
         font-size: 0.9em;
@@ -747,10 +747,10 @@ main > *:target ~ * {
   .toolbar {
     padding: 1.3em;
     width: calc(100% - 2.6em);
-    #count a {
+    .count a {
       font-size: 1em;
     }
-    #input-icons {
+    .input-icons {
       a {
         margin-left: 1em;
         font-size: 1em;
