@@ -268,7 +268,9 @@ header {
   width: calc(100% - 4em);
 }
 
-#tap.container {
+#tap.container,
+#scan.container,
+#upload.container {
   margin-top: 2em;
 }
 
