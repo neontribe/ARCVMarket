@@ -238,8 +238,12 @@ header {
   border-bottom: 1px solid rgba($arc_copy, 0.1);
   border-top: 1px solid $arc_faded;
   a {
-    &:hover,
-    &.router-link-exact-active.router-link-active {
+    color: $arc_copy;
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    &:visited {
       color: $arc_copy;
     }
   }
@@ -248,14 +252,33 @@ header {
 .toolbar {
   position: absolute;
   z-index: 1;
-  right: 0;
   padding: 1.5em 2em;
+  display: flex;
+  width: calc(100% - 4em);
+  justify-content: space-between;
   a {
-    color: $arc_copy;
-    margin-left: 1.6em;
+    &:visited {
+      color: $arc_copy;
+    }
+    &:hover,
+    &.router-link-exact-active.router-link-active  {
+      cursor: pointer;
+    }
   }
   .fa {
     margin-bottom: 0;
+  }
+  #count {
+    a {
+      font-size: 1.1em;
+      color: $arc_rose;
+    }
+  }
+  #input-icons {
+    a {
+      margin-left: 1.6em;
+      font-size: 1em;
+    }
   }
 }
 
@@ -272,7 +295,7 @@ header {
 #tap.container,
 #scan.container,
 #upload.container {
-  margin-top: 2em;
+  margin-top: 2.5em;
 }
 
 .content {
@@ -659,8 +682,11 @@ main > *:target ~ * {
 
   .toolbar {
     padding: 1.5em 2em;
-    a {
-      font-size: 0.9em;
+    #input-icons {
+      a {
+        margin-left: 1.2em;
+        font-size: 0.9em;
+      }
     }
   }
 
@@ -719,10 +745,16 @@ main > *:target ~ * {
   }
 
   .toolbar {
-    padding: 1.2em 1.5em;
-    a {
-      margin-left: 1em;
+    padding: 1.3em;
+    width: calc(100% - 2.6em);
+    #count a {
       font-size: 1em;
+    }
+    #input-icons {
+      a {
+        margin-left: 1em;
+        font-size: 1em;
+      }
     }
   }
 
