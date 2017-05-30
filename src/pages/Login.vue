@@ -7,7 +7,7 @@
 
                 <h1>Log In</h1>
 
-                <div class="message">{{ errorMessage }}</div>
+                <div v-if="errorMessage" class="message">{{ errorMessage }}</div>
 
                 <div>
                     <form id="loginForm" v-on:submit.prevent="onLogin">
@@ -35,13 +35,8 @@
                 username: null,
                 password: null,
                 remember: true,
-                errorMessage : Store.errors[0]
+                errorMessage : Store.error
             }
-        },
-        watch: {
-          errorMessage: function() {
-              return this.errorMessage
-          }
         },
         methods: {
             /**
@@ -53,7 +48,7 @@
                     password: this.password
                 };
                 Store.authenticate(userApiCreds, function () {
-
+                    this.errorMessage = null;
                     // I don't like this here, but it's the only place it works for now.
                     var redirect = this.$route.query.redirect;
                     if (!redirect) {
@@ -62,7 +57,11 @@
 
                     this.$router.push({path: redirect});
 
-                }.bind(this));
+                }.bind(this),
+                function (errmsg) {
+                  this.errorMessage = errmsg;
+                }.bind(this)
+              );
 
             }
         }
