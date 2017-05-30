@@ -3,7 +3,7 @@
         <main class="container fullwidth" id="payment">
 
             <div class="content fullwidth">
-                <h1 v-if="recVouchers[0] && recVouchers[0].length > 0" v-on:click="collapsed = !collapsed" class="expandable" v-bind:class="{'expanded' : !collapsed}">You can request payment for <strong>{{ recVouchers[0].length }}</strong> vouchers.</h1>
+                <h1 v-if="vouchersAdded" v-on:click="collapsed = !collapsed" class="expandable" v-bind:class="{'expanded' : !collapsed}">You can request payment for <strong>{{ voucherCount }}</strong> voucher<span v-if="voucherCount > 1">s</span>.</h1>
                 <h1 v-else>You haven't added any vouchers yet.</h1>
 
                 <div class="list-wrapper" v-bind:class="{'is-collapsed' : collapsed }">
@@ -17,7 +17,7 @@
                         >Download .xlsx</button> -->
                     </div>
 
-                    <div class="voucher-list" id="registeredVouchers" v-if="recVouchers[0] && recVouchers[0].length > 0">
+                    <div class="voucher-list" id="registeredVouchers" v-if="vouchersAdded">
 
                         <!-- Tab header -->
                         <div class="tab thead">
@@ -45,7 +45,7 @@
 
                 <instructions></instructions>
 
-                <router-link v-bind:to="'/account'"><button v-if="recVouchers[0] && recVouchers[0].length > 0">Get payment</button></router-link>
+                <router-link v-bind:to="'/account'"><button v-if="vouchersAdded">Get payment</button></router-link>
 
             </div>
 
@@ -65,7 +65,16 @@ export default {
     data() {
         return {
             recVouchers : Store.recVouchers,
-            collapsed: true
+            collapsed : true,
+            voucherCount : 0
+        }
+    },
+    computed: {
+        vouchersAdded: function() {
+            if (this.recVouchers[0] && this.recVouchers[0].length > 0) {
+              this.voucherCount = this.recVouchers[0].length;
+              return true;
+            }
         }
     },
     methods: {
