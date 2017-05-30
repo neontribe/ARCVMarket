@@ -5,7 +5,7 @@ const el = Selector(selector => document.querySelector(selector));
 
 const url = 'http://localhost:8081';
 
-fixture `Type Page`
+fixture `Scan Page`
     .page(url);
 
 test('Header text is correct', async t => {
