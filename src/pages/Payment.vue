@@ -12,9 +12,9 @@
                         <button class="left alt" 
                             v-on:click="getRecVouchers('application/csv')"
                         >Download .csv</button>
-                        <button class="right"
+                        <!-- <button class="right"
                             v-on:click="getRecVouchers('application/xlsx')"
-                        >Download .xlsx</button>
+                        >Download .xlsx</button> -->
                     </div>
 
                     <div class="voucher-list" id="registeredVouchers" v-if="recVouchers[0] && recVouchers[0].length > 0">
@@ -71,7 +71,12 @@ export default {
     methods: {
         getRecVouchers(format) {
             NetMgr.setAccept(format);
-            NetMgr.apiGet('/traders/' + Store.trader.id + '/vouchers');
+            NetMgr.apiGet('/traders/' + Store.trader.id + '/vouchers', function(response) {
+                var link = document.createElement("a");
+                link.download = 'vouchers.csv';
+                link.href = 'data:'+response.headers['content-type']+',' + encodeURIComponent(response.data);
+                link.click();
+            });
         },
     },
     mounted: function() {
