@@ -66,7 +66,7 @@ store.unAuthenticate = function (success, failure) {
                 failure(error);
             }
         });
-    // todyup my own stuff.
+    // tidy up store stuff.
     this.resetStore();
     this.netMgr.setToken(null);
 };
