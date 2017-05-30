@@ -2,7 +2,9 @@
 
     <div class="profile-bar">
         <div>Managing <router-link v-bind:to="'/user'"><strong>{{ selectedTrader.name }}</strong></router-link></div>
-        <div v-if="length"><strong>{{ count }}</strong> vouchers waiting</div>
+        <transition name="fade" mode="out-in">
+            <div :key="voucherCount" v-if="vouchersAdded"><router-link v-bind:to="'/payment'"><strong>{{ voucherCount }}</strong> voucher<span v-if="voucherCount > 1">s</span> waiting</router-link></div>
+        </transition>
     </div>
 
 </template>
@@ -13,18 +15,18 @@ export default {
     name: 'profile',
     data: function() {
         return {
-            selectedTrader: Store.trader,
+            selectedTrader : Store.trader,
             recVouchers : Store.recVouchers,
-            count : 0
+            voucherCount : 0
         }
     },
     mounted: function() {
         Store.getRecVouchers();
     },
     computed: {
-        length: function() {
+        vouchersAdded: function() {
             if (this.recVouchers[0] && this.recVouchers[0].length > 0) {
-              this.count = this.recVouchers[0].length;
+              this.voucherCount = this.recVouchers[0].length;
               return true;
             }
         }
