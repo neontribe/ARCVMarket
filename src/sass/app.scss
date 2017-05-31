@@ -280,6 +280,13 @@ header {
     a {
       margin-left: 1.6em;
       font-size: 1em;
+      &:visited {
+        color: $arc_copy;
+      }
+      &:hover,
+      &.router-link-exact-active.router-link-active  {
+        color: $arc_rose;
+      }
     }
   }
 }
