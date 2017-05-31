@@ -16,7 +16,7 @@ test('Account page exists', async t => {
         .click("#radio-0")
         .pressKey('enter')
     ;
-    const accountNavButton = await el('a[href*="/account"');
+    const accountNavButton = await el('a[href*="/account"]');
 
     await t
         .click(accountNavButton)
@@ -33,7 +33,7 @@ test('Header text is correct', async t => {
         .click("#radio-0")
         .pressKey('enter')
     ;
-    const accountNavButton = await el('a[href*="/account"');
+    const accountNavButton = await el('a[href*="/account"]');
 
     await t
         .click(accountNavButton)
@@ -50,7 +50,7 @@ test('Requested payments accordion exists', async t => {
         .click("#radio-0")
         .pressKey('enter')
     ;
-    const accountNavButton = await el('a[href*="/account"');
+    const accountNavButton = await el('a[href*="/account"]');
 
     await t
         .click(accountNavButton)
@@ -67,7 +67,7 @@ test('Download button exists', async t => {
         .click("#radio-0")
         .pressKey('enter')
     ;
-    const accountNavButton = await el('a[href*="/account"');
+    const accountNavButton = await el('a[href*="/account"]');
 
     await t
         .click(accountNavButton)
