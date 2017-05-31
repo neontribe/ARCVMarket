@@ -38,7 +38,7 @@ test('Page has masthead with logo, nav, profile bar and toolbar', async t => {
 
     expect(primaryNavItems).to.equal(3);
     expect(profileBar).to.exist;
-    expect(toolbar).to.equal(3);
+    expect(toolbar).to.equal(4);
     expect(logo).to.be.ok;
 });
 
@@ -76,7 +76,7 @@ test('Page displays number of recorded vouchers', async t => {
         .pressKey('enter')
     ;
 
-    const voucherCount = await el('#app > div.wrapper > div.profile-bar > div:nth-child(2)').innerText;
+    const voucherCount = await el('#app > div.wrapper > div.toolbar > div.count').innerText;
 
     expect(voucherCount).to.contain('2 vouchers waiting');
 });
