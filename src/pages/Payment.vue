@@ -32,13 +32,8 @@
 
                     </div>
 
-                    <!--<div class="two-buttons">-->
-                    <button v-on:click="getRecVouchers('application/csv')"
-                    >Download .csv</button>
-                    <!-- <button class="right"
-                        v-on:click="getRecVouchers('application/xlsx')"
-                    >Download .xlsx</button>
-                    </div>-->
+
+                    <button v-on:click="getRecVouchers('application/csv')">Download .csv</button>
 
                 </div>
 
