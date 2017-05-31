@@ -8,14 +8,13 @@
 
                 <div class="list-wrapper" v-bind:class="{'is-collapsed' : collapsed }">
 
-                    <div class="two-buttons">
-                        <button class="left alt" 
-                            v-on:click="getRecVouchers('application/csv')"
+                    <!--<div class="two-buttons">-->
+                        <button v-on:click="getRecVouchers('application/csv')"
                         >Download .csv</button>
                         <!-- <button class="right"
                             v-on:click="getRecVouchers('application/xlsx')"
-                        >Download .xlsx</button> -->
-                    </div>
+                        >Download .xlsx</button>
+                        </div>-->
 
                     <div class="voucher-list" id="registeredVouchers" v-if="vouchersAdded">
 
