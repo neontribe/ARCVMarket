@@ -1,7 +1,7 @@
 <template id="toolbar">
 
     <div class="toolbar">
-        <transition name="fade" mode="out-in">
+        <transition name="pulse">
             <div :key="voucherCount" v-if="vouchersAdded" class="count"><router-link v-bind:to="'/payment'"><strong>{{ voucherCount }}</strong> voucher<span v-if="voucherCount > 1">s</span> waiting</router-link></div>
         </transition>
         <div class="input-icons">

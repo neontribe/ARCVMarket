@@ -272,6 +272,8 @@ header {
     margin-bottom: 0;
   }
   .count {
+    position: absolute;
+    left: 20px;
     a {
       font-size: 1.1em;
       color: $arc_rose;
@@ -455,6 +457,7 @@ main > *:target ~ * {
 .fade-enter-active, .fade-leave-active {
   transition-property: opacity;
   transition-duration: .25s;
+
 }
 
 .fade-enter-active {
@@ -463,6 +466,24 @@ main > *:target ~ * {
 
 .fade-enter, .fade-leave-active {
   opacity: 0
+}
+
+@keyframes pulsecount {
+  0% { transform: scale(1) }
+  50% { transform: scale(1.1) }
+  100% { transform: scale(1) }
+}
+
+.pulse-enter-active {
+  animation: pulsecount .5s;
+  transition-property: opacity;
+  transition-duration: .1s;
+}
+.pulse-leave-active {
+  transition-delay: 0.1s;
+  transition-property: opacity;
+  transition-duration: .1s;
+  opacity: 0;
 }
 
 .list-wrapper {
