@@ -47,7 +47,7 @@ test('Voucher code list exists', async t => {
     expect(voucherList).to.be.ok;
 });
 
-test('Payment button exists', async t => {
+test('Payment button works', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
@@ -60,8 +60,14 @@ test('Payment button exists', async t => {
     await t
         .click(paymentNavButton)
     ;
-    const paymentButton = await el('.content a button').exists;
-    expect(paymentButton).to.be.ok;
+    const paymentButton = await el('.content a button')
+
+    await t
+        .click(paymentButton)
+    ;
+    const pagePath = await t.eval(() => window.location);
+    expect(pagePath.pathname).eql('/account');
+
 });
 
 test('Instructions component occurs on payments page', async t => {
