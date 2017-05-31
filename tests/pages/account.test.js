@@ -59,7 +59,7 @@ test('Requested payments accordion exists', async t => {
     expect(paymentsAccordion).to.be.ok;
 });
 
-test('Logout and download buttons exist', async t => {
+test('Download button exists', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
@@ -72,7 +72,6 @@ test('Logout and download buttons exist', async t => {
     await t
         .click(accountNavButton)
     ;
-    const logoutButton = await el('.two-buttons .left');
-    const downloadButton = await el('.two-buttons .right');
-    expect(logoutButton && downloadButton).to.be.ok;
+    const downloadButton = await el('.content button');
+    expect(downloadButton).to.be.ok;
 });
