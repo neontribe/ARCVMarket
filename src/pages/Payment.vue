@@ -8,14 +8,6 @@
 
                 <div class="list-wrapper" v-bind:class="{'is-collapsed' : collapsed }">
 
-                    <!--<div class="two-buttons">-->
-                        <button v-on:click="getRecVouchers('application/csv')"
-                        >Download .csv</button>
-                        <!-- <button class="right"
-                            v-on:click="getRecVouchers('application/xlsx')"
-                        >Download .xlsx</button>
-                        </div>-->
-
                     <div class="voucher-list" id="registeredVouchers" v-if="vouchersAdded">
 
                         <!-- Tab header -->
@@ -40,11 +32,14 @@
 
                     </div>
 
+
+                    <button v-on:click="getRecVouchers('application/csv')">Download .csv</button>
+
                 </div>
 
                 <instructions></instructions>
 
-                <router-link v-bind:to="'/account'"><button v-if="vouchersAdded">Get payment</button></router-link>
+                <router-link v-bind:to="'/account'"><button v-if="vouchersAdded">Request payment</button></router-link>
 
             </div>
 
