@@ -46,7 +46,8 @@ a {
   &.router-link-exact-active.router-link-active {
     color: $arc_rose;
   }
-  &:visited {
+  &:visited,
+  &:-webkit-any-link {
     color: $arc_copy;
   }
 }
@@ -120,7 +121,7 @@ nav {
 input {
   font-family: $arc_headings;
   margin-bottom: 1em;
-  border: 2px solid $arc_dark_border;
+  border: 2px solid $arc_border;
   border-radius: 3px;
   &[type=text],
   &[type=password],
@@ -238,8 +239,12 @@ header {
   border-bottom: 1px solid rgba($arc_copy, 0.1);
   border-top: 1px solid $arc_faded;
   a {
-    &:hover,
-    &.router-link-exact-active.router-link-active {
+    color: $arc_copy;
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    &:visited {
       color: $arc_copy;
     }
   }
@@ -248,14 +253,42 @@ header {
 .toolbar {
   position: absolute;
   z-index: 1;
-  right: 0;
   padding: 1.5em 2em;
+  display: flex;
+  width: calc(100% - 4em);
+  justify-content: space-between;
   a {
-    color: $arc_copy;
-    margin-left: 1.6em;
+    &:visited {
+      color: $arc_copy;
+    }
+    &:hover,
+    &.router-link-exact-active.router-link-active  {
+      cursor: pointer;
+    }
   }
   .fa {
     margin-bottom: 0;
+  }
+  .count {
+    a {
+      font-size: 1.1em;
+      color: $arc_rose;
+    }
+  }
+  .input-icons {
+    position: absolute;
+    right: 2em;
+    a {
+      margin-left: 1.6em;
+      font-size: 1em;
+      &:visited {
+        color: $arc_copy;
+      }
+      &:hover,
+      &.router-link-exact-active.router-link-active  {
+        color: $arc_rose;
+      }
+    }
   }
 }
 
@@ -266,6 +299,13 @@ header {
   padding: 2em;
   overflow: auto;
   width: calc(100% - 4em);
+}
+
+// Add top margin to pages which have the row of icons
+#tap.container,
+#scan.container,
+#upload.container {
+  margin-top: 2.5em;
 }
 
 .content {
@@ -341,8 +381,9 @@ h1.expandable {
 // styling for the div which contains both text fields for adding vouchers
 .input-box {
   display: flex;
-  border: 2px solid $arc_dark_border;
+  border: 2px solid $arc_border;
   border-radius: 3px;
+  width: calc(100% - 4px);
   input {
     border: 0;
     margin-top: 0;
@@ -351,16 +392,22 @@ h1.expandable {
   }
 }
 
+#sponsorBox,
+#voucherBox {
+  font-weight: bold;
+  padding: 0;
+}
+
 #sponsorBox {
   justify-content: flex-start;
-  background-color: $arc_bg;
-  width: 30%;
+  background-color: $arc_gray;
+  width: 35%;
 }
 
 #voucherBox {
   justify-content: flex-end;
   text-transform: uppercase;
-  width: 70%;
+  width: 65%;
 }
 
 #voucherNumber {
@@ -651,8 +698,11 @@ main > *:target ~ * {
 
   .toolbar {
     padding: 1.5em 2em;
-    a {
-      font-size: 0.9em;
+    .input-icons {
+      a {
+        margin-left: 1.2em;
+        font-size: 0.9em;
+      }
     }
   }
 
@@ -711,10 +761,18 @@ main > *:target ~ * {
   }
 
   .toolbar {
-    padding: 1.2em 1.5em;
-    a {
-      margin-left: 1em;
+    padding: 1.3em;
+    width: calc(100% - 2.6em);
+    .count a {
       font-size: 1em;
+    }
+    .input-icons {
+      position: absolute;
+      right: 1.3em;
+      a {
+        margin-left: 1em;
+        font-size: 1em;
+      }
     }
   }
 

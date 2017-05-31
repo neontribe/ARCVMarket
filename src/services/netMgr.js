@@ -58,6 +58,15 @@ NetMgr.setToken = function (tokenData) {
 };
 
 /**
+ * Sets the access restriction headers
+ *
+ * @param format 
+ */
+NetMgr.setAccept = function (format) {
+    this.axiosInstance.defaults.headers.common['Accept'] = format;
+};
+
+/**
  * AXIOS get wrapper
  *
  * @param route
