@@ -40,6 +40,7 @@ body {
 
 a {
   text-decoration: none;
+  color: inherit;
   &:hover,
   &:focus,
   &:active,
@@ -48,6 +49,7 @@ a {
   }
   &:visited,
   // override blue default links
+  &:link,
   &:-webkit-any-link {
     color: $arc_copy;
   }
