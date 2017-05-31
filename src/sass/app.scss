@@ -46,7 +46,8 @@ a {
   &.router-link-exact-active.router-link-active {
     color: $arc_rose;
   }
-  &:visited {
+  &:visited,
+  &:-webkit-any-link {
     color: $arc_copy;
   }
 }
