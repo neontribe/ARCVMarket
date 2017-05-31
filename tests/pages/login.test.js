@@ -36,3 +36,20 @@ test('Can log in', async t => {
     const pagePath = await t.eval(() => document.documentURI);
     expect(pagePath).to.equal(url + '/user?redirect=%2F');
 });
+
+test('Can log out', async t => {
+    await t
+        .typeText('#userName', 'email@example.com')
+        .typeText('#userPassword', 'secretpass')
+        .pressKey('enter')
+        .click("#radio-0")
+        .pressKey('enter')
+    ;
+    const logout = await el('.wrapper .profile-bar').child(1);
+
+    await t
+        .click(logout)
+    ;
+    const pagePath = await t.eval(() => document.documentURI);
+    expect(pagePath).to.equal(url + '/login');
+});
