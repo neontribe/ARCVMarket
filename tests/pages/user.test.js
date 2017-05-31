@@ -13,6 +13,8 @@ test('Header text is correct', async t => {
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
+        .click("#radio-0")
+        .pressKey('enter')
     ;
     const userLink = await el('a[href*="/user"');
 
@@ -20,13 +22,15 @@ test('Header text is correct', async t => {
         .click(userLink)
     ;
     const header = await el('main#user .content h1').innerText;
-    expect(header).to.equal('Choose a trader account:');
+    expect(header).to.equal('Choose a trader to manage');
 });
 
 test('The correct amout of traders exist', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
+        .pressKey('enter')
+        .click("#radio-0")
         .pressKey('enter')
     ;
     const userLink = await el('a[href*="/user"');
@@ -35,13 +39,15 @@ test('The correct amout of traders exist', async t => {
         .click(userLink)
     ;
     const traders = await el('.form-group').find('div.multiple-choice').count;
-    expect(traders).to.equal(3);
+    expect(traders).to.equal(2);
 });
 
 test('Submit button exists', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
+        .pressKey('enter')
+        .click("#radio-0")
         .pressKey('enter')
     ;
     const userLink = await el('a[href*="/user"');

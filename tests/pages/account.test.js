@@ -13,6 +13,8 @@ test('Account page exists', async t => {
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
+        .click("#radio-0")
+        .pressKey('enter')
     ;
     const accountNavButton = await el('a[href*="/account"');
 
@@ -20,13 +22,15 @@ test('Account page exists', async t => {
         .click(accountNavButton)
     ;
     const pagePath = await t.eval(() => window.location);
-    expect(pagePath.pathname).eql('/account');
+    expect(pagePath.pathname).to.include('/account');
 });
 
 test('Header text is correct', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
+        .pressKey('enter')
+        .click("#radio-0")
         .pressKey('enter')
     ;
     const accountNavButton = await el('a[href*="/account"');
@@ -43,6 +47,8 @@ test('Requested payments accordion exists', async t => {
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
+        .click("#radio-0")
+        .pressKey('enter')
     ;
     const accountNavButton = await el('a[href*="/account"');
 
@@ -57,6 +63,8 @@ test('Logout and download buttons exist', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
+        .pressKey('enter')
+        .click("#radio-0")
         .pressKey('enter')
     ;
     const accountNavButton = await el('a[href*="/account"');

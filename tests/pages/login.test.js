@@ -34,5 +34,5 @@ test('Can log in', async t => {
         .pressKey('enter')
     ;
     const pagePath = await t.eval(() => document.documentURI);
-    expect(pagePath).to.equal(url + '/');
+    expect(pagePath).to.equal(url + '/user?redirect=%2F');
 });

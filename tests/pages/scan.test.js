@@ -13,6 +13,8 @@ test('Header text is correct', async t => {
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
         .pressKey('enter')
+        .click("#radio-0")
+        .pressKey('enter')
     ;
     const scanButton = await el('a[href*="/scan"');
 
