@@ -47,6 +47,7 @@ a {
     color: $arc_rose;
   }
   &:visited,
+  // override blue default links
   &:-webkit-any-link {
     color: $arc_copy;
   }
