@@ -13,12 +13,8 @@ test('Payments page can be accessed', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
-        .pressKey('enter')
-    ;
-    const traderRadio = await el('input#radio-0');
-
-    await t
-        .click(traderRadio)
+        .click('button')
+        .click("#radio-0")
         .pressKey('enter')
     ;
     const paymentNavButton = await el('a[href*="/payment"]');
@@ -34,7 +30,7 @@ test('Voucher code list exists', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
-        .pressKey('enter')
+        .click('button')
         .click("#radio-0")
         .pressKey('enter')
     ;
@@ -51,7 +47,7 @@ test('Payment button works', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
-        .pressKey('enter')
+        .click('button')
         .click("#radio-0")
         .pressKey('enter')
     ;
@@ -74,7 +70,7 @@ test('Instructions component occurs on payments page', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
-        .pressKey('enter')
+        .click('button')
         .click("#radio-0")
         .pressKey('enter')
     ;

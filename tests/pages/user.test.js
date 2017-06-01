@@ -12,7 +12,7 @@ test('Header text is correct', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
-        .pressKey('enter')
+        .click('button')
         .click("#radio-0")
         .pressKey('enter')
     ;
@@ -29,7 +29,7 @@ test('The correct amout of traders exist', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
-        .pressKey('enter')
+        .click('button')
         .click("#radio-0")
         .pressKey('enter')
     ;
@@ -46,7 +46,7 @@ test('Submit button exists', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
-        .pressKey('enter')
+        .click('button')
         .click("#radio-0")
         .pressKey('enter')
     ;

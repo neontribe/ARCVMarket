@@ -12,7 +12,7 @@ test('Account page exists', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
-        .pressKey('enter')
+        .click('button')
         .click("#radio-0")
         .pressKey('enter')
     ;
@@ -29,7 +29,7 @@ test('Header text is correct', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
-        .pressKey('enter')
+        .click('button')
         .click("#radio-0")
         .pressKey('enter')
     ;
@@ -46,7 +46,7 @@ test('Requested payments accordion exists', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
-        .pressKey('enter')
+        .click('button')
         .click("#radio-0")
         .pressKey('enter')
     ;
@@ -63,7 +63,7 @@ test('Download button exists', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
-        .pressKey('enter')
+        .click('button')
         .click("#radio-0")
         .pressKey('enter')
     ;
