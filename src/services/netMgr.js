@@ -160,7 +160,7 @@ NetMgr.mockOff = function () {
 // set cookie in devtools to ignore mocks in development and connect directly to local API
 // document.cookie = "arcv_ignore_mocks=true;max-age=" + 86400*30;
 if (Config.env === "development" && ( document.cookie.indexOf("arcv_ignore_mocks=true") === -1 )) {
-    NetMgr.mockOn();
+   NetMgr.mockOn();
 }
 
 // Add interceptor to detect an expired access_token and refresh;

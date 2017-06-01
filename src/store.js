@@ -154,8 +154,12 @@ store.addVoucherCode = function (voucherCode, success, failure) {
  * Transition request the recorded vouchers list to pending
  */
 store.pendRecVouchers = function (success,failure) {
+    // The [0] is vue wierdness
+    var voucherCodes = this.recVouchers[0].map(function(voucher) {
+        return voucher.code;
+    });
     // Execute the transition
-    this.transitionVouchers('confirm', this.recVouchers, success, failure);
+    this.transitionVouchers('confirm', voucherCodes, success, failure);
 };
 
 /**
