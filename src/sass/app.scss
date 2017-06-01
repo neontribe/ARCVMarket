@@ -1,17 +1,11 @@
 /* Copyright (c) 2017, Alexander Rose Charity (reg. in England and Wales, #00279157) */
 @import 'vars';
 
-$fa-font-path:"../node_modules/font-awesome/fonts";
-@import "../node_modules/font-awesome/scss/font-awesome";
-.icon-user {
-  @extend .fa;
-  @extend .fa-user;
-}
+/* --------------------------------------------------------------
 
-.fa {
-  font-size: 2em;
-  padding-bottom: 8px;
-}
+   Layout
+
+-------------------------------------------------------------- */
 
 html,
 body {
@@ -100,6 +94,18 @@ nav {
       background: transparent;
     }
   }
+}
+
+$fa-font-path:"../node_modules/font-awesome/fonts";
+@import "../node_modules/font-awesome/scss/font-awesome";
+.icon-user {
+  @extend .fa;
+  @extend .fa-user;
+}
+
+.fa {
+  font-size: 2em;
+  padding-bottom: 8px;
 }
 
 .hidden {
@@ -272,6 +278,8 @@ header {
     margin-bottom: 0;
   }
   .count {
+    position: absolute;
+    left: 2em;
     a {
       font-size: 1.1em;
       color: $arc_rose;
@@ -438,12 +446,6 @@ main > *:last-child {
   display: block;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1) }
-  50% { transform: scale(1.2) }
-  100% { transform: scale(1) }
-}
-
 main > *:target {
   display: block;
 }
@@ -452,9 +454,52 @@ main > *:target ~ * {
   display: none;
 }
 
+
+/* --------------------------------------------------------------
+
+   Transitions and animations
+
+-------------------------------------------------------------- */
+
+// Pulse animation for nav links
+@keyframes pulse {
+  0% { transform: scale(1) }
+  50% { transform: scale(1.2) }
+  100% { transform: scale(1) }
+}
+
+// Pulse transition for the voucher counter
+@keyframes counter-pulse {
+  0% { transform: scale(1) }
+  50% { transform: scale(1.1) }
+  100% { transform: scale(1) }
+}
+
+.pulse-enter-active {
+  animation: counter-pulse .5s;
+  transition-property: opacity;
+  transition-duration: .5s;
+}
+.pulse-leave-active {
+  transition-delay: 0.1s;
+  transition-property: opacity;
+  transition-duration: .5s;
+  opacity: 0;
+}
+
+.pulse-enter-active, .pulse-leave-active {
+  transition: opacity 0.25s ease-out;
+}
+
+.pulse-enter, .pulse-leave-to {
+  opacity: 0;
+}
+
+// Fade transition
 .fade-enter-active, .fade-leave-active {
   transition-property: opacity;
   transition-duration: .25s;
+
 }
 
 .fade-enter-active {
@@ -472,7 +517,13 @@ main > *:target ~ * {
   }
 }
 
-// Accordion and voucher list styling
+
+/* --------------------------------------------------------------
+
+   Accordion and voucher lists
+
+-------------------------------------------------------------- */
+
 .accordion,
 .voucher-list {
   font-size: 1.2em;
@@ -606,7 +657,13 @@ main > *:target ~ * {
   }
 }
 
-// A lot of css for some user friendly radio buttons/checkboxes
+
+/* --------------------------------------------------------------
+
+   User selection page
+
+-------------------------------------------------------------- */
+
 .multiple-choice {
   display: block;
   float: none;
@@ -673,7 +730,13 @@ main > *:target ~ * {
   }
 }
 
-// Media queries
+
+/* --------------------------------------------------------------
+
+   Media queries
+
+-------------------------------------------------------------- */
+
 @media (max-width: 768px) {
   body {
     background-color: $arc_bg;
@@ -765,8 +828,12 @@ main > *:target ~ * {
   .toolbar {
     padding: 1.3em;
     width: calc(100% - 2.6em);
-    .count a {
-      font-size: 1em;
+    .count {
+      position: absolute;
+      left: 1.3em;
+      a {
+        font-size: 1em;
+      }
     }
     .input-icons {
       position: absolute;
