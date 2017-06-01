@@ -147,7 +147,16 @@ store.mergeRecVouchers = function (replacements) {
  */
 store.addVoucherCode = function (voucherCode) {
     this.vouchers.push(voucherCode);
-    return this.postVouchers();
+    return this.transitionVouchers('collect',this.vouchers, this.getRecVouchers());
+};
+
+/**
+ * Transition request the recorded vouchers list to pending
+ */
+store.pendRecVouchers = function () {
+    // refresh the server's recorded vouchers list.
+    this.getRecVouchers();
+    return this.transitionVouchers('confirm',this.recVouchers);
 };
 
 /**
@@ -159,22 +168,27 @@ store.clearVouchers = function () {
 };
 
 /**
- * Post vouchers to api.
+ * Post vouchers to api to start a transition.
  * @returns {boolean}
  */
-store.postVouchers = function () {
+store.transitionVouchers = function (transition, vouchers, success, failure) {
     if (!navigator.onLine) {
         return false;
     }
     var postData = {
+        'transition' : transition,
         'trader_id': this.trader.id,
-        'vouchers': this.vouchers
+        'vouchers': vouchers
     };
-    this.netMgr.apiPost('vouchers', postData, function (response) {
-        // now we get the return values;
-        store.getRecVouchers();
-    });
-    return true;
+    this.netMgr.apiPost('vouchers', postData,
+        function () {
+            if (success) {success()}
+            return true;
+        }, function() {
+            if (failure) {failure()}
+            return false;
+        }
+    );
 };
 
 export default store;
