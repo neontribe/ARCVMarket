@@ -122,7 +122,7 @@ store.getVoucherPaymentState = function () {
  * Gets the server's idea of a trader's recorder voucher list
  */
 store.getRecVouchers = function () {
-    this.netMgr.apiGet('/traders/' + this.trader.id + '/vouchers&state=unconfirmed',
+    this.netMgr.apiGet('/traders/' + this.trader.id + '/vouchers?status=unconfirmed',
         function (response) {
             var newVouchers = response.data;
             newVouchers.sort(function (b, a) {
@@ -147,7 +147,7 @@ store.mergeRecVouchers = function (replacements) {
  */
 store.addVoucherCode = function (voucherCode, success, failure) {
     this.vouchers.push(voucherCode);
-    this.transitionVouchers('collect',this.vouchers, success, failure);
+    this.transitionVouchers('collect', this.vouchers, success, failure);
 };
 
 /**
