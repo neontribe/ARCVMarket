@@ -33,6 +33,7 @@
     "node-sass": "^4.5.0",
     "sass-loader": "^5.0.1",
     "testcafe": "^0.15.0",
+    "testcafe-vue-selectors": "^1.0.3",
     "vue-loader": "^11.1.4",
     "vue-template-compiler": "^2.2.1",
     "webpack": "^2.2.0",

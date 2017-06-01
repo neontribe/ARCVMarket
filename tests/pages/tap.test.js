@@ -10,7 +10,7 @@ fixture `Type Page`
 
 test('Page has h1', async t => {
     await t
-        .typeText('#userName', 'email@exapmle.com')
+        .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
         .click('button')
         .click("#radio-0")
@@ -42,7 +42,30 @@ test('Page has masthead with logo, nav, profile bar and toolbar', async t => {
     expect(logo).to.be.ok;
 });
 
-test('I can type and submit a voucher code ', async t => {
+test('I can change my trader', async t => {
+    await t
+        .typeText('#userName', 'email@example.co.uk')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click('input#radio-0')
+        .pressKey('enter')
+    ;
+    const traderLink = await el('.profile-bar a');
+
+    await t
+        .click(traderLink)
+    ;
+    const secondTrader = await el('input#radio-1');
+
+    await t
+        .click(secondTrader)
+        .pressKey('enter')
+    ;
+    const traderName = await el('.profile-bar div').child('strong').innerText;
+    expect(traderName).to.contain('Barry Thistlethorn');
+});
+
+test('I can type and submit a voucher code', async t => {
     await t
         .typeText('#userName', 'email@example.co.uk')
         .typeText('#userPassword', 'secretpass')
