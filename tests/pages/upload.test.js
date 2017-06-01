@@ -3,7 +3,7 @@ import { Selector } from 'testcafe';
 
 const el = Selector(selector => document.querySelector(selector));
 
-const url = 'http://localhost:8081';
+const url = 'http://localhost:8081/upload';
 
 fixture `Upload Page`
     .page(url);
@@ -14,12 +14,7 @@ test('Header text is correct', async t => {
         .typeText('#userPassword', 'secretpass')
         .click('button')
         .click("#radio-0")
-        .pressKey('enter')
-    ;
-    const uploadButton = await el('a[href*="/upload"]');
-
-    await t
-        .click(uploadButton)
+        .click('button#submitVoucher')
     ;
     const header = await el('main#upload .content h1').innerText;
     expect(header).to.equal('Upload voucher codes');

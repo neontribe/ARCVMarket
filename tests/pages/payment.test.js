@@ -4,7 +4,7 @@ import VueSelector from 'testcafe-vue-selectors';
 
 const el = Selector(selector => document.querySelector(selector));
 
-const url = 'http://localhost:8081';
+const url = 'http://localhost:8081/payment';
 
 fixture `Payment Page`
     .page(url);
@@ -15,12 +15,7 @@ test('Payments page can be accessed', async t => {
         .typeText('#userPassword', 'secretpass')
         .click('button')
         .click("#radio-0")
-        .pressKey('enter')
-    ;
-    const paymentNavButton = await el('a[href*="/payment"]');
-
-    await t
-        .click(paymentNavButton)
+        .click('button#submitVoucher')
     ;
     const pagePath = await t.eval(() => window.location);
     expect(pagePath.pathname).eql('/payment');
@@ -32,12 +27,7 @@ test('Voucher code list exists', async t => {
         .typeText('#userPassword', 'secretpass')
         .click('button')
         .click("#radio-0")
-        .pressKey('enter')
-    ;
-    const paymentNavButton = await el('a[href*="/payment"]');
-
-    await t
-        .click(paymentNavButton)
+        .click('button#submitVoucher')
     ;
     const voucherList = await el('#registeredVouchers').exists;
     expect(voucherList).to.be.ok;
@@ -49,12 +39,7 @@ test('Payment button works', async t => {
         .typeText('#userPassword', 'secretpass')
         .click('button')
         .click("#radio-0")
-        .pressKey('enter')
-    ;
-    const paymentNavButton = await el('a[href*="/payment"]');
-
-    await t
-        .click(paymentNavButton)
+        .click('button#submitVoucher')
     ;
     const paymentButton = await el('.content a button')
 
@@ -72,12 +57,7 @@ test('Instructions component occurs on payments page', async t => {
         .typeText('#userPassword', 'secretpass')
         .click('button')
         .click("#radio-0")
-        .pressKey('enter')
-    ;
-    const paymentNavButton = await el('a[href*="/payment"]');
-
-    await t
-        .click(paymentNavButton)
+        .click('button#submitVoucher')
     ;
     const instructionsComp = VueSelector('Instructions').exists;
     expect(instructionsComp).to.be.ok;

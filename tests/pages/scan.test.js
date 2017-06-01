@@ -3,7 +3,7 @@ import { Selector } from 'testcafe';
 
 const el = Selector(selector => document.querySelector(selector));
 
-const url = 'http://localhost:8081';
+const url = 'http://localhost:8081/scan';
 
 fixture `Scan Page`
     .page(url);
@@ -14,12 +14,7 @@ test('Header text is correct', async t => {
         .typeText('#userPassword', 'secretpass')
         .click('button')
         .click("#radio-0")
-        .pressKey('enter')
-    ;
-    const scanButton = await el('a[href*="/scan"]');
-
-    await t
-        .click(scanButton)
+        .click('button#submitVoucher')
     ;
     const header = await el('main#scan .content h1').innerText;
     expect(header).to.equal('Scan a voucher code');
