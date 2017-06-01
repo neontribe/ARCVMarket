@@ -32,9 +32,11 @@ test('Can log in', async t => {
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
         .click('button')
+        .click("#radio-0")
+        .pressKey('enter')
     ;
     const pagePath = await t.eval(() => document.documentURI);
-    expect(pagePath).to.equal(url + '/user?redirect=%2F');
+    expect(pagePath).to.equal(url + '/');
 });
 
 test('Can log out', async t => {

@@ -20,7 +20,7 @@ test('Header text is correct', async t => {
     expect(header).to.equal('Choose a trader to manage');
 });
 
-test('The correct amout of traders exist', async t => {
+test('The correct amount of traders exist', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
