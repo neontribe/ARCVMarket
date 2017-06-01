@@ -122,7 +122,7 @@ store.getVoucherPaymentState = function () {
  * Gets the server's idea of a trader's recorder voucher list
  */
 store.getRecVouchers = function () {
-    this.netMgr.apiGet('/traders/' + this.trader.id + '/vouchers',
+    this.netMgr.apiGet('/traders/' + this.trader.id + '/vouchers?status=unconfirmed',
         function (response) {
             var newVouchers = response.data;
             newVouchers.sort(function (b, a) {
@@ -145,9 +145,21 @@ store.mergeRecVouchers = function (replacements) {
 /**
  * Adds a voucher code and submits it.
  */
-store.addVoucherCode = function (voucherCode) {
+store.addVoucherCode = function (voucherCode, success, failure) {
     this.vouchers.push(voucherCode);
-    return this.postVouchers();
+    this.transitionVouchers('collect', this.vouchers, success, failure);
+};
+
+/**
+ * Transition request the recorded vouchers list to pending
+ */
+store.pendRecVouchers = function (success,failure) {
+    // The [0] is vue wierdness
+    var voucherCodes = this.recVouchers[0].map(function(voucher) {
+        return voucher.code;
+    });
+    // Execute the transition
+    this.transitionVouchers('confirm', voucherCodes, success, failure);
 };
 
 /**
@@ -159,22 +171,25 @@ store.clearVouchers = function () {
 };
 
 /**
- * Post vouchers to api.
+ * Post vouchers to api to start a transition.
  * @returns {boolean}
  */
-store.postVouchers = function () {
+store.transitionVouchers = function (transition, vouchers, success, failure) {
     if (!navigator.onLine) {
         return false;
     }
     var postData = {
+        'transition' : transition,
         'trader_id': this.trader.id,
-        'vouchers': this.vouchers
+        'vouchers': vouchers
     };
-    this.netMgr.apiPost('vouchers', postData, function (response) {
-        // now we get the return values;
-        store.getRecVouchers();
-    });
-    return true;
+    this.netMgr.apiPost('vouchers', postData,
+        function () {
+            if (success) {success()}
+        }, function() {
+            if (failure) {failure()}
+        }
+    );
 };
 
 export default store;

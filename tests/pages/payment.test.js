@@ -41,7 +41,7 @@ test('Payment button works', async t => {
         .click("#radio-0")
         .click('button#submitVoucher')
     ;
-    const paymentButton = await el('.content a button')
+    const paymentButton = await el('.content button#requestPayment')
 
     await t
         .click(paymentButton)
