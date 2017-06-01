@@ -28,7 +28,7 @@
                       >
                     </div>
 
-                    <button v-on:click="record" id="submitVoucher" class="cta">Submit code</button>
+                    <button v-on:click="onRecordVoucher" id="submitVoucher" class="cta">Submit code</button>
 
                 </form>
 
@@ -55,12 +55,20 @@ export default {
         }
     },
     methods:  {
-        record: function(event) {
+        onRecordVoucher: function(event) {
             //TODO: some proper validation
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
-                if (Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode)) {
-                    this.voucherCode = "";
-                }
+                Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
+                    // Success function
+                    function() {
+                        Store.getRecVouchers();
+                    },
+                    // Failure function, hook for error message
+                    function() {
+
+                    });
+                // Do anyway.
+                this.voucherCode = "";
             }
         },
 

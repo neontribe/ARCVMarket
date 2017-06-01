@@ -145,18 +145,17 @@ store.mergeRecVouchers = function (replacements) {
 /**
  * Adds a voucher code and submits it.
  */
-store.addVoucherCode = function (voucherCode) {
+store.addVoucherCode = function (voucherCode, success, failure) {
     this.vouchers.push(voucherCode);
-    return this.transitionVouchers('collect',this.vouchers, this.getRecVouchers());
+    this.transitionVouchers('collect',this.vouchers, success, failure);
 };
 
 /**
  * Transition request the recorded vouchers list to pending
  */
-store.pendRecVouchers = function () {
-    // refresh the server's recorded vouchers list.
-    this.getRecVouchers();
-    return this.transitionVouchers('confirm',this.recVouchers);
+store.pendRecVouchers = function (success,failure) {
+    // Execute the transition
+    this.transitionVouchers('confirm', this.recVouchers, success, failure);
 };
 
 /**
@@ -183,10 +182,8 @@ store.transitionVouchers = function (transition, vouchers, success, failure) {
     this.netMgr.apiPost('vouchers', postData,
         function () {
             if (success) {success()}
-            return true;
         }, function() {
             if (failure) {failure()}
-            return false;
         }
     );
 };

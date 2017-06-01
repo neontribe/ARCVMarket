@@ -33,13 +33,13 @@
                     </div>
 
 
-                    <button v-on:click="getRecVouchers('application/csv')">Download .csv</button>
+                    <button v-on:click="onDownloadVouchers('application/csv')">Download .csv</button>
 
                 </div>
 
                 <instructions></instructions>
 
-                <router-link v-bind:to="'/account'"><button v-if="vouchersAdded">Request payment</button></router-link>
+                <button v-if="vouchersAdded" v-on:click="onRequestPayment">Request payment</button>
 
             </div>
 
@@ -72,7 +72,7 @@ export default {
         }
     },
     methods: {
-        getRecVouchers(format) {
+        onDownloadVouchers(format) {
             NetMgr.setAccept(format);
             NetMgr.apiGet('/traders/' + Store.trader.id + '/vouchers', function(response) {
                 var link = document.createElement("a");
@@ -81,6 +81,19 @@ export default {
                 link.click();
             });
         },
+        onRequestPayment() {
+            Store.pendRecVouchers(
+                // on Success, route to /account
+                function() {
+                    this.$router.push('/account');
+                }.bind(this),
+                // on Failure... hook for an alert?
+                function() {
+
+                }
+            );
+        }
+
     },
     mounted: function() {
         // initialise the current vouchers list;
