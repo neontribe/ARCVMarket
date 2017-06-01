@@ -21,7 +21,7 @@ test('Header text is correct', async t => {
 test('Must fill both input boxes to log in successfully', async t => {
     await t
         .typeText('#userName', 'email@example.com')
-        .pressKey('enter')
+        .click('button')
     ;
     const pagePath = await t.eval(() => document.documentURI);
     expect(pagePath).to.equal(url + '/login?redirect=%2F');
