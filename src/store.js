@@ -122,7 +122,7 @@ store.getVoucherPaymentState = function () {
  * Gets the server's idea of a trader's recorder voucher list
  */
 store.getRecVouchers = function () {
-    this.netMgr.apiGet('/traders/' + this.trader.id + '/vouchers',
+    this.netMgr.apiGet('/traders/' + this.trader.id + '/vouchers&state=unconfirmed',
         function (response) {
             var newVouchers = response.data;
             newVouchers.sort(function (b, a) {
