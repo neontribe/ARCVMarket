@@ -16,7 +16,7 @@ test('Header text is correct', async t => {
         .click("#radio-0")
         .pressKey('enter')
     ;
-    const userLink = await el('a[href*="/user"');
+    const userLink = await el('a[href*="/user"]');
 
     await t
         .click(userLink)
@@ -33,7 +33,7 @@ test('The correct amout of traders exist', async t => {
         .click("#radio-0")
         .pressKey('enter')
     ;
-    const userLink = await el('a[href*="/user"');
+    const userLink = await el('a[href*="/user"]');
 
     await t
         .click(userLink)
@@ -50,7 +50,7 @@ test('Submit button exists', async t => {
         .click("#radio-0")
         .pressKey('enter')
     ;
-    const userLink = await el('a[href*="/user"');
+    const userLink = await el('a[href*="/user"]');
 
     await t
         .click(userLink)

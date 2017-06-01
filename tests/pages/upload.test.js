@@ -16,7 +16,7 @@ test('Header text is correct', async t => {
         .click("#radio-0")
         .pressKey('enter')
     ;
-    const uploadButton = await el('a[href*="/upload"');
+    const uploadButton = await el('a[href*="/upload"]');
 
     await t
         .click(uploadButton)

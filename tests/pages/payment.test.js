@@ -21,7 +21,7 @@ test('Payments page can be accessed', async t => {
         .click(traderRadio)
         .pressKey('enter')
     ;
-    const paymentNavButton = await el('a[href*="/payment"');
+    const paymentNavButton = await el('a[href*="/payment"]');
 
     await t
         .click(paymentNavButton)
@@ -38,7 +38,7 @@ test('Voucher code list exists', async t => {
         .click("#radio-0")
         .pressKey('enter')
     ;
-    const paymentNavButton = await el('a[href*="/payment"');
+    const paymentNavButton = await el('a[href*="/payment"]');
 
     await t
         .click(paymentNavButton)
@@ -55,7 +55,7 @@ test('Payment button works', async t => {
         .click("#radio-0")
         .pressKey('enter')
     ;
-    const paymentNavButton = await el('a[href*="/payment"');
+    const paymentNavButton = await el('a[href*="/payment"]');
 
     await t
         .click(paymentNavButton)
@@ -78,7 +78,7 @@ test('Instructions component occurs on payments page', async t => {
         .click("#radio-0")
         .pressKey('enter')
     ;
-    const paymentNavButton = await el('a[href*="/payment"');
+    const paymentNavButton = await el('a[href*="/payment"]');
 
     await t
         .click(paymentNavButton)

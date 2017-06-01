@@ -16,7 +16,7 @@ test('Header text is correct', async t => {
         .click("#radio-0")
         .pressKey('enter')
     ;
-    const scanButton = await el('a[href*="/scan"');
+    const scanButton = await el('a[href*="/scan"]');
 
     await t
         .click(scanButton)
