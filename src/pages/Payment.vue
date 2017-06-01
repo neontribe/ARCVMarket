@@ -39,7 +39,7 @@
 
                 <instructions></instructions>
 
-                <button v-if="vouchersAdded" v-on:click="onRequestPayment">Request payment</button>
+                <button id="requestPayment" v-if="vouchersAdded" v-on:click="onRequestPayment">Request payment</button>
 
             </div>
 
