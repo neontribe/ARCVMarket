@@ -22,7 +22,7 @@
                         <input :id="'tab-'+index" type="checkbox" name="tabs">
                         <label :for="'tab-'+index">
                             <div class="row">
-                                <div> {{ payment.payment_pending_on }}</div>
+                                <div> {{ payment.pended_on }}</div>
                                 <div> {{ payment.vouchers.length }}</div>
                                 <div class="amount">£{{ payment.vouchers.length }}</div>
                             </div>
