@@ -87,10 +87,9 @@ store.unAuthenticate = function (success, failure) {
  * Updates the current User's Traders
  * @returns {boolean}
  */
-store.getUserTraders = function(success) {
+store.getUserTraders = function() {
     this.netMgr.apiGet('/traders', function(response) {
         this.user.traders.splice(0, this.user.traders.length, response.data);
-        if (success){success()};
     }.bind(this));
     return true;
 };

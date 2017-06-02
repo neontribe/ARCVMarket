@@ -33,11 +33,18 @@ const routes = [
     { path: '*', redirect : "/" }
 ];
 
-// Create the router instance and pass the 'routes' option
+// Create the router instance and pass the 'routes' option.
+// NB - the base param should cope with the app route being a subdirectory.
 const router = new VueRouter({
     routes,
     mode: 'history',
-    base: '/'
+    base: window.location.pathname.
+    // Split it up into path components
+        split('/').
+    // Chop the last one off, there may only be one
+        slice(0, -1).
+    // Rejoin the remainder (if any) and tap "/" on the back.
+        join('/')+'/'
 });
 
 // Route Guard rules for directing users
@@ -51,7 +58,7 @@ router.beforeEach((to, from, next) => {
         });
     } else if (auth) {
         if (!Store.trader.id && to.path != "/user") {
-            // No trader and have options? We need to go to the trader chooser next, then on to where-ever.
+            // No trader? We need to go to the trader chooser next, then on to where-ever.
             // "Wherever" will be dealt with *after* that page.
             next({
                 path: '/user',
