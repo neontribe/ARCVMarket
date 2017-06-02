@@ -42,14 +42,14 @@ var Fixtures = {
     traderVoucherHistory: {
         "1": [
             {
-                "payment_pending_on": "2017-02-13",
+                "pended_on": "2017-02-13",
                 "vouchers": [
                     {"code": "RVP12345601", "recorded_on": "2017-02-12", "reimbursed_on": "2017-02-15"},
                     {"code": "RVP12345602", "recorded_on": "2017-02-12", "reimbursed_on": "2017-02-15"}
                 ]
             },
             {
-                "payment_pending_on": "2017-03-10",
+                "pended_on": "2017-03-10",
                 "vouchers": [
                     {"code": "SOL10000012", "recorded_on": "2017-03-09", "reimbursed_on": "2017-03-17"},
                     {"code": "SOL10000017", "recorded_on": "2017-03-09", "reimbursed_on": "2017-03-17"},
@@ -62,7 +62,7 @@ var Fixtures = {
         ],
         "2": [
             {
-                "payment_pending_on": "2017-01-09",
+                "pended_on": "2017-01-09",
                 "vouchers": [
                     {"code": "RVP12345678", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"},
                     {"code": "RVP12345679", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"},
