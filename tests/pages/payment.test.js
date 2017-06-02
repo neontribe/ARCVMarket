@@ -15,7 +15,7 @@ test('Payments page can be accessed', async t => {
         .typeText('#userPassword', 'secretpass')
         .click('button')
         .click("#radio-0")
-        .click('button#submitVoucher')
+        .click('button#continue')
     ;
     const pagePath = await t.eval(() => window.location);
     expect(pagePath.pathname).eql('/payment');
@@ -27,7 +27,7 @@ test('Voucher code list exists', async t => {
         .typeText('#userPassword', 'secretpass')
         .click('button')
         .click("#radio-0")
-        .click('button#submitVoucher')
+        .click('button#continue')
     ;
     const voucherList = await el('#registeredVouchers').exists;
     expect(voucherList).to.be.ok;
@@ -39,7 +39,7 @@ test('Payment button works', async t => {
         .typeText('#userPassword', 'secretpass')
         .click('button')
         .click("#radio-0")
-        .click('button#submitVoucher')
+        .click('button#continue')
     ;
     const paymentButton = await el('.content button#requestPayment')
 
@@ -57,7 +57,7 @@ test('Instructions component occurs on payments page', async t => {
         .typeText('#userPassword', 'secretpass')
         .click('button')
         .click("#radio-0")
-        .click('button#submitVoucher')
+        .click('button#continue')
     ;
     const instructionsComp = VueSelector('Instructions').exists;
     expect(instructionsComp).to.be.ok;
