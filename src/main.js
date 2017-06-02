@@ -51,7 +51,7 @@ router.beforeEach((to, from, next) => {
         });
     } else if (auth) {
         if (!Store.trader.id && to.path != "/user") {
-            // No trader and have optiosn? We need to go to the trader chooser next, then on to where-ever.
+            // No trader and have options? We need to go to the trader chooser next, then on to where-ever.
             // "Wherever" will be dealt with *after* that page.
             next({
                 path: '/user',
