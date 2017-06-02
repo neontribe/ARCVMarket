@@ -47,22 +47,20 @@
                     username: this.username,
                     password: this.password
                 };
-                Store.authenticate(userApiCreds, function () {
-                    this.errorMessage = null;
-                    // I don't like this here, but it's the only place it works for now.
-                    var redirect = this.$route.query.redirect;
-                    if (!redirect) {
-                        redirect = '/';
-                    }
-
-                    this.$router.push({path: redirect});
-
-                }.bind(this),
-                function (errmsg) {
-                  this.errorMessage = errmsg;
-                }.bind(this)
-              );
-
+                Store.authenticate(userApiCreds,
+                    function() {
+                        this.errorMessage = null;
+                        // I don't like this here, but it's the only place it works for now.
+                        var redirect = this.$route.query.redirect;
+                        if (!redirect) {
+                            redirect = '/';
+                        }
+                        this.$router.push({path: redirect});
+                    }.bind(this),
+                    function (errmsg) {
+                        this.errorMessage = errmsg;
+                    }.bind(this)
+                );
             }
         }
     }

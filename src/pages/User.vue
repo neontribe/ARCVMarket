@@ -3,7 +3,7 @@
 
         <main class="container" id="user">
 
-            <div class="content narrow">
+            <div v-if="traderList" class="content narrow">
 
                 <h1>Choose a trader to manage</h1>
 
@@ -36,20 +36,35 @@ export default {
             checked : [] // Is at least one radio button clicked.
         }
     },
+    watch : {
+        userTraders : function(traders) {
+            if (traders[0].length == 1) {
+                Store.setUserTrader(traders[0][0].id);
+                this.redirect();
+            }
+        }
+    },
+    computed : {
+        traderList: function() {
+            return (this.userTraders[0] && this.userTraders[0].length > 1);
+        }
+    },
     mounted : function() {
         Store.getUserTraders();
     },
     methods : {
         onContinue : function() {
             if (Store.setUserTrader(this.checked)) {
-                var redirect = this.$route.query.redirect;
-                if (!redirect) {
-                    redirect = '/';
-                }
-                this.$router.push({path: redirect});
+                this.redirect();
             }
+        },
+        redirect : function() {
+            var redirect = this.$route.query.redirect;
+            if (!redirect) {
+                redirect = '/';
+            }
+            this.$router.push({path: redirect});
         }
-
     }
 }
 </script>
