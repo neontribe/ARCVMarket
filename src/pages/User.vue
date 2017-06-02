@@ -7,16 +7,16 @@
 
                 <h1>Choose a trader to manage</h1>
 
-                <form id="frmChooseTrader" class="form-group" v-on:submit.prevent >
+                <form id="frmChooseTrader" class="form-group" v-on:submit.prevent="onContinue">
 
                     <div v-for="(trader, index) in this.userTraders[0]">
                         <div class="multiple-choice">
-                            <input :id="'radio-'+index" :value="trader.id" v-model="checked" type="radio" name="radio-group">
+                            <input :id="'radio-'+index" :value="trader.id" v-model="checked" type="radio" name="radio-group" required>
                             <label :for="'radio-'+index">{{ trader.name }}</label>
                         </div>
                     </div>
 
-                    <button id="submitVoucher" v-on:click="onContinue">Continue</button>
+                    <button id="continue" type="submit" value="Continue">Continue</button>
 
                 </form>
 
