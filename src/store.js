@@ -184,10 +184,21 @@ store.transitionVouchers = function (transition, vouchers, success, failure) {
         'vouchers': vouchers
     };
     this.netMgr.apiPost('vouchers', postData,
-        function () {
-            if (success) {success()}
-        }, function() {
-            if (failure) {failure()}
+        function (response) {
+            if (transition === 'collect') {
+                // Add error message for invalid and fail codes.
+                if (
+                    response.data.invalid.length > 0
+                    || response.data.fail.length > 0
+                ) {
+                    this.error = 'The code you entered is not valid. Please try again.';
+                }
+            }
+            if (success) {
+                success();
+            }
+        }.bind(this), function() {
+            if (failure) {failure();}
         }
     );
 };

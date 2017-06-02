@@ -77,6 +77,7 @@ router.beforeEach((to, from, next) => {
 // The routing isn't foolproof; EG if the "back" button is hammered - this tries to catch that *after* transition.
 router.afterEach(function(transition){
     var auth = Store.netMgr.isAuth();
+    Store.error = null;
     if (!auth && transition.meta.auth) {
         this.go('/');
     }
