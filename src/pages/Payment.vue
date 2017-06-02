@@ -84,11 +84,11 @@ export default {
         onRequestPayment() {
             Store.pendRecVouchers(
                 // on Success, route to /account
-                function() {
+                function(response) {
                     this.$router.push('/account');
                 }.bind(this),
                 // on Failure... hook for an alert?
-                function() {
+                function(error) {
 
                 }
             );

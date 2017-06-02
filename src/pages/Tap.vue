@@ -63,13 +63,19 @@ export default {
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
                 Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
                     // Success function
-                    function() {
+                    function(response) {
+                            // Add error message for invalid and fail codes.
+                            if (
+                                response.data.invalid.length > 0
+                                || response.data.fail.length > 0
+                            ) {
+                                this.errorMessage = 'The code you entered is not valid. Please try again.';
+                            }
                         Store.clearVouchers();
                         Store.getRecVouchers();
-                    },
+                    }.bind(this),
                     // Failure function, hook for error message
                     function() {
-
                     });
                 // Do anyway.
                 this.voucherCode = "";
