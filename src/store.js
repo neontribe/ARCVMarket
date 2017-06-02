@@ -124,7 +124,9 @@ store.getVoucherPaymentState = function () {
 store.getRecVouchers = function () {
     this.netMgr.apiGet('/traders/' + this.trader.id + '/vouchers?status=unconfirmed',
         function (response) {
-            var newVouchers = response.data;
+            var newVouchers = Object.keys(response.data).map(function(k){
+                return response.data[k];
+            });
             newVouchers.sort(function (b, a) {
                 return new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime()
             });
