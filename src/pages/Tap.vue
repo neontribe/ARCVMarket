@@ -6,6 +6,8 @@
 
                 <h1>Type a voucher code</h1>
 
+                <transition name="fade"<div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
+
                 <form id="textVoucher" v-on:submit.prevent>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Type a voucher code</label>
 
@@ -51,7 +53,8 @@ export default {
             sponsorCode : "RVP",
             voucherCode : "",
             vouchers : Store.vouchers,
-            recVouchers : Store.recVouchers
+            recVouchers : Store.recVouchers,
+            errorMessage : Store.error
         }
     },
     methods:  {
@@ -60,12 +63,19 @@ export default {
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
                 Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
                     // Success function
-                    function() {
+                    function(response) {
+                        // Add error message for invalid and fail codes.
+                        if (
+                            response.data.invalid.length > 0
+                            || response.data.fail.length > 0
+                        ) {
+                            this.errorMessage = 'The code you entered is not valid. Please try again.';
+                        }
+                        Store.clearVouchers();
                         Store.getRecVouchers();
-                    },
+                    }.bind(this),
                     // Failure function, hook for error message
                     function() {
-
                     });
                 // Do anyway.
                 this.voucherCode = "";
