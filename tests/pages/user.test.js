@@ -34,6 +34,6 @@ test('Submit button exists', async t => {
         .typeText('#userPassword', 'secretpass')
         .click('button')
     ;
-    const submitButton = await el('button#submitVoucher').exists;
+    const submitButton = await el('button#continue').exists;
     expect(submitButton).to.be.ok;
 });
