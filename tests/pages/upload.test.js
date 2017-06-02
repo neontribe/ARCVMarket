@@ -14,7 +14,7 @@ test('Header text is correct', async t => {
         .typeText('#userPassword', 'secretpass')
         .click('button')
         .click("#radio-0")
-        .click('button#submitVoucher')
+        .click('button#continue')
     ;
     const header = await el('main#upload .content h1').innerText;
     expect(header).to.equal('Upload voucher codes');
