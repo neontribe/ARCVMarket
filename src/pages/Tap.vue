@@ -64,13 +64,13 @@ export default {
                 Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
                     // Success function
                     function(response) {
-                            // Add error message for invalid and fail codes.
-                            if (
-                                response.data.invalid.length > 0
-                                || response.data.fail.length > 0
-                            ) {
-                                this.errorMessage = 'The code you entered is not valid. Please try again.';
-                            }
+                        // Add error message for invalid and fail codes.
+                        if (
+                            response.data.invalid.length > 0
+                            || response.data.fail.length > 0
+                        ) {
+                            this.errorMessage = 'The code you entered is not valid. Please try again.';
+                        }
                         Store.clearVouchers();
                         Store.getRecVouchers();
                     }.bind(this),

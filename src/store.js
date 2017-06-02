@@ -187,10 +187,10 @@ store.transitionVouchers = function (transition, vouchers, success, failure) {
     };
     this.netMgr.apiPost('vouchers', postData,
         function (response) {
-            if (success) {success(response);}
-        }.bind(this),
+            if (success) {success(response)}
+        },
         function() {
-            if (failure) {failure(error);}
+            if (failure) {failure(error)}
         }
     );
 };
