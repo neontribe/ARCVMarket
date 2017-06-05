@@ -69,7 +69,9 @@ export default {
                             response.data.invalid.length > 0
                             || response.data.fail.length > 0
                         ) {
-                            this.errorMessage = 'The code you entered is not valid. Please try again.';
+                            this.errorMessage = "The code you entered is not valid. Please try again.";
+                        } else {
+                            this.errorMessage = "";
                         }
                         Store.clearVouchers();
                         Store.getRecVouchers();
