@@ -75,7 +75,7 @@ export default {
         onDownloadVouchers(format) {
             // Direct access to the get function is unpleasant, but seems necessary for applying a one of CFG change.
             var cfg = { headers : { 'Accept' : format}};
-            NetMgr.axiosInstance.get('/traders/' + Store.trader.id + '/vouchers', cfg)
+            NetMgr.axiosInstance.get('/traders/' + Store.trader.id + '/vouchers?status=unconfirmed', cfg)
                 .then(function(response) {
                     var link = document.createElement("a");
                     link.download = 'vouchers.csv';
