@@ -73,7 +73,7 @@ export default {
     },
     methods: {
         onDownloadVouchers(format) {
-            // Direct access to the get function is unpleasent, but seems neccessary for applying a one of CFG change.
+            // Direct access to the get function is unpleasant, but seems necessary for applying a one of CFG change.
             var cfg = { headers : { 'Accept' : format}};
             NetMgr.axiosInstance.get('/traders/' + Store.trader.id + '/vouchers', cfg)
                 .then(function(response) {
