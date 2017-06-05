@@ -50,7 +50,7 @@
 
                 </div>
 
-                <button>Download payment history</button>
+                <button>Download all history</button>
 
             </div>
 
