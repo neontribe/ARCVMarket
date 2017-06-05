@@ -127,9 +127,6 @@ store.getRecVouchers = function () {
             var newVouchers = Object.keys(response.data).map(function(k){
                 return response.data[k];
             });
-            newVouchers.sort(function (b, a) {
-                return new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime()
-            });
             this.mergeRecVouchers(newVouchers);
         }.bind(this));
     return true;
