@@ -33,7 +33,7 @@
                     </div>
 
 
-                    <button v-on:click="onDownloadVouchers('application/csv')">Download .csv</button>
+                    <button v-on:click="onDownloadVouchers('application/csv')">Download list</button>
 
                 </div>
 
