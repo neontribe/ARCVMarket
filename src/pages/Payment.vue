@@ -73,13 +73,16 @@ export default {
     },
     methods: {
         onDownloadVouchers(format) {
-            NetMgr.setAccept(format);
-            NetMgr.apiGet('/traders/' + Store.trader.id + '/vouchers', function(response) {
-                var link = document.createElement("a");
-                link.download = 'vouchers.csv';
-                link.href = 'data:'+response.headers['content-type']+',' + encodeURIComponent(response.data);
-                link.click();
-            });
+            // Direct access to the get function is unpleasant, but seems necessary for applying a one of CFG change.
+            var cfg = { headers : { 'Accept' : format}};
+            NetMgr.axiosInstance.get('/traders/' + Store.trader.id + '/vouchers', cfg)
+                .then(function(response) {
+                    var link = document.createElement("a");
+                    link.download = 'vouchers.csv';
+                    link.href = 'data:' + response.headers['content-type'] + ',' + encodeURIComponent(response.data);
+                    link.click();
+                })
+                .catch(); //TODO : bad file request handling
         },
         onRequestPayment() {
             Store.pendRecVouchers(
