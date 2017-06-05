@@ -6,7 +6,7 @@
 
                 <h1>Type a voucher code</h1>
 
-                <transition name="fade"<div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
+                <transition name="fade"><div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
 
                 <form id="textVoucher" v-on:submit.prevent>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Type a voucher code</label>
@@ -69,7 +69,9 @@ export default {
                             response.data.invalid.length > 0
                             || response.data.fail.length > 0
                         ) {
-                            this.errorMessage = 'The code you entered is not valid. Please try again.';
+                            this.errorMessage = "The code you entered is not valid. Please try again.";
+                        } else {
+                            this.errorMessage = "";
                         }
                         Store.clearVouchers();
                         Store.getRecVouchers();
