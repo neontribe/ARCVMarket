@@ -3,7 +3,7 @@ var Fixtures = {
     userTraders: {
         "1": [
             {
-                "id": 2,
+                "id": 1,
                 "name": "Kristy Corntop",
                 "pic_url": null,
                 "market_id": 2,
@@ -14,16 +14,16 @@ var Fixtures = {
         ],
         "2": [
             {
-                "id": 4,
-                "name": "Hazel Pickleweed",
+                "id": 1,
+                "name": "Kristy Corntop",
                 "pic_url": null,
-                "market_id": 4,
+                "market_id": 2,
                 "created_at": "2017-05-24 14:19:22",
                 "updated_at": "2017-05-24 14:19:22",
                 "deleted_at": null
             },
             {
-                "id": 5,
+                "id": 2,
                 "name": "Barry Thistlethorn",
                 "pic_url": null,
                 "market_id": 5,
