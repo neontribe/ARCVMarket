@@ -559,6 +559,12 @@ main > *:target ~ * {
     &:checked ~ label {
       background-color: $arc_rose;
       color: $arc-white;
+      .download {
+        color: $arc-white;
+        &:hover {
+          color: $arc_copy;
+        }
+      }
     }
     &[type=checkbox] + label::before {
       font-weight: bold;
@@ -596,18 +602,27 @@ main > *:target ~ * {
         text-align: left;
         padding-left: 2em;
       }
-      &:nth-child(2) {
-        width: 40%;
-        text-align: right;
-      }
+      &:nth-child(2),
       &:nth-child(3) {
         width: 30%;
+        text-align: right;
+      }
+      &:nth-child(4) {
+        width: 10%;
         text-align: right;
       }
     }
   }
   .amount {
     font-weight: bold;
+  }
+  .download {
+    .fa {
+      font-size: 1.2em;
+    }
+    &:hover {
+      color: $arc_rose;
+    }
   }
 }
 
