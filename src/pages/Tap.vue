@@ -6,7 +6,7 @@
 
                 <h1>Type a voucher code</h1>
 
-                <transition name="fade"<div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
+                <transition name="fade"><div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
 
                 <form id="textVoucher" v-on:submit.prevent>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Type a voucher code</label>
