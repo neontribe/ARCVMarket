@@ -326,9 +326,6 @@ header {
   }
   &.narrow {
     width: 450px;
-    .two-buttons {
-      width: 100%;
-    }
   }
 }
 
@@ -352,40 +349,6 @@ h1.expandable {
   background-color: $arc_rose;
   color: $arc_white;
   width: 100%;
-}
-
-.two-buttons {
-  display: flex;
-  width: 40%;
-  flex: 1;
-  padding: 0;
-  margin: 1em auto;
-  a {
-    text-decoration: none;
-  }
-  button {
-    padding: 0;
-    font-size: 0.9rem;
-    width: 50%;
-    margin: 0;
-  }
-  .left {
-    margin-right: 0.5em;
-    background-color: $arc_white;
-    color: $arc_copy;
-    &.alt {
-      background-color: $arc_rose;
-      color: $arc_white;
-    }
-  }
-  .right {
-    margin-left: 0.5em;
-    &::after {
-      font-family: FontAwesome;
-      content: "\f0da";
-      padding-left: 0.5em;
-    }
-  }
 }
 
 // styling for the div which contains both text fields for adding vouchers
@@ -790,9 +753,6 @@ main > *:target ~ * {
   .fullwidth {
     padding: 1em 0 2em 0;
     width: 100%;
-    .two-buttons {
-      width: 100%;
-    }
   }
 
   button {
@@ -893,12 +853,8 @@ main > *:target ~ * {
           padding-left: 0;
         }
       }
-      .two-buttons,
       button {
         width: 92%;
-      }
-      .list-wrapper .two-buttons {
-        margin: 1.5em auto;
       }
     }
   }
