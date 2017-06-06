@@ -37,7 +37,12 @@ var Fixtures = {
         "1": [
             {"code": "SOL00000010", "updated_at": "2017-05-17 12:46.15"},
             {"code": "SOL00000011", "updated_at": "2017-05-17 12:46.15"},
+        ],
+        "2": [
+            {"code": "SOL00000015", "updated_at": "2017-05-17 13:46.15"},
+            {"code": "SOL00000012", "updated_at": "2017-05-17 14:46.15"},
         ]
+
     },
     traderVoucherHistory: {
         "1": [
@@ -51,7 +56,7 @@ var Fixtures = {
             {
                 "pended_on": "2017-03-10",
                 "vouchers": [
-                    {"code": "SOL10000012", "recorded_on": "2017-03-09", "reimbursed_on": "2017-03-17"},
+                    {"code": "SOL10000013", "recorded_on": "2017-03-09", "reimbursed_on": "2017-03-17"},
                     {"code": "SOL10000017", "recorded_on": "2017-03-09", "reimbursed_on": "2017-03-17"},
                     {"code": "RVP12345631", "recorded_on": "2017-03-09", "reimbursed_on": ""},
                     {"code": "RVP12345632", "recorded_on": "2017-03-09", "reimbursed_on": ""},
@@ -66,8 +71,8 @@ var Fixtures = {
                 "vouchers": [
                     {"code": "RVP12345678", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"},
                     {"code": "RVP12345679", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"},
-                    {"code": "SOL10000011", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"},
-                    {"code": "SOL10000015", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"}
+                    {"code": "SOL10000014", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"},
+                    {"code": "SOL10000016", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"}
                 ]
             }
         ],
@@ -81,9 +86,9 @@ var Fixtures = {
 };
 
 Fixtures.apply = function (mock) {
-    //TODO: example regex route;
-    //TODO: example route-parsed route;
-    mock.onGet(/\/traders\/\d+\/vouchers/).reply(200, this.traderVouchers["1"]);
+    // Using regex because url contains params as well. And this is shorter.
+    mock.onGet(/\/traders\/1\/vouchers/).reply(200, this.traderVouchers["1"]);
+    mock.onGet(/\/traders\/2\/vouchers/).reply(200, this.traderVouchers["2"]);
 
     mock.onPost('/vouchers').reply(function (request) {
         // returns a success regardless!
@@ -100,6 +105,8 @@ Fixtures.apply = function (mock) {
 
     // route to get nicely structured user vouchers.
     mock.onGet('/traders/1/voucher-history').reply(200, this.traderVoucherHistory["1"]);
+    mock.onGet('/traders/2/voucher-history').reply(200, this.traderVoucherHistory["2"]);
+
 
     mock.onGet('/traders').reply(200, this.userTraders["2"]);
 
