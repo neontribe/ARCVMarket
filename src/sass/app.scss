@@ -326,9 +326,6 @@ header {
   }
   &.narrow {
     width: 450px;
-    .two-buttons {
-      width: 100%;
-    }
   }
 }
 
@@ -352,40 +349,6 @@ h1.expandable {
   background-color: $arc_rose;
   color: $arc_white;
   width: 100%;
-}
-
-.two-buttons {
-  display: flex;
-  width: 40%;
-  flex: 1;
-  padding: 0;
-  margin: 1em auto;
-  a {
-    text-decoration: none;
-  }
-  button {
-    padding: 0;
-    font-size: 0.9rem;
-    width: 50%;
-    margin: 0;
-  }
-  .left {
-    margin-right: 0.5em;
-    background-color: $arc_white;
-    color: $arc_copy;
-    &.alt {
-      background-color: $arc_rose;
-      color: $arc_white;
-    }
-  }
-  .right {
-    margin-left: 0.5em;
-    &::after {
-      font-family: FontAwesome;
-      content: "\f0da";
-      padding-left: 0.5em;
-    }
-  }
 }
 
 // styling for the div which contains both text fields for adding vouchers
@@ -559,6 +522,9 @@ main > *:target ~ * {
     &:checked ~ label {
       background-color: $arc_rose;
       color: $arc-white;
+      .download:hover {
+          color: $arc_copy;
+      }
     }
     &[type=checkbox] + label::before {
       font-weight: bold;
@@ -592,22 +558,32 @@ main > *:target ~ * {
         content: "Voucher total";
       }
       &:nth-child(1) {
-        width: 30%;
+        width: 40%;
         text-align: left;
         padding-left: 2em;
       }
-      &:nth-child(2) {
-        width: 40%;
+      &:nth-child(2),
+      &:nth-child(3) {
+        width: 25%;
         text-align: right;
       }
-      &:nth-child(3) {
-        width: 30%;
+      &:nth-child(4) {
+        width: 10%;
         text-align: right;
       }
     }
   }
   .amount {
     font-weight: bold;
+  }
+  .download {
+    .fa {
+      font-size: 1.1em;
+      padding-bottom: 0;
+    }
+    &:hover {
+      color: $arc_rose;
+    }
   }
 }
 
@@ -774,9 +750,6 @@ main > *:target ~ * {
   .fullwidth {
     padding: 1em 0 2em 0;
     width: 100%;
-    .two-buttons {
-      width: 100%;
-    }
   }
 
   button {
@@ -790,11 +763,42 @@ main > *:target ~ * {
       width: 100%;
     }
   }
+
+  .accordion,
+  .voucher-list {
+    label {
+      padding: 0.3em 1.5em;
+      &::before {
+        height: 3.7em;
+        line-height: 3.5em;
+      }
+    }
+  }
+}
+
+@media (max-width: 620px) {
+  .accordion,
+  .voucher-list {
+    .tab .row .total::before {
+      content: "Total";
+    }
+  }
 }
 
 @media (max-width: 580px) {
   .logo img {
     width: 70%;
+  }
+
+  .accordion,
+  .voucher-list {
+    font-size: 1em;
+    label {
+      &::before {
+        height: 3.6em;
+        line-height: 3.6em;
+      }
+    }
   }
 }
 
@@ -856,33 +860,30 @@ main > *:target ~ * {
           padding-left: 0;
         }
       }
-      .two-buttons,
       button {
         width: 92%;
-      }
-      .list-wrapper .two-buttons {
-        margin: 1.5em auto;
       }
     }
   }
 
   .accordion,
   .voucher-list {
-    font-size: 1em;
+    font-size: 0.9em;
     label {
       padding: 0.5em 0;
+      &::before {
+        height: 4em;
+        line-height: 4em;
+      }
     }
     .tab {
       .row {
         div {
-          &.total::before {
-            content: "Total";
-          }
           &:nth-child(1) {
             flex: 1;
             width: initial;
             text-align: left;
-            padding-left: 3em;
+            padding-left: 2.4em;
           }
           &:nth-child(2) {
             flex: 1;
@@ -898,6 +899,9 @@ main > *:target ~ * {
         }
       }
     }
+  }
+  .accordion .tab .row div:nth-child(4) {
+    padding-right: 1em;
   }
   .voucher-list {
     .row-code {

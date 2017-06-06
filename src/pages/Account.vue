@@ -9,11 +9,12 @@
 
                     <!-- Tab header -->
                     <div class="tab thead">
-                        <label >
+                        <label>
                             <div class="row">
                                 <div>Date</div>
                                 <div class="total"></div>
                                 <div>Amount</div>
+                                <div></div>
                             </div>
                         </label>
                     </div>
@@ -25,6 +26,7 @@
                                 <div> {{ payment.pended_on }}</div>
                                 <div> {{ payment.vouchers.length }}</div>
                                 <div class="amount">£{{ payment.vouchers.length }}</div>
+                                <div class="download"><i class="fa fa-download" aria-hidden="true" title="Download"></i></div>
                             </div>
                         </label>
                         <div class="tab-content">
@@ -37,7 +39,6 @@
                                 </label>
                             </div>
                             <div class="tab" v-for="voucher in payment.vouchers">
-
                                 <label>
                                     <div class="row-code">
                                         <div class="code">{{ voucher.code }}</div>
@@ -50,7 +51,7 @@
 
                 </div>
 
-                <button>Download payment history</button>
+                <button>Download all history</button>
 
             </div>
 
