@@ -42,7 +42,6 @@ var Fixtures = {
             {"code": "SOL00000015", "updated_at": "2017-05-17 13:46.15"},
             {"code": "SOL00000012", "updated_at": "2017-05-17 14:46.15"},
         ]
-
     },
     traderVoucherHistory: {
         "1": [
@@ -106,7 +105,6 @@ Fixtures.apply = function (mock) {
     // route to get nicely structured user vouchers.
     mock.onGet('/traders/1/voucher-history').reply(200, this.traderVoucherHistory["1"]);
     mock.onGet('/traders/2/voucher-history').reply(200, this.traderVoucherHistory["2"]);
-
 
     mock.onGet('/traders').reply(200, this.userTraders["2"]);
 
