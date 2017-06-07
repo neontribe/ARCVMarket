@@ -42,6 +42,21 @@ test('Page has masthead with logo, nav, profile bar and toolbar', async t => {
     expect(logo).to.be.ok;
 });
 
+test('Traders name is present', async t => {
+    await t
+        .typeText('#userName', 'email@example.co.uk')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+    ;
+    const firstTraderName = await el('label[for=radio-0').innerText;
+
+    await t
+        .click('input#radio-0')
+        .pressKey('enter')
+    ;
+    const currentTraderName = await el('.profile-bar div').child('strong').innerText;
+    expect(firstTraderName && currentTraderName).to.contain('Kristy Corntop');
+});
 test('I can change my trader', async t => {
     await t
         .typeText('#userName', 'email@example.co.uk')
