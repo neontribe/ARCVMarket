@@ -7,8 +7,8 @@ var Fixtures = {
                 "name": "Kristy Corntop",
                 "pic_url": null,
                 "market_id": 2,
-                "created_at": "2017-05-24 14:19:22",
-                "updated_at": "2017-05-24 14:19:22",
+                "created_at": "24-05-2017 14:19:22",
+                "updated_at": "24-05-2017 14:19:22",
                 "deleted_at": null
             }
         ],
@@ -18,8 +18,8 @@ var Fixtures = {
                 "name": "Kristy Corntop",
                 "pic_url": null,
                 "market_id": 2,
-                "created_at": "2017-05-24 14:19:22",
-                "updated_at": "2017-05-24 14:19:22",
+                "created_at": "24-05-2017 14:19:22",
+                "updated_at": "24-05-2017 14:19:22",
                 "deleted_at": null
             },
             {
@@ -27,47 +27,51 @@ var Fixtures = {
                 "name": "Barry Thistlethorn",
                 "pic_url": null,
                 "market_id": 5,
-                "created_at": "2017-05-24 14:19:22",
-                "updated_at": "2017-05-24 14:19:22",
+                "created_at": "24-05-2017 14:19:22",
+                "updated_at": "24-05-2017 14:19:22",
                 "deleted_at": null
             }
         ]
     },
     traderVouchers: {
         "1": [
-            {"code": "SOL00000010", "updated_at": "2017-05-17 12:46.15"},
-            {"code": "SOL00000011", "updated_at": "2017-05-17 12:46.15"},
+            {"code": "SOL00000010", "updated_at": "17-05-2017 12:46.15"},
+            {"code": "SOL00000011", "updated_at": "17-05-2017 12:46.15"},
+        ],
+        "2": [
+            {"code": "SOL00000015", "updated_at": "17-05-2017 13:46.15"},
+            {"code": "SOL00000012", "updated_at": "17-05-2017 14:46.15"},
         ]
     },
     traderVoucherHistory: {
         "1": [
             {
-                "pended_on": "2017-02-13",
+                "pended_on": "13-02-2017",
                 "vouchers": [
-                    {"code": "RVP12345601", "recorded_on": "2017-02-12", "reimbursed_on": "2017-02-15"},
-                    {"code": "RVP12345602", "recorded_on": "2017-02-12", "reimbursed_on": "2017-02-15"}
+                    {"code": "RVP12345601", "recorded_on": "12-02-2017", "reimbursed_on": "15-02-2017"},
+                    {"code": "RVP12345602", "recorded_on": "12-02-2017", "reimbursed_on": "15-02-2017"}
                 ]
             },
             {
-                "pended_on": "2017-03-10",
+                "pended_on": "10-03-2017",
                 "vouchers": [
-                    {"code": "SOL10000012", "recorded_on": "2017-03-09", "reimbursed_on": "2017-03-17"},
-                    {"code": "SOL10000017", "recorded_on": "2017-03-09", "reimbursed_on": "2017-03-17"},
-                    {"code": "RVP12345631", "recorded_on": "2017-03-09", "reimbursed_on": ""},
-                    {"code": "RVP12345632", "recorded_on": "2017-03-09", "reimbursed_on": ""},
-                    {"code": "SOL10000032", "recorded_on": "2017-03-09", "reimbursed_on": ""},
-                    {"code": "SOL10000037", "recorded_on": "2017-03-09", "reimbursed_on": ""}
+                    {"code": "SOL10000013", "recorded_on": "09-03-2017", "reimbursed_on": "17-03-2017"},
+                    {"code": "SOL10000017", "recorded_on": "09-03-2017", "reimbursed_on": "17-03-2017"},
+                    {"code": "RVP12345631", "recorded_on": "09-03-2017", "reimbursed_on": ""},
+                    {"code": "RVP12345632", "recorded_on": "09-03-2017", "reimbursed_on": ""},
+                    {"code": "SOL10000032", "recorded_on": "09-03-2017", "reimbursed_on": ""},
+                    {"code": "SOL10000037", "recorded_on": "09-03-2017", "reimbursed_on": ""}
                 ]
             },
         ],
         "2": [
             {
-                "pended_on": "2017-01-09",
+                "pended_on": "09-01-2017",
                 "vouchers": [
-                    {"code": "RVP12345678", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"},
-                    {"code": "RVP12345679", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"},
-                    {"code": "SOL10000011", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"},
-                    {"code": "SOL10000015", "recorded_on": "2017-01-08", "reimbursed_on": "2017-01-11"}
+                    {"code": "RVP12345678", "recorded_on": "08-01-2017", "reimbursed_on": "11-01-2017"},
+                    {"code": "RVP12345679", "recorded_on": "08-01-2017", "reimbursed_on": "11-01-2017"},
+                    {"code": "SOL10000014", "recorded_on": "08-01-2017", "reimbursed_on": "11-01-2017"},
+                    {"code": "SOL10000016", "recorded_on": "08-01-2017", "reimbursed_on": "11-01-2017"}
                 ]
             }
         ],
@@ -81,9 +85,9 @@ var Fixtures = {
 };
 
 Fixtures.apply = function (mock) {
-    //TODO: example regex route;
-    //TODO: example route-parsed route;
-    mock.onGet(/\/traders\/\d+\/vouchers/).reply(200, this.traderVouchers["1"]);
+    // Using regex because url contains params as well. And this is shorter.
+    mock.onGet(/\/traders\/1\/vouchers/).reply(200, this.traderVouchers["1"]);
+    mock.onGet(/\/traders\/2\/vouchers/).reply(200, this.traderVouchers["2"]);
 
     mock.onPost('/vouchers').reply(function (request) {
         // returns a success regardless!
@@ -100,6 +104,7 @@ Fixtures.apply = function (mock) {
 
     // route to get nicely structured user vouchers.
     mock.onGet('/traders/1/voucher-history').reply(200, this.traderVoucherHistory["1"]);
+    mock.onGet('/traders/2/voucher-history').reply(200, this.traderVoucherHistory["2"]);
 
     mock.onGet('/traders').reply(200, this.userTraders["2"]);
 
