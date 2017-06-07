@@ -105,6 +105,40 @@ test('I can type and submit a voucher code', async t => {
 
 });
 
+test('I cannot type letters into the voucher input', async t => {
+    await t
+        .typeText('#userName', 'email@example.co.uk')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click('input#radio-0')
+        .pressKey('enter')
+    ;
+    const voucherBox = await el('#voucherBox');
+
+    await t
+        .typeText(voucherBox, 'HELLO')
+        .expect(voucherBox.value, '')
+    ;
+});
+
+test('I cannot type numbers into the sponsor input', async t => {
+    await t
+        .typeText('#userName', 'email@example.co.uk')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click('input#radio-0')
+        .pressKey('enter')
+    ;
+    const sponsorBox = await el('#sponsorBox');
+
+    await t
+        .click(sponsorBox)
+        .pressKey('backspace backspace backspace')
+        .typeText(sponsorBox, '123')
+        .expect(sponsorBox.value, '')
+    ;
+});
+
 test('Page displays number of recorded vouchers', async t => {
     await t
         .typeText('#userName', 'email@example.co.uk')
