@@ -9,18 +9,6 @@ const url = 'http://localhost:8081/payment';
 fixture `Payment Page`
     .page(url);
 
-test('Payments page can be accessed', async t => {
-    await t
-        .typeText('#userName', 'email@example.com')
-        .typeText('#userPassword', 'secretpass')
-        .click('button')
-        .click("#radio-0")
-        .click('button#continue')
-    ;
-    const pagePath = await t.eval(() => window.location);
-    expect(pagePath.pathname).eql('/payment');
-});
-
 test('Pending vouchers is consistent throughout app', async t =>{
     await t
         .typeText('#userName', 'email@example.com')

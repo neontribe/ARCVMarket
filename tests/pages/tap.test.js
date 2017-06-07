@@ -57,6 +57,7 @@ test('Traders name is present', async t => {
     const currentTraderName = await el('.profile-bar div').child('strong').innerText;
     expect(firstTraderName && currentTraderName).to.contain('Kristy Corntop');
 });
+
 test('I can change my trader', async t => {
     await t
         .typeText('#userName', 'email@example.co.uk')
@@ -147,8 +148,24 @@ test('Page displays number of recorded vouchers', async t => {
         .click('input#radio-0')
         .pressKey('enter')
     ;
-
-    const voucherCount = await el('#app > div.wrapper > div.toolbar > div.count').innerText;
+    const voucherCount = await el('.count').innerText;
 
     expect(voucherCount).to.contain('2 vouchers waiting');
 });
+
+test('Voucher link is working', async t => {
+    await t
+        .typeText('#userName', 'email@example.co.uk')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click('input#radio-0')
+        .pressKey('enter')
+    ;
+    const voucherLink = await el('.count');
+
+    await t
+        .click(voucherLink)
+    ;
+    const pagePath = await t.eval(() => window.location);
+    expect(pagePath.pathname).eql('/payment');
+})
