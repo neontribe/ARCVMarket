@@ -21,6 +21,24 @@ test('Payments page can be accessed', async t => {
     expect(pagePath.pathname).eql('/payment');
 });
 
+test('Pending vouchers is consistent throughout app', async t =>{
+    await t
+        .typeText('#userName', 'email@example.com')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click("#radio-0")
+        .click('button#continue')
+    ;
+    const paymentVoucherCount = await el('.expandable').child('strong').innerText;
+    const addVoucherPage = await el('nav > ul').child(0);
+    
+    await t
+        .click(addVoucherPage)
+    ;
+    const navVoucherCount = await el('.count > a > strong').innerText;
+    expect(paymentVoucherCount && navVoucherCount).to.contain('2');
+});
+
 test('Voucher code list exists', async t => {
     await t
         .typeText('#userName', 'email@example.com')
