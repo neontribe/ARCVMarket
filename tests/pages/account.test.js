@@ -44,7 +44,7 @@ test('Requested payments accordion exists', async t => {
     expect(paymentsAccordion).to.be.ok;
 });
 
-test('Download button exists', async t => {
+test('Download history button exists', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
@@ -54,4 +54,16 @@ test('Download button exists', async t => {
     ;
     const downloadButton = await el('.content button');
     expect(downloadButton).to.be.ok;
+});
+
+test('Download icon occurs on requested payment', async t => {
+    await t
+        .typeText('#userName', 'email@example.com')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click("#radio-0")
+        .click('button#continue')
+    ;
+    const downloadIcon = await el('div.download').exists;
+    expect(downloadIcon).to.be.ok;
 });
