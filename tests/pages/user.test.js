@@ -8,6 +8,21 @@ const url = 'http://localhost:8081';
 fixture `User Page`
     .page(url);
 
+test('Clicking the logo does not redirect me', async t => {
+    await t
+        .typeText('#userName', 'email@example.com')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+    ;
+    const logo = await el('.logo');
+
+    await t
+        .click(logo)
+    ;
+    const pagePath = await t.eval(() => window.location);
+    expect(pagePath.pathname).eql('/user');
+});
+
 test('Header text is correct', async t => {
     await t
         .typeText('#userName', 'email@example.com')

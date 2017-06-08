@@ -9,7 +9,7 @@ const url = 'http://localhost:8081/payment';
 fixture `Payment Page`
     .page(url);
 
-test('Payments page can be accessed', async t => {
+test('Pending vouchers is consistent throughout app', async t =>{
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')
@@ -17,8 +17,14 @@ test('Payments page can be accessed', async t => {
         .click("#radio-0")
         .click('button#continue')
     ;
-    const pagePath = await t.eval(() => window.location);
-    expect(pagePath.pathname).eql('/payment');
+    const paymentVoucherCount = await el('.expandable').child('strong').innerText;
+    const addVoucherPage = await el('nav > ul').child(0);
+    
+    await t
+        .click(addVoucherPage)
+    ;
+    const navVoucherCount = await el('.count > a > strong').innerText;
+    expect(paymentVoucherCount && navVoucherCount).to.contain('2');
 });
 
 test('Voucher code list exists', async t => {
