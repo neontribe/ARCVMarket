@@ -15,7 +15,7 @@
                             <label>
                                 <div class="row-code">
                                     <div>Voucher code</div>
-                                    <div>Date added</div>
+                                    <div>Voucher added on</div>
                                 </div>
                             </label>
                         </div>
@@ -69,18 +69,6 @@ export default {
         }
     },
     methods: {
-        onDownloadVouchers(format) {
-            // Direct access to the get function is unpleasant, but seems necessary for applying a one of CFG change.
-            var cfg = { headers : { 'Accept' : format}};
-            NetMgr.axiosInstance.get('/traders/' + Store.trader.id + '/vouchers?status=unconfirmed', cfg)
-                .then(function(response) {
-                    var link = document.createElement("a");
-                    link.download = 'vouchers.csv';
-                    link.href = 'data:' + response.headers['content-type'] + ',' + encodeURIComponent(response.data);
-                    link.click();
-                })
-                .catch(); //TODO : bad file request handling
-        },
         onRequestPayment() {
             Store.pendRecVouchers(
                 // on Success, route to /account
@@ -89,11 +77,9 @@ export default {
                 }.bind(this),
                 // on Failure... hook for an alert?
                 function(error) {
-
                 }
             );
         }
-
     },
     mounted: function() {
         // initialise the current vouchers list;
