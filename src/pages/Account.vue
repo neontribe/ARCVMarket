@@ -26,7 +26,7 @@
                                 <div> {{ payment.pended_on }}</div>
                                 <div> {{ payment.vouchers.length }}</div>
                                 <div class="amount">£{{ payment.vouchers.length }}</div>
-                                <div class="download"><i class="fa fa-download" aria-hidden="true" title="Download"></i></div>
+                                <div class="email"><i class="fa fa-envelope" aria-hidden="true" title="Send record to my email"></i></div>
                             </div>
                         </label>
                         <div class="tab-content">
@@ -51,7 +51,7 @@
 
                 </div>
 
-                <button>Download all history</button>
+                <button>Email payment history</button>
 
             </div>
 
