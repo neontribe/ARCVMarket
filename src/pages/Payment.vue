@@ -32,8 +32,7 @@
 
                     </div>
 
-
-                    <button v-on:click="onDownloadVouchers('application/csv')">Download list</button>
+                    <button v-on:click="onDownloadVouchers('application/csv')">Send to my email</button>
 
                 </div>
 
