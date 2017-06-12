@@ -57,20 +57,15 @@ export default {
             vouchers : Store.vouchers,
             recVouchers : Store.recVouchers,
             errorMessage : Store.error
-
         }
     },
     watch: {
         voucherCode : function(code) {
-            console.log(code.length);
             if (code.length === parseInt(this.$refs.voucherBox.getAttribute("maxlength"))) {
-              console.log("fire!");
-              this.$refs.submitVoucher.click();
-
+                this.$refs.submitVoucher.click();
             }
         }
     },
-
     methods:  {
         onRecordVoucher: function(event) {
             //TODO: some proper validation
