@@ -31,7 +31,7 @@
                       >
                     </div>
 
-                    <button v-on:click="onRecordVoucher" id="submitVoucher" class="cta">Submit code</button>
+                    <button ref="submitVoucher" v-on:click="onRecordVoucher" id="submitVoucher" class="cta">Submit code</button>
 
                 </form>
 
@@ -57,8 +57,20 @@ export default {
             vouchers : Store.vouchers,
             recVouchers : Store.recVouchers,
             errorMessage : Store.error
+
         }
     },
+    watch: {
+        voucherCode : function(code) {
+            console.log(code.length);
+            if (code.length === parseInt(this.$refs.voucherBox.getAttribute("maxlength"))) {
+              console.log("fire!");
+              this.$refs.submitVoucher.click();
+
+            }
+        }
+    },
+
     methods:  {
         onRecordVoucher: function(event) {
             //TODO: some proper validation
@@ -83,6 +95,8 @@ export default {
                     });
                 // Do anyway.
                 this.voucherCode = "";
+                this.sponsorCode = "";
+                this.$refs.sponsorBox.focus();
             }
         },
 
