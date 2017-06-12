@@ -11,7 +11,7 @@
                     <div class="tab thead">
                         <label>
                             <div class="row">
-                                <div>Date</div>
+                                <div>Request date</div>
                                 <div class="total"></div>
                                 <div>Amount</div>
                                 <div></div>
@@ -25,8 +25,8 @@
                             <div class="row">
                                 <div> {{ payment.pended_on }}</div>
                                 <div> {{ payment.vouchers.length }}</div>
-                                <div class="amount">£{{ payment.vouchers.length }}</div>
-                                <div class="email"><i class="fa fa-envelope" aria-hidden="true" title="Send record to my email"></i></div>
+                                <div class="amount">&pound;{{ payment.vouchers.length }}</div>
+                                <div class="email"><i class="fa fa-envelope" aria-hidden="true" title="Send this record to my email"></i></div>
                             </div>
                         </label>
                         <div class="tab-content">
@@ -34,7 +34,7 @@
                                 <label>
                                     <div class="row-code">
                                         <div>Voucher code</div>
-                                        <div>Date added</div>
+                                        <div>Voucher added on</div>
                                     </div>
                                 </label>
                             </div>

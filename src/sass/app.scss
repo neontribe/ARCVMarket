@@ -522,8 +522,11 @@ main > *:target ~ * {
     &:checked ~ label {
       background-color: $arc_rose;
       color: $arc-white;
-      .email:hover {
+      .email {
+        color: $arc_white;
+        &:hover {
           color: $arc_copy;
+        }
       }
     }
     &[type=checkbox] + label::before {
@@ -581,8 +584,9 @@ main > *:target ~ * {
       font-size: 1.1em;
       padding-bottom: 0;
     }
+    color: $arc_rose;
     &:hover {
-      color: $arc_rose;
+      color: $arc_copy;
     }
   }
 }
@@ -886,7 +890,6 @@ main > *:target ~ * {
             padding-left: 2.4em;
           }
           &:nth-child(2) {
-            flex: 1;
             width: initial;
             text-align: right;
           }
