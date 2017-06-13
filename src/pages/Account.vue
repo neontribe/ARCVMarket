@@ -51,7 +51,7 @@
 
                 </div>
 
-                <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail(null)">Email payment history</button>
+                <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail()">Email payment history</button>
 
             </div>
 
@@ -73,7 +73,7 @@
 
         },
         methods: {
-            onRequestVoucherHistoryEmail(submittedOn) {
+            onRequestVoucherHistoryEmail(submittedOn = null) {
                 NetMgr.apiPost('/traders/' + Store.trader.id + '/voucher-history-email?submission_date=' + submittedOn,
                     function (response) {
                         if (success) { success(response) }
