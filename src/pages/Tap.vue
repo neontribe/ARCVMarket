@@ -11,25 +11,29 @@
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Type a voucher code</label>
 
                     <div class="input-box">
-                      <input id="sponsorBox"
-                             @keypress='onKeypressSponsorBox'
-                             type="text"
-                             v-model="sponsorCode"
-                             ref="sponsorBox"
-                             maxlength="3"
-                      >
-                      <input id="voucherBox"
-                             v-on:keyup.delete='onDelVoucherBox'
-                             @keypress='onKeypressVoucherBox'
-                             type="tel"
-                             pattern="[0-9]*"
-                             v-model="voucherCode"
-                             ref="voucherBox"
-                             maxlength="8"
-                      >
+                        <input id="sponsorBox"
+                            @keypress='onKeypressSponsorBox'
+                            type="text"
+                            v-model="sponsorCode"
+                            ref="sponsorBox"
+                            maxlength="3"
+                        >
+                        <input id="voucherBox"
+                            v-on:keyup.delete='onDelVoucherBox'
+                            @keypress='onKeypressVoucherBox'
+                            type="tel"
+                            pattern="[0-9]*"
+                            v-model="voucherCode"
+                            ref="voucherBox"
+                            maxlength="8"
+                        >
                     </div>
 
-                    <button v-on:click="onRecordVoucher" v-bind:class="[{ spinner: this.spinner }, { validate: this.validate }, { fail: this.fail }]" class="cta" id="submitVoucher"></button>
+                    <button id="submitVoucher"
+                        v-on:click="onRecordVoucher"
+                        v-bind:class="[{ spinner: this.spinner }, { validate: this.validate }, { fail: this.fail }]"
+                        class="cta"
+                    ></button>
 
                 </form>
 
