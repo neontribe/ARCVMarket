@@ -6,9 +6,8 @@
 
                 <h1>Type a voucher code</h1>
 
-                <transition name="fade"><div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
-
                 <form id="textVoucher" v-on:submit.prevent>
+                    <transition name="fade"><div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Type a voucher code</label>
 
                     <div class="input-box">
@@ -30,11 +29,7 @@
                       >
                     </div>
 
-                    <!--<button v-on:click="onRecordVoucher" id="submitVoucher" class="cta">Submit code</button>-->
-
-                    <div id="test">
-                        <button v-on:click="onRecordVoucher" v-bind:class="[{ spinner: this.spinner }, { validate: this.validate }, { fail: this.fail }]" id="submitVoucher"></button>
-                    </div>
+                    <button v-on:click="onRecordVoucher" v-bind:class="[{ spinner: this.spinner }, { validate: this.validate }, { fail: this.fail }]" class="cta" id="submitVoucher"></button>
 
                 </form>
 
@@ -80,6 +75,7 @@ export default {
                             this.showFail();
                             this.errorMessage = "Please enter a valid code.";
                         } else {
+                            this.showValidate();
                             this.errorMessage = "";
                         }
                         Store.clearVouchers();
