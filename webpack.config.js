@@ -1,7 +1,8 @@
 /* "Copyright © 2017, Alexander Rose Charity (reg. in England and Wales, #00279157)" */
-var path = require('path')
-var webpack = require('webpack')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+var path = require('path');
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var OfflinePlugin = require('offline-plugin');
 
 if (process.env.NODE_ENV === 'production') {
     var publicPath = 'https://neontribe.github.io/ARCVMarket/';
@@ -31,7 +32,8 @@ module.exports = {
         }),
         new webpack.BannerPlugin({
             banner: "Copyright (c) 2017, Alexander Rose Charity (reg. in England and Wales, #00279157)",
-        })
+        }),
+        new OfflinePlugin()
     ],
     module: {
         rules: [
