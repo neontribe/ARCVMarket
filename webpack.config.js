@@ -21,6 +21,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'index.html',
+            favicon: 'src/assets/favicon.ico',
             inject: true,
             minify: {
                 removeComments: true,
@@ -54,7 +55,7 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.(png|jpg|gif|svg)$/,
+                test: /\.(png|jpg|gif|svg|ico)$/,
                 loader: 'file-loader',
                 options: {
                     name: '[name].[ext]?[hash]'
