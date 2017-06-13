@@ -51,7 +51,7 @@
 
                 </div>
 
-                <button>Email payment history</button>
+                <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail(null)">Email payment history</button>
 
             </div>
 
@@ -61,6 +61,7 @@
 
 <script>
     import Store from '../store.js';
+    import NetMgr from '../services/netMgr.js';
     export default {
         name: 'account',
         data() {
@@ -70,6 +71,18 @@
         },
         created: function () {
 
+        },
+        methods: {
+            onRequestVoucherHistoryEmail(submittedOn) {
+                NetMgr.apiPost('/traders/' + Store.trader.id + 'voucher-history-email?submission_date=' + submittedOn,
+                    function (response) {
+                        if (success) { success(response) }
+                    },
+                    function () {
+                        if (failure) { failure(error) }
+                    }
+                );
+            }
         },
         mounted: function () {
             Store.getVoucherPaymentState();
