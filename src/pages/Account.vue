@@ -74,7 +74,7 @@
         },
         methods: {
             onRequestVoucherHistoryEmail(submittedOn) {
-                NetMgr.apiPost('/traders/' + Store.trader.id + 'voucher-history-email?submission_date=' + submittedOn,
+                NetMgr.apiPost('/traders/' + Store.trader.id + '/voucher-history-email?submission_date=' + submittedOn,
                     function (response) {
                         if (success) { success(response) }
                     },
