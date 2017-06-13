@@ -1,0 +1,36 @@
+{
+  "name" : "ARC Voucher Recorder",
+  "short_name" : "ARCVMarket",
+  "display_name" : "ARC Voucher Recorder",
+  "description" : "Record your ARC Vouchers.",
+  "lang": "en",
+  "dir": "ltr",
+  "theme_color" : "#a74e94",
+  "background_color" : "#fff",
+  "display": "standalone",
+  "orientation" : "natural",
+  "start_url" : ".",
+  "scope" : "/",
+  "icons" : [
+    {
+      "src": "./assets/launcher-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/launcher-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/launcher-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/launcher-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

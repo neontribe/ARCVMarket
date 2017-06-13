@@ -67,6 +67,13 @@ module.exports = {
                 options: {
                     name: './fonts/[name].[ext]'
                 }
+            },
+            {
+                test: /manifest.json/,
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]'
+                }
             }
         ]
     },
