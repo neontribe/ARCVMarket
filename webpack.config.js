@@ -2,6 +2,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 if (process.env.NODE_ENV === 'production') {
     var publicPath = 'https://neontribe.github.io/ARCVMarket/';
@@ -111,6 +112,9 @@ if (process.env.NODE_ENV === 'production') {
         }),
         new webpack.LoaderOptionsPlugin({
             minimize: true
-        })
+        }),
+	new CopyWebpackPlugin([{
+            from: 'src/assets'
+	}])
     ])
 }
