@@ -200,7 +200,7 @@ button {
     top: 0;
     left: 0;
     pointer-events: none;
-    background-image: radial-gradient(circle, #000 10%, transparent 10%);
+    background-image: radial-gradient(circle, #fff 10%, transparent 10%);
     background-repeat: no-repeat;
     background-position: 50%;
     transform: scale(10,10);
@@ -709,6 +709,56 @@ main > *:target ~ * {
     touch-action: manipulation;
   }
 }
+
+// Animated submit code button
+
+#test {
+  button {
+    margin: 20px auto;
+    width: 220px;
+    cursor: pointer;
+    transition: all 0.75s ease;
+    &:before {
+      content:"Submit code";
+    }
+  }
+
+  .spinner {
+    position: relative;
+    color: white;
+    background: $arc_rose;
+    &:before {
+      position: absolute;
+          font-size: 1.2em;
+      animation: fa-spin 2s infinite linear;
+      top: 14px;
+      left: 100px;
+      font-family: FontAwesome;
+      content:"\f1ce";
+    }
+  }
+
+  .validate {
+    color: white;
+    background: $arc_success;
+    &:before {
+          font-size: 1.2em;
+      font-family: FontAwesome;
+      content:"\f00c";
+    }
+  }
+
+  .fail {
+    color: white;
+    background: $arc_error;
+    &:before {
+          font-size: 1.2em;
+      font-family: FontAwesome;
+      content: "\f00d";
+    }
+  }
+}
+
 
 
 /* --------------------------------------------------------------

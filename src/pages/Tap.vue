@@ -30,7 +30,11 @@
                       >
                     </div>
 
-                    <button v-on:click="onRecordVoucher" id="submitVoucher" class="cta">Submit code</button>
+                    <!--<button v-on:click="onRecordVoucher" id="submitVoucher" class="cta">Submit code</button>-->
+
+                    <div id="test">
+                        <button v-on:click="onRecordVoucher" v-bind:class="[{ spinner: this.spinner }, { validate: this.validate }, { fail: this.fail }]" id="submitVoucher"></button>
+                    </div>
 
                 </form>
 
@@ -54,11 +58,15 @@ export default {
             voucherCode : "",
             vouchers : Store.vouchers,
             recVouchers : Store.recVouchers,
-            errorMessage : Store.error
+            errorMessage : Store.error,
+            spinner: false,
+            validate: false,
+            fail: false
         }
     },
     methods:  {
         onRecordVoucher: function(event) {
+            this.startSpinner();
             //TODO: some proper validation
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
                 Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
@@ -69,7 +77,8 @@ export default {
                             response.data.invalid.length > 0
                             || response.data.fail.length > 0
                         ) {
-                            this.errorMessage = "The code you entered is not valid. Please try again.";
+                            this.showFail();
+                            this.errorMessage = "Please enter a valid code.";
                         } else {
                             this.errorMessage = "";
                         }
@@ -82,6 +91,28 @@ export default {
                 // Do anyway.
                 this.voucherCode = "";
             }
+        },
+
+        startSpinner: function() {
+            this.spinner = true;
+        },
+
+        showValidate: function() {
+            this.spinner = false;
+            this.validate = true;
+            var self = this;
+            setTimeout(function(){
+                self.validate = false;
+            }, 2000);
+        },
+
+        showFail: function() {
+            this.spinner = false;
+            this.fail = true;
+            var self = this;
+            setTimeout(function(){
+                self.fail = false;
+            }, 2000);
         },
 
         /**
