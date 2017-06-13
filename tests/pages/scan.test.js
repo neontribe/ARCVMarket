@@ -60,29 +60,6 @@ test('Traders name is present', async t => {
     expect(firstTraderName && currentTraderName).to.contain('Kristy Corntop');
 });
 
-test('I can change my trader', async t => {
-    await t
-        .typeText('#userName', 'email@example.co.uk')
-        .typeText('#userPassword', 'secretpass')
-        .click('button')
-        .click('input#radio-0')
-        .pressKey('enter')
-    ;
-    const traderLink = await el('.profile-bar a');
-
-    await t
-        .click(traderLink)
-    ;
-    const secondTrader = await el('input#radio-1');
-
-    await t
-        .click(secondTrader)
-        .pressKey('enter')
-    ;
-    const traderName = await el('.profile-bar div').child('strong').innerText;
-    expect(traderName).to.contain('Barry Thistlethorn');
-});
-
 test('I can scan and submit a voucher code', async t => {
     await t
         .typeText('#userName', 'email@example.co.uk')
@@ -104,6 +81,56 @@ test('I can scan and submit a voucher code', async t => {
         .expect(el('#sponsorBox').value, '')
     ;
 
+});
+
+test('Correct error appears when I submit an invalid voucher', async t => {
+    await t
+        .typeText('#userName', 'email@example.co.uk')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click('input#radio-0')
+        .pressKey('enter')
+        .click('#scanTool')
+    ;
+    const sponsorBox = await el('#sponsorBox');
+
+    await t
+        .click(sponsorBox)
+        .typeText(sponsorBox, 'INV')
+        .typeText(el('#voucherBox'), '123')
+    ;
+    const submitButton = await el('#submitVoucher');
+
+    await t
+        .click(submitButton)
+    ;
+    const errorMessage = await el('.content div.message').innerText;
+    expect(errorMessage).to.contain('The voucher code you entered is not valid. Please try again.');
+});
+
+test('Correct error appears when I submit a duplicate voucher', async t => {
+    await t
+        .typeText('#userName', 'email@example.co.uk')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click('input#radio-0')
+        .pressKey('enter')
+        .click('#scanTool')
+    ;
+    const sponsorBox = await el('#sponsorBox')
+
+    await t
+        .click(sponsorBox)
+        .typeText(el('#sponsorBox'), 'FAL')
+        .typeText(el('#voucherBox'), '11111111')
+    ;
+    const submitButton = await el('#submitVoucher');
+
+    await t
+        .click(submitButton)
+    ;
+    const errorMessage = await el('.message').innerText;
+    expect(errorMessage).to.contain('The voucher code has you entered has previously been submitted. Please try again.');
 });
 
 test('Page displays number of recorded vouchers', async t => {
