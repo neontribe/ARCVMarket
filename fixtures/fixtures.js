@@ -43,6 +43,18 @@ var Fixtures = {
             {"code": "SOL00000012", "updated_at": "17-05-2017 14:46.15"},
         ]
     },
+    vouchersStatus: {
+        "1": [
+            {"code": "SUC12345564", "updated_at": "13-06-2017 14:15.32"},
+            {"code": "FAL11111111", "updated_at": "13-06-2017 14:15.32"},
+            {"code": "INV1", "updated_at": "13-06-2017 14:15.32"}
+        ],
+        "2": [
+            {"code": "SUC12345565", "updated_at": "13-06-2017 14:15.32"},
+            {"code": "FAL22222222", "updated_at": "13-06-2017 14:15.32"},
+            {"code": "INV2", "updated_at": "13-06-2017 14:15.32"}
+        ]
+    },
     traderVoucherHistory: {
         "1": [
             {
@@ -93,8 +105,9 @@ Fixtures.apply = function (mock) {
         // returns a success regardless!
         // TODO : better emulation of server side validated responses;
         var data = {
-            "success": JSON.parse(request.data).vouchers,
-            "fail": [],
+            //if statements depending on which voucher is passed through
+            "success": [],
+            "fail": JSON.parse(request.data).vouchers,
             "invalid": []
         };
         console.log(data);
