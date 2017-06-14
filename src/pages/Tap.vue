@@ -6,31 +6,34 @@
 
                 <h1>Type a voucher code</h1>
 
-                <transition name="fade"><div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
-
                 <form id="textVoucher" v-on:submit.prevent>
+                    <transition name="fade"><div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Type a voucher code</label>
 
                     <div class="input-box">
-                      <input id="sponsorBox"
-                             @keypress='onKeypressSponsorBox'
-                             type="text"
-                             v-model="sponsorCode"
-                             ref="sponsorBox"
-                             maxlength="3"
-                      >
-                      <input id="voucherBox"
-                             v-on:keyup.delete='onDelVoucherBox'
-                             @keypress='onKeypressVoucherBox'
-                             type="tel"
-                             pattern="[0-9]*"
-                             v-model="voucherCode"
-                             ref="voucherBox"
-                             maxlength="8"
-                      >
+                        <input id="sponsorBox"
+                            @keypress='onKeypressSponsorBox'
+                            type="text"
+                            v-model="sponsorCode"
+                            ref="sponsorBox"
+                            maxlength="3"
+                        >
+                        <input id="voucherBox"
+                            v-on:keyup.delete='onDelVoucherBox'
+                            @keypress='onKeypressVoucherBox'
+                            type="tel"
+                            pattern="[0-9]*"
+                            v-model="voucherCode"
+                            ref="voucherBox"
+                            maxlength="8"
+                        >
                     </div>
 
-                    <button v-on:click="onRecordVoucher" id="submitVoucher" class="cta">Submit code</button>
+                    <button id="submitVoucher"
+                        v-on:click="onRecordVoucher"
+                        v-bind:class="[{ spinner: this.spinner }, { validate: this.validate }, { fail: this.fail }]"
+                        class="cta"
+                    ></button>
 
                 </form>
 
@@ -54,11 +57,15 @@ export default {
             voucherCode : "",
             vouchers : Store.vouchers,
             recVouchers : Store.recVouchers,
-            errorMessage : Store.error
+            errorMessage : Store.error,
+            spinner: false,
+            validate: false,
+            fail: false
         }
     },
     methods:  {
         onRecordVoucher: function(event) {
+            this.startSpinner();
             //TODO: some proper validation
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
                 Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
@@ -69,8 +76,10 @@ export default {
                             response.data.invalid.length > 0
                             || response.data.fail.length > 0
                         ) {
-                            this.errorMessage = "The code you entered is not valid. Please try again.";
+                            this.showFail();
+                            this.errorMessage = "Please enter a valid code.";
                         } else {
+                            this.showValidate();
                             this.errorMessage = "";
                         }
                         Store.clearVouchers();
@@ -82,6 +91,28 @@ export default {
                 // Do anyway.
                 this.voucherCode = "";
             }
+        },
+
+        startSpinner: function() {
+            this.spinner = true;
+        },
+
+        showValidate: function() {
+            this.spinner = false;
+            this.validate = true;
+            var self = this;
+            setTimeout(function(){
+                self.validate = false;
+            }, 2000);
+        },
+
+        showFail: function() {
+            this.spinner = false;
+            this.fail = true;
+            var self = this;
+            setTimeout(function(){
+                self.fail = false;
+            }, 2000);
         },
 
         /**

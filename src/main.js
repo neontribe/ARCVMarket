@@ -88,12 +88,6 @@ router.afterEach(function(transition){
     }
 }.bind(router));
 
-//require favicons
-require('./assets/favicon.ico');
-require('./assets/touch-icon-ipad-retina.png');
-require('./assets/touch-icon-ipad.png');
-require('./assets/touch-icon-iphone-retina.png');
-
 var vm = new Vue({
     el: '#app',
     render: h => h(App), // TODO: Make sure this builds down to ES5
