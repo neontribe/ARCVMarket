@@ -2,6 +2,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var OfflinePlugin = require('offline-plugin');
 
 if (process.env.NODE_ENV === 'production') {
