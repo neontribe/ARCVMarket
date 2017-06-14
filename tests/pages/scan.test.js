@@ -117,7 +117,7 @@ test('Correct error appears when I submit a duplicate voucher', async t => {
         .pressKey('enter')
         .click('#scanTool')
     ;
-    const sponsorBox = await el('#sponsorBox')
+    const sponsorBox = await el('#sponsorBox');
 
     await t
         .click(sponsorBox)
