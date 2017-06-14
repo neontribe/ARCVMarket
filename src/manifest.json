@@ -1,8 +1,8 @@
 {
-  "name" : "ARC Voucher Recorder",
-  "short_name" : "ARCVMarket",
-  "display_name" : "ARC Voucher Recorder",
-  "description" : "Record your ARC Vouchers.",
+  "name" : "Rose Voucher Recorder",
+  "short_name" : "Rose Vouchers",
+  "display_name" : "Rose Voucher Recorder",
+  "description" : "Record your Rose Vouchers.",
   "lang": "en",
   "dir": "ltr",
   "theme_color" : "#a74e94",
