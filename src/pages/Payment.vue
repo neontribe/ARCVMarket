@@ -63,8 +63,8 @@ export default {
     computed: {
         vouchersAdded: function() {
             if (this.recVouchers[0] && this.recVouchers[0].length > 0) {
-              this.voucherCount = this.recVouchers[0].length;
-              return true;
+                this.voucherCount = this.recVouchers[0].length;
+                return true;
             }
         }
     },
