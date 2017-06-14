@@ -147,7 +147,7 @@ test('Correct error appears when I submit an invalid voucher', async t => {
         .typeText(sponsorBox, 'FAL')
         .typeText(el('#voucherBox'), '11111111')
     ;
-    const submitVoucher = await el('button#submitVoucher')
+    const submitVoucher = await el('button#submitVoucher');
 
     await t
         .click(submitVoucher)
