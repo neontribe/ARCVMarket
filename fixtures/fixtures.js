@@ -43,6 +43,18 @@ var Fixtures = {
             {"code": "SOL00000012", "updated_at": "17-05-2017 14:46.15"},
         ]
     },
+    vouchersStatus: {
+        "1": [
+            {"code": "RVP12345564", "updated_at": "13-06-2017 14:15.32"},
+            {"code": "FAL11111111", "updated_at": "13-06-2017 14:15.32"},
+            {"code": "INV1", "updated_at": "13-06-2017 14:15.32"}
+        ],
+        "2": [
+            {"code": "RVP12345565", "updated_at": "13-06-2017 14:15.32"},
+            {"code": "FAL22222222", "updated_at": "13-06-2017 14:15.32"},
+            {"code": "INV2", "updated_at": "13-06-2017 14:15.32"}
+        ]
+    },
     traderVoucherHistory: {
         "1": [
             {
@@ -90,12 +102,27 @@ Fixtures.apply = function (mock) {
     mock.onGet(/\/traders\/2\/vouchers/).reply(200, this.traderVouchers["2"]);
 
     mock.onPost('/vouchers').reply(function (request) {
-        // returns a success regardless!
-        // TODO : better emulation of server side validated responses;
+        const requestPayload = JSON.parse(request.data);
+
+        const success = [];
+        const fail = [];
+        const invalid = [];
+
+        requestPayload.vouchers.forEach((voucherNumber) => {
+            if (voucherNumber.match(/^RVP/)) {
+                success.push(voucherNumber);
+            } else if (voucherNumber.match(/^FAL/)) {
+                fail.push(voucherNumber);
+            } else if (voucherNumber.match(/^INV/)) {
+                invalid.push(voucherNumber);
+            } else {
+                invalid.push(voucherNumber);
+            }
+        });
         var data = {
-            "success": JSON.parse(request.data).vouchers,
-            "fail": [],
-            "invalid": []
+            success,
+            fail,
+            invalid
         };
         console.log(data);
         return [200, data];

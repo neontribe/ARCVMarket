@@ -76,9 +76,12 @@ export default {
                         // Add error message for invalid and fail codes.
                         if (
                             response.data.invalid.length > 0
-                            || response.data.fail.length > 0
                         ) {
-                            this.errorMessage = "The code you entered is not valid. Please try again.";
+                            this.errorMessage = "The voucher code you entered is not valid. Please try again.";
+                        } else if (
+                            response.data.fail.length > 0
+                        ) {
+                            this.errorMessage = "The voucher code has you entered has previously been submitted. Please try again.";
                         } else {
                             this.errorMessage = "";
                         }
