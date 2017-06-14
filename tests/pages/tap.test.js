@@ -113,12 +113,19 @@ test('Correct error appears when I submit a duplicate voucher', async t => {
         .click('button')
         .click('input#radio-0')
         .pressKey('enter')
-        .click(el('#sponsorBox'))
+    ;
+    const sponsorBox = await el('#sponsorBox');
+
+    await t
+        .click(sponsorBox)
         .pressKey('backspace backspace backspace')
-        .typeText(el('#sponsorBox'), 'INV')
+        .typeText(sponsorBox, 'INV')
         .typeText(el('#voucherBox'), '1')
-        .click('#submitVoucher')
-        .expect(el('#voucherBox').value, '')
+    ;
+    const submitVoucher = await el('button#submitVoucher');
+
+    await t
+        .click(submitVoucher)
     ;
     const errorMessage = await el('.message').innerText;
     expect(errorMessage).to.contain('The voucher code you entered is not valid. Please try again.');
@@ -131,12 +138,19 @@ test('Correct error appears when I submit an invalid voucher', async t => {
         .click('button')
         .click('input#radio-0')
         .pressKey('enter')
-        .click(el('#sponsorBox'))
+    ;
+    const sponsorBox = await el('#sponsorBox');
+
+    await t
+        .click(sponsorBox)
         .pressKey('backspace backspace backspace')
-        .typeText(el('#sponsorBox'), 'FAL')
+        .typeText(sponsorBox, 'FAL')
         .typeText(el('#voucherBox'), '11111111')
-        .click('#submitVoucher')
-        .expect(el('#voucherBox').value, '')
+    ;
+    const submitVoucher = await el('button#submitVoucher')
+
+    await t
+        .click(submitVoucher)
     ;
     const errorMessage = await el('.message').innerText;
     expect(errorMessage).to.contain('The voucher code has you entered has previously been submitted. Please try again.');
