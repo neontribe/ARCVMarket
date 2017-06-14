@@ -167,11 +167,6 @@ label {
     text-align: left;
 }
 
-#textVoucher label {
-  margin-bottom: 0;
-  height: 0;
-}
-
 button {
   position: relative;
   overflow: hidden;
@@ -200,7 +195,7 @@ button {
     top: 0;
     left: 0;
     pointer-events: none;
-    background-image: radial-gradient(circle, #000 10%, transparent 10%);
+    background-image: radial-gradient(circle, #fff 10%, transparent 10%);
     background-repeat: no-repeat;
     background-position: 50%;
     transform: scale(10,10);
@@ -345,14 +340,9 @@ h1.expandable {
   }
 }
 
-.cta {
-  background-color: $arc_rose;
-  color: $arc_white;
-  width: 100%;
-}
-
 // styling for the div which contains both text fields for adding vouchers
 .input-box {
+  position: relative;
   display: flex;
   border: 2px solid $arc_border;
   border-radius: 3px;
@@ -415,6 +405,66 @@ main > *:target {
 
 main > *:target ~ * {
   display: none;
+}
+
+.cta {
+  background-color: $arc_rose;
+  color: $arc_white;
+  width: 100%;
+}
+
+#textVoucher {
+  label {
+    margin-bottom: 0;
+    height: 34px;
+  }
+  .message {
+    position: absolute;
+    padding-bottom: 0em;
+  }
+  // Animated submit code button
+  button {
+    margin: 20px auto;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    &:before {
+      content:"Submit code";
+    }
+  }
+  .spinner,
+  .validate,
+  .fail {
+    color: $arc_white;
+    &:before {
+      font-size: 1.5em;
+      font-family: FontAwesome;
+    }
+  }
+  .spinner {
+    position: relative;
+    background: $arc_rose;
+    &:before {
+      position: absolute;
+      animation: fa-spin 2s infinite linear;
+      top: 12px;
+      left: 0px;
+      right: 0;
+      margin: 0 auto;
+      content:"\f013";
+    }
+  }
+  .validate {
+    background: $arc_success;
+    &:before {
+      content:"\f00c";
+    }
+  }
+  .fail {
+    background: $arc_error;
+    &:before {
+      content: "\f00d";
+    }
+  }
 }
 
 
