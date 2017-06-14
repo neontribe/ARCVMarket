@@ -72,7 +72,7 @@ export default {
                         } else if (
                             response.data.fail.length > 0
                         ) {
-                            this.errorMessage = "The voucher code has you entered has previously been submitted. Please try again."
+                            this.errorMessage = "The voucher code has you entered has previously been submitted. Please try again.";
                         } else {
                             this.errorMessage = "";
                         }
