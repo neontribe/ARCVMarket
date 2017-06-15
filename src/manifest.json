@@ -9,7 +9,7 @@
   "background_color" : "#fff",
   "display": "standalone",
   "orientation" : "natural",
-  "start_url" : "/index.html",
+  "start_url" : ".",
   "scope" : "/",
   "icons" : [
     {
