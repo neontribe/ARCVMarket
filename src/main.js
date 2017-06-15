@@ -1,3 +1,8 @@
+// Import Offline-Plugin storage client
+import * as OfflinePluginRuntime from 'offline-plugin/runtime';
+// Enable caching now.
+OfflinePluginRuntime.install();
+
 import Vue from 'vue';
 import App from './App.vue';
 import Config from './config.js';

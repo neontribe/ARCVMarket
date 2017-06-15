@@ -1,8 +1,9 @@
 /* "Copyright © 2017, Alexander Rose Charity (reg. in England and Wales, #00279157)" */
-var path = require('path')
-var webpack = require('webpack')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
+var path = require('path');
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+var OfflinePlugin = require('offline-plugin');
 
 if (process.env.NODE_ENV === 'production') {
     var publicPath = 'https://neontribe.github.io/ARCVMarket/';
@@ -32,6 +33,8 @@ module.exports = {
         }),
         new webpack.BannerPlugin({
             banner: "Copyright (c) 2017, Alexander Rose Charity (reg. in England and Wales, #00279157)",
+        }),
+        new OfflinePlugin({
         })
     ],
     module: {
@@ -96,7 +99,7 @@ module.exports = {
 }
 
 if (process.env.NODE_ENV === 'production') {
-    module.exports.devtool = '#source-map'
+    module.exports.devtool = '#source-map';
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
