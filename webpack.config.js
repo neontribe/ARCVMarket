@@ -116,8 +116,8 @@ if (process.env.NODE_ENV === 'production') {
         new webpack.LoaderOptionsPlugin({
             minimize: true
         }),
-	    new CopyWebpackPlugin([{
+	new CopyWebpackPlugin([{
             from: 'src/assets'
-	    }])
+	}])
     ])
 }
