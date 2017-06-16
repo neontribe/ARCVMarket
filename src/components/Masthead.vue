@@ -4,7 +4,7 @@
 
         <header>
             <div class="logo" v-bind:class="{ login : $route.path==='/login' || $route.path==='/user' }">
-                <router-link v-if="!($route.path==='/login' || $route.path==='/user')" v-bind:to="'/'" class="link"><img src="../assets/logo.png"></router-link>
+                <router-link v-if="!($route.path==='/login' || $route.path==='/user')" v-bind:to="'/'" class="link"><img src="../assets/logo.png" alt="ARC Voucher logo"></router-link>
                 <img v-else src="../assets/logo.png" alt="ARC Voucher logo">
             </div>
 

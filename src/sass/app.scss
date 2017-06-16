@@ -112,6 +112,15 @@ $fa-font-path:"../node_modules/font-awesome/fonts";
   visibility: hidden;
 }
 
+.offscreen {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .router-link-exact-active.router-link-active {
   color: $arc_rose;
 }
