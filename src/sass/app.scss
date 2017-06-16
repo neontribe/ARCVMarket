@@ -308,6 +308,7 @@ header {
 
 // Add top margin to pages which have the row of icons
 #tap.container,
+#tap .expandable,
 #scan.container,
 #upload.container {
   margin-top: 2.5em;
@@ -319,7 +320,8 @@ header {
   &.fullwidth {
     width: 90%;
   }
-  &.narrow {
+  &.narrow,
+  &.queue {
     width: 450px;
   }
 }
@@ -801,7 +803,8 @@ main > *:target ~ * {
     }
   }
 
-  .fullwidth {
+  .fullwidth,
+  .queue {
     padding: 1em 0 2em 0;
     width: 100%;
   }
@@ -816,6 +819,11 @@ main > *:target ~ * {
     &.narrow button {
       width: 100%;
     }
+  }
+
+  #tap .content.queue {
+    margin: 0;
+    width: 100%;
   }
 
   .accordion,
@@ -917,6 +925,17 @@ main > *:target ~ * {
       button {
         width: 92%;
       }
+    }
+  }
+
+  #tap .content.queue {
+    button {
+      margin: 1rem 0;
+    }
+    button,
+    h1 {
+      padding: 0;
+      width: 100%;
     }
   }
 

@@ -39,17 +39,23 @@
 
            </div>
 
+           <queue></queue>
+
         </main>
+
+
     </div>
 </template>
 
 <script>
 import Store from '../store.js';
 import Profile from '../components/Profile.vue';
+import Queue from '../components/Queue.vue';
 export default {
     name: 'tap',
     components: {
-        Profile
+        Profile,
+        Queue
     },
     data: function() {
         return {
