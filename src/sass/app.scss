@@ -317,6 +317,8 @@ header {
 
 // Add top margin to pages which have the row of icons
 #tap.container,
+#tap .expandable,
+#scan .expandable,
 #scan.container,
 #upload.container {
   margin-top: 2.5em;
@@ -339,15 +341,23 @@ h1.expandable {
   &:before {
     font-weight: bold;
     font-family: FontAwesome;
-    content: "\f055";
-    padding-right: 0.5em;
+    content: "\f0da";
+    padding-right: 15px;
   }
   &.expanded:before {
     font-weight: bold;
     font-family: FontAwesome;
-    content: "\f056";
+    content: "\f0d7";
+    padding-right: 10px;
   }
 }
+
+
+/* --------------------------------------------------------------
+
+   Add voucher page
+
+-------------------------------------------------------------- */
 
 // styling for the div which contains both text fields for adding vouchers
 .input-box {
@@ -474,6 +484,12 @@ main > *:target ~ * {
       content: "\f00d";
     }
   }
+}
+
+// Queued voucher list
+
+h1.expandable.queue {
+  margin-bottom: 0;
 }
 
 
