@@ -162,7 +162,8 @@ export default {
             var rxNumber = /\d/;
             var char = this.getKeyCharCode(event);
             
-            if (event.keyCode != 8) {
+            //event.keycode 8 is backspace, dont want to prevent default
+            if (event.keyCode !== 8) {
                 if (char.match(rxNumber)) {
                     if (this.voucherCode.length < event.target.maxlength) {
                         this.voucherCode += char;
