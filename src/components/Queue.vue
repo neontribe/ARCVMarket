@@ -26,8 +26,8 @@
                     <div class="tab row">
                         <label>
                             <div class="row-code">
-                                <div>hi</div>
-                                <div>hello</div>
+                                <div>RVP12345522</div>
+                                <div>18/6/2017</div>
                             </div>
                         </label>
                     </div>

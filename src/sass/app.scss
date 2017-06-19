@@ -309,6 +309,7 @@ header {
 // Add top margin to pages which have the row of icons
 #tap.container,
 #tap .expandable,
+#scan .expandable,
 #scan.container,
 #upload.container {
   margin-top: 2.5em;
@@ -932,17 +933,6 @@ h1.expandable.queue {
       button {
         width: 92%;
       }
-    }
-  }
-
-  #tap .content.queue {
-    button {
-      margin: 1rem 0;
-    }
-    button,
-    h1 {
-      padding: 0;
-      width: 100%;
     }
   }
 
