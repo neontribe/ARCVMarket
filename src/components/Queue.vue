@@ -2,41 +2,37 @@
 
     <div>
 
-        <div class="content queue">
+        <div class="content narrow">
 
-            <h1 v-on:click="collapsed = !collapsed" class="expandable " v-bind:class="{'expanded' : !collapsed}">Queued vouchers</h1>
+            <h1 v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}">Queued vouchers</h1>
 
-            <button class="cta">Resubmit vouchers</button>
+            <button class="cta">Send queued vouchers</button>
 
-        </div>
+            <div class="list-wrapper" v-bind:class="{'is-collapsed' : collapsed }">
 
-       <div class="content fullwidth">
+                <div class="voucher-list">
 
-           <div class="list-wrapper" v-bind:class="{'is-collapsed' : collapsed }">
+                    <!-- Tab header -->
+                    <div class="tab thead">
+                        <label>
+                            <div class="row-code">
+                                <div>Voucher code</div>
+                                <div>Voucher added on</div>
+                            </div>
+                        </label>
+                    </div>
 
-              <div class="voucher-list">
+                    <!-- Tab row -->
+                    <div class="tab row">
+                        <label>
+                            <div class="row-code">
+                                <div>hi</div>
+                                <div>hello</div>
+                            </div>
+                        </label>
+                    </div>
 
-                  <!-- Tab header -->
-                  <div class="tab thead">
-                      <label>
-                          <div class="row-code">
-                              <div>Voucher code</div>
-                              <div>Voucher added on</div>
-                          </div>
-                      </label>
-                  </div>
-
-                  <!-- Tab row -->
-                  <div class="tab row">
-                      <label>
-                          <div class="row-code">
-                              <div>hi</div>
-                              <div>hello</div>
-                          </div>
-                      </label>
-                  </div>
-
-              </div>
+                </div>
 
             </div>
 

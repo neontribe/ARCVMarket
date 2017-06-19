@@ -320,8 +320,7 @@ header {
   &.fullwidth {
     width: 90%;
   }
-  &.narrow,
-  &.queue {
+  &.narrow {
     width: 450px;
   }
 }
@@ -332,15 +331,23 @@ h1.expandable {
   &:before {
     font-weight: bold;
     font-family: FontAwesome;
-    content: "\f055";
-    padding-right: 0.5em;
+    content: "\f0da";
+    padding-right: 15px;
   }
   &.expanded:before {
     font-weight: bold;
     font-family: FontAwesome;
-    content: "\f056";
+    content: "\f0d7";
+    padding-right: 10px;
   }
 }
+
+
+/* --------------------------------------------------------------
+
+   Add voucher page
+
+-------------------------------------------------------------- */
 
 // styling for the div which contains both text fields for adding vouchers
 .input-box {
@@ -467,6 +474,12 @@ main > *:target ~ * {
       content: "\f00d";
     }
   }
+}
+
+// Queued voucher list
+
+h1.expandable.queue {
+  margin-bottom: 0;
 }
 
 
@@ -803,8 +816,7 @@ main > *:target ~ * {
     }
   }
 
-  .fullwidth,
-  .queue {
+  .fullwidth {
     padding: 1em 0 2em 0;
     width: 100%;
   }
@@ -819,11 +831,6 @@ main > *:target ~ * {
     &.narrow button {
       width: 100%;
     }
-  }
-
-  #tap .content.queue {
-    margin: 0;
-    width: 100%;
   }
 
   .accordion,
