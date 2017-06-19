@@ -1,5 +1,8 @@
 import NetMgr from './services/netMgr.js';
 
+// TODO store.error needs store based setter.
+
+
 var store = {
     user: {
         id : 1,
@@ -15,8 +18,6 @@ var store = {
     auth: false,
     error: null
   };
-
-
 
 
 store.resetStore = function() {
