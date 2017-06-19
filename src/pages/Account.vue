@@ -5,6 +5,8 @@
             <div class="content fullwidth">
                 <h1>Requested Payments</h1>
 
+                <transition name="fade"><div v-if="errorMessage" v-bind:class="[goodFeedback ? 'goodmessage' : 'message' ]">{{ errorMessage }}</div></transition>
+
                 <div class="accordion">
 
                     <!-- Tab header -->
@@ -26,7 +28,7 @@
                                 <div> {{ payment.pended_on }}</div>
                                 <div> {{ payment.vouchers.length }}</div>
                                 <div class="amount">&pound;{{ payment.vouchers.length }}</div>
-                                <div class="email"><i class="fa fa-envelope" aria-hidden="true" title="Send this record to my email"></i></div>
+                                <div class="email"><i class="fa fa-envelope" aria-hidden="true" :id="payment.pended_on" v-on:click="onRequestSubmissionEmail" title="Send this record to my email"></i></div>
                             </div>
                         </label>
                         <div class="tab-content">
@@ -51,7 +53,7 @@
 
                 </div>
 
-                <button>Email payment history</button>
+                <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail">Email payment history</button>
 
             </div>
 
@@ -61,15 +63,53 @@
 
 <script>
     import Store from '../store.js';
+    import NetMgr from '../services/netMgr.js';
     export default {
         name: 'account',
         data() {
             return {
-                voucherPayments: Store.trader.pendedVouchers
+                voucherPayments: Store.trader.pendedVouchers,
+                errorMessage : Store.error,
+                goodFeedback : false
             }
         },
         created: function () {
 
+        },
+        methods: {
+            onRequestSubmissionEmail : function(event) {
+                var url = '/traders/' + Store.trader.id + '/voucher-history-email';
+                this.requestEmailBeSent(url,{"submission_date" : event.target.id})
+            },
+            onRequestVoucherHistoryEmail: function() {
+                var url = '/traders/' + Store.trader.id + '/voucher-history-email';
+                this.requestEmailBeSent(url,{ "submission_date" : null});
+            },
+            requestEmailBeSent: function(url,data) {
+                // This is a POST, look for the data as a JSON object
+                NetMgr.apiPost(url,data,
+                    function (response) {
+                        // write the response into the page
+                        var mailMsg = "";
+                        switch (response.status) {
+                            case 202 :
+                                this.goodFeedback = true;
+                                mailMsg = response.data;
+                                break;
+                            default :
+                                this.goodFeedback = false;
+                                mailMsg = "Were sorry, the server responded unusually. Please try again later.";
+                                console.log(response.data); // because we need to see what the server said somewhere.
+                        }
+                        this.errorMessage = mailMsg;
+                    }.bind(this),
+                    // failure function
+                    function (error) {
+                        // at the moment, dump the error for analysis.
+                        if (error) { console.log(error) }
+                    }
+                );
+            }
         },
         mounted: function () {
             Store.getVoucherPaymentState();

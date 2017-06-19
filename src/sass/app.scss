@@ -126,6 +126,12 @@ $fa-font-path:"../node_modules/font-awesome/fonts";
   padding-bottom: 1em;
 }
 
+// Styling for "positive" feedback.
+.goodmessage {
+  color: $arc_success;
+  padding-bottom: 1em;
+}
+
 input {
   font-family: $arc_headings;
   margin-bottom: 1em;
