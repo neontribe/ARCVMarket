@@ -8,7 +8,8 @@
 
                 <form id="textVoucher" v-on:submit.prevent>
                     <transition name="fade"><div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
-                    <label for="voucherBox" id="lblVoucherBox" class="hidden">Scan a voucher code</label>
+                    <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor Code</label>
+                    <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher Code</label>
 
                     <div class="input-box">
                         <input id="sponsorBox"
@@ -35,7 +36,7 @@
                         v-on:click="onRecordVoucher"
                         v-bind:class="[{ spinner: this.spinner }, { validate: this.validate }, { fail: this.fail }]"
                         class="cta"
-                    ></button>
+                    ><span class="hidden offscreen">Submit code</span></button>
 
                 </form>
 
