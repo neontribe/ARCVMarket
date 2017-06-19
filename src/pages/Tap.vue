@@ -162,15 +162,18 @@ export default {
         onKeypressVoucherBox : function(event) {
             var rxNumber = /\d/;
             var char = this.getKeyCharCode(event);
-
-            if (char.match(rxNumber)) {
-                if (this.voucherCode.length < event.target.maxlength) {
-                    this.voucherCode += char;
+            
+            //event.keycode 8 is backspace, dont want to prevent default
+            if (event.keyCode !== 8) {
+                if (char.match(rxNumber)) {
+                    if (this.voucherCode.length < event.target.maxlength) {
+                        this.voucherCode += char;
+                    }
+                    return;
                 }
-                return;
+                event.preventDefault();
+                return false;
             }
-            event.preventDefault();
-            return false;
         },
         getKeyCharCode : function(event) {
             // Try to cross platform catch the keycode
