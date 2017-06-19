@@ -98,7 +98,7 @@
                                 break;
                             default :
                                 this.goodFeedback = false;
-                                mailMsg = "Were sorry, the server responded unusually. Please try again later.";
+                                mailMsg = "Something went wrong, please try again later.";
                                 console.log(response.data); // because we need to see what the server said somewhere.
                         }
                         this.errorMessage = mailMsg;
