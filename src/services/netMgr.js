@@ -62,7 +62,7 @@ NetMgr.setTokenFromLocalStorage = function() {
     }
 
     if(parsedLocalToken) {
-        parsedLocalToken.expires_in = 10;
+        parsedLocalToken.expires_in = 1;
     }
     this.setToken(parsedLocalToken);
 };
@@ -79,6 +79,12 @@ NetMgr.setTokenRefreshTimeout = function(timeout) {
             NetMgr.apiPost('/login/refresh', { refresh_token: this.token.refresh_token },
                 function (refreshData) {
                     let newTokenData = refreshData.data.original || NetMgr.token;
+
+                    if(!refreshData.data.original) {
+                        localStorage.clear();
+                        NetMgr.setToken(null);
+                        return;
+                    }
 
                     NetMgr.setToken(newTokenData);
                 },
@@ -117,8 +123,6 @@ NetMgr.setToken = function (tokenData) {
         // Get the time in ms until the token expires minus five seconds to allow the network request to go through.
         let timeoutTime = this.token.expires_in * 1000 - 5000;
         this.setTokenRefreshTimeout(timeoutTime)
-    } else {
-        this.setLocalStorageFromToken(null);
     }
 };
 
@@ -252,19 +256,20 @@ NetMgr.axiosInstance.interceptors.response.use(
                     // Let's hit the refresh with the refresh token
 
                     //Passport is returning the tokens in "data.orginal" on this endpoint. Odd.
-                    return NetMgr.apiPost('/login/refresh', { refresh_token: NetMgr.token.refresh_token },
-                        function (refreshData) {
-                            let newTokenData = refreshData.data.original || NetMgr.token;
-
-                            // Valid refresh_token, reset and retry.
-                            NetMgr.setToken(newTokenData); // Set the token.
-
-                            return NetMgr.axiosInstance(origCfg) // Retry the request that errored out.
-                        },
-                        function (refreshErr) {
-                            // Invalid refresh token, pass that back as a failure, so someone else deals with it.
-                            return Promise.reject(refreshErr);
-                        });
+                    // return NetMgr.apiPost('/login/refresh', { refresh_token: NetMgr.token.refresh_token },
+                    //     function (refreshData) {
+                    //         let newTokenData = refreshData.data.original || NetMgr.token;
+                    //
+                    //         // Valid refresh_token, reset and retry.
+                    //         NetMgr.setToken(newTokenData); // Set the token.
+                    //
+                    //         return NetMgr.axiosInstance(origCfg) // Retry the request that errored out.
+                    //     },
+                    //     function (refreshErr) {
+                    //         debugger;
+                    //         // Invalid refresh token, pass that back as a failure, so someone else deals with it.
+                    //         return Promise.reject(refreshErr);
+                    //     });
 
                     break;
                 default :
