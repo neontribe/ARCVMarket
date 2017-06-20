@@ -37,7 +37,7 @@ var Fixtures = {
             {"success":["RVP12345678"], "fail":[], "invalid":[]},
         "fail":
             {"success":[], "fail":["FAL11111111"], "invalid":[]},
-        "invalid": 
+        "invalid":
             {"success":[], "fail":[], "invalid":["INV1"]},
     },
     traderVoucherHistory: {
@@ -117,7 +117,7 @@ Fixtures.apply = function (mock) {
     // route to get nicely structured user vouchers.
     mock.onGet('/traders/1/voucher-history').reply(200, this.traderVoucherHistory["1"]);
     mock.onGet('/traders/2/voucher-history').reply(200, this.traderVoucherHistory["2"]);
-    mock.onPost(/\/traders\/\d\/voucher-history-email/).reply(202, "The voucher history has been emailed.");
+    mock.onPost(/\/traders\/\d\/voucher-history-email/).reply(202, "[xXx]The voucher history has been emailed.");
     mock.onGet('/traders').reply(200, this.userTraders["1"]);
 
     // pass any other routes to actual endpoints
