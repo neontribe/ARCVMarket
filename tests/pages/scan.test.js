@@ -96,6 +96,7 @@ test('Correct error appears when I submit an invalid voucher', async t => {
 
     await t
         .click(sponsorBox)
+        .pressKey('backspace backspace backspace')
         .typeText(sponsorBox, 'INV')
         .typeText(el('#voucherBox'), '123')
     ;
