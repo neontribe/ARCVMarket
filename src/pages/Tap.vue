@@ -178,9 +178,6 @@ export default {
             if (event.key === 'Enter') {
                 this.onRecordVoucher();
             }
-
-            event.preventDefault();
-            return false;
         },
         getKeyCharCode : function(event) {
             // Try to cross platform catch the keycode
