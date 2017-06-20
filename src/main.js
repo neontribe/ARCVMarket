@@ -20,11 +20,11 @@ import Login from './pages/Login.vue';
 import User from './pages/User.vue';
 
 /*
-route access rules
-auth -> true, user MUST be auth'd - friends only
-auth -> false, user MUST NOT be auth'd - stranger's only
-auth -> undefined, auth not important - public
-*/
+ route access rules
+ auth -> true, user MUST be auth'd - friends only
+ auth -> false, user MUST NOT be auth'd - stranger's only
+ auth -> undefined, auth not important - public
+ */
 
 // Define routes
 const routes = [
@@ -56,6 +56,9 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     var auth = Store.netMgr.isAuth();
     if (!auth && to.meta.auth) {
+        Store.netMgr.setTokenFromLocalStorage();
+        Store.setUserTradersFromLocalStorage();
+
         // not auth'd, accessing friends-only page, go to /login
         next({
             path: '/login',

@@ -1,8 +1,6 @@
 import NetMgr from './services/netMgr.js';
 
 // TODO store.error needs store based setter.
-
-
 var store = {
     user: {
         id : 1,
@@ -17,8 +15,7 @@ var store = {
     netMgr: NetMgr,
     auth: false,
     error: null
-  };
-
+};
 
 store.resetStore = function() {
     // TODO : I'm thinking we need some user/trader objects that manage this.
@@ -33,6 +30,7 @@ store.resetStore = function() {
     this.vouchers = this.vouchers.splice(0, this.vouchers);
     this.recVouchers = this.recVouchers.splice(0, this.recVouchers);
     this.error = null;
+    window.localStorage.clear();
 };
 
 /**
@@ -50,14 +48,14 @@ store.authenticate = function (userApiCreds, success, failure) {
         function (error) {
             var err = null;
             switch (error.response.status) {
-              case 401 :
-                err = "The username and password combination entered was not recognised. Please check your details and try again.";
-                break;
-              default :
-                err = "Something unusual has happened.";
+                case 401 :
+                    err = "The username and password combination entered was not recognised. Please check your details and try again.";
+                    break;
+                default :
+                    err = "Something unusual has happened.";
             }
             if (failure) {
-              failure(err);
+                failure(err);
             }
         }.bind(this)
     );
@@ -105,7 +103,29 @@ store.setUserTrader = function(id) {
         return userTrader.id === id;
     })[0];
     this.trader.pendedVouchers = [];
+
+    window.localStorage.setItem('Store.user', JSON.stringify(this.user));
+    window.localStorage.setItem('Store.trader', JSON.stringify(this.trader));
+
     return (this.trader.id === id);
+};
+
+store.setUserTradersFromLocalStorage = function() {
+    let user = window.localStorage.getItem('Store.user');
+    let trader = window.localStorage.getItem('Store.trader');
+
+    let parsedUser = this.user;
+    let parsedTrader = this.trader;
+
+    try {
+        parsedUser = JSON.parse(user);
+        parsedTrader = JSON.parse(trader);
+    } catch (e) {
+        console.error('Invalid token stored in localstorage.');
+    }
+
+    this.user = parsedUser;
+    this.trader = parsedTrader;
 };
 
 /**

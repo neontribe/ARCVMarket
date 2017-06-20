@@ -2,7 +2,6 @@ import Config from '../config.js';
 import Fixtures from '../../fixtures/fixtures.js';
 import Axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-
 /*
  NetMgr is a place to put all the
  - AJAX axios stuff;
@@ -52,6 +51,26 @@ NetMgr.isAuth = function() {
     return false;
 };
 
+NetMgr.setTokenFromLocalStorage = function() {
+    let localToken = window.localStorage.getItem('NetMgr.token');
+    let parsedLocalToken = null;
+
+    try {
+        parsedLocalToken = JSON.parse(localToken);
+    } catch (e) {
+        console.error('Invalid token stored in localstorage.');
+    }
+
+    if(parsedLocalToken) {
+        parsedLocalToken.expires_in = 10;
+    }
+    this.setToken(parsedLocalToken);
+};
+
+NetMgr.setLocalStorageFromToken = function(token) {
+    window.localStorage.setItem('NetMgr.token', JSON.stringify(token));
+};
+
 NetMgr.setTokenRefreshTimeout = function(timeout) {
     // Setup a new token refresh timeout.
     this.tokenRefreshTimeoutID = window.setTimeout(
@@ -92,9 +111,13 @@ NetMgr.setToken = function (tokenData) {
         this.token.requestTime = Math.floor(Date.now() / 1000);
         this.axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + this.token.access_token;
 
+        this.setLocalStorageFromToken(this.token);
+
         // Get the time in ms until the token expires minus five seconds to allow the network request to go through.
         let timeoutTime = this.token.expires_in * 1000 - 5000;
         this.setTokenRefreshTimeout(timeoutTime)
+    } else {
+        this.setLocalStorageFromToken(null);
     }
 };
 
