@@ -66,7 +66,6 @@ export default {
     },
     methods:  {
         onRecordVoucher: function(event) {
-
             //TODO: some proper validation
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
                 this.startSpinner();
