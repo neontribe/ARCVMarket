@@ -104,15 +104,15 @@ store.setUserTrader = function(id) {
     })[0];
     this.trader.pendedVouchers = [];
 
-    window.localStorage.setItem('Store.user', JSON.stringify(this.user));
-    window.localStorage.setItem('Store.trader', JSON.stringify(this.trader));
+    localStorage.setItem('Store.user', JSON.stringify(this.user));
+    localStorage.setItem('Store.trader', JSON.stringify(this.trader));
 
     return (this.trader.id === id);
 };
 
 store.setUserTradersFromLocalStorage = function() {
-    let user = window.localStorage.getItem('Store.user');
-    let trader = window.localStorage.getItem('Store.trader');
+    let user = localStorage['Store.user'];
+    let trader = localStorage['Store.trader'];
 
     let parsedUser = this.user;
     let parsedTrader = this.trader;

@@ -52,7 +52,7 @@ NetMgr.isAuth = function() {
 };
 
 NetMgr.setTokenFromLocalStorage = function() {
-    let localToken = window.localStorage.getItem('NetMgr.token');
+    let localToken = localStorage['NetMgr.token'];
     let parsedLocalToken = null;
 
     try {
@@ -68,17 +68,18 @@ NetMgr.setTokenFromLocalStorage = function() {
 };
 
 NetMgr.setLocalStorageFromToken = function(token) {
-    window.localStorage.setItem('NetMgr.token', JSON.stringify(token));
+    localStorage['NetMgr.token'] = JSON.stringify(token);
 };
 
 NetMgr.setTokenRefreshTimeout = function(timeout) {
     // Setup a new token refresh timeout.
-    this.tokenRefreshTimeoutID = window.setTimeout(
+    this.tokenRefreshTimeoutID = setTimeout(
         () => {
             //Passport is returning the tokens in "data.orginal" on this endpoint. Odd.
             NetMgr.apiPost('/login/refresh', { refresh_token: this.token.refresh_token },
                 function (refreshData) {
                     let newTokenData = refreshData.data.original || NetMgr.token;
+
                     NetMgr.setToken(newTokenData);
                 },
                 function (refreshErr) {// Invalid refresh token, pass that back as a failure, so someone else deals with it.
