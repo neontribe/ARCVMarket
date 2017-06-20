@@ -10,17 +10,6 @@ var Fixtures = {
                 "created_at": "24-05-2017 14:19:22",
                 "updated_at": "24-05-2017 14:19:22",
                 "deleted_at": null
-            }
-        ],
-        "2": [
-            {
-                "id": 1,
-                "name": "Kristy Corntop",
-                "pic_url": null,
-                "market_id": 2,
-                "created_at": "24-05-2017 14:19:22",
-                "updated_at": "24-05-2017 14:19:22",
-                "deleted_at": null
             },
             {
                 "id": 2,
@@ -42,6 +31,14 @@ var Fixtures = {
             {"code": "SOL00000015", "updated_at": "17-05-2017 13:46.15"},
             {"code": "SOL00000012", "updated_at": "17-05-2017 14:46.15"},
         ]
+    },
+    voucherStatus: {
+        "success":
+            {"success":["RVP12345678"], "fail":[], "invalid":[]},
+        "fail":
+            {"success":[], "fail":["FAL11111111"], "invalid":[]},
+        "invalid": 
+            {"success":[], "fail":[], "invalid":["INV1"]},
     },
     traderVoucherHistory: {
         "1": [
@@ -84,29 +81,44 @@ var Fixtures = {
     }
 };
 
+
 Fixtures.apply = function (mock) {
     // Using regex because url contains params as well. And this is shorter.
     mock.onGet(/\/traders\/1\/vouchers/).reply(200, this.traderVouchers["1"]);
     mock.onGet(/\/traders\/2\/vouchers/).reply(200, this.traderVouchers["2"]);
 
-    mock.onPost('/vouchers').reply(function (request) {
-        // returns a success regardless!
-        // TODO : better emulation of server side validated responses;
-        var data = {
-            "success": JSON.parse(request.data).vouchers,
-            "fail": [],
-            "invalid": []
-        };
-        console.log(data);
-        return [200, data];
+    mock.onPost('/vouchers').reply((request) => {
+        const voucherPayload = JSON.parse(request.data).vouchers;
+        var response = {};
+        if (voucherPayload.length > 1) {
+            // This is a list of vouchers from an offline session.
+            // Build response. For now, just return fail fixture.
+            response = this.voucherStatus["fail"];
+        } else {
+            // We can use our single value fixtures. Response by sponsor code.
+            switch(voucherPayload[0].substring(0,3)) {
+                case 'FAL':
+                    response = this.voucherStatus["fail"];
+                    break;
+                case 'INV':
+                    response = this.voucherStatus["invalid"];
+                    break;
+                default:
+                    response = this.voucherStatus["success"];
+                    break;
+            }
+
+       }
+       return [200, response];
     });
+
     mock.onPost('/login').reply(200, this.oauthUserToken);
 
     // route to get nicely structured user vouchers.
     mock.onGet('/traders/1/voucher-history').reply(200, this.traderVoucherHistory["1"]);
     mock.onGet('/traders/2/voucher-history').reply(200, this.traderVoucherHistory["2"]);
     mock.onPost(/\/traders\/\d\/voucher-history-email/).reply(202, "The voucher history has been emailed.");
-    mock.onGet('/traders').reply(200, this.userTraders["2"]);
+    mock.onGet('/traders').reply(200, this.userTraders["1"]);
 
     // pass any other routes to actual endpoints
     mock.onAny().passThrough();
