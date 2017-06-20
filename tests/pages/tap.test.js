@@ -153,7 +153,7 @@ test('Correct error appears when I submit an invalid voucher', async t => {
         .click(submitVoucher)
     ;
     const errorMessage = await el('.message').innerText;
-    expect(errorMessage).to.contain('The voucher code has you entered has previously been submitted. Please try again.');
+    expect(errorMessage).to.contain('The voucher code you entered has previously been submitted. Please try again.');
 });
 
 test('I cannot type letters into the voucher input', async t => {
