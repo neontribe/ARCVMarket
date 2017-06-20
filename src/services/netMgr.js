@@ -245,6 +245,8 @@ NetMgr.axiosInstance.interceptors.response.use(
         // Get the error from that request.
         var origResp = error.response;
 
+        NetMgr.setTokenFromLocalStorage();
+
         // Is it a 401 we havn't seen before? (and do we have an old token set)
         if (origResp.status === 401 && !origCfg._retry && NetMgr.token) {
             switch (origResp.data.error) {
@@ -256,20 +258,21 @@ NetMgr.axiosInstance.interceptors.response.use(
                     // Let's hit the refresh with the refresh token
 
                     //Passport is returning the tokens in "data.orginal" on this endpoint. Odd.
-                    // return NetMgr.apiPost('/login/refresh', { refresh_token: NetMgr.token.refresh_token },
-                    //     function (refreshData) {
-                    //         let newTokenData = refreshData.data.original || NetMgr.token;
-                    //
-                    //         // Valid refresh_token, reset and retry.
-                    //         NetMgr.setToken(newTokenData); // Set the token.
-                    //
-                    //         return NetMgr.axiosInstance(origCfg) // Retry the request that errored out.
-                    //     },
-                    //     function (refreshErr) {
-                    //         debugger;
-                    //         // Invalid refresh token, pass that back as a failure, so someone else deals with it.
-                    //         return Promise.reject(refreshErr);
-                    //     });
+                    return NetMgr.apiPost('/login/refresh', { refresh_token: NetMgr.token.refresh_token },
+                        function (refreshData) {
+                            let newTokenData = refreshData.data.original;
+                            if(newTokenData) {
+                                // Valid refresh_token, reset and retry.
+                                NetMgr.setToken(newTokenData); // Set the token.
+                            }
+
+                            return NetMgr.axiosInstance(origCfg) // Retry the request that errored out.
+                        },
+                        function (refreshErr) {
+
+                            // Invalid refresh token, pass that back as a failure, so someone else deals with it.
+                            return Promise.reject(refreshErr);
+                        });
 
                     break;
                 default :
