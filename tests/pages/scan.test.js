@@ -122,6 +122,7 @@ test('Correct error appears when I submit a duplicate voucher', async t => {
 
     await t
         .click(sponsorBox)
+        .pressKey('backspace backspace backspace')
         .typeText(el('#sponsorBox'), 'FAL')
         .typeText(el('#voucherBox'), '11111111')
     ;
