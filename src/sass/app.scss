@@ -127,11 +127,19 @@ $fa-font-path:"../node_modules/font-awesome/fonts";
 
 .wrapper {
   position: relative;
+  box-shadow: 0 3px 12px -1px rgba(0, 0, 0, 0.15);
+  z-index: 1;
 }
 
 // Styling for error text
 .message {
   color: $arc_error;
+  padding-bottom: 1em;
+}
+
+// Styling for "positive" feedback.
+.goodmessage {
+  color: $arc_success;
   padding-bottom: 1em;
 }
 
@@ -474,6 +482,10 @@ main > *:target ~ * {
       content: "\f00d";
     }
   }
+}
+
+label#lblSponsorBox {
+  height: 0;
 }
 
 
