@@ -162,7 +162,6 @@ export default {
         onKeypressVoucherBox : function(event) {
             var rxNumber = /\d/;
             var char = this.getKeyCharCode(event);
-            console.log(event.key);
 
             if (char.match(rxNumber)) {
                 if (this.voucherCode.length < event.target.maxlength) {
