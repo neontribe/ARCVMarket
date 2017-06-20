@@ -77,11 +77,11 @@ export default {
                             response.data.invalid.length > 0
                         ) {
                             this.showFail();
-                            this.errorMessage = "The voucher code you entered is not valid. Please try again.";
+                            this.errorMessage = "[xXx]The voucher code you entered is not valid. Please try again.";
                         } else if (
                             response.data.fail.length > 0
                         ) {
-                            this.errorMessage = "The voucher code has you entered has previously been submitted. Please try again.";
+                            this.errorMessage = "[xXx]The voucher code has you entered has previously been submitted. Please try again.";
                         } else {
                             this.showValidate();
                             this.errorMessage = "";
@@ -165,7 +165,7 @@ export default {
         onKeypressVoucherBox : function(event) {
             var rxNumber = /\d/;
             var char = this.getKeyCharCode(event);
-            
+
             //event.keycode 8 is backspace, dont want to prevent default
             if (event.keyCode !== 8) {
                 if (char.match(rxNumber)) {
