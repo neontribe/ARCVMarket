@@ -94,12 +94,12 @@
                         switch (response.status) {
                             case 202 :
                                 this.goodFeedback = true;
-                                mailMsg = response.data;
+                                mailMsg = response.data.message;
                                 break;
                             default :
                                 this.goodFeedback = false;
                                 mailMsg = "Something went wrong, please try again later.";
-                                console.log(response.data); // because we need to see what the server said somewhere.
+                                console.log(response); // because we need to see what the server said somewhere.
                         }
                         this.errorMessage = mailMsg;
                     }.bind(this),
