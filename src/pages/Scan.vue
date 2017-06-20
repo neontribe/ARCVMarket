@@ -87,11 +87,11 @@ export default {
                             response.data.invalid.length > 0
                         ) {
                             this.showFail();
-                            this.errorMessage = "The voucher code you entered is not valid. Please try again.";
+                            this.errorMessage = "[xXx]The voucher code you entered is not valid. Please try again.";
                         } else if (
                             response.data.fail.length > 0
                         ) {
-                            this.errorMessage = "The voucher code has you entered has previously been submitted. Please try again.";
+                            this.errorMessage = "[xXx]The voucher code has you entered has previously been submitted. Please try again.";
                         } else {
                             this.showValidate();
                             this.errorMessage = "";
