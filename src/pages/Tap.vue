@@ -6,7 +6,7 @@
 
                 <h1>Type a voucher code</h1>
 
-                <form id="textVoucher" v-on:submit.prevent>
+                <form id="textVoucher">
                     <transition name="fade"><div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor Code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher code</label>
@@ -162,6 +162,7 @@ export default {
         onKeypressVoucherBox : function(event) {
             var rxNumber = /\d/;
             var char = this.getKeyCharCode(event);
+            console.log(event.key);
 
             if (char.match(rxNumber)) {
                 if (this.voucherCode.length < event.target.maxlength) {
@@ -169,6 +170,11 @@ export default {
                 }
                 return;
             }
+
+            if (event.key === 'Enter') {
+                this.onRecordVoucher();
+            }
+
             event.preventDefault();
             return false;
         },
