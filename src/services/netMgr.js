@@ -4,19 +4,27 @@ import Axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 /*
-NetMgr is a place to put all the
-- AJAX axios stuff;
-- Mock binding
-- Authentication
+ NetMgr is a place to put all the
+ - AJAX axios stuff;
+ - Mock binding
+ - Authentication
 
-Though, in theory it could have been split into a series of modules.
+ Though, in theory it could have been split into a series of modules.
 
-*/
+ - event bus
+ - move authentication to netmgr
+ - have store listen for auth changes
+ - implement auth changes
+ - settimeout on tokenset! (first or subsequent)
+
+ */
+
 
 var NetMgr = {
     token: null,
     mockAdapter: null,
     mocker: null,
+    tokenRefreshTimeoutID: null,
     axiosInstance: Axios.create({
         baseURL: Config.apiBase,
         timeout: 10000,
@@ -35,13 +43,38 @@ var NetMgr = {
  * @returns {boolean}
  */
 NetMgr.isAuth = function() {
-  if (this.token) {
-      var expiryTime = this.token.requestTime + this.token.expires_in;
-      if (expiryTime > Math.floor(Date.now()/1000)) {
-          return true;
-      }
-  }
-  return false;
+    if (this.token) {
+        var expiryTime = this.token.requestTime + this.token.expires_in;
+        if (expiryTime > Math.floor(Date.now()/1000)) {
+            return true;
+        }
+    }
+    return false;
+};
+
+NetMgr.setTokenRefreshTimeout = function(timeout) {
+    // Setup a new token refresh timeout.
+    this.tokenRefreshTimeoutID = window.setTimeout(
+        () => {
+            //Passport is returning the tokens in "data.orginal" on this endpoint. Odd.
+            NetMgr.apiPost('/login/refresh', { refresh_token: this.token.refresh_token },
+                function (refreshData) {
+                    let newTokenData = refreshData.data.original || NetMgr.token;
+                    NetMgr.setToken(newTokenData);
+                },
+                function (refreshErr) {// Invalid refresh token, pass that back as a failure, so someone else deals with it.
+                    return Promise.reject(refreshErr);
+                });
+        },
+        timeout
+    );
+};
+
+/**
+ * Clears the current token refresh timeout.
+ */
+NetMgr.clearTokenRefreshTimeout = function() {
+    window.clearTimeout(this.tokenRefreshTimeoutID);
 };
 
 /**
@@ -51,16 +84,24 @@ NetMgr.isAuth = function() {
  */
 NetMgr.setToken = function (tokenData) {
     this.token = tokenData;
+
+    // Clear the current timeout.
+    this.clearTokenRefreshTimeout();
+
     if (this.token) {
         this.token.requestTime = Math.floor(Date.now() / 1000);
         this.axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + this.token.access_token;
+
+        // Get the time in ms until the token expires minus five seconds to allow the network request to go through.
+        let timeoutTime = this.token.expires_in * 1000 - 5000;
+        this.setTokenRefreshTimeout(timeoutTime)
     }
 };
 
 /**
  * Sets the access restriction headers
  *
- * @param format 
+ * @param format
  */
 NetMgr.setAccept = function (format) {
     this.axiosInstance.defaults.headers.common['Accept'] = format;
@@ -160,7 +201,7 @@ NetMgr.mockOff = function () {
 // set cookie in devtools to ignore mocks in development and connect directly to local API
 // document.cookie = "arcv_ignore_mocks=true;max-age=" + 86400*30;
 if (Config.env === "development" && ( document.cookie.indexOf("arcv_ignore_mocks=true") === -1 )) {
-   NetMgr.mockOn();
+    NetMgr.mockOn();
 }
 
 // Add interceptor to detect an expired access_token and refresh;
@@ -170,7 +211,6 @@ NetMgr.axiosInstance.interceptors.response.use(
         return response;
     },
     function (error) {
-
         // Get the original request configuration.
         var origCfg = error.config;
 
@@ -178,7 +218,7 @@ NetMgr.axiosInstance.interceptors.response.use(
         var origResp = error.response;
 
         // Is it a 401 we havn't seen before? (and do we have an old token set)
-        if (origResp.status === 401 && !origCfg._retry && this.token) {
+        if (origResp.status === 401 && !origCfg._retry && NetMgr.token) {
             switch (origResp.data.error) {
                 case "invalid_token"    : // oAuth2 token invalid.
                 // case "Unauthorized"     : // Logged in BUT denied resource.
@@ -186,10 +226,15 @@ NetMgr.axiosInstance.interceptors.response.use(
                     origCfg._retry = true; // Set so we don't hit this one again.
 
                     // Let's hit the refresh with the refresh token
-                    return NetMgr.apiPost('/login/refresh', NetMgr.token.refresh_token,
+
+                    //Passport is returning the tokens in "data.orginal" on this endpoint. Odd.
+                    return NetMgr.apiPost('/login/refresh', { refresh_token: NetMgr.token.refresh_token },
                         function (refreshData) {
+                            let newTokenData = refreshData.data.original || NetMgr.token;
+
                             // Valid refresh_token, reset and retry.
-                            NetMgr.setToken(refreshData); // Set the token.
+                            NetMgr.setToken(newTokenData); // Set the token.
+
                             return NetMgr.axiosInstance(origCfg) // Retry the request that errored out.
                         },
                         function (refreshErr) {
@@ -199,13 +244,13 @@ NetMgr.axiosInstance.interceptors.response.use(
 
                     break;
                 default :
-                    // Fall through...
+                // Fall through...
             }
 
         }
         // So all other errors returned to api get/post.
         return Promise.reject(error);
 
-    }.bind(this));
+    });
 
 export default NetMgr;
