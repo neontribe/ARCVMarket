@@ -106,7 +106,7 @@ test('Correct error appears when I submit an invalid voucher', async t => {
         .click(submitButton)
     ;
     const errorMessage = await el('.content div.message').innerText;
-    expect(errorMessage).to.contain('The voucher code you entered is not valid. Please try again.');
+    expect(errorMessage).to.contain('Please enter a valid voucher code.');
 });
 
 test('Correct error appears when I submit a duplicate voucher', async t => {
@@ -132,7 +132,7 @@ test('Correct error appears when I submit a duplicate voucher', async t => {
         .click(submitButton)
     ;
     const errorMessage = await el('.message').innerText;
-    expect(errorMessage).to.contain('The voucher code you entered has previously been submitted. Please try again.');
+    expect(errorMessage).to.contain('That voucher may have been used already.');
 });
 
 test('Page displays number of recorded vouchers', async t => {
