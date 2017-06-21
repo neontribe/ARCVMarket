@@ -212,7 +212,7 @@ store.transitionVouchers = function (transition, vouchers, success, failure) {
         function (response) {
             if (success) {success(response)}
         },
-        function() {
+        function(error) {
             if (failure) {failure(error)}
         }
     );
