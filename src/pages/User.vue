@@ -7,7 +7,7 @@
 
                 <h1>Choose a trader to manage</h1>
 
-                <form id="frmChooseTrader" class="form-group" v-on:submit.prevent="onContinue">
+                <form id="frmChooseTrader" class="form-group" v-on:submit.prevent="onContinue" @keyup.enter="onContinue">
 
                     <div v-for="(trader, index) in this.userTraders[0]">
                         <div class="multiple-choice">
@@ -16,7 +16,7 @@
                         </div>
                     </div>
 
-                    <button id="continue" type="submit" value="Continue">Continue</button>
+                    <button id="continue" type="submit" value="Continue" v-on:keyup.enter="onContinue">Continue</button>
 
                 </form>
 

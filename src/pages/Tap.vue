@@ -75,10 +75,13 @@ export default {
                         // Add error message for invalid and fail codes.
                         if (
                             response.data.invalid.length > 0
-                            || response.data.fail.length > 0
                         ) {
                             this.showFail();
-                            this.errorMessage = "Please enter a valid code.";
+                            this.errorMessage = "[xXx]The voucher code you entered is not valid. Please try again.";
+                        } else if (
+                            response.data.fail.length > 0
+                        ) {
+                            this.errorMessage = "[xXx]The voucher code you entered has previously been submitted. Please try again.";
                         } else {
                             this.showValidate();
                             this.errorMessage = "";
@@ -162,7 +165,7 @@ export default {
         onKeypressVoucherBox : function(event) {
             var rxNumber = /\d/;
             var char = this.getKeyCharCode(event);
-            
+
             //event.keycode 8 is backspace, dont want to prevent default
             if (event.keyCode !== 8) {
                 if (char.match(rxNumber)) {

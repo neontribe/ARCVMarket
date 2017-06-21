@@ -106,6 +106,56 @@ test('I can type and submit a voucher code', async t => {
 
 });
 
+test('Correct error appears when I submit a duplicate voucher', async t => {
+    await t
+        .typeText('#userName', 'email@example.co.uk')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click('input#radio-0')
+        .pressKey('enter')
+    ;
+    const sponsorBox = await el('#sponsorBox');
+
+    await t
+        .click(sponsorBox)
+        .pressKey('backspace backspace backspace')
+        .typeText(sponsorBox, 'INV')
+        .typeText(el('#voucherBox'), '1')
+    ;
+    const submitVoucher = await el('button#submitVoucher');
+
+    await t
+        .click(submitVoucher)
+    ;
+    const errorMessage = await el('.message').innerText;
+    expect(errorMessage).to.contain('The voucher code you entered is not valid. Please try again.');
+});
+
+test('Correct error appears when I submit an invalid voucher', async t => {
+    await t
+        .typeText('#userName', 'email@example.co.uk')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click('input#radio-0')
+        .pressKey('enter')
+    ;
+    const sponsorBox = await el('#sponsorBox');
+
+    await t
+        .click(sponsorBox)
+        .pressKey('backspace backspace backspace')
+        .typeText(sponsorBox, 'FAL')
+        .typeText(el('#voucherBox'), '11111111')
+    ;
+    const submitVoucher = await el('button#submitVoucher');
+
+    await t
+        .click(submitVoucher)
+    ;
+    const errorMessage = await el('.message').innerText;
+    expect(errorMessage).to.contain('The voucher code you entered has previously been submitted. Please try again.');
+});
+
 test('I cannot type letters into the voucher input', async t => {
     await t
         .typeText('#userName', 'email@example.co.uk')
