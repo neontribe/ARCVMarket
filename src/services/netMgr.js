@@ -176,12 +176,21 @@ if (Config.env === "development" && ( document.cookie.indexOf("arcv_ignore_mocks
     NetMgr.mockOn();
 }
 
+/**
+ * Sets the internal token variable to the result of the NetMgr.getTokenFromLocalStorage function.
+ */
 NetMgr.setTokenFromLocalStorage = function() {
     let parsedLocalToken = this.getTokenFromLocalStorage();
 
     if(parsedLocalToken) this.setToken(parsedLocalToken);
 };
 
+/**
+ * Retrieves the auth token object json from localStorage and attempts to parse the JSON string.
+ *
+ * @returns {Object|null}
+ *   Returns the parsed token object or null if it is invalid JSON.
+ */
 NetMgr.getTokenFromLocalStorage = function() {
     let localToken = localStorage['NetMgr.token'];
     let parsedLocalToken = null;
@@ -195,6 +204,12 @@ NetMgr.getTokenFromLocalStorage = function() {
     return parsedLocalToken;
 };
 
+/**
+ * Sets the specified token in localStorage.
+ *
+ * @param token
+ *   The token to set.
+ */
 NetMgr.setLocalStorageFromToken = function(token) {
     localStorage['NetMgr.token'] = JSON.stringify(token);
 };
