@@ -8,6 +8,8 @@ import App from './App.vue';
 import Config from './config.js';
 import Store from './store.js';
 import VueRouter from 'vue-router';
+import { EventBus } from './services/events';
+
 Vue.use(VueRouter);
 
 // Import pages
@@ -55,6 +57,7 @@ const router = new VueRouter({
 // Route Guard rules for directing users
 router.beforeEach((to, from, next) => {
     var auth = Store.netMgr.isAuth();
+
     if (!auth && to.meta.auth) {
         Store.netMgr.setTokenFromLocalStorage();
         Store.setUserTradersFromLocalStorage();
@@ -109,3 +112,7 @@ var vm = new Vue({
     // Pass in the router to the Vue instance
     router
 }).$mount('#app'); // Mount the router on the app
+
+EventBus.$on('NetMgr.logout', () => {
+    router.push('login');
+});
