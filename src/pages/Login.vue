@@ -23,6 +23,7 @@
 
         </main>
 
+        <footer>Commit : {{ commitmsg }}</footer>
     </div>
 </template>
 
@@ -35,7 +36,8 @@
                 username: null,
                 password: null,
                 remember: true,
-                errorMessage : Store.error
+                errorMessage : Store.error,
+                commitmsg: VERSION
             }
         },
         methods: {

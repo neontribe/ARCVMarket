@@ -242,6 +242,17 @@ header {
   justify-content: space-between;
 }
 
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0.5rem;
+  text-align: center;
+  font-size:0.75em;
+  opacity: 0.15;
+}
+
 .logo {
   img {
     padding: 2em 0 1.3em 2em;

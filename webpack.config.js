@@ -1,6 +1,7 @@
 /* "Copyright © 2017, Alexandra Rose Charity (reg. in England and Wales, #00279157)" */
 var path = require('path');
 var webpack = require('webpack');
+var GitRevisionPlugin = require('git-revision-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var OfflinePlugin = require('offline-plugin');
@@ -11,15 +12,22 @@ if (process.env.NODE_ENV === 'production') {
     var publicPath = '/';
 }
 
+var gitRevisionPlugin = new GitRevisionPlugin();
+
 module.exports = {
     entry: ['babel-polyfill','./src/main.js'],
     output: {
-//    path: path.resolve(__dirname, './dist'),
         path: path.resolve(__dirname, './dist'),
         publicPath: publicPath,
-        filename: 'build.js'
+        filename: 'build.js?[hash]'
     },
     plugins: [
+        new webpack.DefinePlugin({
+            'VERSION': JSON.stringify(gitRevisionPlugin.version()),
+            'COMMITHASH': JSON.stringify(gitRevisionPlugin.commithash()),
+            'BRANCH': JSON.stringify(gitRevisionPlugin.branch()),
+            'BUILDDATE': JSON.stringify(new Date()),
+        }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'index.html',
@@ -69,14 +77,14 @@ module.exports = {
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
                 loader: 'file-loader',
                 options: {
-                    name: './fonts/[name].[ext]'
+                    name: './fonts/[name].[ext]?[hash]'
                 }
             },
             {
                 test: /manifest.json/,
                 loader: 'file-loader',
                 options: {
-                    name: '[name].[ext]'
+                    name: '[name].[ext]?[hash]'
                 }
             }
         ]
@@ -96,13 +104,17 @@ module.exports = {
     },
 
     devtool: '#eval-source-map'
-}
+};
 
 if (process.env.NODE_ENV === 'production') {
     module.exports.devtool = '#source-map';
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
+            'VERSION': JSON.stringify(gitRevisionPlugin.version()),
+            'COMMITHASH': JSON.stringify(gitRevisionPlugin.commithash()),
+            'BRANCH': JSON.stringify(gitRevisionPlugin.branch()),
+            'BUILDDATE': JSON.stringify(new Date()),
             'process.env': {
                 NODE_ENV: '"production"'
             }
@@ -117,7 +129,8 @@ if (process.env.NODE_ENV === 'production') {
             minimize: true
         }),
 	new CopyWebpackPlugin([{
-            from: 'src/assets'
+            from: 'src/assets',
+            to: '[name].[ext]?[hash]'
 	}])
     ])
 }
