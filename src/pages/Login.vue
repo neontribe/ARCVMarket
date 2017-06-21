@@ -23,6 +23,9 @@
 
         </main>
 
+        <div class="footer">
+            <span id="build">{{ buildmsg }}</span>
+        </div>
     </div>
 </template>
 
@@ -35,7 +38,8 @@
                 username: null,
                 password: null,
                 remember: true,
-                errorMessage : Store.error
+                errorMessage : Store.error,
+                buildmsg: VERSION
             }
         },
         methods: {
