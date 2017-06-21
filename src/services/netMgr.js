@@ -53,8 +53,10 @@ NetMgr.isAuth = function() {
 
 NetMgr.setTokenFromLocalStorage = function() {
     let parsedLocalToken = this.getTokenFromLocalStorage();
-
-    this.setToken(parsedLocalToken);
+    if(parsedLocalToken) {
+        parsedLocalToken.expires_in = 5;
+        this.setToken(parsedLocalToken);
+    }
 };
 
 NetMgr.getTokenFromLocalStorage = function() {
@@ -79,9 +81,9 @@ NetMgr.setTokenRefreshTimeout = function(timeout, token) {
     this.tokenRefreshTimeoutID = setTimeout(
         () => {
             //Passport is returning the tokens in "data.orginal" on this endpoint. Odd.
-            NetMgr.apiPost('/login/refresh', { refresh_token: this.token.refresh_token },
+            NetMgr.apiPost('/login/refresh', { refresh_token: token.refresh_token },
                 function (refreshData) {
-                    let newTokenData = refreshData.data.original;
+                    let newTokenData = refreshData.data.original || null;
 
                     if(newTokenData) {
                         // Valid refresh_token, reset and retry.
@@ -122,7 +124,7 @@ NetMgr.setToken = function (tokenData) {
 
         // Get the time in ms until the token expires minus five seconds to allow the network request to go through.
         let timeoutTime = this.token.expires_in * 1000 - 5000;
-        this.setTokenRefreshTimeout(timeoutTime)
+        this.setTokenRefreshTimeout(timeoutTime, this.token)
     }
 };
 
