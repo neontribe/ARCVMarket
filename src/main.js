@@ -113,7 +113,13 @@ var vm = new Vue({
     router
 }).$mount('#app'); // Mount the router on the app
 
-EventBus.$on('NetMgr.logout', () => {
+/**
+ * Reset all stored information and redirect the user back to the login page when 'NetMgr.logout' is fired.
+ *
+ * @param err
+ *   Logout reason.
+ */
+EventBus.$on('NetMgr.logout', (err) => {
     Store.resetStore();
 
     router.push('login');
