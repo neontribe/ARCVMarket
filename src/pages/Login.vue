@@ -23,9 +23,7 @@
 
         </main>
 
-        <div class="footer">
-            <span id="build">Commit : {{ commitmsg }}</span>
-        </div>
+        <footer>Commit : {{ commitmsg }}</footer>
     </div>
 </template>
 
