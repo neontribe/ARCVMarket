@@ -55,3 +55,18 @@ test('Can log out', async t => {
     const pagePath = await t.eval(() => document.documentURI);
     expect(pagePath).to.equal(url + '/login');
 });
+
+test('User remains logged in on page refresh', async t => {
+    await t
+        .typeText('#userName', 'email@example.com')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click("#radio-0")
+        .pressKey('enter')
+    ;
+
+    await t.eval(() => location.reload);
+
+    const pagePath = await t.eval(() => document.documentURI);
+    expect(pagePath).to.equal(url + '/');
+});
