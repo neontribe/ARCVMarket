@@ -66,22 +66,24 @@ export default {
     },
     methods:  {
         onRecordVoucher: function(event) {
-            this.startSpinner();
             //TODO: some proper validation
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
+                this.startSpinner();
                 Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
                     // Success function
                     function(response) {
+
                         // Add error message for invalid and fail codes.
                         if (
                             response.data.invalid.length > 0
                         ) {
                             this.showFail();
-                            this.errorMessage = "[xXx]The voucher code you entered is not valid. Please try again.";
+                            this.errorMessage = "[xXx] Please enter a valid voucher code.";
                         } else if (
                             response.data.fail.length > 0
                         ) {
-                            this.errorMessage = "[xXx]The voucher code you entered has previously been submitted. Please try again.";
+                            this.showFail();
+                            this.errorMessage = "[xXx] That voucher may have been used already.";
                         } else {
                             this.showValidate();
                             this.errorMessage = "";
@@ -94,6 +96,9 @@ export default {
                     });
                 // Do anyway.
                 this.voucherCode = "";
+            } else {
+              this.showFail();
+              this.errorMessage = "[xXx] Please enter a valid voucher code.";
             }
         },
 
