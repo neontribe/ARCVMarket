@@ -214,9 +214,6 @@ NetMgr.axiosInstance.interceptors.response.use(
 
         // Is it a 401 we havn't seen before? (and do we have an old token set)
         if (origResp.status === 401 && !origCfg._retry && NetMgr.token) {
-            console.log(origResp.data.error);
-
-
             switch (origResp.data.error) {
                 case "invalid_token"    : // oAuth2 token invalid.
                 case "Unauthenticated." : // User not logged on.
