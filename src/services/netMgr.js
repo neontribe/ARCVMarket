@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import Config from '../config.js';
 import Fixtures from '../../fixtures/fixtures.js';
 import Axios from 'axios';

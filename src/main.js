@@ -121,6 +121,5 @@ var vm = new Vue({
  */
 EventBus.$on('NetMgr.logout', (err) => {
     Store.resetStore();
-
     router.push('login');
 });
