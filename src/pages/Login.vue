@@ -24,7 +24,7 @@
         </main>
 
         <div class="footer">
-            <span id="build">{{ buildmsg }}</span>
+            <span id="build">Commit : {{ commitmsg }}</span>
         </div>
     </div>
 </template>
@@ -39,7 +39,7 @@
                 password: null,
                 remember: true,
                 errorMessage : Store.error,
-                buildmsg: VERSION
+                commitmsg: VERSION
             }
         },
         methods: {
