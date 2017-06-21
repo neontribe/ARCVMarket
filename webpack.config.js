@@ -14,10 +14,9 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
     entry: ['babel-polyfill','./src/main.js'],
     output: {
-//    path: path.resolve(__dirname, './dist'),
         path: path.resolve(__dirname, './dist'),
         publicPath: publicPath,
-        filename: 'build.js'
+        filename: 'build.js?[hash]'
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -69,14 +68,14 @@ module.exports = {
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
                 loader: 'file-loader',
                 options: {
-                    name: './fonts/[name].[ext]'
+                    name: './fonts/[name].[ext]?[hash]'
                 }
             },
             {
                 test: /manifest.json/,
                 loader: 'file-loader',
                 options: {
-                    name: '[name].[ext]'
+                    name: '[name].[ext]?[hash]'
                 }
             }
         ]
@@ -117,7 +116,8 @@ if (process.env.NODE_ENV === 'production') {
             minimize: true
         }),
 	new CopyWebpackPlugin([{
-            from: 'src/assets'
+            from: 'src/assets',
+            to: '[name].[ext]?[hash]'
 	}])
     ])
 }
