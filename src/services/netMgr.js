@@ -205,10 +205,10 @@ NetMgr.getTokenFromLocalStorage = function() {
 };
 
 /**
- * Sets the specified token in localStorage.
+ * Sets the provided token in localStorage.
  *
  * @param token
- *   The token to set.
+ *   The token to store in localStorage.
  */
 NetMgr.setLocalStorageFromToken = function(token) {
     localStorage['NetMgr.token'] = JSON.stringify(token);

@@ -110,6 +110,11 @@ store.setUserTrader = function(id) {
     return (this.trader.id === id);
 };
 
+/**
+ * Attempts to set User and Trader information based off of information stored in localStorage.
+ *
+ * Will throw a console error if the information stored is invalid JSON and default to the existing info in this case.
+ */
 store.setUserTradersFromLocalStorage = function() {
     let user = localStorage['Store.user'];
     let trader = localStorage['Store.trader'];
