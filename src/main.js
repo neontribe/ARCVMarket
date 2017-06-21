@@ -21,6 +21,8 @@ import Payment from './pages/Payment.vue';
 import Login from './pages/Login.vue';
 import User from './pages/User.vue';
 
+console.info(BUILDDATE + '\n' + BRANCH + '\n' + VERSION);
+
 /*
  route access rules
  auth -> true, user MUST be auth'd - friends only
