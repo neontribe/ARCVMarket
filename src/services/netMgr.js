@@ -52,6 +52,12 @@ NetMgr.isAuth = function() {
 };
 
 NetMgr.setTokenFromLocalStorage = function() {
+    let parsedLocalToken = this.getTokenFromLocalStorage();
+
+    this.setToken(parsedLocalToken);
+};
+
+NetMgr.getTokenFromLocalStorage = function() {
     let localToken = localStorage['NetMgr.token'];
     let parsedLocalToken = null;
 
@@ -61,7 +67,7 @@ NetMgr.setTokenFromLocalStorage = function() {
         console.error('Invalid token stored in localstorage.');
     }
 
-    this.setToken(parsedLocalToken);
+    return parsedLocalToken;
 };
 
 NetMgr.setLocalStorageFromToken = function(token) {
@@ -247,15 +253,16 @@ NetMgr.axiosInstance.interceptors.response.use(
                 case "Unauthenticated." : // User not logged on.
                     origCfg._retry = true; // Set so we don't hit this one again.
 
-                    // Let's hit the refresh with the refresh token
+                    let lsToken = NetMgr.getTokenFromLocalStorage() || NetMgr.token;
 
+                    // Let's hit the refresh with the refresh token
                     //Passport is returning the tokens in "data.orginal" on this endpoint. Odd.
-                    return NetMgr.apiPost('/login/refresh', { refresh_token: NetMgr.token.refresh_token },
+                    return NetMgr.apiPost('/login/refresh', { refresh_token: lsToken.refresh_token },
                         function (refreshData) {
                             let newTokenData = refreshData.data.original || null;
-                            NetMgr.setToken(newTokenData); // Set the token.
 
                             if(newTokenData) {
+                                NetMgr.setToken(newTokenData); // Set the token.
                                 // Valid refresh_token, reset and retry.
                                 return NetMgr.axiosInstance(origCfg) // Retry the request that errored out.
                             }
