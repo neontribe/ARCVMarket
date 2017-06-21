@@ -91,6 +91,7 @@ export default {
                         } else if (
                             response.data.fail.length > 0
                         ) {
+                            this.showFail();
                             this.errorMessage = "[xXx] That voucher may have been used already.";
                         } else {
                             this.showValidate();
@@ -108,7 +109,7 @@ export default {
                 this.$refs.sponsorBox.focus();
             } else {
               this.showFail();
-              this.errorMessage = "[xXx] Please enter a valid code.";
+              this.errorMessage = "[xXx] Please enter a valid voucher code.";
             }
         },
 

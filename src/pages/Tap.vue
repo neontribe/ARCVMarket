@@ -72,6 +72,7 @@ export default {
                 Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
                     // Success function
                     function(response) {
+
                         // Add error message for invalid and fail codes.
                         if (
                             response.data.invalid.length > 0
@@ -97,7 +98,7 @@ export default {
                 this.voucherCode = "";
             } else {
               this.showFail();
-              this.errorMessage = "[xXx] Please enter a valid code.";
+              this.errorMessage = "[xXx] Please enter a valid voucher code.";
             }
         },
 
