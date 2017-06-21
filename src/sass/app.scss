@@ -139,8 +139,15 @@ $fa-font-path:"../node_modules/font-awesome/fonts";
 
 // Styling for "positive" feedback.
 .goodmessage {
-  color: $arc_success;
+  color: $arc_copy;
   padding-bottom: 1em;
+  &:before {
+    font-weight: bold;
+    font-family: FontAwesome;
+    content: "\f058";
+    color: $arc_success;
+    padding-right: 0.5em;
+  }
 }
 
 input {
@@ -934,6 +941,9 @@ label#lblSponsorBox {
         h1 {
           padding-left: 0;
         }
+      }
+      .goodmessage {
+        padding: 0 1rem 1rem;
       }
       button {
         width: 92%;
