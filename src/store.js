@@ -104,8 +104,8 @@ store.setUserTrader = function(id) {
     })[0];
     this.trader.pendedVouchers = [];
 
-    localStorage.setItem('Store.user', JSON.stringify(this.user));
-    localStorage.setItem('Store.trader', JSON.stringify(this.trader));
+    localStorage['Store.user'] = JSON.stringify(this.user);
+    localStorage['Store.trader'] = JSON.stringify(this.trader);
 
     return (this.trader.id === id);
 };
