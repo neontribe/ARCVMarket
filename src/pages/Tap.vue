@@ -82,7 +82,7 @@ export default {
                             response.data.fail.length > 0
                         ) {
                             this.showFail();
-                            this.errorMessage = "[xXx] Please enter an unused voucher code.";
+                            this.errorMessage = "[xXx] That voucher may have been used already.";
                         } else {
                             this.showValidate();
                             this.errorMessage = "";
