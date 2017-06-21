@@ -19,7 +19,7 @@ import Payment from './pages/Payment.vue';
 import Login from './pages/Login.vue';
 import User from './pages/User.vue';
 
-console.info(BUILDDATE + ' ' + VERSION + ' ' + BRANCH);
+console.info(BUILDDATE + '\n' + BRANCH + '\n' + VERSION);
 
 /*
 route access rules
