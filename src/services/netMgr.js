@@ -236,6 +236,7 @@ NetMgr.axiosInstance.interceptors.response.use(
                                 return NetMgr.axiosInstance(origCfg) // Retry the request that errored out.
                             } else {
                                 NetMgr.setToken(null);
+
                                 EventBus.$emit('NetMgr.logout', origResp.data.error);
                             }
                         },

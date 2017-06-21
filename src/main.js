@@ -114,5 +114,7 @@ var vm = new Vue({
 }).$mount('#app'); // Mount the router on the app
 
 EventBus.$on('NetMgr.logout', () => {
+    Store.resetStore();
+
     router.push('login');
 });
