@@ -61,9 +61,6 @@ NetMgr.setTokenFromLocalStorage = function() {
         console.error('Invalid token stored in localstorage.');
     }
 
-    if(parsedLocalToken) {
-        parsedLocalToken.expires_in = 1;
-    }
     this.setToken(parsedLocalToken);
 };
 
@@ -71,22 +68,19 @@ NetMgr.setLocalStorageFromToken = function(token) {
     localStorage['NetMgr.token'] = JSON.stringify(token);
 };
 
-NetMgr.setTokenRefreshTimeout = function(timeout) {
+NetMgr.setTokenRefreshTimeout = function(timeout, token) {
     // Setup a new token refresh timeout.
     this.tokenRefreshTimeoutID = setTimeout(
         () => {
             //Passport is returning the tokens in "data.orginal" on this endpoint. Odd.
             NetMgr.apiPost('/login/refresh', { refresh_token: this.token.refresh_token },
                 function (refreshData) {
-                    let newTokenData = refreshData.data.original || NetMgr.token;
+                    let newTokenData = refreshData.data.original;
 
-                    if(!refreshData.data.original) {
-                        localStorage.clear();
-                        NetMgr.setToken(null);
-                        return;
+                    if(newTokenData) {
+                        // Valid refresh_token, reset and retry.
+                        NetMgr.setToken(newTokenData); // Set the token.
                     }
-
-                    NetMgr.setToken(newTokenData);
                 },
                 function (refreshErr) {// Invalid refresh token, pass that back as a failure, so someone else deals with it.
                     return Promise.reject(refreshErr);
@@ -245,8 +239,6 @@ NetMgr.axiosInstance.interceptors.response.use(
         // Get the error from that request.
         var origResp = error.response;
 
-        NetMgr.setTokenFromLocalStorage();
-
         // Is it a 401 we havn't seen before? (and do we have an old token set)
         if (origResp.status === 401 && !origCfg._retry && NetMgr.token) {
             switch (origResp.data.error) {
@@ -260,13 +252,13 @@ NetMgr.axiosInstance.interceptors.response.use(
                     //Passport is returning the tokens in "data.orginal" on this endpoint. Odd.
                     return NetMgr.apiPost('/login/refresh', { refresh_token: NetMgr.token.refresh_token },
                         function (refreshData) {
-                            let newTokenData = refreshData.data.original;
+                            let newTokenData = refreshData.data.original || null;
+                            NetMgr.setToken(newTokenData); // Set the token.
+
                             if(newTokenData) {
                                 // Valid refresh_token, reset and retry.
-                                NetMgr.setToken(newTokenData); // Set the token.
+                                return NetMgr.axiosInstance(origCfg) // Retry the request that errored out.
                             }
-
-                            return NetMgr.axiosInstance(origCfg) // Retry the request that errored out.
                         },
                         function (refreshErr) {
 
