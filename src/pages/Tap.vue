@@ -90,7 +90,7 @@ export default {
                             this.showFail();
                             this.errorMessage = "[xXx] That voucher may have been used already.";
                         } else if (
-                            // condition to check if phone is offline
+                            !Store.netMgr.online
                         ) {
                             this.showQueued();
                             this.queueMessage = "[xXx] Voucher has been added to your queue below.";
