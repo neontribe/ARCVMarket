@@ -87,12 +87,12 @@ export default {
                             response.data.invalid.length > 0
                         ) {
                             this.showFail();
-                            this.errorMessage = "[xXx] Please enter a valid voucher code.";
+                            this.errorMessage = "Please enter a valid voucher code.";
                         } else if (
                             response.data.fail.length > 0
                         ) {
                             this.showFail();
-                            this.errorMessage = "[xXx] That voucher may have been used already.";
+                            this.errorMessage = "That voucher may have been used already.";
                         } else {
                             this.showValidate();
                             this.errorMessage = "";
@@ -109,7 +109,7 @@ export default {
                 this.$refs.sponsorBox.focus();
             } else {
               this.showFail();
-              this.errorMessage = "[xXx] Please enter a valid voucher code.";
+              this.errorMessage = "Please enter a valid voucher code.";
             }
         },
 
