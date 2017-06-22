@@ -204,9 +204,6 @@ store.clearVouchers = function () {
  * @returns {boolean}
  */
 store.transitionVouchers = function (transition, vouchers, success, failure) {
-    if (!navigator.onLine) {
-        return false;
-    }
     var postData = {
         'transition' : transition,
         'trader_id': this.trader.id,
