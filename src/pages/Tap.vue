@@ -72,27 +72,39 @@ export default {
                 Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
                     // Success function
                     function(response) {
-
                         // Add error message for invalid and fail codes.
-                        if (
-                            response.data.invalid.length > 0
-                        ) {
+                        var data = response.data;
+
+                        if (data.invalid.length + data.fail.length == 1) {
+                            // single mismatch handler;
+                            if (data.invalid.length > 0) {
+                                this.showFail();
+                                this.errorMessage = "[xXx] Please enter a valid voucher code.";
+
+                            } else if (data.fail.length > 0) {
+                                this.showFail();
+                                this.errorMessage = "[xXx] That voucher may have been used already.";
+                            }
+
+                        } else if (data.invalid.length + data.fail.length > 1) {
+                            // rough multifailure manager
                             this.showFail();
-                            this.errorMessage = "[xXx] Please enter a valid voucher code.";
-                        } else if (
-                            response.data.fail.length > 0
-                        ) {
-                            this.showFail();
-                            this.errorMessage = "[xXx] That voucher may have been used already.";
+                            this.errorMessage = "[xXx] "+
+                                data.success.length+" accepted, " +
+                                data.fail.length + " rejected and " +
+                                data.invalid.length +" were invalid.";
                         } else {
+                            // all in!
                             this.showValidate();
                             this.errorMessage = "";
                         }
+                        // The server has processed our list, clear it.
                         Store.clearVouchers();
                         Store.getRecVouchers();
                     }.bind(this),
                     // Failure function, hook for error message
                     function() {
+                        console.log(this.vouchers);
                     });
                 // Do anyway.
                 this.voucherCode = "";
