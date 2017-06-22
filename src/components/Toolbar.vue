@@ -19,7 +19,7 @@ export default {
     name: 'toolbar',
     data: function() {
         return {
-            recVouchers : Store.recVouchers,
+            recVouchers : Store.trader.recVouchers,
             voucherCount : 0
         }
     },

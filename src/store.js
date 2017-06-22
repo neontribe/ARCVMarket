@@ -8,10 +8,10 @@ var store = {
     },
     trader: {
         id: null,
-        pendedVouchers: []
+        pendedVouchers: [],
+        vouchers: [],
+        recVouchers: []
     },
-    vouchers: [],
-    recVouchers: [],
     netMgr: NetMgr,
     auth: false,
     error: null
@@ -25,10 +25,12 @@ store.resetStore = function() {
     };
     this.trader = {
         id : null,
-        pendedVouchers : []
+        pendedVouchers : [],
+        vouchers: [],
+        recVouchers: []
     };
-    this.vouchers = this.vouchers.splice(0, this.vouchers);
-    this.recVouchers = this.recVouchers.splice(0, this.recVouchers);
+    this.trader.vouchers = this.trader.vouchers.splice(0, this.trader.vouchers.length);
+    this.trader.recVouchers = this.trader.recVouchers.splice(0, this.trader.recVouchers.length);
     this.error = null;
     window.localStorage.clear();
 };
@@ -103,6 +105,8 @@ store.setUserTrader = function(id) {
         return userTrader.id === id;
     })[0];
     this.trader.pendedVouchers = [];
+    this.trader.vouchers = [];
+    this.trader.recVouchers = [];
 
     localStorage['Store.user'] = JSON.stringify(this.user);
     localStorage['Store.trader'] = JSON.stringify(this.trader);
@@ -153,7 +157,7 @@ store.getRecVouchers = function () {
             var newVouchers = Object.keys(response.data).map(function(k){
                 return response.data[k];
             });
-            this.mergeRecVouchers(newVouchers);
+            this.mergeRecVouchers.call(this, newVouchers);
         }.bind(this));
     return true;
 };
@@ -164,15 +168,15 @@ store.getRecVouchers = function () {
  */
 store.mergeRecVouchers = function (replacements) {
     // this zeros the array and re-add things in a vue-friendly way
-    this.recVouchers.splice(0, this.recVouchers.length, replacements);
+    this.trader.recVouchers.splice(0,this.trader.recVouchers.length, replacements);
 };
 
 /**
  * Adds a voucher code and submits it.
  */
 store.addVoucherCode = function (voucherCode, success, failure) {
-    this.vouchers.push(voucherCode);
-    this.transitionVouchers('collect', this.vouchers, success, failure);
+    this.trader.vouchers.push(voucherCode);
+    this.transitionVouchers('collect', this.trader.vouchers, success, failure);
 };
 
 /**
@@ -180,7 +184,7 @@ store.addVoucherCode = function (voucherCode, success, failure) {
  */
 store.pendRecVouchers = function (success,failure) {
     // The [0] is vue wierdness
-    var voucherCodes = this.recVouchers[0].map(function(voucher) {
+    var voucherCodes = this.trader.recVouchers[0].map(function(voucher) {
         return voucher.code;
     });
     // Execute the transition
@@ -192,7 +196,7 @@ store.pendRecVouchers = function (success,failure) {
  */
 store.clearVouchers = function () {
     // alter current array, not swap for new one or vue gets sad!
-    this.vouchers.splice(0, this.vouchers.length);
+    this.trader.vouchers.splice(0, this.trader.vouchers.length);
 };
 
 /**

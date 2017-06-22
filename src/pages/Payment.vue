@@ -55,7 +55,7 @@ export default {
     },
     data() {
         return {
-            recVouchers : Store.recVouchers,
+            recVouchers : Store.trader.recVouchers,
             collapsed : true,
             voucherCount : 0
         }

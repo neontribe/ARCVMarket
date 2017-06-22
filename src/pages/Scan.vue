@@ -56,11 +56,12 @@ export default {
         Profile
     },
     data: function() {
+        console.log(Store);
         return {
             sponsorCode : "",
             voucherCode : "",
-            vouchers : Store.vouchers,
-            recVouchers : Store.recVouchers,
+            vouchers : Store.trader.vouchers,
+            recVouchers : Store.trader.recVouchers,
             errorMessage : Store.error,
             spinner: false,
             validate: false,
