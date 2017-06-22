@@ -137,6 +137,9 @@ $fa-font-path:"../node_modules/font-awesome/fonts";
   &.error {
     color: $arc_error;
   }
+  &.queue {
+    color: $arc_copy;
+  }
   &.good {
     color: $arc_copy;
     &:before {
