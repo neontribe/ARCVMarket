@@ -7,7 +7,10 @@
                 <h1>Type a voucher code</h1>
 
                 <form id="textVoucher" v-on:submit.prevent>
-                    <transition name="fade"><div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
+                    <transition name="fade">
+                        <div v-if="errorMessage" class="error message">{{ errorMessage }}</div>
+                        <div v-if="queueMessage" class="good message">{{ queueMessage }}</div>
+                    </transition>
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor Code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher code</label>
 
@@ -32,7 +35,7 @@
 
                     <button id="submitVoucher"
                         v-on:click="onRecordVoucher"
-                        v-bind:class="[{ spinner: this.spinner }, { validate: this.validate }, { fail: this.fail }]"
+                        v-bind:class="[{ spinner: this.spinner }, { validate: this.validate }, { fail: this.fail }, { queued: this.queued }]"
                         class="cta"
                     ><span class="hidden offscreen">Submit code</span></button>
 
@@ -59,9 +62,11 @@ export default {
             vouchers : Store.vouchers,
             recVouchers : Store.recVouchers,
             errorMessage : Store.error,
+            queueMessage : false,
             spinner: false,
             validate: false,
-            fail: false
+            fail: false,
+            queued: false
         }
     },
     methods:  {
@@ -84,6 +89,11 @@ export default {
                         ) {
                             this.showFail();
                             this.errorMessage = "[xXx] That voucher may have been used already.";
+                        } else if (
+                            // condition to check if phone is offline
+                        ) {
+                            this.showQueued();
+                            this.queueMessage = "[xXx] Voucher has been added to your queue below.";
                         } else {
                             this.showValidate();
                             this.errorMessage = "";
@@ -121,6 +131,15 @@ export default {
             var self = this;
             setTimeout(function(){
                 self.fail = false;
+            }, 2000);
+        },
+
+        showQueued: function() {
+            this.spinner = false;
+            this.queued = true;
+            var self = this;
+            setTimeout(function(){
+                self.queued = false;
             }, 2000);
         },
 

@@ -5,7 +5,7 @@
             <div class="content fullwidth">
                 <h1>Requested Payments</h1>
 
-                <transition name="fade"><div v-if="errorMessage" v-bind:class="[goodFeedback ? 'goodmessage' : 'message' ]">{{ errorMessage }}</div></transition>
+                <transition name="fade"><div v-if="errorMessage" v-bind:class="[goodFeedback ? 'good.message' : 'message' ]">{{ errorMessage }}</div></transition>
 
                 <div class="accordion">
 
