@@ -167,7 +167,7 @@ if (Config.env === "development" && ( document.cookie.indexOf("arcv_ignore_mocks
 NetMgr.setTokenFromLocalStorage = function() {
     let parsedLocalToken = this.getTokenFromLocalStorage();
 
-    if(parsedLocalToken) {
+    if (parsedLocalToken) {
         this.setToken(parsedLocalToken);
     }
 };
