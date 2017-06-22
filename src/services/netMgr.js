@@ -4,22 +4,8 @@ import Axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { EventBus } from './events';
 
-/*
- NetMgr is a place to put all the
- - AJAX axios stuff;
- - Mock binding
- - Authentication
-
- Though, in theory it could have been split into a series of modules.
-
- - event bus
- - move authentication to netmgr
- - have store listen for auth changes
- - implement auth changes
- - settimeout on tokenset! (first or subsequent)
-
- */
-
+// TODO: refactor into submodules for Auth, Axios and Mocks
+// TODO: have store listen for auth changes
 
 var NetMgr = {
     token: null,
@@ -181,7 +167,9 @@ if (Config.env === "development" && ( document.cookie.indexOf("arcv_ignore_mocks
 NetMgr.setTokenFromLocalStorage = function() {
     let parsedLocalToken = this.getTokenFromLocalStorage();
 
-    if(parsedLocalToken) this.setToken(parsedLocalToken);
+    if(parsedLocalToken) {
+        this.setToken(parsedLocalToken);
+    }
 };
 
 /**
