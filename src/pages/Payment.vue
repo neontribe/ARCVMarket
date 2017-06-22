@@ -4,7 +4,7 @@
 
             <div class="content fullwidth">
                 <h1 v-if="vouchersAdded" v-on:click="collapsed = !collapsed" class="expandable" v-bind:class="{'expanded' : !collapsed}">You can request payment for <strong>{{ voucherCount }}</strong> voucher<span v-if="voucherCount > 1">s</span>.</h1>
-                <h1 v-else>[xXx] There are no vouchers to request payment for. Add some!</h1>
+                <h1 v-else>There are no vouchers to request payment for. Add some!</h1>
 
                 <div class="list-wrapper" v-bind:class="{'is-collapsed' : collapsed }">
 

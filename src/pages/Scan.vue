@@ -20,7 +20,8 @@
                             type="text"
                             v-model="sponsorCode"
                             ref="sponsorBox"
-                            maxlength="3"
+                            minlength="2"
+                            maxlength="5"
                             autofocus="autofocus"
                         >
                         <input id="voucherBox"
@@ -30,6 +31,7 @@
                             pattern="[0-9]*"
                             v-model="voucherCode"
                             ref="voucherBox"
+                            minlength="4"
                             maxlength="8"
                         >
                     </div>
@@ -91,7 +93,7 @@ export default {
                             response.data.invalid.length > 0
                         ) {
                             this.showFail();
-                            this.errorMessage = "[xXx] Please enter a valid voucher code.";
+                            this.errorMessage = "Please enter a valid voucher code.";
                         } else if (
                             response.data.fail.length > 0
                         ) {
@@ -118,7 +120,7 @@ export default {
                 this.$refs.sponsorBox.focus();
             } else {
               this.showFail();
-              this.errorMessage = "[xXx] Please enter a valid voucher code.";
+              this.errorMessage = "Please enter a valid voucher code.";
             }
         },
 
@@ -172,6 +174,7 @@ export default {
             var rxNumber = /\d/;
             var rxSmalls = /^[a-z]$/;
             var rxCaps = /^[A-Z]$/;
+            var rxSlash = /\//ig;
 
             // There's also "event.key" (string), which MDN thinks is better;
             var char = this.getKeyCharCode(event);
@@ -192,6 +195,14 @@ export default {
                 if (this.voucherCode.length < this.$refs.voucherBox.getAttribute("maxlength")) {
                     this.$refs.voucherBox.focus();
                     this.voucherCode += char;
+                }
+                return false;
+            }
+
+            if (char.match(rxSlash)) {
+                event.preventDefault();
+                if (this.voucherCode.length < this.$refs.voucherBox.getAttribute("maxlength")) {
+                    this.$refs.voucherBox.focus();
                 }
                 return false;
             }
