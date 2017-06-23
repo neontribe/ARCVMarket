@@ -49,7 +49,7 @@
 
             </div>
 
-            <div v-if="this.vouchers.length >= 1">
+            <div v-if="this.vouchers.length >= 1 && !this.netMgr.online">
                 <queue ></queue>
             </div>
 
@@ -63,6 +63,9 @@
 import Store from '../store.js';
 import Profile from '../components/Profile.vue';
 import Queue from '../components/Queue.vue';
+
+const RESULT_TIMER = 2000;
+
 export default {
     name: 'scan',
     components: {
@@ -76,6 +79,7 @@ export default {
             vouchers : Store.vouchers,
             recVouchers : Store.recVouchers,
             errorMessage : Store.error,
+            netMgr : Store.netMgr,
             queueMessage : false,
             spinner: false,
             validate: false,
@@ -88,7 +92,7 @@ export default {
             if (code.length === parseInt(this.$refs.voucherBox.getAttribute("maxlength"))) {
                 this.$refs.submitVoucher.click();
             }
-        }
+        },
     },
     methods:  {
         onRecordVoucher: function(event) {
@@ -137,31 +141,32 @@ export default {
             this.spinner = true;
         },
 
+        /**
+         * setTimeout is used in these showXYZ methods so the animation is displayed for a meaningful amount of time.
+         */
+
         showValidate: function() {
             this.spinner = false;
             this.validate = true;
-            var self = this;
             setTimeout(function(){
-                self.validate = false;
-            }, 2000);
+                this.validate = false;
+            }.bind(this), RESULT_TIMER);
         },
 
         showFail: function() {
             this.spinner = false;
             this.fail = true;
-            var self = this;
             setTimeout(function(){
-                self.fail = false;
-            }, 2000);
+                this.fail = false;
+            }.bind(this), RESULT_TIMER);
         },
 
         showQueued: function() {
             this.spinner = false;
             this.queued = true;
-            var self = this;
             setTimeout(function(){
-                self.queued = false;
-            }, 2000);
+                this.queued = false;
+            }.bind(this), RESULT_TIMER);
         },
 
         /**

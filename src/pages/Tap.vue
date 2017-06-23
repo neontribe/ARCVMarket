@@ -47,7 +47,7 @@
 
            </div>
 
-            <div v-if="this.vouchers.length >= 1">
+            <div v-if="this.vouchers.length >= 1 && !this.netMgr.online">
                 <queue ></queue>
             </div>
 
@@ -73,6 +73,7 @@ export default {
             vouchers : Store.vouchers,
             recVouchers : Store.recVouchers,
             errorMessage : Store.error,
+            netMgr : Store.netMgr,
             queueMessage : false,
             spinner: false,
             validate: false,
@@ -90,17 +91,13 @@ export default {
                     function(response) {
 
                         // Add error message for invalid and fail codes.
-                        if (
-                            response.data.invalid.length > 0
-                        ) {
+                        if (response.data.invalid.length > 0) {
                             this.showFail();
                             this.errorMessage = "Please enter a valid voucher code.";
-                        } else if (
-                            response.data.fail.length > 0
-                        ) {
+                        } else if (response.data.fail.length > 0) {
                             this.showFail();
                             this.errorMessage = "[xXx] That voucher may have been used already.";
-                        } else  {
+                        } else {
                             this.showValidate();
                             this.errorMessage = "";
                         }

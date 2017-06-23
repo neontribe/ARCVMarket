@@ -222,14 +222,14 @@ NetMgr.setLocalStorageFromToken = function(token) {
 
 // Add interceptor to detect an expired access_token and refresh;
 NetMgr.axiosInstance.interceptors.response.use(
-    (response) => {
+    function(response) {
         // If the request was successfully completed set the online status to true.
         NetMgr.setOnlineStatus(true);
 
         // everything fine! return the response to apiGet/apiPost
         return response;
     },
-    (error) => {
+    function(error) {
         // Get the original request configuration.
         var origCfg = error.config;
 

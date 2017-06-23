@@ -5,7 +5,7 @@
             <div class="content fullwidth">
                 <h1>Requested Payments</h1>
 
-                <transition name="fade"><div v-if="errorMessage" v-bind:class="[goodFeedback ? 'good.message' : 'message' ]">{{ errorMessage }}</div></transition>
+                <transition name="fade"><div v-if="message" v-bind:class="[goodFeedback ? 'good message' : 'message' ]">{{ message }}</div></transition>
 
                 <div class="accordion">
 
@@ -69,7 +69,7 @@
         data() {
             return {
                 voucherPayments: Store.trader.pendedVouchers,
-                errorMessage : Store.error,
+                message : Store.error,
                 goodFeedback : false
             }
         },
@@ -79,13 +79,21 @@
         methods: {
             onRequestSubmissionEmail : function(event) {
                 var url = '/traders/' + Store.trader.id + '/voucher-history-email';
-                this.requestEmailBeSent(url,{"submission_date" : event.target.id})
+                this.requestEmailBeSent(url,
+                    {
+                        "submission_date" : event.target.id
+                    }
+                );
             },
             onRequestVoucherHistoryEmail: function() {
                 var url = '/traders/' + Store.trader.id + '/voucher-history-email';
-                this.requestEmailBeSent(url,{ "submission_date" : null});
+                this.requestEmailBeSent(url,
+                    {
+                        "submission_date" : null
+                    }
+                );
             },
-            requestEmailBeSent: function(url,data) {
+            requestEmailBeSent: function(url, data) {
                 // This is a POST, look for the data as a JSON object
                 NetMgr.apiPost(url,data,
                     function (response) {
@@ -101,7 +109,7 @@
                                 mailMsg = "Something went wrong, please try again later.";
                                 console.log(response); // because we need to see what the server said somewhere.
                         }
-                        this.errorMessage = mailMsg;
+                        this.message = mailMsg;
                     }.bind(this),
                     // failure function
                     function (error) {
