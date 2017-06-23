@@ -207,9 +207,9 @@ store.pendRecVouchers = function (success,failure) {
  * empties the vouchers
  */
 store.clearVouchers = function () {
-    // alter current array, not swap for new one or vue gets sad!
+    // Alter current array, not swap for new one or vue gets sad!
     this.trader.vouchers.splice(0, this.trader.vouchers.length);
-    // trader has changed, alter it.
+    // Trader has changed, alter it.
     this.setLocalStorageFromUserTraders();
 };
 
