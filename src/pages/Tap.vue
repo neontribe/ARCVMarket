@@ -8,7 +8,7 @@
 
                 <form id="textVoucher" v-on:submit.prevent>
                     <transition name="fade"><div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
-                    <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor Code</label>
+                    <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher code</label>
 
                     <div class="input-box">
@@ -42,17 +42,24 @@
 
            </div>
 
+            <div v-if="this.vouchers.length > 1">
+                <queue ></queue>
+            </div>
+
         </main>
+
     </div>
 </template>
 
 <script>
 import Store from '../store.js';
 import Profile from '../components/Profile.vue';
+import Queue from '../components/Queue.vue';
 export default {
     name: 'tap',
     components: {
-        Profile
+        Profile,
+        Queue
     },
     data: function() {
         return {
