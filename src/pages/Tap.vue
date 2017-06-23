@@ -60,6 +60,9 @@
 import Store from '../store.js';
 import Profile from '../components/Profile.vue';
 import Queue from '../components/Queue.vue';
+
+const RESULT_TIMER = 2000;
+
 export default {
     name: 'tap',
     components: {
@@ -126,28 +129,25 @@ export default {
         showValidate: function() {
             this.spinner = false;
             this.validate = true;
-            var self = this;
-            setTimeout(function(){
-                self.validate = false;
-            }, 2000);
+            setTimeout(function() {
+                this.validate = false;
+            }.bind(this), RESULT_TIMER);
         },
 
         showFail: function() {
             this.spinner = false;
             this.fail = true;
-            var self = this;
-            setTimeout(function(){
-                self.fail = false;
-            }, 2000);
+            setTimeout(function() {
+                this.fail = false;
+            }.bind(this), RESULT_TIMER);
         },
 
         showQueued: function() {
             this.spinner = false;
             this.queued = true;
-            var self = this;
-            setTimeout(function(){
-                self.queued = false;
-            }, 2000);
+            setTimeout(function() {
+                this.queued = false;
+            }.bind(this), RESULT_TIMER);
         },
 
         /**
