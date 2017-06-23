@@ -99,10 +99,9 @@ export default {
                         } else if (data.invalid.length + data.fail.length > 1) {
                             // rough multifailure manager
                             this.showFail();
-                            this.errorMessage = "[xXx] "+
-                                data.success.length+" accepted, " +
-                                data.fail.length + " rejected and " +
-                                data.invalid.length +" were invalid.";
+                            this.errorMessage = `[xXx] ${data.success.length} accepted,
+                                ${data.fail.length} rejected
+                                and ${data.invalid.length} were invalid.`;
                         } else {
                             // all in!
                             this.showValidate();
@@ -114,8 +113,8 @@ export default {
                     }.bind(this),
                     // Failure function, hook for error message
                     function(error) {
-                        //network error of some kind;
-                        //don't clear the voucherlist!
+                    //network error of some kind;
+                    //don't clear the voucherlist!
                     });
                 // Do anyway.
                 this.voucherCode = "";
