@@ -108,8 +108,7 @@ store.setUserTrader = function(id) {
     this.trader.vouchers = [];
     this.trader.recVouchers = [];
 
-    localStorage['Store.user'] = JSON.stringify(this.user);
-    localStorage['Store.trader'] = JSON.stringify(this.trader);
+    this.setLocalStorageFromUserTraders();
 
     return (this.trader.id === id);
 };
@@ -137,6 +136,15 @@ store.setUserTradersFromLocalStorage = function() {
     this.trader = parsedTrader;
 };
 
+
+/**
+ * Manages all localStorage settings for the store object.
+ */
+store.setLocalStorageFromUserTraders = function() {
+    localStorage['Store.user'] = JSON.stringify(this.user);
+    localStorage['Store.trader'] = JSON.stringify(this.trader);
+};
+
 /**
  *
  * @returns {boolean}
@@ -157,7 +165,7 @@ store.getRecVouchers = function () {
             var newVouchers = Object.keys(response.data).map(function(k){
                 return response.data[k];
             });
-            this.mergeRecVouchers.call(this, newVouchers);
+            this.mergeRecVouchers(newVouchers);
         }.bind(this));
     return true;
 };
@@ -170,7 +178,7 @@ store.mergeRecVouchers = function (replacements) {
     // this zeros the array and re-add things in a vue-friendly way
     this.trader.recVouchers.splice(0,this.trader.recVouchers.length, replacements);
     // changed the recVouchers! Quick, save them!
-    localStorage['Store.trader'] = JSON.stringify(this.trader);
+    this.setLocalStorageFromUserTraders();
 };
 
 /**
@@ -179,7 +187,7 @@ store.mergeRecVouchers = function (replacements) {
 store.addVoucherCode = function (voucherCode, success, failure) {
     this.trader.vouchers.push(voucherCode);
     // store the whole trader
-    localStorage['Store.trader'] = JSON.stringify(this.trader);
+    this.setLocalStorageFromUserTraders();
     this.transitionVouchers('collect', this.trader.vouchers, success, failure);
 };
 
@@ -202,7 +210,7 @@ store.clearVouchers = function () {
     // alter current array, not swap for new one or vue gets sad!
     this.trader.vouchers.splice(0, this.trader.vouchers.length);
     // trader has changed, alter it.
-    localStorage['Store.trader'] = JSON.stringify(this.trader);
+    this.setLocalStorageFromUserTraders();
 };
 
 /**
