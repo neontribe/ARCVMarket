@@ -45,17 +45,24 @@
 
            </div>
 
+            <div v-if="this.vouchers.length > 1">
+                <queue ></queue>
+            </div>
+
         </main>
+
     </div>
 </template>
 
 <script>
 import Store from '../store.js';
 import Profile from '../components/Profile.vue';
+import Queue from '../components/Queue.vue';
 export default {
     name: 'tap',
     components: {
-        Profile
+        Profile,
+        Queue
     },
     data: function() {
         return {
