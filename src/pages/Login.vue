@@ -23,11 +23,15 @@
 
         </main>
 
-        <footer>Commit : {{ commitmsg }}</footer>
+        <footer>
+            <p class="commit"> Commit : {{ commitmsg }}</p>
+            <p class="version"> {{ appV }}</p>
+        </footer>
     </div>
 </template>
 
 <script>
+    import Config from '../config.js';
     import Store from '../store.js';
     export default {
         name: 'login',
@@ -37,7 +41,8 @@
                 password: null,
                 remember: true,
                 errorMessage : Store.error,
-                commitmsg: VERSION
+                commitmsg: VERSION,
+                appV: Config.appVersion
             }
         },
         methods: {
