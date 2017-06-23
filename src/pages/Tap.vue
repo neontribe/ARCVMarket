@@ -47,7 +47,7 @@
 
            </div>
 
-            <div v-if="this.vouchers.length >= 1 && !this.netMgr.online">
+            <div v-if="this.vouchers.length > 1">
                 <queue ></queue>
             </div>
 

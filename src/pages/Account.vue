@@ -5,7 +5,7 @@
             <div class="content fullwidth">
                 <h1>Requested Payments</h1>
 
-                <transition name="fade"><div v-if="message" v-bind:class="[goodFeedback ? 'good message' : 'message' ]">{{ message }}</div></transition>
+                <transition name="fade"><div v-if="errorMessage" v-bind:class="[goodFeedback ? 'good message' : 'message' ]">{{ errorMessage }}</div></transition>
 
                 <div class="accordion">
 
@@ -69,7 +69,7 @@
         data() {
             return {
                 voucherPayments: Store.trader.pendedVouchers,
-                message : Store.error,
+                errorMessage : Store.error,
                 goodFeedback : false
             }
         },
@@ -109,7 +109,7 @@
                                 mailMsg = "Something went wrong, please try again later.";
                                 console.log(response); // because we need to see what the server said somewhere.
                         }
-                        this.message = mailMsg;
+                        this.errorMessage = mailMsg;
                     }.bind(this),
                     // failure function
                     function (error) {
