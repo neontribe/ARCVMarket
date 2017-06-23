@@ -86,7 +86,7 @@ export default {
                         // Add error message for invalid and fail codes.
                         var data = response.data;
 
-                        if (data.invalid.length + data.fail.length == 1) {
+                        if (data.invalid.length + data.fail.length === 1) {
                             // single mismatch handler;
                             if (data.invalid.length > 0) {
                                 this.showFail();
@@ -114,7 +114,9 @@ export default {
                         Store.getRecVouchers();
                     }.bind(this),
                     // Failure function, hook for error message
-                    function() {
+                    function(error) {
+                        //network error of some kind;
+                        //don't clear the voucherlist!
                     });
                 // Do anyway.
                 this.voucherCode = "";
