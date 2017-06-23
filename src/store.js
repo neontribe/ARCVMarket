@@ -169,6 +169,8 @@ store.getRecVouchers = function () {
 store.mergeRecVouchers = function (replacements) {
     // this zeros the array and re-add things in a vue-friendly way
     this.trader.recVouchers.splice(0,this.trader.recVouchers.length, replacements);
+    // changed the recVouchers! Quick, save them!
+    localStorage['Store.trader'] = JSON.stringify(this.trader);
 };
 
 /**
@@ -176,6 +178,8 @@ store.mergeRecVouchers = function (replacements) {
  */
 store.addVoucherCode = function (voucherCode, success, failure) {
     this.trader.vouchers.push(voucherCode);
+    // store the whole trader
+    localStorage['Store.trader'] = JSON.stringify(this.trader);
     this.transitionVouchers('collect', this.trader.vouchers, success, failure);
 };
 
@@ -197,6 +201,8 @@ store.pendRecVouchers = function (success,failure) {
 store.clearVouchers = function () {
     // alter current array, not swap for new one or vue gets sad!
     this.trader.vouchers.splice(0, this.trader.vouchers.length);
+    // trader has changed, alter it.
+    localStorage['Store.trader'] = JSON.stringify(this.trader);
 };
 
 /**
