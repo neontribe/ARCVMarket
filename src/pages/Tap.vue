@@ -106,8 +106,9 @@ export default {
                         Store.getRecVouchers();
                     }.bind(this),
                     // Failure function, hook for error message
-                    function() {
-                        console.log(this.vouchers);
+                    function(error) {
+                        //network error of some kind;
+                        //don't clear the voucherlist!
                     });
                 // Do anyway.
                 this.voucherCode = "";
