@@ -17,7 +17,8 @@
                             type="text"
                             v-model="sponsorCode"
                             ref="sponsorBox"
-                            maxlength="3"
+                            minlength="2"
+                            maxlength="5"
                         >
                         <input id="voucherBox"
                             v-on:keyup.delete='onDelVoucherBox'
@@ -26,6 +27,7 @@
                             pattern="[0-9]*"
                             v-model="voucherCode"
                             ref="voucherBox"
+                            minlength="4"
                             maxlength="8"
                         >
                     </div>
@@ -56,8 +58,8 @@ export default {
         return {
             sponsorCode : "RVP",
             voucherCode : "",
-            vouchers : Store.trader.vouchers,
-            recVouchers : Store.trader.recVouchers,
+            vouchers : Store.vouchers,
+            recVouchers : Store.recVouchers,
             errorMessage : Store.error,
             spinner: false,
             validate: false,
@@ -72,6 +74,7 @@ export default {
                 Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
                     // Success function
                     function(response) {
+
                         // Add error message for invalid and fail codes.
                         var data = response.data;
 
@@ -79,11 +82,11 @@ export default {
                             // single mismatch handler;
                             if (data.invalid.length > 0) {
                                 this.showFail();
-                                this.errorMessage = "[xXx] Please enter a valid voucher code.";
+                                this.errorMessage = "Please enter a valid voucher code.";
 
                             } else if (data.fail.length > 0) {
                                 this.showFail();
-                                this.errorMessage = "[xXx] That voucher may have been used already.";
+                                this.errorMessage = "That voucher may have been used already.";
                             }
 
                         } else if (data.invalid.length + data.fail.length > 1) {
@@ -110,7 +113,7 @@ export default {
                 this.voucherCode = "";
             } else {
               this.showFail();
-              this.errorMessage = "[xXx] Please enter a valid voucher code.";
+              this.errorMessage = "Please enter a valid voucher code.";
             }
         },
 
@@ -155,6 +158,7 @@ export default {
             var rxNumber = /\d/;
             var rxSmalls = /^[a-z]$/;
             var rxCaps = /^[A-Z]$/;
+            var rxSlash = /\//ig;
 
             // There's also "event.key" (string), which MDN thinks is better;
             var char = this.getKeyCharCode(event);
@@ -175,6 +179,14 @@ export default {
                 if (this.voucherCode.length < this.$refs.voucherBox.getAttribute("maxlength")) {
                     this.$refs.voucherBox.focus();
                     this.voucherCode += char;
+                }
+                return false;
+            }
+
+            if (char.match(rxSlash)) {
+                event.preventDefault();
+                if (this.voucherCode.length < this.$refs.voucherBox.getAttribute("maxlength")) {
+                    this.$refs.voucherBox.focus();
                 }
                 return false;
             }
