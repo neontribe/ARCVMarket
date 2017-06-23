@@ -25,7 +25,7 @@
 
         <footer>
             <p class="version"> {{ appV }}</p>
-            <p class="commit"> Commit : {{ commitmsg }}</p>
+            <p class="commit" v-if="env === 'development'"> Commit : {{ commitmsg }}</p>
         </footer>
     </div>
 </template>
@@ -42,7 +42,8 @@
                 remember: true,
                 errorMessage : Store.error,
                 commitmsg: VERSION,
-                appV: Config.appVersion
+                appV: Config.appVersion,
+                env: Config.env
             }
         },
         methods: {
