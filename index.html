@@ -1,26 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1">
-    <meta name="copyright" content="&copy; (2017), Alexandra Rose Charity (reg. in England and Wales, #00279157)" />
-    <meta name="theme-color" content="#a74e94">
-    <title>ARC Vouchers Market App v1.0.0</title>
-    <link rel="manifest" href="<%= require('./src/manifest.json') %>">
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="icon" href="favicon.ico">
-    <!-- Optimisation for Apple devices -->
-    <link rel="apple-touch-icon" href="favicon.ico">
-    <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="touch-icon-iphone-retina.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="touch-icon-ipad-retina.png">
-  </head>
-  <body>
-    <div id="app">
-      <noscript style="font-family: Helvetica;">
-        <p>[xXx]It appears JavaScript is currently disabled in your browser. Please re-enable it to correctly display the app.</p>
-        <p>Thank you for using Rose Vouchers.[xXx]</p>
-      </noscript>
-    </div>
-  </body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1">
+        <meta name="copyright" content="&copy; (2017), Alexandra Rose Charity (reg. in England and Wales, #00279157)" />
+        <meta name="theme-color" content="#a74e94">
+        <title>ARC Vouchers Market App v1.0.0</title>
+        <link rel="manifest" href="<%= require('./src/manifest.json') %>">
+        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="icon" href="favicon.ico">
+        <!-- Optimisation for Apple devices -->
+        <link rel="apple-touch-icon" href="favicon.ico">
+        <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="touch-icon-iphone-retina.png">
+        <link rel="apple-touch-icon" sizes="167x167" href="touch-icon-ipad-retina.png">
+        <noscript>
+            <style>
+                #message {
+                    position: absolute;
+                    top: 35%;
+                    left: 0;
+                    right: 0;
+                    display: block;
+                    margin: 0 auto;
+                    text-align: center;
+                    max-width: 400px;
+                    padding: 2em;
+                    width: calc(100% - 4em);
+                    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+                }
+                img {
+                    width: 100%;
+                }
+            </style>
+        </noscript>
+    </head>
+    <body>
+        <div id="app">
+            <noscript>
+                <div id="message">
+                    <img src="/src/assets/logo.png" alt="Rose Vouchers">
+                    <p>It appears JavaScript is currently disabled in your browser. Please re-enable it to correctly display the app. Thank you for using Rose Vouchers.</p>
+                </div>
+            </noscript>
+        </div>
+    </body>
 </html>
