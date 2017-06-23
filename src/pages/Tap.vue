@@ -8,10 +8,12 @@
 
                 <form id="textVoucher" v-on:submit.prevent>
                     <transition name="fade">
-                        <div v-if="errorMessage" class="error message">{{ errorMessage }}</div>
+                        <div v-if="errorMessage" class="message">{{ errorMessage }}</div>
+                    </transition>
+                    <transition name="fade">
                         <div v-if="queueMessage" class="queue message">{{ queueMessage }}</div>
                     </transition>
-                    <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor Code</label>
+                    <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher code</label>
 
                     <div class="input-box">
@@ -45,7 +47,7 @@
 
            </div>
 
-            <div v-if="this.vouchers.length > 1">
+            <div v-if="this.vouchers.length >= 1">
                 <queue ></queue>
             </div>
 
@@ -98,12 +100,7 @@ export default {
                         ) {
                             this.showFail();
                             this.errorMessage = "[xXx] That voucher may have been used already.";
-                        } else if (
-                            !Store.netMgr.online
-                        ) {
-                            this.showQueued();
-                            this.queueMessage = "[xXx] Voucher has been added to your queue below.";
-                        } else {
+                        } else  {
                             this.showValidate();
                             this.errorMessage = "";
                         }
@@ -111,7 +108,11 @@ export default {
                         Store.getRecVouchers();
                     }.bind(this),
                     // Failure function, hook for error message
-                    function() {
+                    () => {
+                        if (!Store.netMgr.online) {
+                            this.showQueued();
+                            this.queueMessage = "[xXx] Voucher has been added to your queue below.";
+                        }
                     });
                 // Do anyway.
                 this.voucherCode = "";
