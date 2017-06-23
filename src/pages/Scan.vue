@@ -92,7 +92,7 @@ export default {
             if (code.length === parseInt(this.$refs.voucherBox.getAttribute("maxlength"))) {
                 this.$refs.submitVoucher.click();
             }
-        },
+        }
     },
     methods:  {
         onRecordVoucher: function(event) {
