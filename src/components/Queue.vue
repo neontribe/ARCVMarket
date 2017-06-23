@@ -6,11 +6,9 @@
 
         <transition name="fade" v-if="show">
             <div class="goodmessage queue">
-                Thanks! You've added <strong>34</strong> vouchers to your voucher list. To request payment for these vouchers, go to the Get Payment page.
+                [xXx] Thanks! We can't confirm the <strong>{{ vouchers.length }}</strong> vouchers just now, there may be a network problem. Keep adding to this list until they all go through.
             </div>
         </transition>
-
-        <button class="cta">Send queued vouchers</button>
 
         <div class="list-wrapper" v-bind:class="{'is-collapsed' : collapsed }">
 
@@ -21,17 +19,15 @@
                     <label>
                         <div class="row-code">
                             <div>Voucher code</div>
-                            <div>Voucher added on</div>
                         </div>
                     </label>
                 </div>
 
                 <!-- Tab row -->
-                <div class="tab row">
+                <div v-for="voucher in vouchers" class="tab row">
                     <label>
                         <div class="row-code">
-                            <div>RVP12345522</div>
-                            <div>18/6/2017</div>
+                            <div>{{ voucher }}</div>
                         </div>
                     </label>
                 </div>

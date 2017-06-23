@@ -42,7 +42,9 @@
 
            </div>
 
-           <queue></queue>
+            <div v-if="this.vouchers.length > 1">
+                <queue ></queue>
+            </div>
 
         </main>
 
@@ -107,6 +109,7 @@ export default {
               this.showFail();
               this.errorMessage = "Please enter a valid voucher code.";
             }
+            console.log(this.vouchers);
         },
 
         startSpinner: function() {

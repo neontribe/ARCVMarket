@@ -42,9 +42,11 @@
 
                 </form>
 
-           </div>
+            </div>
 
-           <queue></queue>
+            <div v-if="this.vouchers.length > 1">
+                <queue ></queue>
+            </div>
 
         </main>
 
