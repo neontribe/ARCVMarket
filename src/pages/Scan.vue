@@ -163,7 +163,6 @@ export default {
         /**
          * setTimeout is used in these showXYZ methods so the animation is displayed for a meaningful amount of time.
          */
-
         showValidate: function() {
             this.spinner = false;
             this.validate = true;
