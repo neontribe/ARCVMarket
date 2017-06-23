@@ -51,8 +51,10 @@ export default {
     data: function() {
         return {
             collapsed : true,
-            show : true
+            show : true,
+            vouchers : Store.vouchers
         }
     }
+
 }
 </script>
