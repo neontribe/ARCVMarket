@@ -112,7 +112,7 @@ export default {
                             response.data.fail.length > 0
                         ) {
                             this.showFail();
-                            this.errorMessage = "[xXx] That voucher may have been used already.";
+                            this.errorMessage = "That voucher may have been used already.";
                         } else  {
                             this.showValidate();
                             this.errorMessage = "";
@@ -121,12 +121,12 @@ export default {
                         Store.getRecVouchers();
                     }.bind(this),
                     // Failure function, hook for error message
-                    () => {
+                    function() {
                         if (!Store.netMgr.online) {
                             this.showQueued();
                             this.queueMessage = "[xXx] Voucher has been added to your queue below.";
                         }
-                    });
+                    }.bind(this));
                 // Do anyway.
                 this.voucherCode = "";
                 this.sponsorCode = "";

@@ -134,6 +134,7 @@ $fa-font-path:"../node_modules/font-awesome/fonts";
 // Styling for message text
 .message {
   padding-bottom: 1em;
+  color: $arc-copy;
   &.error {
     color: $arc_error;
   }
