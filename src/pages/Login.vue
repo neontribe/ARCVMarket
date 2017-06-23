@@ -24,8 +24,8 @@
         </main>
 
         <footer>
-            <p class="commit"> Commit : {{ commitmsg }}</p>
             <p class="version"> {{ appV }}</p>
+            <p class="commit"> Commit : {{ commitmsg }}</p>
         </footer>
     </div>
 </template>

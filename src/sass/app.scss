@@ -243,14 +243,21 @@ header {
 }
 
 footer {
+  background-color: $arc_bg;
   position: absolute;
   right: 0;
-  bottom: 0;
   left: 0;
+  bottom: 0;
   padding: 0.5rem;
   text-align: center;
   font-size:0.75em;
-  opacity: 0.15;
+
+  .version {
+    opacity: 0.2;
+  }
+  .commit {
+    opacity: 0;
+  }
 }
 
 .logo {
@@ -892,6 +899,13 @@ label#lblSponsorBox {
         line-height: 3.6em;
       }
     }
+  }
+}
+
+@media (max-height: 630px) {  
+  footer {
+    margin: 378px 0 0 0;
+    bottom: inherit;
   }
 }
 
