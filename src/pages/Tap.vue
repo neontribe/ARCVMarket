@@ -73,8 +73,8 @@ export default {
         return {
             sponsorCode : "RVP",
             voucherCode : "",
-            vouchers : Store.vouchers,
-            recVouchers : Store.recVouchers,
+            vouchers : Store.trader.vouchers,
+            recVouchers : Store.trader.recVouchers,
             errorMessage : Store.error,
             netMgr : Store.netMgr,
             queueMessage : false,
@@ -94,26 +94,49 @@ export default {
                     function(response) {
 
                         // Add error message for invalid and fail codes.
-                        if (response.data.invalid.length > 0) {
+                        var data = response.data;
+
+                        if (data.invalid.length + data.fail.length == 1) {
+                            // single mismatch handler;
+                            if (data.invalid.length > 0) {
+                                this.showFail();
+                                this.errorMessage = "Please enter a valid voucher code.";
+
+                            } else if (data.fail.length > 0) {
+                                this.showFail();
+                                this.errorMessage = "That voucher may have been used already.";
+                            }
+
+                        } else if (data.invalid.length + data.fail.length > 1) {
+                            // rough multifailure manager
                             this.showFail();
-                            this.errorMessage = "Please enter a valid voucher code.";
-                        } else if (response.data.fail.length > 0) {
-                            this.showFail();
-                            this.errorMessage = "That voucher may have been used already.";
+                            this.errorMessage = "[xXx] "
+                                + data.success.length
+                                + " accepted, "
+                                + data.fail.length
+                                + " rejected and "
+                                + data.invalid.length
+                                + " were invalid."
+                            ;
                         } else {
+                            // all in!
                             this.showValidate();
                             this.errorMessage = "";
                         }
+                        // The server has processed our list, clear it.
                         Store.clearVouchers();
                         Store.getRecVouchers();
                     }.bind(this),
                     // Failure function, hook for error message
-                    function() {
+                    // Network error of some kind;
+                    // Don't clear the voucherlist!
+                    function(error) {
                         if (!Store.netMgr.online) {
                             this.showQueued();
                             this.queueMessage = "[xXx] Voucher has been added to your queue below.";
                         }
                     }.bind(this));
+
                 // Do anyway.
                 this.voucherCode = "";
             } else {
