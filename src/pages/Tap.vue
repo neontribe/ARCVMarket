@@ -109,7 +109,6 @@ export default {
               this.showFail();
               this.errorMessage = "Please enter a valid voucher code.";
             }
-            console.log(this.vouchers);
         },
 
         startSpinner: function() {
