@@ -902,13 +902,6 @@ label#lblSponsorBox {
   }
 }
 
-@media (max-height: 630px) {  
-  footer {
-    margin: 378px 0 0 0;
-    bottom: inherit;
-  }
-}
-
 @media (max-width: 500px) {
   .fa {
     font-size: 1.3em;
@@ -1027,5 +1020,12 @@ label#lblSponsorBox {
         }
       }
     }
+  }
+}
+
+@media (max-height: 630px) {  
+  footer {
+    margin: 378px 0 0 0;
+    bottom: inherit;
   }
 }
