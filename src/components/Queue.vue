@@ -48,7 +48,7 @@ export default {
         return {
             collapsed : true,
             show : true,
-            vouchers : Store.vouchers
+            vouchers : Store.trader.vouchers
         }
     }
 

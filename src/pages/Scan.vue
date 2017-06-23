@@ -7,10 +7,15 @@
                 <h1>Scan a voucher code</h1>
 
                 <form id="textVoucher" v-on:submit.prevent>
-                    <transition name="fade"><div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
-                    <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor code</label>
-                    <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher code</label>
+                    <transition name="fade">
+                        <div v-if="errorMessage" class="message">{{ errorMessage }}</div>
+                    </transition>
+                    <transition name="fade">
+                        <div v-if="queueMessage" class="queue message">{{ queueMessage }}</div>
+                    </transition>
 
+                    <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor Code</label>
+                    <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher Code</label>
                     <div class="input-box">
                         <input id="sponsorBox"
                             @keypress='onKeypressSponsorBox'
@@ -36,7 +41,7 @@
                     <button id="submitVoucher"
                         ref="submitVoucher"
                         v-on:click="onRecordVoucher"
-                        v-bind:class="[{ spinner: this.spinner }, { validate: this.validate }, { fail: this.fail }]"
+                        v-bind:class="[{ spinner: this.spinner }, { validate: this.validate }, { fail: this.fail }, { queued: this.queued }]"
                         class="cta"
                     ><span class="hidden offscreen">Submit code</span></button>
 
@@ -58,6 +63,9 @@
 import Store from '../store.js';
 import Profile from '../components/Profile.vue';
 import Queue from '../components/Queue.vue';
+
+const RESULT_TIMER = 2000;
+
 export default {
     name: 'scan',
     components: {
@@ -71,9 +79,12 @@ export default {
             vouchers : Store.trader.vouchers,
             recVouchers : Store.trader.recVouchers,
             errorMessage : Store.error,
+            netMgr : Store.netMgr,
+            queueMessage : false,
             spinner: false,
             validate: false,
-            fail: false
+            fail: false,
+            queued: false,
         }
     },
     watch: {
@@ -126,10 +137,15 @@ export default {
                         Store.getRecVouchers();
                     }.bind(this),
                     // Failure function, hook for error message
+                    // Network error of some kind;
+                    // Don't clear the voucherlist!
                     function(error) {
-                    //network error of some kind;
-                    //don't clear the voucherlist!
-                    });
+                        if (!Store.netMgr.online) {
+                            this.showQueued();
+                            this.queueMessage = "[xXx] Voucher has been added to your queue below.";
+                        }
+                    }.bind(this));
+
                 // Do anyway.
                 this.voucherCode = "";
                 this.sponsorCode = "";
@@ -144,22 +160,31 @@ export default {
             this.spinner = true;
         },
 
+        /**
+         * setTimeout is used in these showXYZ methods so the animation is displayed for a meaningful amount of time.
+         */
         showValidate: function() {
             this.spinner = false;
             this.validate = true;
-            var self = this;
             setTimeout(function(){
-                self.validate = false;
-            }, 2000);
+                this.validate = false;
+            }.bind(this), RESULT_TIMER);
         },
 
         showFail: function() {
             this.spinner = false;
             this.fail = true;
-            var self = this;
             setTimeout(function(){
-                self.fail = false;
-            }, 2000);
+                this.fail = false;
+            }.bind(this), RESULT_TIMER);
+        },
+
+        showQueued: function() {
+            this.spinner = false;
+            this.queued = true;
+            setTimeout(function(){
+                this.queued = false;
+            }.bind(this), RESULT_TIMER);
         },
 
         /**

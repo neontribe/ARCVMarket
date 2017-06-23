@@ -5,7 +5,7 @@
             <div class="content fullwidth">
                 <h1>Requested Payments</h1>
 
-                <transition name="fade"><div v-if="errorMessage" v-bind:class="[goodFeedback ? 'goodmessage' : 'message' ]">{{ errorMessage }}</div></transition>
+                <transition name="fade"><div v-if="errorMessage" v-bind:class="[goodFeedback ? 'good message' : 'message' ]">{{ errorMessage }}</div></transition>
 
                 <div class="accordion">
 
@@ -79,13 +79,21 @@
         methods: {
             onRequestSubmissionEmail : function(event) {
                 var url = '/traders/' + Store.trader.id + '/voucher-history-email';
-                this.requestEmailBeSent(url,{"submission_date" : event.target.id})
+                this.requestEmailBeSent(url,
+                    {
+                        "submission_date" : event.target.id
+                    }
+                );
             },
             onRequestVoucherHistoryEmail: function() {
                 var url = '/traders/' + Store.trader.id + '/voucher-history-email';
-                this.requestEmailBeSent(url,{ "submission_date" : null});
+                this.requestEmailBeSent(url,
+                    {
+                        "submission_date" : null
+                    }
+                );
             },
-            requestEmailBeSent: function(url,data) {
+            requestEmailBeSent: function(url, data) {
                 // This is a POST, look for the data as a JSON object
                 NetMgr.apiPost(url,data,
                     function (response) {

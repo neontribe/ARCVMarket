@@ -11,6 +11,7 @@ var NetMgr = {
     token: null,
     mockAdapter: null,
     mocker: null,
+    online: true,
     axiosInstance: Axios.create({
         baseURL: Config.apiBase,
         timeout: 10000,
@@ -192,6 +193,24 @@ NetMgr.getTokenFromLocalStorage = function() {
 };
 
 /**
+ * Sets the online status. Defaults to true if nothing is provided as a param.
+ *
+ * Only modifies the internal online variable if there is a difference.
+ * Also only fires the onlineStatusChange event if there is a difference.
+ *
+ * @param onlineStatus
+ *   Boolean indicating whether we are online or not.
+ */
+NetMgr.setOnlineStatus = function(onlineStatus = true) {
+    let diff = (onlineStatus !== this.online);
+
+    if(diff) {
+        this.online = onlineStatus;
+        EventBus.$emit('NetMgr.onlineStatusChange', this.online);
+    }
+};
+
+/**
  * Sets the provided token in localStorage.
  *
  * @param token
@@ -203,16 +222,30 @@ NetMgr.setLocalStorageFromToken = function(token) {
 
 // Add interceptor to detect an expired access_token and refresh;
 NetMgr.axiosInstance.interceptors.response.use(
-    function (response) {
+    function(response) {
+        // If the request was successfully completed set the online status to true.
+        NetMgr.setOnlineStatus(true);
+
         // everything fine! return the response to apiGet/apiPost
         return response;
     },
-    function (error) {
+    function(error) {
         // Get the original request configuration.
         var origCfg = error.config;
 
         // Get the error from that request.
         var origResp = error.response;
+
+        // Grab the error message.
+        var errMsg = error.message || null;
+
+        // Default to assuming we are online.
+        NetMgr.setOnlineStatus(true);
+
+        // Set offline if a Network Error occurs. There should be a more specific error message but I couldn't find one.
+        if(errMsg === 'Network Error') {
+            NetMgr.setOnlineStatus(false);
+        }
 
         // Is it a 401 we havn't seen before? (and do we have an old token set)
         if (origResp.status === 401 && !origCfg._retry && NetMgr.token) {
@@ -250,6 +283,7 @@ NetMgr.axiosInstance.interceptors.response.use(
             }
 
         }
+
         // So all other errors returned to api get/post.
         return Promise.reject(error);
     });
