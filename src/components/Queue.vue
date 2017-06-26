@@ -91,12 +91,7 @@ export default {
     },
     computed: {
         currentlyShown: function() {
-            return (
-                this.fail
-                || this.validate
-                || (this.vouchers.length >= 1)
-                || this.queue.sendingStatus
-            ) && this.queue.shown;
+            return (this.fail || this.validate || (this.vouchers.length >= 1 && !this.netMgr.online) || this.queue.sendingStatus);
         }
     },
     methods: {
@@ -111,8 +106,6 @@ export default {
             this.message = "[xXx] Thanks! We've successfully submitted your queued vouchers.";
             setTimeout(function() {
                 this.validate = false;
-                Store.queue.shown = false;
-
                 this.message = '';
             }.bind(this), RESULT_TIMER);
         },
@@ -137,8 +130,6 @@ export default {
                 Store.getRecVouchers();
 
                 this.showValidate();
-
-                Store.queue.shown = false;
             }.bind(this),
             function() {
                 this.showFail();
