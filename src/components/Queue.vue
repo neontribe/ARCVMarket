@@ -73,9 +73,12 @@ export default {
       queue: {
           handler: function(val, oldVal) {
               let queueState = val.sendingStatus || false;
-              if(!queueState) {
+              if(!queueState && this.netMgr.online) {
                   this.showValidate();
+              } else if(!queueState) {
+                  this.spinner = false;
               }
+
           },
           deep: true
       },
