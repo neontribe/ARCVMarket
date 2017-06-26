@@ -249,6 +249,10 @@ export default {
                 }
                 return;
             }
+            //allow enter key to submit
+            if (event.key === 'Enter') {
+                this.onRecordVoucher();
+            }
             event.preventDefault();
             return false;
         },
