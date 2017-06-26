@@ -109,8 +109,8 @@ export default {
                         } else if (data.invalid.length + data.fail.length > 1) {
                             // rough multifailure manager
                             this.showFail();
-                            this.errorMessage = "[xXx] "
-                                + data.success.length
+                            this.errorMessage
+                                = data.success.length
                                 + " accepted, "
                                 + data.fail.length
                                 + " rejected and "
