@@ -46,7 +46,7 @@
 
            </div>
 
-            <div v-if="this.vouchers.length > 1">
+            <div>
                 <queue></queue>
             </div>
 
