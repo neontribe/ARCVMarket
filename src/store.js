@@ -16,7 +16,8 @@ var store = {
     auth: false,
     error: null,
     queue: {
-        sendingStatus: false
+        sendingStatus: false,
+        shown: false,
     },
 };
 
@@ -140,6 +141,7 @@ store.setUserTradersFromLocalStorage = function(submitVouchers = true) {
 
     if(submitVouchers && parsedTrader.vouchers && parsedTrader.vouchers.length > 0) {
         this.queue.sendingStatus = true;
+        this.queue.shown = true;
         this.transitionVouchers('collect', this.trader.vouchers, function() {
             // The server has processed our list, clear it.
             this.clearVouchers();

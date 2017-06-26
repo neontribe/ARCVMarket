@@ -125,3 +125,11 @@ EventBus.$on('NetMgr.logout', (err) => {
     Store.resetStore();
     router.push('login');
 });
+
+EventBus.$on('NetMgr.onlineStatusChange', function(status) {
+    if(status === true && Store.queue.shown === false) {
+        Store.queue.shown = true;
+    } else if(status === false && Store.queue.shown === false) {
+        Store.queue.shown = true;
+    }
+});
