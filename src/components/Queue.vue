@@ -91,7 +91,10 @@ export default {
     },
     computed: {
         currentlyShown: function() {
-            return (this.fail || this.validate || (this.vouchers.length >= 1 && !this.netMgr.online) || this.queue.sendingStatus);
+            return (this.fail
+            || this.validate
+            || (this.vouchers.length > 1)
+            || this.queue.sendingStatus);
         }
     },
     methods: {
