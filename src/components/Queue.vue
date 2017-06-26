@@ -10,7 +10,7 @@
             </div>
         </transition>
 
-        <button class="cta" id="submitQueuedVouchers"><span class="hidden offscreen">Submit queued vouchers</span></button>
+        <button class="cta queuedVouchers"><span class="hidden offscreen">Submit queued vouchers</span></button>
 
         <div class="list-wrapper" v-bind:class="{'is-collapsed' : collapsed }">
 
