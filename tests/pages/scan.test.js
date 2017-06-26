@@ -94,6 +94,7 @@ test('Correct error appears when I submit an invalid voucher', async t => {
     ;
     const sponsorBox = await el('#sponsorBox');
 
+    // Added extra deletes due to unpredicatability where test runner clicks in sponsor box.
     await t
         .click(sponsorBox)
         .pressKey('backspace backspace backspace delete delete delete')
@@ -120,6 +121,7 @@ test('Correct error appears when I submit a duplicate voucher', async t => {
     ;
     const sponsorBox = await el('#sponsorBox');
 
+    // Added extra deletes due to unpredicatability where test runner clicks in sponsor box.
     await t
         .click(sponsorBox)
         .pressKey('backspace backspace backspace delete delete delete')
