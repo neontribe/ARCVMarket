@@ -8,10 +8,9 @@
 
                 <form id="textVoucher" v-on:submit.prevent>
                     <transition name="fade">
-                        <div v-if="errorMessage" class="message">{{ errorMessage }}</div>
-                    </transition>
-                    <transition name="fade">
                         <div v-if="queueMessage" class="queue message">{{ queueMessage }}</div>
+                        <!-- We don't want to display an error and queue message at the same time, so only show errorMessage if queueMessage is false -->
+                        <div v-if="!queueMessage && errorMessage" class="message">{{ errorMessage }}</div>
                     </transition>
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher code</label>
@@ -47,9 +46,9 @@
 
            </div>
 
-            <div v-if="this.vouchers.length > 1">
-                <queue ></queue>
-            </div>
+            <!--<div v-if="this.vouchers.length > 1"> -->
+                <queue></queue>
+            <!--</div>-->
 
         </main>
 
@@ -84,7 +83,7 @@ export default {
             queued: false
         }
     },
-    methods:  {
+    methods: {
         onRecordVoucher: function(event) {
             //TODO: some proper validation
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
@@ -133,7 +132,7 @@ export default {
                     function(error) {
                         if (!Store.netMgr.online) {
                             this.showQueued();
-                            this.queueMessage = "[xXx] Voucher has been added to your queue below.";
+                            this.queueMessage = "Voucher has been added to your queue below.";
                         }
                     }.bind(this));
 

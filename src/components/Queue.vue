@@ -1,14 +1,16 @@
 <template id="queue">
 
-    <div class="content narrow">
+    <div class="content narrow queuedVouchers">
 
         <h1 v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}">Queued vouchers</h1>
 
         <transition name="fade" v-if="show">
             <div class="goodmessage queue">
-                [xXx] Thanks! We can't confirm the <strong>{{ vouchers.length }}</strong> vouchers just now, there may be a network problem. Keep adding to this list until they all go through.
+                Thanks! We can't confirm the <strong>{{ vouchers.length }}</strong> vouchers just now, there may be a network problem. When you have a better signal, click 'Submit queued vouchers' to try and send them again.
             </div>
         </transition>
+
+        <button class="cta" id="submitQueuedVouchers"><span class="hidden offscreen">Submit queued vouchers</span></button>
 
         <div class="list-wrapper" v-bind:class="{'is-collapsed' : collapsed }">
 
@@ -48,9 +50,11 @@ export default {
         return {
             collapsed : true,
             show : true,
-            vouchers : Store.trader.vouchers
+            vouchers : Store.trader.vouchers,
+            spinner: false,
+            validate: false,
+            fail: false
         }
     }
-
 }
 </script>
