@@ -249,8 +249,7 @@ header {
 
 footer {
   background-color: $arc_bg;
-  position: absolute;
-  height: 30px;
+  position: absolute; 
   right: 0;
   left: 0;
   bottom: 0;
@@ -1043,13 +1042,9 @@ h1.expandable.queue {
   }
 }
 
-// @media (max-height: 680px) {
-//   footer {
-//     margin: 378px 0 0 0;
-//     bottom: inherit;
-//   }
-//   footer.isError {
-//     margin: 450px 0 0 0;
-//     bottom: inherit;
-//   }
-// }
+-@media (max-height: 630px) {
+  footer {
+    margin: 378px 0 0 0;
+    bottom: inherit;
+  }
+}
