@@ -93,7 +93,7 @@ export default {
         currentlyShown: function() {
             return (this.fail
             || this.validate
-            || (this.vouchers.length > 1)
+            || (this.vouchers.length >= 1 && !this.netMgr.online)
             || this.queue.sendingStatus);
         }
     },
