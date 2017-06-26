@@ -1042,9 +1042,13 @@ h1.expandable.queue {
   }
 }
 
-@media (max-height: 630px) {  
+@media (max-height: 680px) {
   footer {
     margin: 378px 0 0 0;
+    bottom: inherit;
+  }
+  footer.isError {
+    margin: 450px 0 0 0;
     bottom: inherit;
   }
 }
