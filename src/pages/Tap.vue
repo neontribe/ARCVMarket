@@ -46,9 +46,9 @@
 
            </div>
 
-            <div v-if="this.vouchers.length > 1">
+            <!--<div v-if="this.vouchers.length > 1"> -->
                 <queue></queue>
-            </div>
+            <!--</div>-->
 
         </main>
 
