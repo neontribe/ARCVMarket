@@ -6,7 +6,7 @@
 
         <transition name="fade" v-if="show">
             <div class="goodmessage queue">
-                [xXx] Thanks! We can't confirm the <strong>{{ vouchers.length }}</strong> vouchers just now, there may be a network problem. Keep adding to this list until they all go through.
+                Thanks! We can't confirm the <strong>{{ vouchers.length }}</strong> vouchers just now, there may be a network problem. Keep adding to this list until they all go through.
             </div>
         </transition>
 
