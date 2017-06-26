@@ -23,7 +23,7 @@
 
         </main>
 
-        <footer>
+        <footer v-bind:class="{ isError: isError }">
             <p class="version"> {{ appV }}</p>
             <p class="commit" v-if="env === 'development'"> Commit : {{ commitmsg }}</p>
         </footer>
@@ -41,6 +41,7 @@
                 password: null,
                 remember: true,
                 errorMessage : Store.error,
+                isError: false,
                 commitmsg: VERSION,
                 appV: Config.appVersion,
                 env: Config.env
@@ -68,6 +69,7 @@
                 }.bind(this),
                 function (errmsg) {
                   this.errorMessage = errmsg;
+                  this.isError = true;
                 }.bind(this)
               );
 
