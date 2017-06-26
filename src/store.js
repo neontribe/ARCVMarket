@@ -94,7 +94,6 @@ store.unAuthenticate = function (success, failure) {
 store.getUserTraders = function() {
     this.netMgr.apiGet('/traders', function(response) {
         this.user.traders.splice(0, this.user.traders.length, response.data);
-        this.queue.sendingStatus = true;
     }.bind(this));
     return true;
 };

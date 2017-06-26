@@ -78,6 +78,7 @@ export default {
               } else if(!queueState) {
                   this.spinner = false;
               }
+
           },
           deep: true
       },
@@ -90,12 +91,7 @@ export default {
     },
     computed: {
         currentlyShown: function() {
-            return (
-                this.fail
-                || this.validate
-                || (this.vouchers.length >= 1 && !this.netMgr.online)
-                || this.queue.sendingStatus
-            );
+            return (this.fail || this.validate || (this.vouchers.length >= 1 && !this.netMgr.online) || this.queue.sendingStatus);
         }
     },
     methods: {
