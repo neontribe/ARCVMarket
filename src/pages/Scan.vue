@@ -10,9 +10,6 @@
                     <transition name="fade">
                         <div v-if="errorMessage" class="message">{{ errorMessage }}</div>
                     </transition>
-                    <transition name="fade">
-                        <div v-if="queueMessage" class="queue message">{{ queueMessage }}</div>
-                    </transition>
 
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor Code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher Code</label>
@@ -49,7 +46,7 @@
 
             </div>
 
-            <div v-if="this.vouchers.length > 1">
+            <div>
                 <queue ></queue>
             </div>
 
@@ -80,7 +77,6 @@ export default {
             recVouchers : Store.trader.recVouchers,
             errorMessage : Store.error,
             netMgr : Store.netMgr,
-            queueMessage : false,
             spinner: false,
             validate: false,
             fail: false,
@@ -119,8 +115,8 @@ export default {
                         } else if (data.invalid.length + data.fail.length > 1) {
                             // rough multifailure manager
                             this.showFail();
-                            this.errorMessage = "[xXx] "
-                                + data.success.length
+                            this.errorMessage
+                                = data.success.length
                                 + " accepted, "
                                 + data.fail.length
                                 + " rejected and "
@@ -142,7 +138,7 @@ export default {
                     function(error) {
                         if (!Store.netMgr.online) {
                             this.showQueued();
-                            this.queueMessage = "[xXx] Voucher has been added to your queue below.";
+                            this.errorMessage = "Not enough signal, voucher queued.";
                         }
                     }.bind(this));
 
