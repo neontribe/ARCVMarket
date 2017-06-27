@@ -132,7 +132,7 @@ export default {
                     function(error) {
                         if (!Store.netMgr.online) {
                             this.showQueued();
-                            this.queueMessage = "Voucher has been added to your queue below.";
+                            this.queueMessage = "Not enough signal, voucher queued.";
                         }
                     }.bind(this));
 

@@ -6,7 +6,7 @@
 
         <transition name="fade" v-if="show">
             <div v-if="!message" class="goodmessage queue">
-                Thanks! We can't confirm the <strong>{{ vouchers.length }}</strong> vouchers just now, there may be a network problem. When you have a better signal, click 'Submit queued vouchers' to try and send them again.
+                You have <strong>{{ vouchers.length }}</strong> vouchers in your queue.
             </div>
             <div v-if="message" class="goodmessage queue">
                 {{ message }}
