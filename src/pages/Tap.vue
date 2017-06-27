@@ -10,9 +10,6 @@
                     <transition name="fade">
                         <div v-if="errorMessage" class="message">{{ errorMessage }}</div>
                     </transition>
-                    <transition name="fade">
-                        <div v-if="queueMessage" class="queue message">{{ queueMessage }}</div>
-                    </transition>
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher code</label>
 
@@ -47,8 +44,8 @@
 
            </div>
 
-            <div v-if="this.vouchers.length > 1">
-                <queue ></queue>
+            <div>
+                <queue></queue>
             </div>
 
         </main>
@@ -77,14 +74,13 @@ export default {
             recVouchers : Store.trader.recVouchers,
             errorMessage : Store.error,
             netMgr : Store.netMgr,
-            queueMessage : false,
             spinner: false,
             validate: false,
             fail: false,
             queued: false
         }
     },
-    methods:  {
+    methods: {
         onRecordVoucher: function(event) {
             //TODO: some proper validation
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
@@ -92,7 +88,6 @@ export default {
                 Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
                     // Success function
                     function(response) {
-
                         // Add error message for invalid and fail codes.
                         var data = response.data;
 
@@ -133,7 +128,7 @@ export default {
                     function(error) {
                         if (!Store.netMgr.online) {
                             this.showQueued();
-                            this.queueMessage = "Voucher has been added to your queue below.";
+                            this.errorMessage = "Not enough signal, voucher queued.";
                         }
                     }.bind(this));
 

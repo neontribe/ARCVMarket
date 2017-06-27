@@ -150,9 +150,6 @@ $fa-font-path:"../node_modules/font-awesome/fonts";
       padding-right: 0.5em;
     }
   }
-  &.queue {
-    padding-top: 1em;
-  }
 }
 
 input {
@@ -465,7 +462,8 @@ main > *:target ~ * {
   width: 100%;
 }
 
-#textVoucher {
+#textVoucher,
+.queuedVouchers {
   label {
     margin-bottom: 0;
     height: 34px;
@@ -473,15 +471,6 @@ main > *:target ~ * {
   .message {
     position: absolute;
     padding-bottom: 0em;
-  }
-  // Animated submit code button
-  button {
-    margin: 20px auto;
-    cursor: pointer;
-    transition: all 0.5s ease;
-    &:before {
-      content: "Submit code";
-    }
   }
   .spinner,
   .validate,
@@ -526,6 +515,26 @@ main > *:target ~ * {
   }
 }
 
+// Animated submit code button
+#textVoucher button {
+  margin: 20px auto;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  &:before {
+    content: "Submit code";
+  }
+}
+
+// Animated submit queued vouchers button
+button.queuedVouchers {
+  margin: 20px auto;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  &:before {
+    content: "Submit queued vouchers";
+  }
+}
+
 label#lblSponsorBox {
   height: 0;
 }
@@ -533,6 +542,10 @@ label#lblSponsorBox {
 // Queued voucher list
 h1.expandable.queue {
   margin-bottom: 0;
+}
+
+.goodmessage {
+  padding: 0.5rem 0;
 }
 
 
