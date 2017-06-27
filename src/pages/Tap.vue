@@ -8,9 +8,7 @@
 
                 <form id="textVoucher" v-on:submit.prevent>
                     <transition name="fade">
-                        <div v-if="queueMessage" class="queue message">{{ queueMessage }}</div>
-                        <!-- We don't want to display an error and queue message at the same time, so only show errorMessage if queueMessage is false -->
-                        <div v-if="!queueMessage && errorMessage" class="message">{{ errorMessage }}</div>
+                        <div v-if="errorMessage" class="message">{{ errorMessage }}</div>
                     </transition>
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher code</label>
@@ -76,7 +74,6 @@ export default {
             recVouchers : Store.trader.recVouchers,
             errorMessage : Store.error,
             netMgr : Store.netMgr,
-            queueMessage : false,
             spinner: false,
             validate: false,
             fail: false,
@@ -91,7 +88,6 @@ export default {
                 Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
                     // Success function
                     function(response) {
-
                         // Add error message for invalid and fail codes.
                         var data = response.data;
 
@@ -132,7 +128,7 @@ export default {
                     function(error) {
                         if (!Store.netMgr.online) {
                             this.showQueued();
-                            this.queueMessage = "Not enough signal, voucher queued.";
+                            this.errorMessage = "Not enough signal, voucher queued.";
                         }
                     }.bind(this));
 
