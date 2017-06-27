@@ -22,8 +22,8 @@
             </div>
 
             <div class="build">
-                <span class="version"> {{ appV }}</span>
-                <span class="commit" v-if="env === 'development'"> Commit : {{ commitmsg }}</span>
+                <div class="version"> {{ appV }}</div>
+                <div class="commit" v-if="env === 'development'"> Commit : {{ commitmsg }}</div>
             </div>
 
         </main>
