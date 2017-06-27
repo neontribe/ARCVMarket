@@ -14,7 +14,10 @@ var store = {
     },
     netMgr: NetMgr,
     auth: false,
-    error: null
+    error: null,
+    queue: {
+        sendingStatus: false
+    },
 };
 
 store.resetStore = function() {
@@ -118,7 +121,7 @@ store.setUserTrader = function(id) {
  *
  * Will throw a console error if the information stored is invalid JSON and default to the existing info in this case.
  */
-store.setUserTradersFromLocalStorage = function() {
+store.setUserTradersFromLocalStorage = function(submitVouchers = true) {
     let user = localStorage['Store.user'];
     let trader = localStorage['Store.trader'];
 
@@ -134,6 +137,20 @@ store.setUserTradersFromLocalStorage = function() {
 
     this.user = parsedUser;
     this.trader = parsedTrader;
+
+    if(submitVouchers && parsedTrader.vouchers && parsedTrader.vouchers.length > 0) {
+        this.queue.sendingStatus = true;
+        this.transitionVouchers('collect', this.trader.vouchers, function() {
+            // The server has processed our list, clear it.
+            this.clearVouchers();
+            this.getRecVouchers();
+
+            this.queue.sendingStatus = false;
+        }.bind(this),
+        function() {
+            this.queue.sendingStatus = false;
+        }.bind(this));
+    }
 };
 
 
