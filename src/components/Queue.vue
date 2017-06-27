@@ -106,7 +106,7 @@ export default {
             this.spinner = false;
             this.validate = true;
 
-            this.message = "[xXx] Thanks! We've successfully submitted your queued vouchers.";
+            this.message = "Thanks! We've successfully submitted your queued vouchers.";
             setTimeout(function() {
                 this.validate = false;
                 this.message = '';
@@ -117,7 +117,7 @@ export default {
             this.spinner = false;
             this.fail = true;
 
-            this.message = "[xXx] Whoops! There may be a network problem. When you have a better signal, click 'Submit queued vouchers' to retry.";
+            this.message = "Whoops! There may be a network problem. When you have a better signal, click 'Submit queued vouchers' to retry.";
             setTimeout(function() {
                 this.fail = false;
                 this.message = '';
