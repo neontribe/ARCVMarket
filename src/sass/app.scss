@@ -244,18 +244,20 @@ header {
   justify-content: space-between;
 }
 
-footer {
+.build {
   background-color: $arc_bg;
   position: absolute;
   right: 0;
   left: 0;
   bottom: 0;
-  padding: 0.5rem;
   text-align: center;
   font-size:0.75em;
-
+  span {
+    display: block;
+    text-align: center;
+  }
   .version {
-    opacity: 0.2;
+    opacity: 0.15;
   }
   .commit {
     opacity: 0;
@@ -1052,12 +1054,5 @@ h1.expandable.queue {
         }
       }
     }
-  }
-}
-
-@media (max-height: 630px) {
-  footer {
-    margin: 378px 0 0 0;
-    bottom: inherit;
   }
 }
