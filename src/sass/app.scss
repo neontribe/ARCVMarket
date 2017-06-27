@@ -245,15 +245,13 @@ header {
 }
 
 footer {
+  position: relative;
   background-color: $arc_bg;
-  position: absolute;
   right: 0;
   left: 0;
   bottom: 0;
-  padding: 0.5rem;
   text-align: center;
   font-size:0.75em;
-
   .version {
     opacity: 0.2;
   }
@@ -348,6 +346,10 @@ footer {
   padding: 2em;
   overflow: auto;
   width: calc(100% - 4em);
+}
+
+main#login.container {
+  position: relative;
 }
 
 // Add top margin to pages which have the row of icons
@@ -1055,9 +1057,8 @@ h1.expandable.queue {
   }
 }
 
-@media (max-height: 630px) {
-  footer {
-    margin: 378px 0 0 0;
-    bottom: inherit;
-  }
+@media (min-height: 623px) {
+    footer {
+      position: absolute;
+    }
 }

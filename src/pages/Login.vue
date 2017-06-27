@@ -24,9 +24,10 @@
         </main>
 
         <footer>
-            <p class="version"> {{ appV }}</p>
-            <p class="commit" v-if="env === 'development'"> Commit : {{ commitmsg }}</p>
+            <div class="version"> {{ appV }}</div>
+            <div class="commit" v-if="env === 'development'"> Commit : {{ commitmsg }}</div>
         </footer>
+
     </div>
 </template>
 
