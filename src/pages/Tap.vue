@@ -110,8 +110,8 @@ export default {
                         } else if (data.invalid.length + data.fail.length > 1) {
                             // rough multifailure manager
                             this.showFail();
-                            this.errorMessage = "[xXx] "
-                                + data.success.length
+                            this.errorMessage
+                                = data.success.length
                                 + " accepted, "
                                 + data.fail.length
                                 + " rejected and "
@@ -133,7 +133,7 @@ export default {
                     function(error) {
                         if (!Store.netMgr.online) {
                             this.showQueued();
-                            this.queueMessage = "[xXx] Voucher has been added to your queue below.";
+                            this.queueMessage = "Voucher has been added to your queue below.";
                         }
                     }.bind(this));
 
