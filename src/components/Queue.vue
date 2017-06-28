@@ -2,7 +2,7 @@
     <transition name="fade"  v-if="currentlyShown">
     <div class="content narrow queuedVouchers">
 
-        <h1 v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}">Queued vouchers d</h1>
+        <h1 v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}">Queued vouchers</h1>
 
         <transition name="fade" v-if="show">
             <div v-if="!message" class="goodmessage queue">
@@ -144,15 +144,15 @@ export default {
                 }
 
                 if (data.fail.length === 1) {
-                    fail = ", 1 was rejected ";
+                    fail = ", 1 was a duplicate ";
                 } else {
-                    fail = data.fail.length + " were rejected ";
+                    fail = data.fail.length + " were duplicates ";
                 }
 
                 if (data.invalid.length === 1) {
-                    invalid = " and 1 voucher was invalid.";
+                    invalid = "and 1 was invalid.";
                 } else {
-                    invalid = data.invalid.length + " vouchers were invalid.";
+                    invalid = "and " + data.invalid.length + " were invalid.";
                 }
 
                 this.showValidate();
