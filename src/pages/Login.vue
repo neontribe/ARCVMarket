@@ -21,12 +21,13 @@
 
             </div>
 
+            <div class="build">
+                <div class="version"> {{ appV }}</div>
+                <div class="commit" v-if="env === 'development'"> Commit : {{ commitmsg }}</div>
+            </div>
+
         </main>
 
-        <footer>
-            <p class="version"> {{ appV }}</p>
-            <p class="commit" v-if="env === 'development'"> Commit : {{ commitmsg }}</p>
-        </footer>
     </div>
 </template>
 
