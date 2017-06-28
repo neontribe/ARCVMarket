@@ -527,8 +527,13 @@ button.queuedVouchers {
   }
 }
 
-label#queuedVouchers {
-  height: initial;
+.queuedVouchers .voucher-list {
+  font-size: 1em;
+  label {
+    height: initial;
+    line-height: 2;
+  }
+}
 
 label#lblSponsorBox {
   height: 0;
