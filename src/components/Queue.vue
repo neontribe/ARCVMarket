@@ -132,18 +132,38 @@ export default {
                 Store.clearVouchers();
                 Store.getRecVouchers();
 
-                    var data = response.data;
-                    this.showValidate();
-                    this.message
-                        = "Thanks! "
-                        + data.success.length
-                        + " vouchers were accepted, "
-                        + data.fail.length
-                        + " were rejected and "
-                        + data.invalid.length
-                        + " were invalid."
-                    ;
-                    this.$emit('update', this.clearMessage);
+                var data = response.data;
+                var success = '';
+                var fail = '';
+                var invalid = '';
+
+                if (data.success.length === 1) {
+                    success = "1 voucher was accepted, ";
+                } else {
+                    success = data.success.length + " vouchers were accepted, ";
+                }
+
+                if (data.fail.length === 1) {
+                    fail = ", 1 was rejected ";
+                } else {
+                    fail = data.fail.length + " were rejected ";
+                }
+
+                if (data.invalid.length === 1) {
+                    invalid = " and 1 voucher was invalid.";
+                } else {
+                    invalid = data.invalid.length + " vouchers were invalid.";
+                }
+
+                this.showValidate();
+                this.message
+                    = "Thanks! Your queue has been successfully submitted. "
+                    + success
+                    + fail
+                    + invalid
+                ;
+
+                this.$emit('update', this.clearMessage);
 
             }.bind(this),
             function() {

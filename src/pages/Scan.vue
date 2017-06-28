@@ -8,7 +8,7 @@
 
                 <form id="textVoucher" v-on:submit.prevent>
                     <transition name="fade">
-                        <div v-if="errorMessage" class="message">{{ errorMessage }}</div>
+                        <div v-if="errorMessage && (!showQueueMsg)" class="message">{{ errorMessage }}</div>
                     </transition>
 
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor Code</label>
@@ -47,7 +47,7 @@
             </div>
 
             <div>
-                <queue ></queue>
+                <queue :value="queueMsg" @update="queueMessage"></queue>
             </div>
 
         </main>
@@ -81,6 +81,7 @@ export default {
             validate: false,
             fail: false,
             queued: false,
+            queueMsg: false
         }
     },
     watch: {
@@ -91,6 +92,9 @@ export default {
         }
     },
     methods:  {
+        queueMessage (v) {
+            this.queueMsg = v
+        },
         onRecordVoucher: function(event) {
             //TODO: some proper validation
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
@@ -112,17 +116,6 @@ export default {
                                 this.errorMessage = "That voucher may have been used already.";
                             }
 
-                        } else if (data.invalid.length + data.fail.length > 1) {
-                            // rough multifailure manager
-                            this.showFail();
-                            this.errorMessage
-                                = data.success.length
-                                + " accepted, "
-                                + data.fail.length
-                                + " rejected and "
-                                + data.invalid.length
-                                + " were invalid."
-                            ;
                         } else {
                             // all in!
                             this.showValidate();
@@ -258,6 +251,11 @@ export default {
             // There's also "event.key" (string), which MDN thinks is better;
             var charCode = event.keyCode ? event.keyCode : event.charCode;
             return String.fromCharCode(charCode);
+        }
+    },
+    computed: {
+        showQueueMsg() {
+          return this.queueMsg;
         }
     },
     mounted: function() {

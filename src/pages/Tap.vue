@@ -4,12 +4,13 @@
 
             <div class="content narrow">
 
-                <h1>Type a voucher code</h1>
+                <h1>Type a voucher code f</h1>
 
                 <form id="textVoucher" v-on:submit.prevent>
                     <transition name="fade">
                         <div v-if="errorMessage && (!showQueueMsg)" class="message">{{ errorMessage }}</div>
                     </transition>
+                    
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher code</label>
 
@@ -106,17 +107,6 @@ export default {
                                 this.errorMessage = "That voucher may have been used already.";
                             }
 
-                        } else if (data.invalid.length + data.fail.length > 1) {
-                            // rough multifailure manager
-                            this.showFail();
-                            this.errorMessage
-                                = data.success.length
-                                + " accepted, "
-                                + data.fail.length
-                                + " rejected and "
-                                + data.invalid.length
-                                + " were invalid."
-                            ;
                         } else {
                             // all in!
                             this.showValidate();
