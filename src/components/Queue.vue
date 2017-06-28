@@ -2,7 +2,7 @@
     <transition name="fade"  v-if="currentlyShown">
     <div class="content narrow queuedVouchers">
 
-        <h1 v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}">Queued vouchers</h1>
+        <h1 v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}">Queued vouchers d</h1>
 
         <transition name="fade" v-if="show">
             <div v-if="!message" class="goodmessage queue">
@@ -33,7 +33,7 @@
                 </div>
 
                 <!-- Tab row -->
-                <div v-for="voucher in vouchers" class="tab row">
+                <div class="tab row" v-for="voucher in vouchers">
                     <label>
                         <div class="row-code">
                             <div>{{ voucher }}</div>
@@ -67,6 +67,7 @@ export default {
             validate: false,
             fail: false,
             message: '',
+            clearMessage: true
         }
     },
     watch: {
@@ -106,7 +107,6 @@ export default {
             this.spinner = false;
             this.validate = true;
 
-            this.message = "Thanks! We've successfully submitted your queued vouchers.";
             setTimeout(function() {
                 this.validate = false;
                 this.message = '';
@@ -127,12 +127,24 @@ export default {
         onSubmitQueue: function() {
             this.startSpinner();
 
-            Store.transitionVouchers('collect', this.vouchers, function() {
+            Store.transitionVouchers('collect', this.vouchers, function(response) {
                 // The server has processed our list, clear it.
                 Store.clearVouchers();
                 Store.getRecVouchers();
 
-                this.showValidate();
+                    var data = response.data;
+                    this.showValidate();
+                    this.message
+                        = "Thanks! "
+                        + data.success.length
+                        + " vouchers were accepted, "
+                        + data.fail.length
+                        + " were rejected and "
+                        + data.invalid.length
+                        + " were invalid."
+                    ;
+                    this.$emit('update', this.clearMessage);
+
             }.bind(this),
             function() {
                 this.showFail();

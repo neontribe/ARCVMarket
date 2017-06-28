@@ -8,7 +8,7 @@
 
                 <form id="textVoucher" v-on:submit.prevent>
                     <transition name="fade">
-                        <div v-if="errorMessage" class="message">{{ errorMessage }}</div>
+                        <div v-if="errorMessage && (!showQueueMsg)" class="message">{{ errorMessage }}</div>
                     </transition>
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher code</label>
@@ -45,7 +45,7 @@
            </div>
 
             <div>
-                <queue></queue>
+                <queue :value="queueMsg" @update="queueMessage"></queue>
             </div>
 
         </main>
@@ -77,10 +77,14 @@ export default {
             spinner: false,
             validate: false,
             fail: false,
-            queued: false
+            queued: false,
+            queueMsg: false
         }
     },
     methods: {
+        queueMessage (v) {
+            this.queueMsg = v
+        },
         onRecordVoucher: function(event) {
             //TODO: some proper validation
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
@@ -246,6 +250,11 @@ export default {
             // There's also "event.key" (string), which MDN thinks is better;
             var charCode = event.keyCode ? event.keyCode : event.charCode;
             return String.fromCharCode(charCode);
+        }
+    },
+    computed: {
+        showQueueMsg() {
+          return this.queueMsg;
         }
     },
     mounted: function() {
