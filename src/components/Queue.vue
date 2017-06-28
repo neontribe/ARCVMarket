@@ -155,7 +155,6 @@ export default {
                     invalid = "and " + data.invalid.length + " were invalid.";
                 }
 
-                this.showValidate();
                 this.message
                     = "Thanks! Your queue has been successfully submitted. "
                     + success
@@ -163,6 +162,7 @@ export default {
                     + invalid
                 ;
 
+                this.showValidate();
                 this.$emit('update', this.clearMessage);
 
             }.bind(this),
