@@ -137,6 +137,7 @@ export default {
                 var fail = '';
                 var invalid = '';
 
+                // Construct the feedback message.
                 if (data.success.length === 1) {
                     success = "1 voucher was accepted, ";
                 } else {
@@ -163,6 +164,7 @@ export default {
                 ;
 
                 this.showValidate();
+                // Update the parent component so that it can hide the not enough signal message
                 this.$emit('update', this.clearMessage);
 
             }.bind(this),

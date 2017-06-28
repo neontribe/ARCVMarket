@@ -46,7 +46,7 @@
            </div>
 
             <div>
-                <queue :value="queueMsg" @update="queueMessage"></queue>
+                <queue @update="queueMessage"></queue>
             </div>
 
         </main>
