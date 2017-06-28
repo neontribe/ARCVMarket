@@ -144,7 +144,7 @@ export default {
                 }
 
                 if (data.fail.length === 1) {
-                    fail = ", 1 was a duplicate ";
+                    fail = " 1 was a duplicate ";
                 } else {
                     fail = data.fail.length + " were duplicates ";
                 }

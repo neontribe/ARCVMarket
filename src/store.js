@@ -201,11 +201,11 @@ store.mergeRecVouchers = function (replacements) {
 /**
  * Adds a voucher code and submits it.
  */
-store.addVoucherCode = function (voucherCode, success, failure) {
+store.addVoucherCode = function (voucherCode, success, failure, invalid) {
     this.trader.vouchers.push(voucherCode);
     // Store the whole trader
     this.setLocalStorageFromUserTraders();
-    this.transitionVouchers('collect', this.trader.vouchers, success, failure);
+    this.transitionVouchers('collect', this.trader.vouchers, success, failure, invalid);
 };
 
 /**
