@@ -211,7 +211,7 @@ store.addVoucherCode = function (voucherCode, success, failure) {
 /**
  * Transition request the recorded vouchers list to pending
  */
-store.pendRecVouchers = function (success,failure) {
+store.pendRecVouchers = function (success, failure) {
     // The [0] is vue wierdness
     var voucherCodes = this.trader.recVouchers[0].map(function(voucher) {
         return voucher.code;
