@@ -542,6 +542,9 @@ h1.expandable.queue {
 
 .goodmessage {
   padding: 0.5rem 0;
+  &.error {
+    color: $arc_error;
+  }
 }
 
 
