@@ -425,10 +425,6 @@ h1.expandable {
   text-align: center;
 }
 
-#registeredVouchers ul {
-  padding-left: 1em;
-}
-
 .link {
   text-decoration: none;
   color: $arc_rose;
@@ -531,13 +527,21 @@ button.queuedVouchers {
   }
 }
 
+.queuedVouchers .voucher-list {
+  font-size: 1em;
+  label {
+    height: initial;
+    line-height: 2;
+  }
+}
+
 label#lblSponsorBox {
   height: 0;
 }
 
 // Queued voucher list
 h1.expandable.queue {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1em;
 }
 
 /* --------------------------------------------------------------

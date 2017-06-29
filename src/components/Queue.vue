@@ -36,7 +36,7 @@
                 </div>
 
                 <!-- Tab row -->
-                <div v-for="voucher in vouchers" class="tab row">
+                <div class="tab row" v-for="voucher in vouchers">
                     <label>
                         <div class="row-code">
                             <div>{{ voucher }}</div>
@@ -70,6 +70,7 @@ export default {
             validate: false,
             fail: false,
             message: '',
+            clearMessage: true
         }
     },
     watch: {
@@ -109,7 +110,6 @@ export default {
             this.spinner = false;
             this.validate = true;
 
-            this.message = "Thanks! We've successfully submitted your queued vouchers.";
             setTimeout(function() {
                 this.validate = false;
                 this.message = '';
@@ -130,12 +130,46 @@ export default {
         onSubmitQueue: function() {
             this.startSpinner();
 
-            Store.transitionVouchers('collect', this.vouchers, function() {
+            Store.transitionVouchers('collect', this.vouchers, function(response) {
                 // The server has processed our list, clear it.
                 Store.clearVouchers();
                 Store.getRecVouchers();
 
+                var data = response.data;
+                var success = '';
+                var fail = '';
+                var invalid = '';
+
+                // Construct the feedback message.
+                if (data.success.length === 1) {
+                    success = "1 voucher was accepted, ";
+                } else {
+                    success = data.success.length + " vouchers were accepted, ";
+                }
+
+                if (data.fail.length === 1) {
+                    fail = " 1 was a duplicate ";
+                } else {
+                    fail = data.fail.length + " were duplicates ";
+                }
+
+                if (data.invalid.length === 1) {
+                    invalid = "and 1 was invalid.";
+                } else {
+                    invalid = "and " + data.invalid.length + " were invalid.";
+                }
+
+                this.message
+                    = "Thanks! Your queue has been successfully submitted. "
+                    + success
+                    + fail
+                    + invalid
+                ;
+
                 this.showValidate();
+                // Send out an update which will be picked up in tap, so that it can hide the not enough signal message
+                this.$emit('update', this.clearMessage);
+
             }.bind(this),
             function() {
                 this.showFail();
