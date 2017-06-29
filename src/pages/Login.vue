@@ -7,7 +7,7 @@
 
                 <h1>Log In</h1>
 
-                <transition name="fade"><div v-if="errorMessage" class="message">{{ errorMessage }}</div></transition>
+                <transition name="fade"><div v-if="errorMessage" class="message error">{{ errorMessage }}</div></transition>
 
                 <div>
                     <form id="loginForm" v-on:submit.prevent="onLogin">

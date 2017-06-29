@@ -5,11 +5,14 @@
         <h1 v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}">Queued vouchers</h1>
 
         <transition name="fade" v-if="show">
-            <div v-if="!message" class="goodmessage queue">
-                You have <strong>{{ vouchers.length }}</strong> vouchers in your queue.
-            </div>
-            <div v-if="message" class="goodmessage queue">
+            <div v-if="fail && message" class="message error">
                 {{ message }}
+            </div>
+            <div v-if="message" class="message">
+                {{ message }}
+            </div>
+            <div v-else class="message">
+                You have <strong>{{ vouchers.length }}</strong> vouchers in your queue.
             </div>
         </transition>
 

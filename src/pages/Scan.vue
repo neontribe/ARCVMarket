@@ -8,13 +8,14 @@
 
                 <form id="textVoucher" v-on:submit.prevent>
                     <transition name="fade">
-                        <div v-if="errorMessage && (!showQueueMsg)" class="message">{{ errorMessage }}</div>
+                        <div v-if="errorMessage && (!showQueueMsg)" class="message error">{{ errorMessage }}</div>
                     </transition>
 
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor Code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher Code</label>
                     <div class="input-box">
                         <input id="sponsorBox"
+                            @keydown.enter.prevent
                             @keypress='onKeypressSponsorBox'
                             type="text"
                             v-model="sponsorCode"
@@ -87,7 +88,7 @@ export default {
     watch: {
         voucherCode : function(code) {
             if (code.length === parseInt(this.$refs.voucherBox.getAttribute("maxlength"))) {
-                this.$refs.submitVoucher.click();
+                this.onRecordVoucher();
             }
         }
     },
