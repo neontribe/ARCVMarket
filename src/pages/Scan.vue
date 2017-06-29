@@ -8,7 +8,7 @@
 
                 <form id="textVoucher" v-on:submit.prevent>
                     <transition name="fade">
-                        <div v-if="errorMessage" class="message">{{ errorMessage }}</div>
+                        <div v-if="errorMessage" class="message error">{{ errorMessage }}</div>
                     </transition>
 
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor Code</label>
