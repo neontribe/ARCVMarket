@@ -537,16 +537,8 @@ label#lblSponsorBox {
 
 // Queued voucher list
 h1.expandable.queue {
-  margin-bottom: 0;
+  margin-bottom: 0.5rem;
 }
-
-.goodmessage {
-  padding: 0.5rem 0;
-  &.error {
-    color: $arc_error;
-  }
-}
-
 
 /* --------------------------------------------------------------
 
