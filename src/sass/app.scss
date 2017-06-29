@@ -456,14 +456,6 @@ main > *:target ~ * {
 
 #textVoucher,
 .queuedVouchers {
-  label {
-    margin-bottom: 0;
-    height: 34px;
-  }
-  .message {
-    position: absolute;
-    padding-bottom: 0em;
-  }
   .spinner,
   .validate,
   .fail,
@@ -507,13 +499,23 @@ main > *:target ~ * {
   }
 }
 
-// Animated submit code button
-#textVoucher button {
-  margin: 20px auto;
-  cursor: pointer;
-  transition: all 0.5s ease;
-  &:before {
-    content: "Submit code";
+#textVoucher {
+  label {
+    margin-bottom: 0;
+    height: 36px;
+  }
+  .message {
+    position: absolute;
+    padding-bottom: 0em;
+  }
+  // Animated submit code button
+  button {
+    margin: 20px auto;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    &:before {
+      content: "Submit code";
+    }
   }
 }
 
@@ -527,11 +529,21 @@ button.queuedVouchers {
   }
 }
 
-.queuedVouchers .voucher-list {
-  font-size: 1em;
+.queuedVouchers {
   label {
-    height: initial;
-    line-height: 2;
+    margin-bottom: 0;
+    height: 36px;
+  }
+  .message {
+    position: relative;
+    padding-bottom: 0em;
+  }
+  .voucher-list {
+    font-size: 1em;
+    label {
+      height: initial;
+      line-height: 2;
+    }
   }
 }
 
