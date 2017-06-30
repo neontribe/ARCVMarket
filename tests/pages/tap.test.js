@@ -91,7 +91,7 @@ test('I can type and submit a voucher code', async t => {
     ;
 
     const sponsorCode = await el('#sponsorBox').value;
-    expect(sponsorCode).eql('RVP');
+    expect(sponsorCode).eql('RVNT');
 
     // Type a code and submit.
     await t
