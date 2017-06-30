@@ -33,4 +33,7 @@ env:
   - secure: U0pqiJttdXqA0VUwkrrcw32xeK2O6FWQFaXl4TYIPak/CyvNK8mp1eb9PJ70BZTWc97LbTwzFsjBpQce37YpXoKfOVr7IQCXRcJvvozNcy0bxps8Yo1sP3Peo83Q8O93x0Xk6vVi2xLRg8hXaJRqEDj7y+xREX0TjBM6H8JOB9yxziOOkxdt+kGMuh41mpEEo0+/uTfXbYo+JWlr3oLpe04ynTHQ+YQsReXn9wggNjfB2UlSWdrOC+Mt8IGHUN4mPMAKbODJEu5ttlaK5CkokV+khiBLMKSGsKlYEIb+Gl3VhJX8+z3v3d+kauhUqGs3KyHilSTU6W8hPMLmViDrj+DSxU+xhHQgCS20+c/XOhS23hyZzTKBBRy9cDEDgyKs7RaslSchNI7lNZUuBaf0ljOnwy/aspbFKQSI7ISBhw6jjpuX+mGJpIDW4x86Ho+6o3gsmle4plZnUNKcOeOCwSIUTTOF3dZNvpeG0onnXtb6UmHC6BgFFoT5rkx7dyJMOUdfEDwJqsWflZlU52zVQLGfF23m9tqt80pMVbKBjU7KeqawOY2mIY6u4p0nHKt/Ge6jfTSs/epgKX0yLksgQ8jVQHYEQhd0wHyls5oeoPe8eQC+9q1SUO9zc1hRJ10ijGH4sCyis6lEIk4Z5mVSiVW7yNaeUWCHONAYb9Wji+I=
 before_install:
 - openssl aes-256-cbc -K $encrypted_42b15c9ac0d6_key -iv $encrypted_42b15c9ac0d6_iv
-  -in market-build.enc -out ~\/.ssh/market-build -d
+  -in market-build.enc -out market-build -d
+- eval "$(ssh-agent -s)"
+- chmod 600 market-build
+- ssh-add market-build
