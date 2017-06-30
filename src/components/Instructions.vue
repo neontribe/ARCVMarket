@@ -2,7 +2,7 @@
 
     <section>
         <h1>Receiving your Payments</h1>
-        Check that the voucher total above matches the number of vouchers you have, and then visit Stuart during his next "office hours" to receive payment.
+        Please take your vouchers to your market representative for them to be sent off.
     </section>
 
 </template>
