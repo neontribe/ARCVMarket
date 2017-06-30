@@ -69,7 +69,7 @@ export default {
     },
     data: function() {
         return {
-            sponsorCode : "RVP",
+            sponsorCode : "RVNT",
             voucherCode : "",
             vouchers : Store.trader.vouchers,
             recVouchers : Store.trader.recVouchers,
