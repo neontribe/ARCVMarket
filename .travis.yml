@@ -4,28 +4,29 @@ node_js:
 sudo: required
 dist: trusty
 addons:
-  firefox: "53.0" # We are setting the version to 53 until TestCafe supports v54+
+  firefox: '53.0' # We are setting the version to 53 until TestCafe supports v54+
   apt:
     sources:
     - google-chrome
     packages:
     - google-chrome-stable fluxbox
 before_script:
-    - "export DISPLAY=:99.0"
-    - "sh -e /etc/init.d/xvfb start"
-    - sleep 3
-    - stty cols 80
-    - fluxbox >/dev/null 2>&1 &
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sleep 3
+- stty cols 80
+- fluxbox >/dev/null 2>&1 &
 before_deploy:
 - npm run build
 - cp src/robots.txt dist/
 deploy:
-  provider: pages
+  provider: script
   skip_cleanup: true
-  github_token: "$GITHUB_TOKEN"
-  local_dir: dist
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist/* $DEPLOY_USER@$DEPLOY_IP:/var/www/$DEPLOY_DIR
   on:
     branch: 1.0/release
 env:
   global:
-    secure: A3fyeIIHmLve7Z6KjrMdrQYLS33cutHw+/dUq6jQD0iZQBU+1KZZ6m4Jfvik5MJWqntJ8Ydlzb0WTC7RVmjo45Mr66Q2GFdLKQk4QQvxEHtWA0Zvr0mllLj78PI1KeJyPkNIvJDYPnb3PAvXmNP0/ApzKYn3GfIO86NyN9My8AKOEAlDhk8kdlTAm17IErtu2SAjP8kS39/mXfFiIbVgEcw7EkynYmM6aIGadopkEImd4efdjngMOVpr8Dx8vNshxcth6XDSjCH0MR7rOCtCXIZetURyY0rcKGvX7E9uzjsMARAO5qHvyQvBqrCJWE3ScAb5F2jyqizTwM/PPanxiYlje+paACMxtYnydlseeU5HAFsFI6Nbi2DeIC5t6FUWUdcKdJU0JogVJJWYObTY+HBd+IYeA6ZZVvpNbDHDZUBQTTL959ysv0ylDVSI+ONNN38VU4XI9STIKZMjQTNAxlB/6b9aUwEmsnrlIQqkoCVJA2UPq0LJ79gSw4c7XvMykiM3Sy47Qt0dNgv5HTcq+xnzD88KUcdYgQ1RKN1oor0vhIx/Q5v1rYrQKp6NPcac8kpD0kBQwB2f1P1Z2FU2uTyleShID+SK+MOoR6vUgHT1mKCa2nabQCAX+epy2UUE54RSVT9liW1il1998GgoFRwNfvgNlxiKhf83CcVQLPM=
+  - secure: msCZwriBfTXEDkrxIDjM4/gYY/PLszi7cKw19OUaOx7HFQ94GNdkHlINOu+s7jmrFA3WGh5di4+obuHitZjRiOCuNcb7bAP8NI2PQybDnx2KWdCxsU/E7c3I9IesDq35txALSTixI7rMU1tuyRu+nI9DyFogy2Bv/10hHmA0aFN1O1tp1/FIS0FGv/H8yAtxeWgiyPLP3AC615qQpPIyR8DX9FrXBFmVEkw3ZprCaLBY++YLjK+3aN8tduOf57yIfjNN4j0vAavGJwI4GhuoBYSWNLKAIxNkTe7mpaROyCKRWrtOUet2MEC/oqcKmI+61/n4TgISUeR2HTMB41FrZMa+fZzk3qf/iBSc94AgY2Wr7vLh9SJQHpnFOpYOYQ/D6FRJ6F8W5b155o3muz27fWqbnPbqmfbN+YXq9TnLG6TlLvFtqNcjr2rpcmEKTe70OYO5+TuFlELGmXRYf9K5UGbXz4dWNvCHSsIZpv0thyvAIQtA9BqnEOjBO+VQSMC4RH94exWy9X8ic9l4A9BuS202xYCNRkpMBS4OTEZDg0y2hncGB/q769CjPT3q7L5HMuT5C+UQVsc1rrW4Kfe7dLI86RkDH+k+TD1cUsYt4XteitfVFw/PzR0xB/frCFcVPvEkifp7XjV96X5eSCuKlUtGyG7AUt6yfEFakJ7FisM=
+  - secure: STSxXo/OfiYrd42mTXPav4Y7lnNd+dVb78jJwhdZoMiKu60qgmYzDBhCU7LixQivUgCM9COR1brlXYjHKdo3i2kMGwLwuYA7Ek4lBG3kCInI+PpSY/FUkR1am9WX7KrRCTOSOkIv9vRxN7s2wotnzHdPudvOgNIpzVA7we7aUK+l0atHXGTa8mi+iqh9cotgUKThjAs8ezJ1/GW3fpq4vlqBq9sX8KHqS3qcFggf991Z0ZRN3g9NpjLdju9ZSWR+DEPWJcsKJPXYuA6othAE9fWxtiAqyxaEW8cBde8Byz2GSX9rjh3bwoas9U5Rtc9xYflPd5HYih0fEHTnUH1WO9AMO4KebHgu9BcxI/icClcIfO5Op2p03FayPImjv+C6nQJZZRgcGUUpsA1dJQZY8lPwB0obsP1NX5rkD5V0yoNBbW+3cFGcuPa9vjYNN4bUzPOrA1fVqLWJWZp5Euy5fX9xp/xxoxeRKcVf9nHoaKempEuTunEhzZvXmtfrn2nbesWlD1xc5V+es1CeY03Jz4uEw8YaAR1stfGnspalDvjbD7IELeJwtv3tJMJuuhrh6ByKtD+8KgKXAh45ug+W2N/Apljd+JKCs8ynCo0nVNWEa0DbQ2xOPCPV7hpIdT/rPFeQRWzUxTlt0cuyjOwsm0DYC0gyUPw9V2zMWlLmdlk=
+  - secure: U0pqiJttdXqA0VUwkrrcw32xeK2O6FWQFaXl4TYIPak/CyvNK8mp1eb9PJ70BZTWc97LbTwzFsjBpQce37YpXoKfOVr7IQCXRcJvvozNcy0bxps8Yo1sP3Peo83Q8O93x0Xk6vVi2xLRg8hXaJRqEDj7y+xREX0TjBM6H8JOB9yxziOOkxdt+kGMuh41mpEEo0+/uTfXbYo+JWlr3oLpe04ynTHQ+YQsReXn9wggNjfB2UlSWdrOC+Mt8IGHUN4mPMAKbODJEu5ttlaK5CkokV+khiBLMKSGsKlYEIb+Gl3VhJX8+z3v3d+kauhUqGs3KyHilSTU6W8hPMLmViDrj+DSxU+xhHQgCS20+c/XOhS23hyZzTKBBRy9cDEDgyKs7RaslSchNI7lNZUuBaf0ljOnwy/aspbFKQSI7ISBhw6jjpuX+mGJpIDW4x86Ho+6o3gsmle4plZnUNKcOeOCwSIUTTOF3dZNvpeG0onnXtb6UmHC6BgFFoT5rkx7dyJMOUdfEDwJqsWflZlU52zVQLGfF23m9tqt80pMVbKBjU7KeqawOY2mIY6u4p0nHKt/Ge6jfTSs/epgKX0yLksgQ8jVQHYEQhd0wHyls5oeoPe8eQC+9q1SUO9zc1hRJ10ijGH4sCyis6lEIk4Z5mVSiVW7yNaeUWCHONAYb9Wji+I=

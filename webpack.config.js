@@ -6,19 +6,13 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var OfflinePlugin = require('offline-plugin');
 
-if (process.env.NODE_ENV === 'production') {
-    var publicPath = 'https://neontribe.github.io/ARCVMarket/';
-} else {
-    var publicPath = '/';
-}
-
 var gitRevisionPlugin = new GitRevisionPlugin();
 
 module.exports = {
     entry: ['babel-polyfill','./src/main.js'],
     output: {
         path: path.resolve(__dirname, './dist'),
-        publicPath: publicPath,
+        publicPath: '/',
         filename: 'build.js?[hash]'
     },
     plugins: [
