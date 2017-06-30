@@ -29,7 +29,7 @@ document.cookie = "arcv_ignore_mocks=true;max-age=" + 86400*30;
 ## Deployment setup with Travis CI - for how to set up or amend travis deploy with encrypted vars see ARCVService repo.
 
 1. On every code push Travis will run npm install and tests.
-2. If the push is to the release branch (as named in .travis.yml), it will build a prod version and deploy contents of `dist` to https://voucher-staging.alexanrdarose.org.uk
+2. If the push is to the release branch (as named in .travis.yml), it will build a prod version and deploy contents of `dist` to https://voucher-staging.alexandrarose.org.uk
 (Note that the contents of the current `dist` dir are overwritten - there is no rolling back)
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
