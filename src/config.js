@@ -5,7 +5,7 @@ var env = 'production',
     appVersion = 'v1.0.0';
 
 // --- Env Specific ---
-if (location.hostname.match(/voucher-staging/) {
+if (location.hostname.match(/voucher-staging/)) {
     env = 'staging';
     apiBase = 'https://voucher-admin-staging.alexandrarose.org.uk/api';
 }
