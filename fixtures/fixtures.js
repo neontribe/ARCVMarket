@@ -34,7 +34,7 @@ var Fixtures = {
     },
     voucherStatus: {
         "success":
-            {"success":["RVP12345678"], "fail":[], "invalid":[]},
+            {"success":["RVNT12345678"], "fail":[], "invalid":[]},
         "fail":
             {"success":[], "fail":["FAL11111111"], "invalid":[]},
         "invalid":
@@ -45,8 +45,8 @@ var Fixtures = {
             {
                 "pended_on": "13-02-2017",
                 "vouchers": [
-                    {"code": "RVP12345601", "recorded_on": "12-02-2017", "reimbursed_on": "15-02-2017"},
-                    {"code": "RVP12345602", "recorded_on": "12-02-2017", "reimbursed_on": "15-02-2017"}
+                    {"code": "RVNT12345601", "recorded_on": "12-02-2017", "reimbursed_on": "15-02-2017"},
+                    {"code": "RVNT12345602", "recorded_on": "12-02-2017", "reimbursed_on": "15-02-2017"}
                 ]
             },
             {
@@ -54,8 +54,8 @@ var Fixtures = {
                 "vouchers": [
                     {"code": "SOL10000013", "recorded_on": "09-03-2017", "reimbursed_on": "17-03-2017"},
                     {"code": "SOL10000017", "recorded_on": "09-03-2017", "reimbursed_on": "17-03-2017"},
-                    {"code": "RVP12345631", "recorded_on": "09-03-2017", "reimbursed_on": ""},
-                    {"code": "RVP12345632", "recorded_on": "09-03-2017", "reimbursed_on": ""},
+                    {"code": "RVNT12345631", "recorded_on": "09-03-2017", "reimbursed_on": ""},
+                    {"code": "RVNT12345632", "recorded_on": "09-03-2017", "reimbursed_on": ""},
                     {"code": "SOL10000032", "recorded_on": "09-03-2017", "reimbursed_on": ""},
                     {"code": "SOL10000037", "recorded_on": "09-03-2017", "reimbursed_on": ""}
                 ]
@@ -65,8 +65,8 @@ var Fixtures = {
             {
                 "pended_on": "09-01-2017",
                 "vouchers": [
-                    {"code": "RVP12345678", "recorded_on": "08-01-2017", "reimbursed_on": "11-01-2017"},
-                    {"code": "RVP12345679", "recorded_on": "08-01-2017", "reimbursed_on": "11-01-2017"},
+                    {"code": "RVNT12345678", "recorded_on": "08-01-2017", "reimbursed_on": "11-01-2017"},
+                    {"code": "RVNT12345679", "recorded_on": "08-01-2017", "reimbursed_on": "11-01-2017"},
                     {"code": "SOL10000014", "recorded_on": "08-01-2017", "reimbursed_on": "11-01-2017"},
                     {"code": "SOL10000016", "recorded_on": "08-01-2017", "reimbursed_on": "11-01-2017"}
                 ]
