@@ -95,10 +95,11 @@ export default {
     },
     computed: {
         currentlyShown: function() {
-            return (this.fail
-            || this.validate
-            || (this.vouchers.length >= 1 && !Store.getVouchersOnlineStatus())
-            || this.queue.sendingStatus);
+            return (
+                this.fail
+                || this.validate
+                || (this.vouchers.length >= 1 && !Store.getVouchersOnlineStatus())
+            );
         }
     },
     methods: {

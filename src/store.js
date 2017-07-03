@@ -240,6 +240,9 @@ store.addVoucherCode = function (voucherCode, success, failure) {
         let voucher = this.trader.vouchers[len - 1];
         if(voucher) {
             voucher.online = NetMgr.online;
+
+            // Store the whole trader again.
+            this.setLocalStorageFromUserTraders();
         }
     }.bind(this));
 };
