@@ -39,6 +39,28 @@ store.resetStore = function() {
 };
 
 /**
+ * Returns a flat array of voucher codes.
+ *
+ * @param trader
+ *   Currently not used. Will be needed when we support the storage of multiple traders.
+ * @returns {Array}
+ */
+store.getTraderVoucherList = function(trader) {
+    return this.trader.vouchers.map((v) => v.code);
+};
+
+/**
+ * Indicates whether any vouchers have been added whilst the user was offline.
+ *
+ * Returns false if any of the vouchers were recorded whilst the user was offline.
+ *
+ * @returns {Boolean}
+ */
+store.getVouchersOnlineStatus = function() {
+    return !!(this.trader.vouchers.reduce((v, e) => e.online, true));
+};
+
+/**
  * Called from vue componenets, proxies logon process for them.
  * @param userApiCreds
  * @param success
@@ -140,7 +162,7 @@ store.setUserTradersFromLocalStorage = function(submitVouchers = true) {
 
     if(submitVouchers && parsedTrader.vouchers && parsedTrader.vouchers.length > 0) {
         this.queue.sendingStatus = true;
-        this.transitionVouchers('collect', this.trader.vouchers, function() {
+        this.transitionVouchers('collect', this.getTraderVoucherList(), function() {
             // The server has processed our list, clear it.
             this.clearVouchers();
             this.getRecVouchers();
@@ -202,10 +224,24 @@ store.mergeRecVouchers = function (replacements) {
  * Adds a voucher code and submits it.
  */
 store.addVoucherCode = function (voucherCode, success, failure) {
-    this.trader.vouchers.push(voucherCode);
+    let len = this.trader.vouchers.push(
+        {
+            code: voucherCode,
+            online: this.netMgr.online
+        }
+    );
+
     // Store the whole trader
     this.setLocalStorageFromUserTraders();
-    this.transitionVouchers('collect', this.trader.vouchers, success, failure);
+    let transition = this.transitionVouchers('collect', this.getTraderVoucherList(), success, failure);
+
+    // The online status may have changed by the time that the request has ended.
+    transition.then(function() {
+        let voucher = this.trader.vouchers[len - 1];
+        if(voucher) {
+            voucher.online = NetMgr.online;
+        }
+    }.bind(this));
 };
 
 /**
@@ -240,7 +276,7 @@ store.transitionVouchers = function (transition, vouchers, success, failure) {
         'trader_id': this.trader.id,
         'vouchers': vouchers
     };
-    this.netMgr.apiPost('vouchers', postData,
+    return this.netMgr.apiPost('vouchers', postData,
         function (response) {
             if (success) {success(response)}
         },
