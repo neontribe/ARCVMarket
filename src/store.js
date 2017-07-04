@@ -57,15 +57,15 @@ store.getTraderVoucherList = function(trader) {
  * @returns {Boolean}
  */
 store.getVouchersOnlineStatus = function() {
-    let vouchers_online = true;
-    for(let voucher in this.trader.vouchers) {
-        voucher = this.trader.vouchers[voucher];
-        if(!voucher.online) {
-            vouchers_online = false;
+    let vouchersOnline = true;
+    for (let voucher in this.trader.vouchers) {
+        v = this.trader.vouchers[voucher];
+        if (!v.online) {
+            vouchersOnline = false;
         }
     }
 
-    return vouchers_online;
+    return vouchersOnline;
 };
 
 /**
