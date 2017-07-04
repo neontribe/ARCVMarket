@@ -39,7 +39,7 @@
                 <div class="tab row" v-for="voucher in vouchers">
                     <label>
                         <div class="row-code">
-                            <div>{{ voucher }}</div>
+                            <div>{{ voucher.code }}</div>
                         </div>
                     </label>
                 </div>
@@ -95,10 +95,11 @@ export default {
     },
     computed: {
         currentlyShown: function() {
-            return (this.fail
-            || this.validate
-            || (this.vouchers.length >= 1 && !this.netMgr.online)
-            || this.queue.sendingStatus);
+            return (
+                this.fail
+                || this.validate
+                || (this.vouchers.length >= 1 && !Store.getVouchersOnlineStatus())
+            );
         }
     },
     methods: {
@@ -130,7 +131,7 @@ export default {
         onSubmitQueue: function() {
             this.startSpinner();
 
-            Store.transitionVouchers('collect', this.vouchers, function(response) {
+            Store.transitionVouchers('collect', Store.getTraderVoucherList(), function(response) {
                 // The server has processed our list, clear it.
                 Store.clearVouchers();
                 Store.getRecVouchers();
