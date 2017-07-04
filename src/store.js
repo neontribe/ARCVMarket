@@ -57,15 +57,14 @@ store.getTraderVoucherList = function(trader) {
  * @returns {Boolean}
  */
 store.getVouchersOnlineStatus = function() {
-    let vouchersOnline = true;
+    // Loop through the voucher list. If we get to one that was added offine, return with false.
     for (let voucher in this.trader.vouchers) {
-        v = this.trader.vouchers[voucher];
-        if (!v.online) {
-            vouchersOnline = false;
+        if (!this.trader.vouchers[voucher].online) {
+            return false;
         }
     }
 
-    return vouchersOnline;
+    return true;
 };
 
 /**
