@@ -2,7 +2,7 @@
 // --- Defaults ---
 var env = 'production',
     apiBase = 'https://voucher-admin.alexandrarose.org.uk/api',
-    appVersion = 'v1.0.0';
+    appVersion = 'v1.1.0';
 
 // --- Env Specific ---
 if (location.hostname.match(/voucher-staging/)) {
