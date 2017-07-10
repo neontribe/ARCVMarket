@@ -45,8 +45,7 @@ export default {
         toolbarShow : function() {
             var paths = [
               "/",
-              "/scan",
-              "/upload"
+              "/scan"
             ];
             return !(paths.indexOf(this.$route.path) === -1);
         }

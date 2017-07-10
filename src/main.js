@@ -16,7 +16,6 @@ Vue.use(VueRouter);
 import Account from './pages/Account.vue';
 import Tap from './pages/Tap.vue';
 import Scan from './pages/Scan.vue';
-import Upload from './pages/Upload.vue';
 import Payment from './pages/Payment.vue';
 import Login from './pages/Login.vue';
 import User from './pages/User.vue';
@@ -35,7 +34,6 @@ const routes = [
     { path: '/', component: Tap, meta: { auth: true } },
     { path: '/account', component: Account, meta: { auth: true }  },
     { path: '/scan', component: Scan, meta: { auth: true }  },
-    { path: '/upload', component: Upload, meta: { auth: true }  },
     { path: '/payment', component: Payment, meta: { auth: true }  },
     { path: '/login', component: Login, meta: { auth: false }  },
     { path: '/user', component: User, meta: { auth : true } },

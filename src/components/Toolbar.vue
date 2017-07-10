@@ -7,7 +7,6 @@
         <div class="input-icons">
             <router-link v-bind:to="'/'"><i class="fa fa-keyboard-o" alt="Type a voucher code" title="Type a voucher code"><span class="hidden offscreen">Type a voucher code</span></i></router-link>
             <router-link v-bind:to="'/scan'" id="scanTool"><i class="fa fa-barcode" alt="Scan a voucher code" title="Scan a voucher code"><span class="hidden offscreen">Scan a voucher code</span></i></router-link>
-            <router-link v-bind:to="'/upload'"><i class="fa fa-upload" alt="Upload voucher codes" title="Upload voucher codes"><span class="hidden offscreen">Upload voucher codes</span></i></router-link>
         </div>
     </div>
 
