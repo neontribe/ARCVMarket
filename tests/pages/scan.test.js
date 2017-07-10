@@ -40,7 +40,7 @@ test('Page has masthead with logo, nav, profile bar and toolbar', async t => {
 
     expect(primaryNavItems).to.equal(3);
     expect(profileBar).to.exist;
-    expect(toolbar).to.equal(4);
+    expect(toolbar).to.equal(3);
     expect(logo).to.be.ok;
 });
 
