@@ -23,8 +23,10 @@
                             minlength="2"
                             maxlength="5"
                             autofocus="autofocus"
+                            v-bind:class="{ 'input-text-hidden': queued }"
                         >
                         <input id="voucherBox"
+                            @keydown.enter.prevent
                             v-on:keyup.delete='onDelVoucherBox'
                             @keypress='onKeypressVoucherBox'
                             type="tel"
@@ -33,6 +35,7 @@
                             ref="voucherBox"
                             minlength="4"
                             maxlength="8"
+                            v-bind:class="{ 'input-text-hidden': queued }"
                         >
                     </div>
 
@@ -62,7 +65,7 @@ import Store from '../store.js';
 import Profile from '../components/Profile.vue';
 import Queue from '../components/Queue.vue';
 
-const RESULT_TIMER = 2000;
+var RESULT_TIMER = 1000;
 
 export default {
     name: 'scan',
@@ -88,7 +91,9 @@ export default {
     watch: {
         voucherCode : function(code) {
             if (code.length === parseInt(this.$refs.voucherBox.getAttribute("maxlength"))) {
-                this.onRecordVoucher();
+                this.showQueued(function() {
+                    this.onRecordVoucher();
+                });
             }
         }
     },
@@ -169,11 +174,12 @@ export default {
             }.bind(this), RESULT_TIMER);
         },
 
-        showQueued: function() {
+        showQueued: function(callback) {
             this.spinner = false;
             this.queued = true;
             setTimeout(function(){
                 this.queued = false;
+                callback.call(this);
             }.bind(this), RESULT_TIMER);
         },
 
