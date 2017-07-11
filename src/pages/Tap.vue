@@ -59,7 +59,7 @@ import Store from '../store.js';
 import Profile from '../components/Profile.vue';
 import Queue from '../components/Queue.vue';
 
-const RESULT_TIMER = 2000;
+var RESULT_TIMER = 2000;
 
 export default {
     name: 'tap',

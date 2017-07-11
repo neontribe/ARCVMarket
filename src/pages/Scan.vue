@@ -65,7 +65,7 @@ import Store from '../store.js';
 import Profile from '../components/Profile.vue';
 import Queue from '../components/Queue.vue';
 
-const RESULT_TIMER = 1000;
+var RESULT_TIMER = 1000;
 
 export default {
     name: 'scan',
