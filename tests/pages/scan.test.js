@@ -70,15 +70,17 @@ test('I can scan and submit a voucher code', async t => {
         .click('#scanTool')
     ;
 
-    const sponsorCode = await el('#sponsorBox').value;
-
     // Scan a code and submit.
+    // Check the sponsor and voucher boxes aren't cleared immediately.
     await t
         .click(el('#sponsorBox'))
         .typeText(el('#sponsorBox'), 'NEW12345678',{speed: 0.9})
-        .click('#submitVoucher')
-        // Check the sponsor and voucher boxes are clear again.
-        .expect(el('#sponsorBox').value, '')
+        .expect(el('#sponsorBox').value).eql('NEW')
+        .expect(el('#voucherBox').value).eql('12345678')
+        .wait(1000)
+        // Check the sponsor and voucher boxes are clear again after one second.
+        .expect(el('#sponsorBox').value).eql('')
+        .expect(el('#voucherBox').value).eql('')
     ;
 
 });
