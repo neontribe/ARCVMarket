@@ -76,7 +76,7 @@ test('I can scan and submit a voucher code', async t => {
     // Check the sponsor and voucher boxes aren't cleared immediately.
     await t
         .click(sponsorBox)
-        .pressKey('backspace backspace backspace delete delete delete')
+        .pressKey('backspace')
         .typeText(sponsorBox, 'NEW12345678')
         .expect(el('#sponsorBox').value).eql('NEW')
         .expect(el('#voucherBox').value).eql('12345678')
@@ -102,7 +102,7 @@ test('Correct error appears when I submit an invalid voucher', async t => {
     // Added extra deletes due to unpredicatability where test runner clicks in sponsor box.
     await t
         .click(sponsorBox)
-        .pressKey('backspace backspace backspace delete delete delete')
+        .pressKey('backspace')
         .typeText(sponsorBox, 'INV')
         .typeText(el('#voucherBox'), '123')
     ;
@@ -129,7 +129,7 @@ test('Correct error appears when I submit a duplicate voucher', async t => {
     // Added extra deletes due to unpredicatability where test runner clicks in sponsor box.
     await t
         .click(sponsorBox)
-        .pressKey('backspace backspace backspace delete delete delete')
+        .pressKey('backspace')
         .typeText(el('#sponsorBox'), 'FAL')
         .typeText(el('#voucherBox'), '111')
     ;
