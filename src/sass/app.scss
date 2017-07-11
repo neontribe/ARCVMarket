@@ -613,6 +613,11 @@ h1.expandable.queue {
   opacity: 0
 }
 
+.input-text-hidden {
+  transition: color 1s ease-out;
+  color: transparent;
+}
+
 .list-wrapper {
   margin-bottom: 2em;
   &.is-collapsed {
