@@ -4,17 +4,7 @@
 
         <h1 v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}">Queued vouchers</h1>
 
-        <transition name="fade" v-if="show">
-            <div v-if="fail && message" class="message error">
-                {{ message }}
-            </div>
-            <div v-if="message" class="message">
-                {{ message }}
-            </div>
-            <div v-else class="message">
-                You have <strong>{{ vouchers.length }}</strong> vouchers in your queue.
-            </div>
-        </transition>
+        <message :text="queueStatus"></message>
 
         <button id="submitQueuedVouchers"
             class="cta queuedVouchers"
@@ -54,11 +44,17 @@
 
 <script>
 import Store from '../store.js';
+import Message from './Message.vue';
+
+import constants from '../constants';
 
 const RESULT_TIMER = 5000;
 
 export default {
     name: 'queue',
+    components: {
+        Message
+    },
     data: function() {
         return {
             queue: Store.queue,
@@ -70,23 +66,20 @@ export default {
             validate: false,
             fail: false,
             message: '',
-            clearMessage: true
         }
     },
     watch: {
-      queue: {
-          handler: function(val, oldVal) {
-              let queueState = val.sendingStatus || false;
-              if(!queueState && this.netMgr.online) {
-                  this.showValidate();
-              } else if(!queueState) {
-                  this.spinner = false;
-              }
-
-          },
-          deep: true
-      },
-
+        queue: {
+            handler: function(val) {
+                let queueState = val.sendingStatus || false;
+                if(!queueState && this.netMgr.online) {
+                    this.showValidate();
+                } else if(!queueState) {
+                    this.spinner = false;
+                }
+            },
+            deep: true
+        },
     },
     mounted: function() {
         if(Store.queue.sendingStatus) {
@@ -100,6 +93,9 @@ export default {
                 || this.validate
                 || (this.vouchers.length >= 1 && !Store.getVouchersOnlineStatus())
             );
+        },
+        queueStatus: function() {
+            return 'You have <strong>' + this.vouchers.length + '</strong> vouchers in your queue.';
         }
     },
     methods: {
@@ -113,7 +109,6 @@ export default {
 
             setTimeout(function() {
                 this.validate = false;
-                this.message = '';
             }.bind(this), RESULT_TIMER);
         },
 
@@ -121,10 +116,8 @@ export default {
             this.spinner = false;
             this.fail = true;
 
-            this.message = "Whoops! There may be a network problem. When you have a better signal, click 'Submit queued vouchers' to retry.";
             setTimeout(function() {
                 this.fail = false;
-                this.message = '';
             }.bind(this), RESULT_TIMER);
         },
 
@@ -167,12 +160,15 @@ export default {
                     + invalid
                 ;
 
-                this.showValidate();
-                // Send out an update which will be picked up in tap, so that it can hide the not enough signal message
-                this.$emit('update', this.clearMessage);
+                this.$emit('update', this.message, constants.MESSAGE_SUCCESS);
 
+                this.showValidate();
             }.bind(this),
             function() {
+                this.message = "Whoops! There may be a network problem. When you have a better signal, click 'Submit queued vouchers' to retry.";
+
+                this.$emit('update', this.message, constants.MESSAGE_ERROR);
+
                 this.showFail();
             }.bind(this));
         }

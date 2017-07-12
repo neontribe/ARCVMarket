@@ -5,7 +5,9 @@
             <div class="content fullwidth">
                 <h1>Requested Payments</h1>
 
-                <transition name="fade"><div v-if="errorMessage" v-bind:class="[goodFeedback ? 'good message' : 'message' ]">{{ errorMessage }}</div></transition>
+                <transition name="fade">
+                    <message :text="message.text" :state="message.state"></message>
+                </transition>
 
                 <div class="accordion">
 
@@ -63,9 +65,15 @@
 
 <script>
     import Store from '../store.js';
+    import mixins from '../mixins/mixins';
     import NetMgr from '../services/netMgr.js';
+    import constants from "../constants";
+
     export default {
         name: 'account',
+        mixins: [
+            mixins.messages
+        ],
         data() {
             return {
                 voucherPayments: Store.trader.pendedVouchers,
@@ -109,7 +117,8 @@
                                 mailMsg = "Something went wrong, please try again later.";
                                 console.log(response); // because we need to see what the server said somewhere.
                         }
-                        this.errorMessage = mailMsg;
+                        var state = this.goodFeedback ? constants.MESSAGE_SUCCESS : constants.MESSAGE_ERROR;
+                        this.setMessage(mailMsg, state);
                     }.bind(this),
                     // failure function
                     function (error) {
