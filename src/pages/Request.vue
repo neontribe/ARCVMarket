@@ -10,7 +10,7 @@
                 <p>If you've forgotten your password, just enter your email address below and we'll send you a new password.</p>
 
                 <div>
-                    <form id="resetPassword" v-on:submit.prevent="onLogin">
+                    <form id="resetPassword">
                         <label for="userName">Your email address</label>
                         <input type="text" v-model="username" id="userName" required>
                         <button type="submit" value="Request new password">Request new password</button>

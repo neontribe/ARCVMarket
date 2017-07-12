@@ -19,6 +19,7 @@ import Scan from './pages/Scan.vue';
 import Payment from './pages/Payment.vue';
 import Login from './pages/Login.vue';
 import Request from './pages/Request.vue';
+import ChangePassword from './pages/ChangePassword.vue';
 import User from './pages/User.vue';
 
 console.info(BUILDDATE + '\n' + BRANCH + '\n' + VERSION);
@@ -38,6 +39,7 @@ const routes = [
     { path: '/payment', component: Payment, meta: { auth: true }  },
     { path: '/login', component: Login, meta: { auth: false }  },
     { path: '/request', component: Request, meta: { auth: false }  },
+    { path: '/change-password', component: ChangePassword, meta: { auth: false }  },
     { path: '/user', component: User, meta: { auth : true } },
     { path: '*', redirect : "/" }
 ];

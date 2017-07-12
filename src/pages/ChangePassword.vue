@@ -7,13 +7,15 @@
 
                 <h1>Change your password</h1>
 
-                <p>You have requested to change the password for { email address }.</p>
+                <p>Please enter your new password below.</p>
 
                 <div>
-                    <form id="resetPassword" v-on:submit.prevent="onLogin">
-                        <label for="userName">New password</label>
-                        <input type="text" v-model="username" id="userName" required>
-                        <button type="submit" value="Request new password">Request new password</button>
+                    <form id="resetPassword">
+                        <label for="userName">Reset password</label>
+                        <input type="text" id="userName" required>
+                        <label for="userName">Confirm password</label>
+                        <input type="text" id="userName" required>
+                        <button type="submit" value="Request new password">Reset password</button>
                     </form>
                 </div>
 
