@@ -12,7 +12,7 @@
                 {{ message }}
             </div>
             <div v-else class="message">
-                You have <strong>{{ vouchers.length }}</strong> vouchers in your queue.
+                [xXx]You have <strong>{{ vouchers.length }}</strong> vouchers in your queue. These voucher codes will be checked when you submit your queue.
             </div>
         </transition>
 
