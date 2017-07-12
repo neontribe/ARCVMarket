@@ -99,7 +99,8 @@ export default {
             var status = '[xXx]You have <strong>' + this.vouchers.length + '</strong> voucher'
                 + pluralise
                 + ' in your queue.'
-                + ' Queued vouchers will be checked when you submit your queue.';
+                + ' Queued vouchers will be checked when you submit your queue.'
+            ;
 
             return status;
         }
