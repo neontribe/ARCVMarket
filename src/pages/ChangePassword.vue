@@ -11,10 +11,10 @@
 
                 <div>
                     <form id="resetPassword">
-                        <label for="userName">Reset password</label>
-                        <input type="text" id="userName" required>
-                        <label for="userName">Confirm password</label>
-                        <input type="text" id="userName" required>
+                        <label for="resetPassword">Reset password</label>
+                        <input type="text" id="resetPassword" required>
+                        <label for="confirmPassword">Confirm password</label>
+                        <input type="text" id="confirmPassword" required>
                         <button type="submit" value="Request new password">Reset password</button>
                     </form>
                 </div>
@@ -30,11 +30,6 @@
     import Config from '../config.js';
     import Store from '../store.js';
     export default {
-        name: 'changePassword',
-        data: function () {
-            return {
-                username: null
-            }
-        }
+        name: 'changePassword'
     }
 </script>
