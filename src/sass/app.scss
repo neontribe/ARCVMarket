@@ -710,25 +710,28 @@ h1.expandable.queue {
     .row {
       display: flex;
       div {
+        width: 22%;
         &:nth-child(1) {
-          width: 20%;
+          width: 10%;
           display: flex;
           justify-content: center;
-        }
-        &:nth-child(2) {
-          width: 20%;
         }
         &:nth-child(3),
         &:nth-child(4) {
           text-align: right;
-          width: 20%;
         }
         &:nth-child(5) {
           width: 25%;
           text-align: center;
         }
+        &.date::before {
+          content: "Request date";
+        }
         &.total::before {
           content: "Voucher total";
+        }
+        &.select-record::before {
+          content: "Select record";
         }
       }
     }
@@ -1030,7 +1033,10 @@ h1.expandable.queue {
     }
   }
 
-  .accordion,
+  .accordion {
+    font-size: 1em;
+  }
+
   .voucher-list {
     label {
       padding: 0.3em 1.5em;
@@ -1043,11 +1049,9 @@ h1.expandable.queue {
 }
 
 @media (max-width: 620px) {
-  .accordion,
-  .voucher-list {
-    .tab .row .total::before {
-      content: "Total";
-    }
+  .accordion .tab .row div.total::before,
+  .voucher-list .tab .row .total::before {
+    content: "Total";
   }
 }
 
@@ -1056,7 +1060,10 @@ h1.expandable.queue {
     width: 70%;
   }
 
-  .accordion,
+  .accordion {
+    font-size: 0.9em;
+  }
+
   .voucher-list {
     font-size: 1em;
     label {
@@ -1135,7 +1142,6 @@ h1.expandable.queue {
     }
   }
 
-  .accordion,
   .voucher-list {
     font-size: 0.9em;
     label {
@@ -1168,8 +1174,11 @@ h1.expandable.queue {
       }
     }
   }
-  .accordion .tab .row div:nth-child(4) {
-    padding-right: 1em;
+  .accordion .tab .row div.date::before {
+    content: "Date";
+  }
+  .accordion .tab .row div.select-record::before {
+    content: "Select";
   }
   .voucher-list {
     .row-code {

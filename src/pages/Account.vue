@@ -13,10 +13,10 @@
                     <div class="tab thead">
                         <div class="row">
                             <div></div>
-                            <div>Request date</div>
+                            <div class="date"></div>
                             <div class="total"></div>
                             <div>Amount</div>
-                            <div>Email Record</div>
+                            <div class="select-record"></div>
                         </div>
                     </div>
 
@@ -27,7 +27,7 @@
                             <div> {{ payment.pended_on }}</div>
                             <div> {{ payment.vouchers.length }}</div>
                             <div class="amount">&pound;{{ payment.vouchers.length }}</div>
-                            <div class="email"><input type="radio" name="radio-group" value="Email this payment history record" required></div>
+                            <div class="email"><input type="radio" name="radio-group" value="Email this payment history record" required></label></div>
                         </div>
                         <div class="tab-content">
                             <div class="tab inner-thead">
