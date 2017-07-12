@@ -27,7 +27,7 @@
                             <div> {{ payment.pended_on }}</div>
                             <div> {{ payment.vouchers.length }}</div>
                             <div class="amount">&pound;{{ payment.vouchers.length }}</div>
-                            <div class="email"><input type="radio" name="radio-group" value="Email this payment history record" required></label></div>
+                            <div class="email"><input type="radio" name="radio-group" value="Email this payment history record" @click="disabled = !disabled"></label></div>
                         </div>
                         <div class="tab-content">
                             <div class="tab inner-thead">
@@ -51,7 +51,7 @@
                 </div>
 
                 <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail">Email all payment history</button>
-                <button>Email selected payment history</button>
+                <button v-bind:class="{'is-disabled' : disabled }">Email selected payment history</button>
 
             </div>
 
@@ -68,7 +68,8 @@
             return {
                 voucherPayments: Store.trader.pendedVouchers,
                 errorMessage : Store.error,
-                goodFeedback : false
+                goodFeedback : false,
+                disabled : true
             }
         },
         created: function () {

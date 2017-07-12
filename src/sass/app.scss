@@ -187,6 +187,11 @@ input[type="submit"]::-moz-focus-inner {
   border: 0;
 }
 
+button.is-disabled {
+  background-color: $arc_gray;
+  color: lighten($arc_copy, 50%);
+}
+
 label {
     margin-bottom: 5px;
     display: block;
