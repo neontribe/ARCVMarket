@@ -16,7 +16,7 @@
                                 <div>Request date</div>
                                 <div class="total"></div>
                                 <div>Amount</div>
-                                <div></div>
+                                <div>Email Record</div>
                             </div>
                         </label>
                     </div>
@@ -28,7 +28,7 @@
                                 <div> {{ payment.pended_on }}</div>
                                 <div> {{ payment.vouchers.length }}</div>
                                 <div class="amount">&pound;{{ payment.vouchers.length }}</div>
-                                <div class="email"><i class="fa fa-envelope" aria-hidden="true" :id="payment.pended_on" v-on:click="onRequestSubmissionEmail" title="Send this record to my email"></i></div>
+                                <div class="email"><!--<i class="fa fa-envelope" aria-hidden="true" :id="payment.pended_on" v-on:click="onRequestSubmissionEmail" title="Send this record to my email"></i>-->Radio button</div>
                             </div>
                         </label>
                         <div class="tab-content">
@@ -53,7 +53,8 @@
 
                 </div>
 
-                <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail">Email payment history</button>
+                <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail">Email all payment history</button>
+                <button>Email selected payment history</button>
 
             </div>
 
