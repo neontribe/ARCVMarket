@@ -95,7 +95,13 @@ export default {
             );
         },
         queueStatus: function() {
-            return 'You have <strong>' + this.vouchers.length + '</strong> vouchers in your queue.';
+            var pluralise = this.vouchers.length > 1 ? 's' : '';
+            var status = '[xXx]You have <strong>' + this.vouchers.length + '</strong> voucher'
+                + pluralise
+                + ' in your queue.'
+                + ' Queued vouchers will be checked when you submit your queue.';
+
+            return status;
         }
     },
     methods: {
