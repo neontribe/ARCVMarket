@@ -11,34 +11,31 @@
 
                     <!-- Tab header -->
                     <div class="tab thead">
-                        <label>
-                            <div class="row">
-                                <div>Request date</div>
-                                <div class="total"></div>
-                                <div>Amount</div>
-                                <div>Email Record</div>
-                            </div>
-                        </label>
+                        <div class="row">
+                            <div></div>
+                            <div>Request date</div>
+                            <div class="total"></div>
+                            <div>Amount</div>
+                            <div>Email Record</div>
+                        </div>
                     </div>
 
                     <div class="tab row" v-for="(payment, index) in this.voucherPayments[0]">
                         <input :id="'tab-'+index" type="checkbox" name="tabs">
-                        <label :for="'tab-'+index">
-                            <div class="row">
-                                <div> {{ payment.pended_on }}</div>
-                                <div> {{ payment.vouchers.length }}</div>
-                                <div class="amount">&pound;{{ payment.vouchers.length }}</div>
-                                <div class="email"><!--<i class="fa fa-envelope" aria-hidden="true" :id="payment.pended_on" v-on:click="onRequestSubmissionEmail" title="Send this record to my email"></i>-->Radio button</div>
-                            </div>
-                        </label>
+                        <div class="row">
+                            <div><label :for="'tab-'+index"><i class="fa fa-list" aria-hidden="true"></i></label></div>
+                            <div> {{ payment.pended_on }}</div>
+                            <div> {{ payment.vouchers.length }}</div>
+                            <div class="amount">&pound;{{ payment.vouchers.length }}</div>
+                            <div class="email"><input type="radio" name="radio-group" value="Email this payment history record" required></div>
+                        </div>
                         <div class="tab-content">
                             <div class="tab inner-thead">
-                                <label>
+                                <label></label>
                                     <div class="row-code">
-                                        <div>Voucher code</div>
-                                        <div>Voucher added on</div>
-                                    </div>
-                                </label>
+                                      <div>Voucher code</div>
+                                      <div>Voucher added on</div>
+                                  </div>
                             </div>
                             <div class="tab" v-for="voucher in payment.vouchers">
                                 <label>

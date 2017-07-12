@@ -632,7 +632,122 @@ h1.expandable.queue {
 
 -------------------------------------------------------------- */
 
-.accordion,
+.accordion {
+  font-size: 1.2em;
+  .tab .row {
+    line-height: 3;
+  }
+  label {
+    margin-bottom: 0;
+    cursor: pointer;
+    .fa {
+      padding-bottom: 0;
+      font-size: 1em;
+    }
+    /* Icon */
+    &::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+      width: 3em;
+      height: 4em;
+      line-height: 4;
+      text-align: center;
+      transition: all .35s;
+    }
+  }
+  input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+    &:checked ~ .tab-content {
+      max-height: none;
+      background-color: $arc_row;
+    }
+    &:checked ~ label {
+      background-color: $arc_rose;
+      color: $arc-white;
+      .email {
+        color: $arc_white;
+        &:hover {
+          color: $arc_copy;
+        }
+      }
+    }
+    &[type=checkbox] + label::before {
+      font-weight: bold;
+      font-family: FontAwesome;
+      content: "\f0da";
+      color: $arc_rose;
+    }
+    &[type=checkbox]:checked + label::before {
+      transform: rotate(450deg);
+      color: $arc_white;
+    }
+  }
+  .email input {
+    z-index: 1;
+    opacity: 1;
+    position: relative;
+  }
+}
+
+.accordion {
+  .tab {
+    position: relative;
+    border-top: 1px solid $arc_border;
+    width: 100%;
+    overflow: hidden;
+    line-height: 3;
+    &.thead {
+      background-color: white;
+      border: 0;
+    }
+    &.row {
+      background-color: white;
+    }
+    .row {
+      display: flex;
+      div {
+        &:nth-child(1) {
+          width: 20%;
+          display: flex;
+          justify-content: center;
+        }
+        &:nth-child(2) {
+          width: 20%;
+        }
+        &:nth-child(3),
+        &:nth-child(4) {
+          text-align: right;
+          width: 20%;
+        }
+        &:nth-child(5) {
+          width: 25%;
+          text-align: center;
+        }
+        &.total::before {
+          content: "Voucher total";
+        }
+      }
+    }
+    .amount {
+      font-weight: bold;
+    }
+    .email {
+      .fa {
+        font-size: 1.1em;
+        padding-bottom: 0;
+      }
+      color: $arc_rose;
+      &:hover {
+        color: $arc_copy;
+      }
+    }
+  }
+}
+
 .voucher-list {
   font-size: 1.2em;
   label {
@@ -687,51 +802,53 @@ h1.expandable.queue {
   }
 }
 
-.tab {
-  position: relative;
-  border-top: 1px solid $arc_border;
-  width: 100%;
-  overflow: hidden;
-  &.thead {
-    background-color: white;
-    border: 0;
-  }
-  &.row {
-    background-color: white;
-  }
-  .row {
-    display: flex;
-    div {
-      &.total::before {
-        content: "Voucher total";
-      }
-      &:nth-child(1) {
-        width: 40%;
-        text-align: left;
-        padding-left: 2em;
-      }
-      &:nth-child(2),
-      &:nth-child(3) {
-        width: 25%;
-        text-align: right;
-      }
-      &:nth-child(4) {
-        width: 10%;
-        text-align: right;
+.voucher-list {
+  .tab {
+    position: relative;
+    border-top: 1px solid $arc_border;
+    width: 100%;
+    overflow: hidden;
+    &.thead {
+      background-color: white;
+      border: 0;
+    }
+    &.row {
+      background-color: white;
+    }
+    .row {
+      display: flex;
+      div {
+        &.total::before {
+          content: "Voucher total";
+        }
+        &:nth-child(1) {
+          width: 40%;
+          text-align: left;
+          padding-left: 2em;
+        }
+        &:nth-child(2),
+        &:nth-child(3) {
+          width: 25%;
+          text-align: right;
+        }
+        &:nth-child(4) {
+          width: 10%;
+          text-align: right;
+        }
       }
     }
-  }
-  .amount {
-    font-weight: bold;
-  }
-  .email {
-    .fa {
-      font-size: 1.1em;
-      padding-bottom: 0;
+    .amount {
+      font-weight: bold;
     }
-    color: $arc_rose;
-    &:hover {
-      color: $arc_copy;
+    .email {
+      .fa {
+        font-size: 1.1em;
+        padding-bottom: 0;
+      }
+      color: $arc_rose;
+      &:hover {
+        color: $arc_copy;
+      }
     }
   }
 }
