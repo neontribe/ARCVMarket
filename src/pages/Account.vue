@@ -7,6 +7,10 @@
 
                 <transition name="fade"><div v-if="errorMessage" v-bind:class="[goodFeedback ? 'good message' : 'message' ]">{{ errorMessage }}</div></transition>
 
+                <p>Click the <span class="list-icon"><i class="fa fa-list" aria-hidden="true"></i></span> icon below to view a payment history record in more detail.</p>
+                <p>To email yourself a specific payment history record from the table below, select it and click 'Email selected payment history'.</p>
+                <p>Or, to email yourself all of your payment history, just click 'Email all payment history'.</p>
+
                 <div class="accordion">
 
                     <!-- Tab header -->
