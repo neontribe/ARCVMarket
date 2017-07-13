@@ -705,6 +705,9 @@ h1.expandable.queue {
     .fa {
       padding-bottom: 0;
       font-size: 1em;
+      &:hover {
+        color: $arc_rose;
+      }
     }
   }
   input {
