@@ -16,7 +16,8 @@ var store = {
     auth: false,
     error: null,
     queue: {
-        sendingStatus: false
+        sendingStatus: false,
+        sentData: null
     },
 };
 
@@ -169,11 +170,12 @@ store.setUserTradersFromLocalStorage = function(submitVouchers = true) {
 
     if(submitVouchers && parsedTrader.vouchers && parsedTrader.vouchers.length > 0) {
         this.queue.sendingStatus = true;
-        this.transitionVouchers('collect', this.getTraderVoucherList(), function() {
+        this.transitionVouchers('collect', this.getTraderVoucherList(), function(response) {
             // The server has processed our list, clear it.
             this.clearVouchers();
             this.getRecVouchers();
 
+            this.queue.sentData = response;
             this.queue.sendingStatus = false;
         }.bind(this),
         function() {

@@ -4,7 +4,7 @@
 
         <h1 v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}">Queued vouchers</h1>
 
-        <message :text="queueStatus || message.text" :state="message.state"></message>
+        <message :text="message.text" :state="message.state"></message>
 
         <button id="submitQueuedVouchers"
             class="cta queuedVouchers"
@@ -71,11 +71,17 @@ export default {
             fail: false,
         }
     },
+    created: function() {
+      this.message.text = this.queueStatus;
+    },
     watch: {
         queue: {
             handler: function(val) {
                 let queueState = val.sendingStatus || false;
-                if(!queueState && this.netMgr.online) {
+                if(!queueState && val.sentData) {
+                    var message = this.genQueueSuccessMessage(val.sentData);
+                    this.emitMessage(message, constants.MESSAGE_SUCCESS);
+
                     this.showValidate();
                 } else if(!queueState) {
                     this.spinner = false;
@@ -134,6 +140,41 @@ export default {
             }.bind(this), RESULT_TIMER);
         },
 
+        genQueueSuccessMessage: function(response) {
+            var data = response.data;
+            var success = '';
+            var fail = '';
+            var invalid = '';
+
+            // Construct the feedback message.
+            if (data.success.length === 1) {
+                success = "1 voucher was accepted, ";
+            } else {
+                success = data.success.length + " vouchers were accepted, ";
+            }
+
+            if (data.fail.length === 1) {
+                fail = " 1 was a duplicate ";
+            } else {
+                fail = data.fail.length + " were duplicates ";
+            }
+
+            if (data.invalid.length === 1) {
+                invalid = "and 1 was invalid.";
+            } else {
+                invalid = "and " + data.invalid.length + " were invalid.";
+            }
+
+            var message
+                = "Thanks! Your queue has been successfully submitted. "
+                + success
+                + fail
+                + invalid
+            ;
+
+            return message;
+        },
+
         onSubmitQueue: function() {
             this.startSpinner();
 
@@ -143,36 +184,7 @@ export default {
                     Store.clearVouchers();
                     Store.getRecVouchers();
 
-                    var data = response.data;
-                    var success = '';
-                    var fail = '';
-                    var invalid = '';
-
-                    // Construct the feedback message.
-                    if (data.success.length === 1) {
-                        success = "1 voucher was accepted, ";
-                    } else {
-                        success = data.success.length + " vouchers were accepted, ";
-                    }
-
-                    if (data.fail.length === 1) {
-                        fail = " 1 was a duplicate ";
-                    } else {
-                        fail = data.fail.length + " were duplicates ";
-                    }
-
-                    if (data.invalid.length === 1) {
-                        invalid = "and 1 was invalid.";
-                    } else {
-                        invalid = "and " + data.invalid.length + " were invalid.";
-                    }
-
-                    var message
-                        = "Thanks! Your queue has been successfully submitted. "
-                        + success
-                        + fail
-                        + invalid
-                    ;
+                    var message = this.genQueueSuccessMessage();
 
                     this.emitMessage(message, constants.MESSAGE_SUCCESS);
                     this.showValidate();
