@@ -140,7 +140,7 @@ $fa-font-path:"../node_modules/font-awesome/fonts";
   &.queue {
     color: $arc_copy;
   }
-  &.good {
+  &.success {
     color: $arc_copy;
     &:before {
       font-weight: bold;
