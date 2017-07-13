@@ -35,7 +35,7 @@
                             <div> {{ payment.pended_on }}</div>
                             <div> {{ payment.vouchers.length }}</div>
                             <div class="amount">&pound;{{ payment.vouchers.length }}</div>
-                            <div class="email"><input type="radio" name="radio-group" value="Email this payment history record" @click="selected = false"></label></div>
+                            <div class="email"><input type="radio" name="radio-group" value="" @click="selected = false"></label></div>
                         </div>
                         <div class="tab-content">
                             <div class="tab inner-thead">
