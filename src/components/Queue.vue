@@ -184,7 +184,7 @@ export default {
                     Store.clearVouchers();
                     Store.getRecVouchers();
 
-                    var message = this.genQueueSuccessMessage();
+                    var message = this.genQueueSuccessMessage(response);
 
                     this.emitMessage(message, constants.MESSAGE_SUCCESS);
                     this.showValidate();
