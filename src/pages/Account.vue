@@ -10,9 +10,9 @@
                 <div v-if="voucherPayments.length > 0">
 
                     <div>
-                        <p>Click the <span class="list-icon"><i class="fa fa-list" aria-hidden="true"></i></span> icon below to view a payment history record in more detail.</p>
-                        <p>To email yourself a specific payment history record from the table below, select it and click 'Email selected payment history'.</p>
-                        <p>Or, to email yourself all of your payment history, just click 'Email all payment history'.</p>
+                        <p>[xXx]Click the <span class="list-icon"><i class="fa fa-list" aria-hidden="true"></i></span> icon below to view a payment history record in more detail.</p>
+                        <p>[xXx]To email yourself a specific payment history record from the table below, select it and click 'Email selected payment history'.</p>
+                        <p>[xXx]Or, to email yourself all of your payment history, just click 'Email all payment history'.</p>
                     </div>
 
                     <div class="accordion">
