@@ -77,7 +77,7 @@ export default {
     watch: {
         queue: {
             handler: function(val) {
-                let queueState = val.sendingStatus || false;
+                var queueState = val.sendingStatus || false;
                 if(!queueState && val.sentData) {
                     var message = this.genQueueSuccessMessage(val.sentData);
                     this.emitMessage(message, constants.MESSAGE_SUCCESS);
