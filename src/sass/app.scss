@@ -507,7 +507,7 @@ main > *:target ~ * {
     height: 36px;
   }
   .message {
-    position: absolute;
+    position: relative;
     padding-bottom: 0em;
   }
   // Animated submit code button
