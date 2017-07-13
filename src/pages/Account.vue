@@ -7,9 +7,13 @@
 
                 <transition name="fade"><div v-if="errorMessage" v-bind:class="[goodFeedback ? 'good message' : 'message' ]">{{ errorMessage }}</div></transition>
 
-                <p>Click the <span class="list-icon"><i class="fa fa-list" aria-hidden="true"></i></span> icon below to view a payment history record in more detail.</p>
-                <p>To email yourself a specific payment history record from the table below, select it and click 'Email selected payment history'.</p>
-                <p>Or, to email yourself all of your payment history, just click 'Email all payment history'.</p>
+                <div v-if="voucherPayments.length > 0">
+                    <p>Click the <span class="list-icon"><i class="fa fa-list" aria-hidden="true"></i></span> icon below to view a payment history record in more detail.</p>
+                    <p>To email yourself a specific payment history record from the table below, select it and click 'Email selected payment history'.</p>
+                    <p>Or, to email yourself all of your payment history, just click 'Email all payment history'.</p>
+                </div>
+
+                <div v-else><p>You don't have any payment history yet. Add some vouchers and request payment to see your history here.</p></div>
 
                 <div class="accordion">
 
@@ -31,7 +35,7 @@
                             <div> {{ payment.pended_on }}</div>
                             <div> {{ payment.vouchers.length }}</div>
                             <div class="amount">&pound;{{ payment.vouchers.length }}</div>
-                            <div class="email"><input type="radio" name="radio-group" value="Email this payment history record" @click="disabled = !disabled"></label></div>
+                            <div class="email"><input type="radio" name="radio-group" value="Email this payment history record" @click="selected = false"></label></div>
                         </div>
                         <div class="tab-content">
                             <div class="tab inner-thead">
@@ -54,8 +58,10 @@
 
                 </div>
 
-                <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail">Email all payment history</button>
-                <button v-bind:class="{'is-disabled' : disabled }">Email selected payment history</button>
+                <div class="cta-buttons">
+                    <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail">Email all payment history</button>
+                    <button :disabled="selected">Email selected payment history</button>
+              </div>
 
             </div>
 
@@ -73,7 +79,7 @@
                 voucherPayments: Store.trader.pendedVouchers,
                 errorMessage : Store.error,
                 goodFeedback : false,
-                disabled : true
+                selected : true
             }
         },
         created: function () {
