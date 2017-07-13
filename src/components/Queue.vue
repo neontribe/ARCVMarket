@@ -49,7 +49,7 @@ import Message from './Message.vue';
 
 import constants from '../constants';
 
-const RESULT_TIMER = 2000;
+const RESULT_TIMER = 5000;
 
 export default {
     name: 'queue',
