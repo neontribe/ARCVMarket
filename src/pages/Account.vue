@@ -35,7 +35,7 @@
                             <div> {{ payment.pended_on }}</div>
                             <div> {{ payment.vouchers.length }}</div>
                             <div class="amount">&pound;{{ payment.vouchers.length }}</div>
-                            <div class="email"><input type="radio" name="radio-group" value="" @click="selected = false"></label></div>
+                            <div class="email"><input type="radio" name="radio-group" @click="selected = false" :id="payment.pended_on"></label></div>
                         </div>
                         <div class="tab-content">
                             <div class="tab inner-thead">
@@ -60,7 +60,7 @@
 
                 <div class="cta-buttons">
                     <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail">Email all payment history</button>
-                    <button :disabled="selected">Email selected payment history</button>
+                    <button v-on:click="onRequestSubmissionEmail" :disabled="selected">Email selected payment history</button>
               </div>
 
             </div>
