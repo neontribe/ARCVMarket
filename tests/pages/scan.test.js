@@ -70,15 +70,20 @@ test('I can scan and submit a voucher code', async t => {
         .click('#scanTool')
     ;
 
-    const sponsorCode = await el('#sponsorBox').value;
+    const sponsorBox = await Selector('#sponsorBox');
 
     // Scan a code and submit.
+    // Check the sponsor and voucher boxes aren't cleared immediately.
     await t
-        .click(el('#sponsorBox'))
-        .typeText(el('#sponsorBox'), 'NEW12345678',{speed: 0.9})
-        .click('#submitVoucher')
-        // Check the sponsor and voucher boxes are clear again.
-        .expect(el('#sponsorBox').value, '')
+        .click(sponsorBox)
+        .pressKey('backspace')
+        .typeText(sponsorBox, 'NEW12345678')
+        .expect(el('#sponsorBox').value).eql('NEW')
+        .expect(el('#voucherBox').value).eql('12345678')
+        .wait(1000)
+        // Check the sponsor and voucher boxes are clear again after one second.
+        .expect(el('#sponsorBox').value).eql('')
+        .expect(el('#voucherBox').value).eql('')
     ;
 
 });
@@ -97,7 +102,7 @@ test('Correct error appears when I submit an invalid voucher', async t => {
     // Added extra deletes due to unpredicatability where test runner clicks in sponsor box.
     await t
         .click(sponsorBox)
-        .pressKey('backspace backspace backspace delete delete delete')
+        .pressKey('backspace')
         .typeText(sponsorBox, 'INV')
         .typeText(el('#voucherBox'), '123')
     ;
@@ -124,7 +129,7 @@ test('Correct error appears when I submit a duplicate voucher', async t => {
     // Added extra deletes due to unpredicatability where test runner clicks in sponsor box.
     await t
         .click(sponsorBox)
-        .pressKey('backspace backspace backspace delete delete delete')
+        .pressKey('backspace')
         .typeText(el('#sponsorBox'), 'FAL')
         .typeText(el('#voucherBox'), '111')
     ;
