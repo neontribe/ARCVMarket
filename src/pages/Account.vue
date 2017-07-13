@@ -28,7 +28,7 @@
                             </div>
                         </div>
 
-                        <div class="tab row" v-for="(payment, index) in this.voucherPayments[0]">
+                        <div class="tab row" v-for="(payment, index) in voucherPayments">
                             <input :id="'tab-'+index" type="checkbox" name="tabs">
                             <div class="row">
                                 <div><label :for="'tab-'+index"><i class="fa fa-list" aria-hidden="true"></i></label></div>
