@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { Selector } from 'testcafe';
+import VueSelector from 'testcafe-vue-selectors';
 
 const el = Selector(selector => document.querySelector(selector));
 
@@ -85,3 +86,15 @@ test('Voucher total is equal to amount of vouchers in accordion', async t => {
     const requestedVouchers = await el('.tab-content').child('div:not(.inner-thead)').count;
     expect(requestedVouchers).to.equal(2);
 })
+
+test('Instructions component occurs on account page', async t => {
+    await t
+        .typeText('#userName', 'email@example.com')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click("#radio-0")
+        .click('button#continue')
+    ;
+    const instructionsComp = VueSelector('Instructions').exists;
+    expect(instructionsComp).to.be.ok;
+});

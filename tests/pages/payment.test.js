@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { Selector } from 'testcafe';
-import VueSelector from 'testcafe-vue-selectors';
 
 const el = Selector(selector => document.querySelector(selector));
 
@@ -19,7 +18,7 @@ test('Pending vouchers is consistent throughout app', async t =>{
     ;
     const paymentVoucherCount = await el('.expandable').child('strong').innerText;
     const addVoucherPage = await el('nav > ul').child(0);
-    
+
     await t
         .click(addVoucherPage)
     ;
@@ -55,16 +54,4 @@ test('Payment button works', async t => {
     const pagePath = await t.eval(() => window.location);
     expect(pagePath.pathname).eql('/account');
 
-});
-
-test('Instructions component occurs on payments page', async t => {
-    await t
-        .typeText('#userName', 'email@example.com')
-        .typeText('#userPassword', 'secretpass')
-        .click('button')
-        .click("#radio-0")
-        .click('button#continue')
-    ;
-    const instructionsComp = VueSelector('Instructions').exists;
-    expect(instructionsComp).to.be.ok;
 });
