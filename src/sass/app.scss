@@ -698,16 +698,6 @@ h1.expandable.queue {
     .amount {
       font-weight: bold;
     }
-    .email {
-      .fa {
-        font-size: 1.1em;
-        padding-bottom: 0;
-      }
-      color: $arc_rose;
-      &:hover {
-        color: $arc_copy;
-      }
-    }
   }
   label {
     margin-bottom: 0;
@@ -715,18 +705,6 @@ h1.expandable.queue {
     .fa {
       padding-bottom: 0;
       font-size: 1em;
-    }
-    /* Icon */
-    &::before {
-      position: absolute;
-      left: 0;
-      top: 0;
-      display: block;
-      width: 3em;
-      height: 4em;
-      line-height: 4;
-      text-align: center;
-      transition: all .35s;
     }
   }
   input {
@@ -736,26 +714,6 @@ h1.expandable.queue {
     &:checked ~ .tab-content {
       max-height: none;
       background-color: $arc_row;
-    }
-    &:checked ~ label {
-      background-color: $arc_rose;
-      color: $arc-white;
-      .email {
-        color: $arc_white;
-        &:hover {
-          color: $arc_copy;
-        }
-      }
-    }
-    &[type=checkbox] + label::before {
-      font-weight: bold;
-      font-family: FontAwesome;
-      content: "\f0da";
-      color: $arc_rose;
-    }
-    &[type=checkbox]:checked + label::before {
-      transform: rotate(450deg);
-      color: $arc_white;
     }
   }
   .email input {
