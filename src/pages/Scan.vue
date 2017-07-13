@@ -137,7 +137,7 @@ export default {
                     function(error) {
                         if (!Store.netMgr.online) {
                             this.showQueued();
-                            this.setMessage("Not enough signal, voucher queued.", constants.MESSAGE_STATUS);
+                            this.setMessage("Not enough signal, voucher queued.", constants.MESSAGE_ERROR);
                         }
                     }.bind(this));
 
