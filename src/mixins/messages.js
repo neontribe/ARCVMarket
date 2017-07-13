@@ -20,6 +20,10 @@ export default {
         setMessage (text, state) {
             this.message.text = text;
             this.message.state = state;
+
         },
+        emitMessage (text, state, eventName = 'message-update') {
+            this.$emit(eventName, text, state);
+        }
     }
 }

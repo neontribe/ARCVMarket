@@ -4,7 +4,7 @@
 
         <h1 v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}">Queued vouchers</h1>
 
-        <message :text="queueStatus"></message>
+        <message :text="queueStatus || message.text" :state="message.state"></message>
 
         <button id="submitQueuedVouchers"
             class="cta queuedVouchers"
@@ -44,17 +44,21 @@
 
 <script>
 import Store from '../store.js';
+import mixin from '../mixins/mixins';
 import Message from './Message.vue';
 
 import constants from '../constants';
 
-const RESULT_TIMER = 5000;
+const RESULT_TIMER = 2000;
 
 export default {
     name: 'queue',
     components: {
         Message
     },
+    mixins: [
+        mixin.messages,
+    ],
     data: function() {
         return {
             queue: Store.queue,
@@ -65,7 +69,6 @@ export default {
             spinner: false,
             validate: false,
             fail: false,
-            message: '',
         }
     },
     watch: {
@@ -80,6 +83,9 @@ export default {
             },
             deep: true
         },
+        vouchers: function() {
+            this.setMessage(this.queueStatus, constants.MESSAGE_STATUS);
+        }
     },
     mounted: function() {
         if(Store.queue.sendingStatus) {
@@ -95,7 +101,7 @@ export default {
             );
         },
         queueStatus: function() {
-            var pluralise = this.vouchers.length > 1 ? 's' : '';
+            var pluralise = (this.vouchers.length > 1 || this.vouchers.length === 0) ? 's' : '';
             var status = '[xXx]You have <strong>' + this.vouchers.length + '</strong> voucher'
                 + pluralise
                 + ' in your queue.'
@@ -131,53 +137,56 @@ export default {
         onSubmitQueue: function() {
             this.startSpinner();
 
-            Store.transitionVouchers('collect', Store.getTraderVoucherList(), function(response) {
-                // The server has processed our list, clear it.
-                Store.clearVouchers();
-                Store.getRecVouchers();
+            Store.transitionVouchers('collect', Store.getTraderVoucherList(),
+                function(response) {
+                    // The server has processed our list, clear it.
+                    Store.clearVouchers();
+                    Store.getRecVouchers();
 
-                var data = response.data;
-                var success = '';
-                var fail = '';
-                var invalid = '';
+                    var data = response.data;
+                    var success = '';
+                    var fail = '';
+                    var invalid = '';
 
-                // Construct the feedback message.
-                if (data.success.length === 1) {
-                    success = "1 voucher was accepted, ";
-                } else {
-                    success = data.success.length + " vouchers were accepted, ";
-                }
+                    // Construct the feedback message.
+                    if (data.success.length === 1) {
+                        success = "1 voucher was accepted, ";
+                    } else {
+                        success = data.success.length + " vouchers were accepted, ";
+                    }
 
-                if (data.fail.length === 1) {
-                    fail = " 1 was a duplicate ";
-                } else {
-                    fail = data.fail.length + " were duplicates ";
-                }
+                    if (data.fail.length === 1) {
+                        fail = " 1 was a duplicate ";
+                    } else {
+                        fail = data.fail.length + " were duplicates ";
+                    }
 
-                if (data.invalid.length === 1) {
-                    invalid = "and 1 was invalid.";
-                } else {
-                    invalid = "and " + data.invalid.length + " were invalid.";
-                }
+                    if (data.invalid.length === 1) {
+                        invalid = "and 1 was invalid.";
+                    } else {
+                        invalid = "and " + data.invalid.length + " were invalid.";
+                    }
 
-                this.message
-                    = "Thanks! Your queue has been successfully submitted. "
-                    + success
-                    + fail
-                    + invalid
-                ;
+                    var message
+                        = "Thanks! Your queue has been successfully submitted. "
+                        + success
+                        + fail
+                        + invalid
+                    ;
 
-                this.$emit('update', this.message, constants.MESSAGE_SUCCESS);
+                    this.emitMessage(message, constants.MESSAGE_SUCCESS);
+                    this.showValidate();
+                }.bind(this),
 
-                this.showValidate();
-            }.bind(this),
-            function() {
-                this.message = "Whoops! There may be a network problem. When you have a better signal, click 'Submit queued vouchers' to retry.";
+                function() {
+                    this.emitMessage(
+                        "Whoops! There may be a network problem. When you have a better signal, click 'Submit queued vouchers' to retry.",
+                        constants.MESSAGE_ERROR,
+                    );
 
-                this.$emit('update', this.message, constants.MESSAGE_ERROR);
-
-                this.showFail();
-            }.bind(this));
+                    this.showFail();
+                }.bind(this)
+            );
         }
     }
 }

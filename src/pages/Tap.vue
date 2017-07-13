@@ -44,7 +44,7 @@
            </div>
 
             <div>
-                <queue @update="setMessage"></queue>
+                <queue @message-update="setMessage"></queue>
             </div>
 
         </main>
