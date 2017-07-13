@@ -75,13 +75,12 @@ test('Voucher total is equal to amount of vouchers in accordion', async t => {
         .click('button')
         .click("#radio-0")
         .click('button#continue')
-        .debug()
     ;
     const voucherTotal = await el('.count').innerText;
     expect(voucherTotal).to.equal('2');
 
     await t
-        .click('input[type=checkbox]');
+        .click('input[type=checkbox]')
     ;
     const requestedVouchers = await el('.tab-content').child('div:not(.inner-thead)').count;
     expect(requestedVouchers).to.equal(2);
