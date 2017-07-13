@@ -388,6 +388,12 @@ header {
   &.expanded:after {
     content: "Hide your voucher list";
   }
+  &.queue:after {
+    content: "View your queued vouchers";
+  }
+  &.queue.expanded:after {
+    content: "Hide your queued vouchers";
+  }
 }
 
 // styling for the div which contains both text fields for adding vouchers
