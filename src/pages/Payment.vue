@@ -34,8 +34,6 @@
 
                 </div>
 
-                <instructions></instructions>
-
                 <button id="requestPayment" v-if="vouchersAdded" v-on:click="onRequestPayment">Request payment</button>
 
             </div>
@@ -46,13 +44,9 @@
 
 <script>
 import Store from '../store.js';
-import Instructions from '../components/Instructions.vue';
 import NetMgr from '../services/netMgr.js';
 export default {
     name: 'payment',
-    components: {
-        Instructions
-    },
     data() {
         return {
             recVouchers : Store.trader.recVouchers,

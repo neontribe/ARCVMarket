@@ -96,6 +96,10 @@ nav {
   }
 }
 
+section {
+  margin-top: 3rem;
+}
+
 $fa-font-path:"../node_modules/font-awesome/fonts";
 @import "../node_modules/font-awesome/scss/font-awesome";
 .icon-user {
@@ -1120,7 +1124,8 @@ h1.expandable.queue {
       h1,
       p,
       section {
-        padding: 0 1rem;
+        margin: 0;
+        padding: 1rem;
         h1 {
           padding-left: 0;
         }
