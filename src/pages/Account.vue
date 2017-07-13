@@ -6,10 +6,8 @@
                 <h1>Requested Payments</h1>
 
                 <transition name="fade"><div v-if="errorMessage" v-bind:class="[goodFeedback ? 'good message' : 'message' ]">{{ errorMessage }}</div></transition>
-                
-                <div v-if="voucherPayments.length == 0"><p>You don't have any payment history yet. Add some vouchers and request payment to see your history here.</p></div>
 
-                <div v-else>
+                <div v-if="voucherPayments.length == 0">
 
                     <div>
                         <p>Click the <span class="list-icon"><i class="fa fa-list" aria-hidden="true"></i></span> icon below to view a payment history record in more detail.</p>
@@ -63,9 +61,11 @@
                     <div class="cta-buttons">
                         <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail">Email all payment history</button>
                         <button v-on:click="onRequestSubmissionEmail" :disabled="selected">Email selected payment history</button>
-                  </div>
+                    </div>
 
                 </div>
+
+                <div v-else><p>You don't have any payment history yet. Add some vouchers and request payment to see your history here.</p></div>
 
             </div>
 
