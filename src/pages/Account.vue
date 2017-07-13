@@ -33,7 +33,7 @@
                         <div class="row">
                             <div><label :for="'tab-'+index"><i class="fa fa-list" aria-hidden="true"></i></label></div>
                             <div> {{ payment.pended_on }}</div>
-                            <div> {{ payment.vouchers.length }}</div>
+                            <div class="count"> {{ payment.vouchers.length }}</div>
                             <div class="amount">&pound;{{ payment.vouchers.length }}</div>
                             <div class="email"><input type="radio" name="radio-group" @click="selected = false" :id="payment.pended_on"></label></div>
                         </div>
