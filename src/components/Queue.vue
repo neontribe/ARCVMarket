@@ -2,9 +2,11 @@
     <transition name="fade"  v-if="currentlyShown">
     <div class="content narrow queuedVouchers">
 
-        <h1 v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}">Queued vouchers</h1>
+        <h1>Queued vouchers</h1>
 
-        <message :text="message.text" :state="message.state"></message>
+        <message v-bind:text="message.text" v-bind:state="message.state"></message>
+
+        <div v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}"><i class="fa fa-list" aria-hidden="true"></i></div>
 
         <button id="submitQueuedVouchers"
             class="cta queuedVouchers"
@@ -77,11 +79,12 @@ export default {
     watch: {
         queue: {
             handler: function(val) {
-                var queueState = val.sendingStatus || false;
+                // Because we submit cached queued vouchers on reload in store we need to watch the status of this..
+                // so that we can reflect any changes in the Queue component.
+                var queueState = val.sendingStatus;
                 if(!queueState && val.sentData) {
                     var message = this.genQueueSuccessMessage(val.sentData);
                     this.emitMessage(message, constants.MESSAGE_SUCCESS);
-
                     this.showValidate();
                 } else if(!queueState) {
                     this.spinner = false;

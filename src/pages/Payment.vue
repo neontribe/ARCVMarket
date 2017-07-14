@@ -3,44 +3,52 @@
         <main class="container fullwidth" id="payment">
 
             <div class="content fullwidth">
-                <h1 v-if="vouchersAdded" v-on:click="collapsed = !collapsed" class="expandable" v-bind:class="{'expanded' : !collapsed}">You can request payment for <strong>{{ voucherCount }}</strong> voucher<span v-if="voucherCount > 1">s</span>.</h1>
-                <h1 v-else>There are no vouchers to request payment for. Add some!</h1>
 
-                <div class="list-wrapper" v-bind:class="{'is-collapsed' : collapsed }">
+                <div v-if="vouchersAdded">
 
-                    <div class="voucher-list" id="registeredVouchers" v-if="vouchersAdded">
+                    <h1>You can request payment for <strong>{{ voucherCount }}</strong> voucher<span v-if="voucherCount > 1">s</span>.</h1>
 
-                        <!-- Tab header -->
-                        <div class="tab thead">
-                            <label>
-                                <div class="row-code">
-                                    <div>Voucher code</div>
-                                    <div>Voucher added on</div>
-                                </div>
-                            </label>
-                        </div>
+                    <div v-on:click="collapsed = !collapsed" class="expandable" v-bind:class="{'expanded' : !collapsed}"><i class="fa fa-list" aria-hidden="true"></i></div>
 
-                        <!-- Tab row -->
-                        <div class="tab row" v-for="recVoucher in recVouchers[0]">
-                            <label>
-                                <div class="row-code">
-                                    <div>{{ recVoucher.code }}</div>
-                                    <div>{{ recVoucher.updated_at }}</div>
-                                </div>
-                            </label>
+                    <div class="list-wrapper" v-bind:class="{'is-collapsed' : collapsed }">
+
+                        <div class="voucher-list" id="registeredVouchers" v-if="vouchersAdded">
+
+                            <!-- Tab header -->
+                            <div class="tab thead">
+                                <label>
+                                    <div class="row-code">
+                                        <div>Voucher code</div>
+                                        <div>Voucher added on</div>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <!-- Tab row -->
+                            <div class="tab row" v-for="recVoucher in recVouchers[0]">
+                                <label>
+                                    <div class="row-code">
+                                        <div>{{ recVoucher.code }}</div>
+                                        <div>{{ recVoucher.updated_at }}</div>
+                                    </div>
+                                </label>
+                            </div>
+
                         </div>
 
                     </div>
 
+                    <instructions></instructions>
+                    
+                    <transition name="fade">
+                        <message :text="message.text" :state="message.state"></message>
+                    </transition>
+
+                    <button id="requestPayment" v-on:click="onRequestPayment">Request payment</button>
+
                 </div>
 
-                <instructions></instructions>
-
-                <transition name="fade">
-                    <message :text="message.text" :state="message.state"></message>
-                </transition>
-
-                <button id="requestPayment" v-if="vouchersAdded" v-on:click="onRequestPayment">Request payment</button>
+                <div v-else><h1>There are no vouchers to request payment for. Add some!</h1></div>
 
             </div>
 
@@ -57,10 +65,6 @@ import NetMgr from '../services/netMgr.js';
 import constants from '../constants';
 export default {
     name: 'payment',
-    components: {
-        Instructions,
-        Message
-    },
     data() {
         return {
             recVouchers : Store.trader.recVouchers,
@@ -72,6 +76,10 @@ export default {
     mixins: [
         mixin.messages
     ],
+    components: {
+        Instructions,
+        Message
+    },
     computed: {
         vouchersAdded: function() {
             if (this.recVouchers[0] && this.recVouchers[0].length > 0) {

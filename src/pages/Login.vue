@@ -8,7 +8,7 @@
                 <h1>Log In</h1>
 
                 <transition name="fade">
-                    <message :text="message.text" :state="message.state"></message>
+                    <message v-bind:text="message.text" v-bind:state="message.state"></message>
                 </transition>
 
                 <div>
@@ -19,9 +19,11 @@
                         <input type="password" v-model="password" id="userPassword" required>
                         <button type="submit" value="Log In">Log In</button>
                     </form>
+
+                    <div id="forgotPassword"><router-link v-bind:to="'/request'" class="secondary">Forgot your password?</router-link></div>
                 </div>
 
-            </div>
+                </div>
 
             <div class="build">
                 <div class="version"> {{ appV }}</div>

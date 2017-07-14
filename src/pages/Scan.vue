@@ -7,10 +7,12 @@
                 <h1>Scan a voucher code</h1>
 
                 <form id="textVoucher" v-on:submit.prevent>
-                    <message :text="message.text" :state="message.state"></message>
+
+                    <message v-bind:text="message.text" v-bind:state="message.state"></message>
 
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor Code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher Code</label>
+                    
                     <div class="input-box">
                         <input id="sponsorBox"
                             @keydown.enter.prevent
@@ -49,7 +51,7 @@
             </div>
 
             <div>
-                <queue @message-update="setMessage"></queue>
+                <queue v-on:message-update="setMessage"></queue>   
             </div>
 
         </main>
@@ -64,7 +66,6 @@ import mixin from '../mixins/mixins';
 import Profile from '../components/Profile.vue';
 import Queue from '../components/Queue.vue';
 import Message from '../components/Message.vue';
-
 import constants from '../constants.js';
 
 var RESULT_TIMER = 1000;

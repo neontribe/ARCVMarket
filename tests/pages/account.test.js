@@ -44,6 +44,18 @@ test('Requested payments accordion exists', async t => {
     expect(paymentsAccordion).to.be.ok;
 });
 
+test('Payment history list icon is present in table row', async t => {
+    await t
+        .typeText('#userName', 'email@example.com')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click("#radio-0")
+        .click('button#continue')
+    ;
+    const voucherExpander = await el('.fa-list').exists;
+    expect(voucherExpander).to.be.ok;
+});
+
 test('Email history button exists', async t => {
     await t
         .typeText('#userName', 'email@example.com')
@@ -76,11 +88,11 @@ test('Voucher total is equal to amount of vouchers in accordion', async t => {
         .click("#radio-0")
         .click('button#continue')
     ;
-    const voucherTotal = await el('label[for=tab-0] div').child(1).innerText;
+    const voucherTotal = await el('.count').innerText;
     expect(voucherTotal).to.equal('2');
 
     await t
-        .click('input[type=checkbox')
+        .click('input[type=checkbox]')
     ;
     const requestedVouchers = await el('.tab-content').child('div:not(.inner-thead)').count;
     expect(requestedVouchers).to.equal(2);

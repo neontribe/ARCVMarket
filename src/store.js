@@ -199,7 +199,9 @@ store.setLocalStorageFromUserTraders = function() {
  */
 store.getVoucherPaymentState = function () {
     this.netMgr.apiGet('traders/' + this.trader.id + '/voucher-history', function (response) {
-        this.trader.pendedVouchers.splice(0, this.trader.pendedVouchers.length, response.data);
+        this.trader.pendedVouchers.splice.apply(
+            this.trader.pendedVouchers, [0, this.trader.pendedVouchers.length].concat(response.data)
+        );
     }.bind(this));
     return true;
 };
