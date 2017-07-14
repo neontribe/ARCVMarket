@@ -96,7 +96,7 @@
                 // Default to requesting all.
                 this.selectedDate = event.target.id || null;
             },
-            onRequestSubmissionEmail : function(event) {
+            onRequestSubmissionEmail : function() {
                 var url = '/traders/' + Store.trader.id + '/voucher-history-email';
                 this.requestEmailBeSent(url,
                     {
