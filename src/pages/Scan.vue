@@ -7,7 +7,7 @@
                 <h1>Scan a voucher code</h1>
 
                 <form id="textVoucher" v-on:submit.prevent>
-                    <message :text="message.text" :state="message.state"></message>
+                    <message v-bind:text="message.text" v-bind:state="message.state"></message>
 
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor Code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher Code</label>
@@ -49,7 +49,7 @@
             </div>
 
             <div>
-                <queue @message-update="setMessage"></queue>
+                <queue v-on:message-update="setMessage"></queue>
             </div>
 
         </main>

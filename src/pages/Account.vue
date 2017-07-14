@@ -6,7 +6,7 @@
                 <h1>Requested Payments</h1>
 
                 <transition name="fade">
-                    <message :text="message.text" :state="message.state"></message>
+                    <message v-bind:text="message.text" v-bind:state="message.state"></message>
                 </transition>
 
                 <div class="accordion">
