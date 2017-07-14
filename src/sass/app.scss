@@ -195,10 +195,12 @@ input[type="button"]::-moz-focus-inner,
 input[type="submit"]::-moz-focus-inner {
   outline: none;
   border: 0;
+  cursor: pointer;
 }
 
 button:disabled {
-
+  background-color: lighten($arc_rose, 15%);
+  color: $arc_white;
 }
 
 label {
@@ -490,10 +492,14 @@ main > *:target ~ * {
   margin: 0 auto;
   width: 665px;
   button {
+    cursor: pointer;
     margin: 20px 10px;
     font-size: 0.9em;
+    &:disabled {
+      cursor: default;
+    }
     &:nth-child(2) {
-      background-color: $arc_white;
+      background-color: $arc_gray;
       color: $arc_copy;
       &:after {
         background-image: radial-gradient(circle, $arc_rose 10%, transparent 10%);
