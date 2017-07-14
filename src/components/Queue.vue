@@ -2,9 +2,11 @@
     <transition name="fade"  v-if="currentlyShown">
     <div class="content narrow queuedVouchers">
 
-        <h1 v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}">Queued vouchers</h1>
+        <h1>Queued vouchers</h1>
 
         <message v-bind:text="message.text" v-bind:state="message.state"></message>
+
+        <div v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}"><i class="fa fa-list" aria-hidden="true"></i></div>
 
         <button id="submitQueuedVouchers"
             class="cta queuedVouchers"
