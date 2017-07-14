@@ -81,9 +81,6 @@
                 goodFeedback : false
             }
         },
-        created: function () {
-
-        },
         methods: {
             onRequestSubmissionEmail : function(event) {
                 var url = '/traders/' + Store.trader.id + '/voucher-history-email';

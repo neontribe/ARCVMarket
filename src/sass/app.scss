@@ -505,12 +505,10 @@ main > *:target ~ * {
   label {
     margin-bottom: 0;
     height: 0;
-    //height: 15px;
   }
   .message {
     position: relative;
-    padding-bottom: 0em;
-    min-height: 30px;
+    padding-bottom: 0;
   }
   // Animated submit code button
   button {
@@ -540,7 +538,7 @@ button.queuedVouchers {
   }
   .message {
     position: relative;
-    padding-bottom: 0em;
+    padding-bottom: 0;
   }
   .voucher-list {
     font-size: 1em;
@@ -558,6 +556,10 @@ label#lblSponsorBox {
 // Queued voucher list
 h1.expandable.queue {
   margin-bottom: 1em;
+}
+
+#payment .message {
+  padding-top: 1em;
 }
 
 /* --------------------------------------------------------------

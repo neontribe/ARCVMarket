@@ -55,7 +55,6 @@ import Instructions from '../components/Instructions.vue';
 import Message from '../components/Message.vue';
 import NetMgr from '../services/netMgr.js';
 import constants from '../constants';
-const RESULT_TIMER = 5000;
 export default {
     name: 'payment',
     components: {
@@ -65,6 +64,7 @@ export default {
     data() {
         return {
             recVouchers : Store.trader.recVouchers,
+            netMgr : Store.netMgr,
             collapsed : true,
             voucherCount : 0
         }
@@ -94,8 +94,10 @@ export default {
                 }.bind(this),
                 // on Failure... hook for an alert?
                 function(error) {
-                    this.setMessage("There are a problem with your payment request, please try again later.", constants.MESSAGE_ERROR);
-                }
+                    if (!Store.netMgr.online) {
+                        this.setMessage("There are a problem with your payment request, please try again later.", constants.MESSAGE_ERROR);
+                    }
+                }.bind(this)
             );
         }
     },
