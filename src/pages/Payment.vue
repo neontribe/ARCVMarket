@@ -34,6 +34,8 @@
 
                 </div>
 
+                <instructions></instructions>
+
                 <button id="requestPayment" v-if="vouchersAdded" v-on:click="onRequestPayment">Request payment</button>
 
             </div>
@@ -45,6 +47,7 @@
 <script>
 import Store from '../store.js';
 import NetMgr from '../services/netMgr.js';
+import Instructions from '../components/Instructions.vue';
 export default {
     name: 'payment',
     data() {
@@ -53,6 +56,9 @@ export default {
             collapsed : true,
             voucherCount : 0
         }
+    },
+    components: {
+        Instructions
     },
     computed: {
         vouchersAdded: function() {

@@ -63,8 +63,6 @@
                         <button v-on:click="onRequestSubmissionEmail" :disabled="selected">Email selected payment history</button>
                     </div>
 
-                    <instructions></instructions>
-
                 </div>
 
                 <div v-else><p>You don't have any payment history yet. Add some vouchers and request payment to see your history here.</p></div>
@@ -78,12 +76,8 @@
 <script>
     import Store from '../store.js';
     import NetMgr from '../services/netMgr.js';
-    import Instructions from '../components/Instructions.vue';
     export default {
         name: 'account',
-        components: {
-            Instructions
-        },
         data() {
             return {
                 voucherPayments: Store.trader.pendedVouchers,
