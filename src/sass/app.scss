@@ -559,7 +559,7 @@ main > *:target ~ * {
   }
   .message {
     position: relative;
-    padding-bottom: 0;
+    padding-bottom: 1em;
   }
   // Animated submit code button
   button {
@@ -1164,11 +1164,14 @@ h1.expandable.queue {
           padding-left: 0;
         }
       }
-      .message {
-        padding: 0 1rem 1rem;
-      }
       button {
         width: 92%;
+      }
+      .expandable {
+        padding: 0 1em;
+      }
+      .message {
+        padding: 0 1rem 1rem;
       }
     }
   }

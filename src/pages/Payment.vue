@@ -102,10 +102,8 @@ export default {
                 }.bind(this),
                 // on Failure... hook for an alert?
                 function(error) {
-                    if (!Store.netMgr.online) {
-                        this.setMessage("There are a problem with your payment request, please try again later.", constants.MESSAGE_ERROR);
-                    }
-                }.bind(this)
+                    this.setMessage("There are a problem with your payment request, please try again later.", constants.MESSAGE_ERROR);
+                }
             );
         }
     },
