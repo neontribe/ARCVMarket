@@ -504,11 +504,13 @@ main > *:target ~ * {
 #textVoucher {
   label {
     margin-bottom: 0;
-    height: 36px;
+    height: 0;
+    //height: 15px;
   }
   .message {
     position: relative;
     padding-bottom: 0em;
+    min-height: 30px;
   }
   // Animated submit code button
   button {

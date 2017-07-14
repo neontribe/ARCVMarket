@@ -36,6 +36,10 @@
 
                 <instructions></instructions>
 
+                <transition name="fade">
+                    <message :text="message.text" :state="message.state"></message>
+                </transition>
+
                 <button id="requestPayment" v-if="vouchersAdded" v-on:click="onRequestPayment">Request payment</button>
 
             </div>
@@ -46,12 +50,17 @@
 
 <script>
 import Store from '../store.js';
+import mixin from '../mixins/mixins';
 import Instructions from '../components/Instructions.vue';
+import Message from '../components/Message.vue';
 import NetMgr from '../services/netMgr.js';
+import constants from '../constants';
+const RESULT_TIMER = 5000;
 export default {
     name: 'payment',
     components: {
-        Instructions
+        Instructions,
+        Message
     },
     data() {
         return {
@@ -60,6 +69,9 @@ export default {
             voucherCount : 0
         }
     },
+    mixins: [
+        mixin.messages
+    ],
     computed: {
         vouchersAdded: function() {
             if (this.recVouchers[0] && this.recVouchers[0].length > 0) {
@@ -69,14 +81,21 @@ export default {
         }
     },
     methods: {
+        showConfirmation: function() {
+            this.setMessage("Thanks, your payment request has been sent.", constants.MESSAGE_SUCCESS);
+            setTimeout(function() {
+                this.$router.push('/account');
+            }.bind(this), RESULT_TIMER);
+        },
         onRequestPayment() {
             Store.pendRecVouchers(
                 // on Success, route to /account
                 function(response) {
-                    this.$router.push('/account');
+                    this.showConfirmation();
                 }.bind(this),
                 // on Failure... hook for an alert?
                 function(error) {
+                    this.setMessage("There are a problem with your payment request, please try again later.", constants.MESSAGE_ERROR);
                 }
             );
         }
