@@ -4,17 +4,7 @@
 
         <h1>Queued vouchers</h1>
 
-        <transition name="fade" v-if="show">
-            <div v-if="fail && message" class="message error">
-                {{ message }}
-            </div>
-            <div v-if="message" class="message">
-                {{ message }}
-            </div>
-            <div v-else class="message">
-                [xXx]You have <strong>{{ vouchers.length }}</strong> voucher<span v-if="vouchers.length > 1">s</span> in your queue. Queued vouchers will be checked when you submit your queue.
-            </div>
-        </transition>
+        <message v-bind:text="message.text" v-bind:state="message.state"></message>
 
         <div v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}"><i class="fa fa-list" aria-hidden="true"></i></div>
 
@@ -56,11 +46,21 @@
 
 <script>
 import Store from '../store.js';
+import mixin from '../mixins/mixins';
+import Message from './Message.vue';
+
+import constants from '../constants';
 
 const RESULT_TIMER = 5000;
 
 export default {
     name: 'queue',
+    components: {
+        Message
+    },
+    mixins: [
+        mixin.messages,
+    ],
     data: function() {
         return {
             queue: Store.queue,
@@ -71,24 +71,30 @@ export default {
             spinner: false,
             validate: false,
             fail: false,
-            message: '',
-            clearMessage: true
         }
     },
+    created: function() {
+      this.message.text = this.queueStatus;
+    },
     watch: {
-      queue: {
-          handler: function(val, oldVal) {
-              let queueState = val.sendingStatus || false;
-              if(!queueState && this.netMgr.online) {
-                  this.showValidate();
-              } else if(!queueState) {
-                  this.spinner = false;
-              }
-
-          },
-          deep: true
-      },
-
+        queue: {
+            handler: function(val) {
+                // Because we submit cached queued vouchers on reload in store we need to watch the status of this..
+                // so that we can reflect any changes in the Queue component.
+                var queueState = val.sendingStatus;
+                if(!queueState && val.sentData) {
+                    var message = this.genQueueSuccessMessage(val.sentData);
+                    this.emitMessage(message, constants.MESSAGE_SUCCESS);
+                    this.showValidate();
+                } else if(!queueState) {
+                    this.spinner = false;
+                }
+            },
+            deep: true
+        },
+        vouchers: function() {
+            this.setMessage(this.queueStatus, constants.MESSAGE_STATUS);
+        }
     },
     mounted: function() {
         if(Store.queue.sendingStatus) {
@@ -102,6 +108,16 @@ export default {
                 || this.validate
                 || (this.vouchers.length >= 1 && !Store.getVouchersOnlineStatus())
             );
+        },
+        queueStatus: function() {
+            var pluralise = (this.vouchers.length > 1 || this.vouchers.length === 0) ? 's' : '';
+            var status = '[xXx]You have <strong>' + this.vouchers.length + '</strong> voucher'
+                + pluralise
+                + ' in your queue.'
+                + ' Queued vouchers will be checked when you submit your queue.'
+            ;
+
+            return status;
         }
     },
     methods: {
@@ -115,7 +131,6 @@ export default {
 
             setTimeout(function() {
                 this.validate = false;
-                this.message = '';
             }.bind(this), RESULT_TIMER);
         },
 
@@ -123,60 +138,70 @@ export default {
             this.spinner = false;
             this.fail = true;
 
-            this.message = "Whoops! There may be a network problem. When you have a better signal, click 'Submit queued vouchers' to retry.";
             setTimeout(function() {
                 this.fail = false;
-                this.message = '';
             }.bind(this), RESULT_TIMER);
+        },
+
+        genQueueSuccessMessage: function(response) {
+            var data = response.data;
+            var success = '';
+            var fail = '';
+            var invalid = '';
+
+            // Construct the feedback message.
+            if (data.success.length === 1) {
+                success = "1 voucher was accepted, ";
+            } else {
+                success = data.success.length + " vouchers were accepted, ";
+            }
+
+            if (data.fail.length === 1) {
+                fail = " 1 was a duplicate ";
+            } else {
+                fail = data.fail.length + " were duplicates ";
+            }
+
+            if (data.invalid.length === 1) {
+                invalid = "and 1 was invalid.";
+            } else {
+                invalid = "and " + data.invalid.length + " were invalid.";
+            }
+
+            var message
+                = "Thanks! Your queue has been successfully submitted. "
+                + success
+                + fail
+                + invalid
+            ;
+
+            return message;
         },
 
         onSubmitQueue: function() {
             this.startSpinner();
 
-            Store.transitionVouchers('collect', Store.getTraderVoucherList(), function(response) {
-                // The server has processed our list, clear it.
-                Store.clearVouchers();
-                Store.getRecVouchers();
+            Store.transitionVouchers('collect', Store.getTraderVoucherList(),
+                function(response) {
+                    // The server has processed our list, clear it.
+                    Store.clearVouchers();
+                    Store.getRecVouchers();
 
-                var data = response.data;
-                var success = '';
-                var fail = '';
-                var invalid = '';
+                    var message = this.genQueueSuccessMessage(response);
 
-                // Construct the feedback message.
-                if (data.success.length === 1) {
-                    success = "1 voucher was accepted, ";
-                } else {
-                    success = data.success.length + " vouchers were accepted, ";
-                }
+                    this.emitMessage(message, constants.MESSAGE_SUCCESS);
+                    this.showValidate();
+                }.bind(this),
 
-                if (data.fail.length === 1) {
-                    fail = " 1 was a duplicate ";
-                } else {
-                    fail = data.fail.length + " were duplicates ";
-                }
+                function() {
+                    this.emitMessage(
+                        "Whoops! There may be a network problem. When you have a better signal, click 'Submit queued vouchers' to retry.",
+                        constants.MESSAGE_ERROR,
+                    );
 
-                if (data.invalid.length === 1) {
-                    invalid = "and 1 was invalid.";
-                } else {
-                    invalid = "and " + data.invalid.length + " were invalid.";
-                }
-
-                this.message
-                    = "Thanks! Your queue has been successfully submitted. "
-                    + success
-                    + fail
-                    + invalid
-                ;
-
-                this.showValidate();
-                // Send out an update which will be picked up in tap, so that it can hide the not enough signal message
-                this.$emit('update', this.clearMessage);
-
-            }.bind(this),
-            function() {
-                this.showFail();
-            }.bind(this));
+                    this.showFail();
+                }.bind(this)
+            );
         }
     }
 }

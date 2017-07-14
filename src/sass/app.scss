@@ -150,7 +150,7 @@ $fa-font-path:"../node_modules/font-awesome/fonts";
   &.queue {
     color: $arc_copy;
   }
-  &.good {
+  &.success {
     color: $arc_copy;
     &:before {
       font-weight: bold;
@@ -546,7 +546,7 @@ main > *:target ~ * {
     height: 36px;
   }
   .message {
-    position: absolute;
+    position: relative;
     padding-bottom: 0em;
   }
   // Animated submit code button

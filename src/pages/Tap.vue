@@ -7,9 +7,7 @@
                 <h1>Type a voucher code</h1>
 
                 <form id="textVoucher" v-on:submit.prevent>
-                    <transition name="fade">
-                        <div v-if="errorMessage && (!showQueueMsg)" class="message error">{{ errorMessage }}</div>
-                    </transition>
+                    <message v-bind:text="message.text" v-bind:state="message.state"></message>
 
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher code</label>
@@ -46,7 +44,7 @@
            </div>
 
             <div>
-                <queue @update="queueMessage"></queue>
+                <queue v-on:message-update="setMessage"></queue>
             </div>
 
         </main>
@@ -56,16 +54,23 @@
 
 <script>
 import Store from '../store.js';
+import mixin from '../mixins/mixins';
 import Profile from '../components/Profile.vue';
 import Queue from '../components/Queue.vue';
+import Message from '../components/Message.vue';
+
+import constants from '../constants';
 
 var RESULT_TIMER = 2000;
 
 export default {
     name: 'tap',
+    mixins: [
+        mixin.messages
+    ],
     components: {
-        Profile,
-        Queue
+      Profile,
+      Queue
     },
     data: function() {
         return {
@@ -73,19 +78,14 @@ export default {
             voucherCode : "",
             vouchers : Store.trader.vouchers,
             recVouchers : Store.trader.recVouchers,
-            errorMessage : Store.error,
             netMgr : Store.netMgr,
             spinner: false,
             validate: false,
             fail: false,
             queued: false,
-            queueMsg: false
         }
     },
     methods: {
-        queueMessage (v) {
-            this.queueMsg = v
-        },
         onRecordVoucher: function(event) {
             //TODO: some proper validation
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
@@ -96,21 +96,21 @@ export default {
                         // Add error message for invalid and fail codes.
                         var data = response.data;
 
-                        if (data.invalid.length + data.fail.length == 1) {
+                        if (data.invalid.length + data.fail.length === 1) {
                             // single mismatch handler;
                             if (data.invalid.length > 0) {
                                 this.showFail();
-                                this.errorMessage = "Please enter a valid voucher code.";
+                                this.setMessage("Please enter a valid voucher code.", constants.MESSAGE_ERROR);
 
                             } else if (data.fail.length > 0) {
                                 this.showFail();
-                                this.errorMessage = "That voucher may have been used already.";
+                                this.setMessage("That voucher may have been used already.", constants.MESSAGE_ERROR);
                             }
 
                         } else {
                             // all in!
                             this.showValidate();
-                            this.errorMessage = "";
+                            this.setMessage("", constants.MESSAGE_STATUS);
                         }
                         // The server has processed our list, clear it.
                         Store.clearVouchers();
@@ -122,15 +122,15 @@ export default {
                     function(error) {
                         if (!Store.netMgr.online) {
                             this.showQueued();
-                            this.errorMessage = "Not enough signal, voucher queued.";
+                            this.setMessage("Not enough signal, voucher queued.", constants.MESSAGE_ERROR);
                         }
                     }.bind(this));
 
                 // Do anyway.
                 this.voucherCode = "";
             } else {
-              this.showFail();
-              this.errorMessage = "Please enter a valid voucher code.";
+                this.showFail();
+                this.setMessage("Please enter a valid voucher code.", constants.MESSAGE_ERROR);
             }
         },
 
@@ -240,11 +240,6 @@ export default {
             // There's also "event.key" (string), which MDN thinks is better;
             var charCode = event.keyCode ? event.keyCode : event.charCode;
             return String.fromCharCode(charCode);
-        }
-    },
-    computed: {
-        showQueueMsg() {
-          return this.queueMsg;
         }
     },
     mounted: function() {

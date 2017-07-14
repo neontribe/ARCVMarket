@@ -7,7 +7,9 @@
 
                 <h1>Log In</h1>
 
-                <transition name="fade"><div v-if="errorMessage" class="message error">{{ errorMessage }}</div></transition>
+                <transition name="fade">
+                    <message v-bind:text="message.text" v-bind:state="message.state"></message>
+                </transition>
 
                 <div>
                     <form id="loginForm" v-on:submit.prevent="onLogin">
@@ -36,17 +38,23 @@
 <script>
     import Config from '../config.js';
     import Store from '../store.js';
+
+    import mixin from '../mixins/mixins';
+    import constants from "../constants";
+
     export default {
         name: 'login',
+        mixins: [
+            mixin.messages
+        ],
         data: function () {
             return {
                 username: null,
                 password: null,
                 remember: true,
-                errorMessage : Store.error,
                 commitmsg: VERSION,
                 appV: Config.appVersion,
-                env: Config.env
+                env: Config.env,
             }
         },
         methods: {
@@ -70,7 +78,7 @@
 
                 }.bind(this),
                 function (errmsg) {
-                  this.errorMessage = errmsg;
+                    this.setMessage(errmsg, constants.MESSAGE_ERROR);
                 }.bind(this)
               );
 
