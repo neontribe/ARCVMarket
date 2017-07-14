@@ -44,6 +44,18 @@ test('Requested payments accordion exists', async t => {
     expect(paymentsAccordion).to.be.ok;
 });
 
+test('Payment history list icon is present in table row', async t => {
+    await t
+        .typeText('#userName', 'email@example.com')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click("#radio-0")
+        .click('button#continue')
+    ;
+    const voucherExpander = await el('.fa-list').exists;
+    expect(voucherExpander).to.be.ok;
+});
+
 test('Email history button exists', async t => {
     await t
         .typeText('#userName', 'email@example.com')
