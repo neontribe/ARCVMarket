@@ -93,7 +93,8 @@
         methods: {
             recordSelect: function(event) {
                 this.selected = false;
-                this.selectedDate = event.target.id;
+                // Default to requesting all.
+                this.selectedDate = event.target.id || null;
             },
             onRequestSubmissionEmail : function(event) {
                 var url = '/traders/' + Store.trader.id + '/voucher-history-email';
