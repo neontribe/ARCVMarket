@@ -2,7 +2,7 @@
     <transition name="fade"  v-if="currentlyShown">
     <div class="content narrow queuedVouchers">
 
-        <h1 v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}">Queued vouchers</h1>
+        <h1>Queued vouchers</h1>
 
         <transition name="fade" v-if="show">
             <div v-if="fail && message" class="message error">
@@ -15,6 +15,8 @@
                 [xXx]You have <strong>{{ vouchers.length }}</strong> voucher<span v-if="vouchers.length > 1">s</span> in your queue. Queued vouchers will be checked when you submit your queue.
             </div>
         </transition>
+
+        <div v-on:click="collapsed = !collapsed" class="expandable queue" v-bind:class="{'expanded' : !collapsed}"><i class="fa fa-list" aria-hidden="true"></i></div>
 
         <button id="submitQueuedVouchers"
             class="cta queuedVouchers"
