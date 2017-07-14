@@ -130,6 +130,11 @@
         },
         mounted: function () {
             Store.getVoucherPaymentState();
+            // TODO: Have a standard way of having global router messages.
+            var message = this.$router.message;
+            if(message) {
+                this.setMessage(message.text, message.state);
+            }
         }
     }
 </script>

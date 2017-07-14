@@ -83,9 +83,8 @@ export default {
     methods: {
         showConfirmation: function() {
             this.setMessage("Thanks, your payment request has been sent.", constants.MESSAGE_SUCCESS);
-            setTimeout(function() {
-                this.$router.push('/account');
-            }.bind(this), RESULT_TIMER);
+            this.$router.message = this.message;
+            this.$router.push('/account');
         },
         onRequestPayment() {
             Store.pendRecVouchers(
