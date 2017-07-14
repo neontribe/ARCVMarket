@@ -37,7 +37,7 @@
                                 <div> {{ payment.pended_on }}</div>
                                 <div class="count"> {{ payment.vouchers.length }}</div>
                                 <div class="amount">&pound;{{ payment.vouchers.length }}</div>
-                                <div class="email"><input type="radio" name="radio-group" @click="selected = false" :id="payment.pended_on"></label></div>
+                                <div class="email"><input type="radio" name="radio-group" @click="recordSelect" v-bind:id="payment.pended_on"></div>
                             </div>
                             <div class="tab-content">
                                 <div class="tab inner-thead">
@@ -91,18 +91,24 @@
                 voucherPayments: Store.trader.pendedVouchers,
                 errorMessage : Store.error,
                 goodFeedback : false,
-                selected : true
+                selected : true,
+                selectedDate: null
             }
         },
         created: function () {
 
         },
         methods: {
-            onRequestSubmissionEmail : function(event) {
+            recordSelect: function(event) {
+                this.selected = false;
+                // Default to requesting all.
+                this.selectedDate = event.target.id || null;
+            },
+            onRequestSubmissionEmail : function() {
                 var url = '/traders/' + Store.trader.id + '/voucher-history-email';
                 this.requestEmailBeSent(url,
                     {
-                        "submission_date" : event.target.id
+                        "submission_date" : this.selectedDate
                     }
                 );
             },
