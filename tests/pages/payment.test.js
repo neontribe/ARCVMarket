@@ -27,6 +27,18 @@ test('Pending vouchers is consistent throughout app', async t =>{
     expect(paymentVoucherCount && navVoucherCount).to.contain('2');
 });
 
+test('Voucher list show/hide expander is present', async t => {
+    await t
+        .typeText('#userName', 'email@example.com')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click("#radio-0")
+        .click('button#continue')
+    ;
+    const voucherExpander = await el('.expandable').exists;
+    expect(voucherExpander).to.be.ok;
+});
+
 test('Voucher code list exists', async t => {
     await t
         .typeText('#userName', 'email@example.com')
