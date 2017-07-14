@@ -12,9 +12,9 @@
                 <div v-if="voucherPayments.length > 0">
 
                     <div>
-                        <p>[xXx]Click the <span class="list-icon"><i class="fa fa-list" aria-hidden="true"></i></span> icon below to view a payment history record in more detail.</p>
-                        <p>[xXx]To email yourself a specific payment history record from the table below, select it and click 'Email selected payment history'.</p>
-                        <p>[xXx]Or, to email yourself all of your payment history, just click 'Email all payment history'.</p>
+                        <p>[xXx]Click the <span class="list-icon"><i class="fa fa-list" aria-hidden="true"></i></span> icon below to view a payment record in more detail.</p>
+                        <p>[xXx]To email yourself a specific payment record from the table below, select it and click 'Email selected payment record'.</p>
+                        <p>[xXx]Or, to email yourself all of your payment records, just click 'Email all payment records'.</p>
                     </div>
 
                     <div class="accordion">
@@ -61,13 +61,13 @@
                     </div>
 
                     <div class="cta-buttons">
-                        <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail">Email all payment history</button>
-                        <button v-on:click="onRequestSubmissionEmail" :disabled="selected">Email selected payment history</button>
+                        <button v-on:click="onRequestSubmissionEmail" :disabled="selected">Email selected payment record</button>
+                        <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail">Email all payment records</button>
                     </div>
 
                 </div>
 
-                <div v-else><p>You don't have any payment history yet. Add some vouchers and request payment to see your history here.</p></div>
+                <div v-else><p>You don't have any payment records yet. Add some vouchers and request payment to see your payment records here.</p></div>
 
             </div>
 
@@ -94,9 +94,6 @@
                 selected : true,
                 selectedDate: null
             }
-        },
-        created: function () {
-
         },
         methods: {
             recordSelect: function(event) {
