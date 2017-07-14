@@ -12,7 +12,7 @@
 
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor Code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher Code</label>
-                    
+
                     <div class="input-box">
                         <input id="sponsorBox"
                             @keydown.enter.prevent
@@ -51,7 +51,7 @@
             </div>
 
             <div>
-                <queue v-on:message-update="setMessage"></queue>   
+                <queue v-on:message-update="setMessage"></queue>
             </div>
 
         </main>

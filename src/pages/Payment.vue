@@ -39,9 +39,9 @@
                     </div>
 
                     <instructions></instructions>
-                    
+
                     <transition name="fade">
-                        <message :text="message.text" :state="message.state"></message>
+                        <message v-bind:text="message.text" v-bind:state="message.state"></message>
                     </transition>
 
                     <button id="requestPayment" v-on:click="onRequestPayment">Request payment</button>
