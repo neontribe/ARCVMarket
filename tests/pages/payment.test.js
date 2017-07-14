@@ -57,7 +57,7 @@ test('Payment button works', async t => {
 
 });
 
-test('Instructions component occurs on payments page', async t => {
+test('Instructions component occurs on payment page', async t => {
     await t
         .typeText('#userName', 'email@example.com')
         .typeText('#userPassword', 'secretpass')

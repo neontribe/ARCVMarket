@@ -7,53 +7,65 @@
 
                 <transition name="fade"><div v-if="errorMessage" v-bind:class="[goodFeedback ? 'good message' : 'message' ]">{{ errorMessage }}</div></transition>
 
-                <div class="accordion">
+                <div v-if="voucherPayments.length > 0">
 
-                    <!-- Tab header -->
-                    <div class="tab thead">
-                        <label>
-                            <div class="row">
-                                <div>Request date</div>
-                                <div class="total"></div>
-                                <div>Amount</div>
-                                <div></div>
-                            </div>
-                        </label>
+                    <div>
+                        <p>[xXx]Click the <span class="list-icon"><i class="fa fa-list" aria-hidden="true"></i></span> icon below to view a payment history record in more detail.</p>
+                        <p>[xXx]To email yourself a specific payment history record from the table below, select it and click 'Email selected payment history'.</p>
+                        <p>[xXx]Or, to email yourself all of your payment history, just click 'Email all payment history'.</p>
                     </div>
 
-                    <div class="tab row" v-for="(payment, index) in this.voucherPayments[0]">
-                        <input :id="'tab-'+index" type="checkbox" name="tabs">
-                        <label :for="'tab-'+index">
+                    <div class="accordion">
+
+                        <!-- Tab header -->
+                        <div class="tab thead">
                             <div class="row">
-                                <div> {{ payment.pended_on }}</div>
-                                <div> {{ payment.vouchers.length }}</div>
-                                <div class="amount">&pound;{{ payment.vouchers.length }}</div>
-                                <div class="email"><i class="fa fa-envelope" aria-hidden="true" :id="payment.pended_on" v-on:click="onRequestSubmissionEmail" title="Send this record to my email"></i></div>
-                            </div>
-                        </label>
-                        <div class="tab-content">
-                            <div class="tab inner-thead">
-                                <label>
-                                    <div class="row-code">
-                                        <div>Voucher code</div>
-                                        <div>Voucher added on</div>
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="tab" v-for="voucher in payment.vouchers">
-                                <label>
-                                    <div class="row-code">
-                                        <div class="code">{{ voucher.code }}</div>
-                                        <div class="date">{{ voucher.recorded_on }}</div>
-                                    </div>
-                                </label>
+                                <div></div>
+                                <div class="date"></div>
+                                <div class="total"></div>
+                                <div>Amount</div>
+                                <div class="select-record"></div>
                             </div>
                         </div>
+
+                        <div class="tab row" v-for="(payment, index) in voucherPayments">
+                            <input :id="'tab-'+index" type="checkbox" name="tabs">
+                            <div class="row">
+                                <div><label :for="'tab-'+index"><i class="fa fa-list" aria-hidden="true"></i></label></div>
+                                <div> {{ payment.pended_on }}</div>
+                                <div class="count"> {{ payment.vouchers.length }}</div>
+                                <div class="amount">&pound;{{ payment.vouchers.length }}</div>
+                                <div class="email"><input type="radio" name="radio-group" @click="selected = false" :id="payment.pended_on"></label></div>
+                            </div>
+                            <div class="tab-content">
+                                <div class="tab inner-thead">
+                                    <label></label>
+                                        <div class="row-code">
+                                          <div>Voucher code</div>
+                                          <div>Voucher added on</div>
+                                      </div>
+                                </div>
+                                <div class="tab" v-for="voucher in payment.vouchers">
+                                    <label>
+                                        <div class="row-code">
+                                            <div class="code">{{ voucher.code }}</div>
+                                            <div class="date">{{ voucher.recorded_on }}</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="cta-buttons">
+                        <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail">Email all payment history</button>
+                        <button v-on:click="onRequestSubmissionEmail" :disabled="selected">Email selected payment history</button>
                     </div>
 
                 </div>
 
-                <button id="requestVoucherHistoryEmail" v-on:click="onRequestVoucherHistoryEmail">Email payment history</button>
+                <div v-else><p>You don't have any payment history yet. Add some vouchers and request payment to see your history here.</p></div>
 
             </div>
 
@@ -70,7 +82,8 @@
             return {
                 voucherPayments: Store.trader.pendedVouchers,
                 errorMessage : Store.error,
-                goodFeedback : false
+                goodFeedback : false,
+                selected : true
             }
         },
         created: function () {

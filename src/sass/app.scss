@@ -44,7 +44,13 @@ a {
   &:visited,
   &:link,
   &:-webkit-any-link {
-    color: $arc_copy;
+    &.secondary {
+      text-decoration: underline;
+      color: #757475;
+      &:hover {
+        color: $arc_copy;
+      }
+    }
   }
 }
 
@@ -94,6 +100,10 @@ nav {
       background: transparent;
     }
   }
+}
+
+section {
+  margin-top: 3rem;
 }
 
 $fa-font-path:"../node_modules/font-awesome/fonts";
@@ -185,6 +195,11 @@ input[type="button"]::-moz-focus-inner,
 input[type="submit"]::-moz-focus-inner {
   outline: none;
   border: 0;
+}
+
+button:disabled {
+  background-color: $arc_gray;
+  color: lighten($arc_copy, 20%);
 }
 
 label {
@@ -351,6 +366,12 @@ header {
   width: calc(100% - 4em);
 }
 
+#forgotPassword {
+  display: flex;
+  justify-content: center;
+  margin: 1.3em 0 0.5em 0;
+}
+
 // Add top margin to pages which have the row of icons
 #tap.container,
 #scan.container,
@@ -463,6 +484,15 @@ main > *:target ~ * {
   background-color: $arc_rose;
   color: $arc_white;
   width: 100%;
+}
+
+.cta-buttons {
+  display: flex;
+  margin: 0 auto;
+  width: 665px;
+  button {
+    margin: 20px 10px;
+  }
 }
 
 #textVoucher,
@@ -641,7 +671,86 @@ h1.expandable.queue {
 
 -------------------------------------------------------------- */
 
-.accordion,
+.list-icon .fa {
+  font-size: 1em;
+  padding-bottom: 0;
+}
+
+.accordion {
+  font-size: 1.2em;
+  .tab {
+    position: relative;
+    border-top: 1px solid $arc_border;
+    width: 100%;
+    overflow: hidden;
+    line-height: 3;
+    &.thead {
+      background-color: white;
+      border: 0;
+    }
+    &.row {
+      background-color: white;
+    }
+    .row {
+      line-height: 3;
+      display: flex;
+      div {
+        width: 22%;
+        &:nth-child(1) {
+          width: 10%;
+          display: flex;
+          justify-content: center;
+        }
+        &:nth-child(3),
+        &:nth-child(4) {
+          text-align: right;
+        }
+        &:nth-child(5) {
+          width: 25%;
+          text-align: center;
+        }
+        &.date::before {
+          content: "Request date";
+        }
+        &.total::before {
+          content: "Voucher total";
+        }
+        &.select-record::before {
+          content: "Select record";
+        }
+      }
+    }
+    .amount {
+      font-weight: bold;
+    }
+  }
+  label {
+    margin-bottom: 0;
+    cursor: pointer;
+    .fa {
+      padding-bottom: 0;
+      font-size: 1em;
+      &:hover {
+        color: $arc_rose;
+      }
+    }
+  }
+  input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+    &:checked ~ .tab-content {
+      max-height: none;
+      background-color: $arc_row;
+    }
+  }
+  .email input {
+    z-index: 1;
+    opacity: 1;
+    position: relative;
+  }
+}
+
 .voucher-list {
   font-size: 1.2em;
   label {
@@ -696,51 +805,53 @@ h1.expandable.queue {
   }
 }
 
-.tab {
-  position: relative;
-  border-top: 1px solid $arc_border;
-  width: 100%;
-  overflow: hidden;
-  &.thead {
-    background-color: white;
-    border: 0;
-  }
-  &.row {
-    background-color: white;
-  }
-  .row {
-    display: flex;
-    div {
-      &.total::before {
-        content: "Voucher total";
-      }
-      &:nth-child(1) {
-        width: 40%;
-        text-align: left;
-        padding-left: 2em;
-      }
-      &:nth-child(2),
-      &:nth-child(3) {
-        width: 25%;
-        text-align: right;
-      }
-      &:nth-child(4) {
-        width: 10%;
-        text-align: right;
+.voucher-list {
+  .tab {
+    position: relative;
+    border-top: 1px solid $arc_border;
+    width: 100%;
+    overflow: hidden;
+    &.thead {
+      background-color: white;
+      border: 0;
+    }
+    &.row {
+      background-color: white;
+    }
+    .row {
+      display: flex;
+      div {
+        &.total::before {
+          content: "Voucher total";
+        }
+        &:nth-child(1) {
+          width: 40%;
+          text-align: left;
+          padding-left: 2em;
+        }
+        &:nth-child(2),
+        &:nth-child(3) {
+          width: 25%;
+          text-align: right;
+        }
+        &:nth-child(4) {
+          width: 10%;
+          text-align: right;
+        }
       }
     }
-  }
-  .amount {
-    font-weight: bold;
-  }
-  .email {
-    .fa {
-      font-size: 1.1em;
-      padding-bottom: 0;
+    .amount {
+      font-weight: bold;
     }
-    color: $arc_rose;
-    &:hover {
-      color: $arc_copy;
+    .email {
+      .fa {
+        font-size: 1.1em;
+        padding-bottom: 0;
+      }
+      color: $arc_rose;
+      &:hover {
+        color: $arc_copy;
+      }
     }
   }
 }
@@ -871,6 +982,15 @@ h1.expandable.queue {
 
 -------------------------------------------------------------- */
 
+@media (max-width: 820px) {
+  .cta-buttons {
+    width: 620px;
+    button {
+      font-size: 0.9em;
+    }
+  }
+}
+
 @media (max-width: 768px) {
   body {
     background-color: $arc_bg;
@@ -922,7 +1042,10 @@ h1.expandable.queue {
     }
   }
 
-  .accordion,
+  .accordion {
+    font-size: 1em;
+  }
+
   .voucher-list {
     label {
       padding: 0.3em 1.5em;
@@ -932,14 +1055,20 @@ h1.expandable.queue {
       }
     }
   }
+
+  .cta-buttons {
+    display: block;
+    width: initial;
+    button {
+      margin: 20px 0;
+    }
+  }
 }
 
 @media (max-width: 620px) {
-  .accordion,
-  .voucher-list {
-    .tab .row .total::before {
-      content: "Total";
-    }
+  .accordion .tab .row div.total::before,
+  .voucher-list .tab .row .total::before {
+    content: "Total";
   }
 }
 
@@ -948,7 +1077,10 @@ h1.expandable.queue {
     width: 70%;
   }
 
-  .accordion,
+  .accordion {
+    font-size: 0.9em;
+  }
+
   .voucher-list {
     font-size: 1em;
     label {
@@ -1013,7 +1145,8 @@ h1.expandable.queue {
       h1,
       p,
       section {
-        padding: 0 1rem;
+        margin: 0;
+        padding: 1rem;
         h1 {
           padding-left: 0;
         }
@@ -1027,7 +1160,6 @@ h1.expandable.queue {
     }
   }
 
-  .accordion,
   .voucher-list {
     font-size: 0.9em;
     label {
@@ -1060,8 +1192,11 @@ h1.expandable.queue {
       }
     }
   }
-  .accordion .tab .row div:nth-child(4) {
-    padding-right: 1em;
+  .accordion .tab .row div.date::before {
+    content: "Date";
+  }
+  .accordion .tab .row div.select-record::before {
+    content: "Select";
   }
   .voucher-list {
     .row-code {
@@ -1077,5 +1212,26 @@ h1.expandable.queue {
         }
       }
     }
+  }
+  .content.fullwidth .cta-buttons {
+    display: block;
+    width: initial;
+    button {
+      width: 90%;
+      margin: 20px;
+    }
+  }
+}
+
+@media (max-width: 350px) {
+  .accordion .tab .row div:nth-child(2) {
+    font-size: 0.9em;
+    margin-top: 3px;
+  }
+}
+
+@media (max-width: 338px) {
+  #request button {
+    font-size: 0.9rem;
   }
 }

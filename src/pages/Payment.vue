@@ -54,19 +54,19 @@
 
 <script>
 import Store from '../store.js';
-import Instructions from '../components/Instructions.vue';
 import NetMgr from '../services/netMgr.js';
+import Instructions from '../components/Instructions.vue';
 export default {
     name: 'payment',
-    components: {
-        Instructions
-    },
     data() {
         return {
             recVouchers : Store.trader.recVouchers,
             collapsed : true,
             voucherCount : 0
         }
+    },
+    components: {
+        Instructions
     },
     computed: {
         vouchersAdded: function() {
