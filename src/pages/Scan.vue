@@ -64,7 +64,6 @@ import mixin from '../mixins/mixins';
 import Profile from '../components/Profile.vue';
 import Queue from '../components/Queue.vue';
 import Message from '../components/Message.vue';
-
 import constants from '../constants.js';
 
 var RESULT_TIMER = 1000;
