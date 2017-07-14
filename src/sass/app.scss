@@ -44,7 +44,13 @@ a {
   &:visited,
   &:link,
   &:-webkit-any-link {
-    color: $arc_copy;
+    &.secondary {
+      text-decoration: underline;
+      color: #757475;
+      &:hover {
+        color: $arc_copy;
+      }
+    }
   }
 }
 
@@ -349,6 +355,12 @@ header {
   padding: 2em;
   overflow: auto;
   width: calc(100% - 4em);
+}
+
+#forgotPassword {
+  display: flex;
+  justify-content: center;
+  margin: 1.3em 0 0.5em 0;
 }
 
 // Add top margin to pages which have the row of icons
@@ -1068,5 +1080,11 @@ h1.expandable.queue {
         }
       }
     }
+  }
+}
+
+@media (max-width: 338px) {
+  #request button {
+    font-size: 0.9rem;
   }
 }
