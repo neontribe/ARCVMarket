@@ -374,9 +374,9 @@ header {
 
 // Add top margin to pages which have the row of icons
 #tap.container,
-#tap .expandable,
-#scan .expandable,
-#scan.container {
+#scan.container,
+#tap h1,
+#scan h1 {
   margin-top: 2.5em;
 }
 
@@ -391,20 +391,29 @@ header {
   }
 }
 
-h1.expandable {
+.expandable {
   cursor: pointer;
-  margin-bottom: 1.5em;
-  &:before {
-    font-weight: bold;
-    font-family: FontAwesome;
-    content: "\f0da";
-    padding-right: 15px;
+  margin: 1em 0;
+  font-weight: bold;
+  text-decoration: underline;
+  &:hover {
+    color: $arc_rose;
   }
-  &.expanded:before {
-    font-weight: bold;
-    font-family: FontAwesome;
-    content: "\f0d7";
+  .fa {
+    font-size: 1rem;
     padding-right: 10px;
+  }
+  &:after {
+    content: "View your voucher list";
+  }
+  &.expanded:after {
+    content: "Hide your voucher list";
+  }
+  &.queue:after {
+    content: "View your queued vouchers";
+  }
+  &.queue.expanded:after {
+    content: "Hide your queued vouchers";
   }
 }
 
