@@ -102,8 +102,8 @@ export default {
                 }.bind(this),
                 // on Failure... hook for an alert?
                 function(error) {
-                    this.setMessage("There are a problem with your payment request, please try again later.", constants.MESSAGE_ERROR);
-                }
+                    this.setMessage("There was a problem with your payment request, please try again later.", constants.MESSAGE_ERROR);
+                }.bind(this)
             );
         }
     },
