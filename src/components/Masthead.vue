@@ -3,8 +3,8 @@
     <div class="wrapper">
 
         <header>
-            <div class="logo" v-bind:class="{ login : $route.path==='/login' || $route.path==='/user' || $route.path==='/request' || $route.path==='/change-password' }">
-                <router-link v-if="!($route.path==='/login' || $route.path==='/user' || $route.path==='/request' || $route.path==='/change-password')" v-bind:to="'/'" class="link"><img src="../assets/logo.png" alt="ARC Voucher logo"></router-link>
+            <div class="logo" v-bind:class="{ login : $route.path==='/login' || $route.path==='/user' || $route.path==='/request' || $route.path==='/change-password' || $route.path==='/privacy-policy' }">
+                <router-link v-if="!($route.path==='/login' || $route.path==='/user')" v-bind:to="'/'" class="link"><img src="../assets/logo.png" alt="ARC Voucher logo"></router-link>
                 <img v-else src="../assets/logo.png" alt="ARC Voucher logo">
             </div>
 
@@ -40,7 +40,8 @@ export default {
               "/login",
               "/user",
               "/request",
-              "/change-password"
+              "/change-password",
+              "/privacy-policy"
             ];
             return (paths.indexOf(this.$route.path) === -1);
         },

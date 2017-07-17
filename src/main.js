@@ -21,6 +21,7 @@ import Login from './pages/Login.vue';
 import Request from './pages/Request.vue';
 import ChangePassword from './pages/ChangePassword.vue';
 import User from './pages/User.vue';
+import Privacy from './pages/Privacy.vue';
 
 console.info(BUILDDATE + '\n' + BRANCH + '\n' + VERSION);
 
@@ -41,6 +42,7 @@ const routes = [
     { path: '/request', component: Request, meta: { auth: false }  },
     { path: '/change-password', component: ChangePassword, meta: { auth: false }  },
     { path: '/user', component: User, meta: { auth : true } },
+    { path: '/privacy-policy', component: Privacy, meta: { auth : false } },
     { path: '*', redirect : "/" }
 ];
 

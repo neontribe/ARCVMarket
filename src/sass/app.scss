@@ -51,6 +51,12 @@ a {
         color: $arc_copy;
       }
     }
+    &.info {
+      text-decoration: underline;
+      &:hover {
+        color: $arc_rose;
+      }
+    }
   }
 }
 
@@ -366,10 +372,25 @@ header {
   width: calc(100% - 4em);
 }
 
-#forgotPassword {
+.footer-links {
   display: flex;
   justify-content: center;
-  margin: 1.3em 0 0.5em 0;
+  margin: 2em 0 0.5em 0;
+  div {
+    display: block;
+    &:nth-child(1) {
+      margin-right: 5px;
+    }
+    &:nth-child(2) {
+      margin-left: 5px;
+    }
+  }
+}
+
+#privacy {
+  ul {
+    padding-left: 2em;
+  }
 }
 
 // Add top margin to pages which have the row of icons
@@ -1250,5 +1271,8 @@ h1.expandable.queue {
 @media (max-width: 338px) {
   #request button {
     font-size: 0.9rem;
+  }
+  .footer-links a {
+    font-size: 0.9em;
   }
 }
