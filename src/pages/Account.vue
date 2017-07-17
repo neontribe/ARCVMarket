@@ -12,10 +12,8 @@
                 <div v-if="voucherPayments.length > 0">
 
                     <div>
-                        <p>Click the <span class="list-icon"><i class="fa fa-list" aria-hidden="true"></i></span> icon below to view a
-                          payment record in more detail.</p>
-                          <p>To email yourself a specific payment record from the table below, select it and
-                          click 'Email selected payment record'.</p>
+                        <p>Click the <span class="list-icon"><i class="fa fa-list" aria-hidden="true"></i></span> icon below to view a payment record in more detail.</p>
+                        <p>To email yourself a specific payment record from the table below, select it and click 'Email selected payment record'.</p>
                     </div>
 
                     <div class="accordion">
