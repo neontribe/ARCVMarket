@@ -1,6 +1,6 @@
 <template id="message">
   <transition name="fade" v-if="visible">
-    <div class="message" v-bind:class="{'error': error, 'success': success}" v-html="text"></div>
+    <div class="message" v-bind:class="{'error': error, 'success': success, 'warning': warning}" v-html="text"></div>
   </transition>
 </template>
 
@@ -26,6 +26,9 @@
           },
           success: function() {
               return this.state === constants.MESSAGE_SUCCESS;
+          },
+          warning: function() {
+              return this.state === constants.MESSAGE_WARNING;
           },
           visible: function() {
               return (this.shown && this.text);

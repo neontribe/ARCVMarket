@@ -144,21 +144,30 @@ $fa-font-path:"../node_modules/font-awesome/fonts";
 // Styling for message text
 .message {
   padding-bottom: 1em;
+  &.queue,
+  &.warning,
+  &.success,
   &.error {
-    color: $arc_error;
-  }
-  &.queue {
-    color: $arc_copy;
-  }
-  &.success {
     color: $arc_copy;
     &:before {
       font-weight: bold;
       font-family: FontAwesome;
-      content: "\f058";
-      color: $arc_success;
       padding-right: 0.5em;
     }
+  }
+  &.error {
+    color: $arc_error;
+    &:before {
+      content: "\f057";
+    }
+  }
+  &.warning:before {
+    content: "\f06a";
+    color: $arc_warning;
+  }
+  &.success:before {
+    content: "\f058";
+    color: $arc_success;
   }
 }
 
@@ -545,7 +554,7 @@ main > *:target ~ * {
     }
   }
   .queued {
-    background: $arc_queued;
+    background: $arc_warning;
     &:before {
       content: "\f017";
     }

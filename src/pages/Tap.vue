@@ -7,7 +7,7 @@
                 <h1>Type a voucher code</h1>
 
                 <form id="textVoucher" v-on:submit.prevent>
-                
+
                     <message v-bind:text="message.text" v-bind:state="message.state"></message>
 
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor code</label>
@@ -123,7 +123,7 @@ export default {
                     function(error) {
                         if (!Store.netMgr.online) {
                             this.showQueued();
-                            this.setMessage("Not enough signal, voucher queued.", constants.MESSAGE_ERROR);
+                            this.setMessage("Not enough signal, voucher queued.", constants.MESSAGE_WARNING);
                         }
                     }.bind(this));
 
