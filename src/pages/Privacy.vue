@@ -43,7 +43,7 @@
                       <li>Email address</li>
                       <li>Password</li>
                       <li>Market location</li>
-                      <li>Telephone number</li>
+                      <li>[xXx]Telephone number</li>
                   </ul>
 
                   <p>Providing this information means that ARC can effectively manage and develop Rosie and keep users up-to-date with useful reminders and notifications. Providing an email address also means that users have a means of resetting their password. Personal financial information such as bank account details will not be gathered or stored in Rosie.</p>
@@ -73,11 +73,11 @@
 
                   <p>All requests to provide personal data for one of the above reasons will be specifically authorised by ARC’s Business Administrator.</p>
 
-                  <h3>Use of Cookies and Other Technologies</h3>
+                  <h3>[xXx]Use of Cookies and Other Technologies</h3>
 
                   <p>A Cookie is a small piece of data containing a unique reference which is written to a web-enabled user device such as a computer, smartphone, tablet and/or other device running a web browser capable of connecting you to the internet. ARC uses this technology to collect information about Rosie users in order to provide them with a better experience by recognising each user and informing him/her of any new messages since their previous visit. ARC also uses Google Analytics to gather non-personally identifiable information on our visitors. This information helps us understand how Rosie is being used and is gathered through cookies and code embedded in Rosie.</p>
 
-                  <h3>Cookie Consent</h3>
+                  <h3>[xXx]Cookie Consent</h3>
 
                   <p>To comply with the law, we need to ask for your consent to set the Cookies described above. The first time you use Rosie, a pop-up message will appear asking for your consent to place cookies on your device.  In order to provide your consent, please click ‘continue’.  Once your consent has been provided, this message will not appear again, unless we make any changes to our practices and need to ask for your consent.  If you want to withdraw your consent, you can do so by altering the browser settings on your device. For more information about cookies, go to <a href="http://www.allaboutcookies.org" class="info" target="_blank">www.allaboutcookies.org</a> and <a href="www.youronlinechoices.com/uk" class="info" target="_blank">www.youronlinechoices.com/uk</a></p>
 
