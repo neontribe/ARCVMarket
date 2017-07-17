@@ -139,7 +139,7 @@ test('Correct error appears when I submit a duplicate voucher', async t => {
         .click(submitButton)
     ;
     const errorMessage = await el('.message').innerText;
-    expect(errorMessage).to.contain('[xXx]It looks like this code has already been added, please double check and try again. If you are still unable to add the voucher code, don't worry - you will still receive payment if you send it in with your other vouchers.');
+    expect(errorMessage).to.contain('[xXx]It looks like this code has already been added, please double check and try again. If you are still unable to add the voucher code, don\'t worry - you will still receive payment if you send it in with your other vouchers.');
 });
 
 test('Page displays number of recorded vouchers', async t => {
