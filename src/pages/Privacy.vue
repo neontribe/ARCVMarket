@@ -124,13 +124,7 @@
 </template>
 
 <script>
-import Config from '../config.js';
-import Store from '../store.js';
 export default {
-    name: 'privacy',
-    data() {
-        return {
-        }
-    }
+    name: 'privacy'
 }
 </script>
