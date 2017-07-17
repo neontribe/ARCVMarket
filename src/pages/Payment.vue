@@ -38,8 +38,6 @@
 
                     </div>
 
-                    <instructions></instructions>
-
                     <transition name="fade">
                         <message v-bind:text="message.text" v-bind:state="message.state"></message>
                     </transition>
@@ -59,7 +57,6 @@
 <script>
 import Store from '../store.js';
 import mixin from '../mixins/mixins';
-import Instructions from '../components/Instructions.vue';
 import Message from '../components/Message.vue';
 import NetMgr from '../services/netMgr.js';
 import constants from '../constants';
@@ -77,7 +74,6 @@ export default {
         mixin.messages
     ],
     components: {
-        Instructions,
         Message
     },
     computed: {
@@ -90,7 +86,7 @@ export default {
     },
     methods: {
         showConfirmation: function() {
-            this.setMessage("Thanks, your payment request has been sent.", constants.MESSAGE_SUCCESS);
+            this.setMessage("Thanks, your payment request has been sent. Please take your vouchers to your market representative for them to be sent off.", constants.MESSAGE_SUCCESS);
             this.$router.message = this.message;
             this.$router.push('/account');
         },
