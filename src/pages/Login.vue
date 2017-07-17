@@ -20,14 +20,17 @@
                         <button type="submit" value="Log In">Log In</button>
                     </form>
 
-                    <div id="forgotPassword"><router-link v-bind:to="'/request'" class="secondary">Forgot your password?</router-link></div>
+                    <div class="footer-links">
+                        <div><router-link v-bind:to="'/request'" class="secondary">Forgot your password?</router-link></div>
+                        <div><router-link v-bind:to="'/privacy-policy'" class="secondary">Privacy Policy</router-link></div>
+                    </div>
                 </div>
 
                 </div>
 
             <div class="build">
-                <div class="version"> {{ appV }}</div>
-                <div class="commit" v-if="env === 'development'"> Commit : {{ commitmsg }}</div>
+                <div class="version">{{ appV }}</div>
+                <div class="commit" v-if="env === 'development'">Commit: {{ commitmsg }}</div>
             </div>
 
         </main>
