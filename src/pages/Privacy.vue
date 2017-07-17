@@ -10,7 +10,7 @@
 
                   <h3>1. Privacy Policy</h3>
 
-                  <p>The Rose Voucher Recording System for Traders (hereby referred to as ‘Rosie’) is a Progressive Web Application (PWA) – for more information about PWAs, please see <a href="developers.google.com/web/progressive-web-apps" class="info" target="_blank">https://developers.google.com/web/progressive-web-apps/</a></p>
+                  <p>The Rose Voucher Recording System for Traders (hereby referred to as ‘Rosie’) is a Progressive Web Application (PWA) – for more information about PWAs, please see <a href="https://developers.google.com/web/progressive-web-apps" class="info" target="_blank">https://developers.google.com/web/progressive-web-apps/</a></p>
 
                   <p>Rosie is owned by Alexandra Rose Charity (referred to here as ARC or “we”) whose registered office is Suite 5B, The Oast House, 5 Mead Lane, Farnham, Surrey, GU9 7DY.  ARC is registered with the Charity Commission for England &amp; Wales – Charity Number 211535.</p>
 
@@ -56,7 +56,7 @@
 
                   <h3>Mailing Lists and Our Newsletter</h3>
 
-                  <p>You can subscribe to our mailing list by providing your email address at <a href="www.alexandrarose.org.uk" class="info" target="_blank">www.alexandrarose.org.uk</a> – ARC will only use email addresses to send relevant information. We will not pass your data on to third parties unconnected with ARC, and users may unsubscribe simply by clicking the link at the foot of our email to them or by requesting to do so by email to <a href="mailto:info@alexandrarose.org.uk" class="info" target="_top">info@alexandrarose.org.uk</a></p>
+                  <p>You can subscribe to our mailing list by providing your email address at <a href="http://www.alexandrarose.org.uk" class="info" target="_blank">www.alexandrarose.org.uk</a> – ARC will only use email addresses to send relevant information. We will not pass your data on to third parties unconnected with ARC, and users may unsubscribe simply by clicking the link at the foot of our email to them or by requesting to do so by email to <a href="mailto:info@alexandrarose.org.uk" class="info" target="_top">info@alexandrarose.org.uk</a></p>
 
                   <h3>Disclosure and Transfer of Your Personal Data</h3>
 
@@ -79,7 +79,7 @@
 
                   <h3>Cookie Consent</h3>
 
-                  <p>To comply with the law, we need to ask for your consent to set the Cookies described above. The first time you use Rosie, a pop-up message will appear asking for your consent to place cookies on your device.  In order to provide your consent, please click ‘continue’.  Once your consent has been provided, this message will not appear again, unless we make any changes to our practices and need to ask for your consent.  If you want to withdraw your consent, you can do so by altering the browser settings on your device. For more information about cookies, go to <a href="www.allaboutcookies.org" class="info" target="_blank">www.allaboutcookies.org</a> and <a href="www.youronlinechoices.com/uk" class="info" target="_blank">www.youronlinechoices.com/uk</a></p>
+                  <p>To comply with the law, we need to ask for your consent to set the Cookies described above. The first time you use Rosie, a pop-up message will appear asking for your consent to place cookies on your device.  In order to provide your consent, please click ‘continue’.  Once your consent has been provided, this message will not appear again, unless we make any changes to our practices and need to ask for your consent.  If you want to withdraw your consent, you can do so by altering the browser settings on your device. For more information about cookies, go to <a href="http://www.allaboutcookies.org" class="info" target="_blank">www.allaboutcookies.org</a> and <a href="www.youronlinechoices.com/uk" class="info" target="_blank">www.youronlinechoices.com/uk</a></p>
 
                   <h3>Notification of Changes to this Privacy Policy</h3>
 
