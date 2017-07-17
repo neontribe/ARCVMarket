@@ -120,7 +120,7 @@ export default {
 
                             } else if (data.fail.length > 0) {
                                 this.showFail();
-                                this.setMessage("That voucher may have been used already.", constants.MESSAGE_ERROR);
+                                this.setMessage("[xXx]Whoops! It looks like this code has already been added. You will still receive payment for this voucher, as long as you send it in with your other vouchers.", constants.MESSAGE_WARNING);
                             }
 
                         } else {
