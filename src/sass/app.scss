@@ -555,11 +555,11 @@ main > *:target ~ * {
 #textVoucher {
   label {
     margin-bottom: 0;
-    height: 36px;
+    height: 0;
   }
   .message {
     position: relative;
-    padding-bottom: 0em;
+    padding-bottom: 1em;
   }
   // Animated submit code button
   button {
@@ -589,7 +589,7 @@ button.queuedVouchers {
   }
   .message {
     position: relative;
-    padding-bottom: 0em;
+    padding-bottom: 0;
   }
   .voucher-list {
     font-size: 1em;
@@ -607,6 +607,10 @@ label#lblSponsorBox {
 // Queued voucher list
 h1.expandable.queue {
   margin-bottom: 1em;
+}
+
+#payment .message {
+  padding-top: 1em;
 }
 
 /* --------------------------------------------------------------
@@ -1160,11 +1164,14 @@ h1.expandable.queue {
           padding-left: 0;
         }
       }
-      .message {
-        padding: 0 1rem 1rem;
-      }
       button {
         width: 92%;
+      }
+      .expandable {
+        padding: 0 1em;
+      }
+      .message {
+        padding: 0 1rem 1rem;
       }
     }
   }

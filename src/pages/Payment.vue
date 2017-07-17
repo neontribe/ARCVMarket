@@ -40,6 +40,10 @@
 
                     <instructions></instructions>
 
+                    <transition name="fade">
+                        <message v-bind:text="message.text" v-bind:state="message.state"></message>
+                    </transition>
+
                     <button id="requestPayment" v-on:click="onRequestPayment">Request payment</button>
 
                 </div>
@@ -54,19 +58,27 @@
 
 <script>
 import Store from '../store.js';
-import NetMgr from '../services/netMgr.js';
+import mixin from '../mixins/mixins';
 import Instructions from '../components/Instructions.vue';
+import Message from '../components/Message.vue';
+import NetMgr from '../services/netMgr.js';
+import constants from '../constants';
 export default {
     name: 'payment',
     data() {
         return {
             recVouchers : Store.trader.recVouchers,
+            netMgr : Store.netMgr,
             collapsed : true,
             voucherCount : 0
         }
     },
+    mixins: [
+        mixin.messages
+    ],
     components: {
-        Instructions
+        Instructions,
+        Message
     },
     computed: {
         vouchersAdded: function() {
@@ -77,15 +89,21 @@ export default {
         }
     },
     methods: {
+        showConfirmation: function() {
+            this.setMessage("Thanks, your payment request has been sent.", constants.MESSAGE_SUCCESS);
+            this.$router.message = this.message;
+            this.$router.push('/account');
+        },
         onRequestPayment() {
             Store.pendRecVouchers(
                 // on Success, route to /account
                 function(response) {
-                    this.$router.push('/account');
+                    this.showConfirmation();
                 }.bind(this),
                 // on Failure... hook for an alert?
                 function(error) {
-                }
+                    this.setMessage("There was a problem with your payment request, please try again later.", constants.MESSAGE_ERROR);
+                }.bind(this)
             );
         }
     },

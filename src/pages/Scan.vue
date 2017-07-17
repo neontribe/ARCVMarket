@@ -7,10 +7,12 @@
                 <h1>Scan a voucher code</h1>
 
                 <form id="textVoucher" v-on:submit.prevent>
+
                     <message v-bind:text="message.text" v-bind:state="message.state"></message>
 
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor Code</label>
                     <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher Code</label>
+
                     <div class="input-box">
                         <input id="sponsorBox"
                             @keydown.enter.prevent

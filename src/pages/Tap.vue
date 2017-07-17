@@ -7,6 +7,7 @@
                 <h1>Type a voucher code</h1>
 
                 <form id="textVoucher" v-on:submit.prevent>
+                
                     <message v-bind:text="message.text" v-bind:state="message.state"></message>
 
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor code</label>
