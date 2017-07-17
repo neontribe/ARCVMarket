@@ -29,8 +29,8 @@
                 </div>
 
             <div class="build">
-                <div class="version"> {{ appV }} </div>
-                <div class="commit" v-if="env === 'development'"> Commit : {{ commitmsg }}</div>
+                <div class="version">{{ appV }}</div>
+                <div class="commit" v-if="env === 'development'">Commit: {{ commitmsg }}</div>
             </div>
 
         </main>
