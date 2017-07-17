@@ -7,7 +7,7 @@
                 <h1>Type a voucher code</h1>
 
                 <form id="textVoucher" v-on:submit.prevent>
-                
+
                     <message v-bind:text="message.text" v-bind:state="message.state"></message>
 
                     <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor code</label>
@@ -105,7 +105,7 @@ export default {
 
                             } else if (data.fail.length > 0) {
                                 this.showFail();
-                                this.setMessage("That voucher may have been used already.", constants.MESSAGE_ERROR);
+                                this.setMessage("[xXx]It looks like this code has already been added, please double check and try again. If you are still unable to add the voucher code, don't worry - you will still receive payment if you send it in with your other vouchers.", constants.MESSAGE_WARNING);
                             }
 
                         } else {
@@ -123,7 +123,7 @@ export default {
                     function(error) {
                         if (!Store.netMgr.online) {
                             this.showQueued();
-                            this.setMessage("Not enough signal, voucher queued.", constants.MESSAGE_ERROR);
+                            this.setMessage("Not enough signal, voucher queued.", constants.MESSAGE_WARNING);
                         }
                     }.bind(this));
 
