@@ -215,6 +215,7 @@ store.getMarketInfo = function() {
             for(var i in response.data) {
                 this.trader.market[i] = response.data[i];
             }
+
             this.setLocalStorageFromUserTraders();
         }
     }.bind(this));
