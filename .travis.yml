@@ -25,7 +25,7 @@ deploy:
   skip_cleanup: true
   script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist/* $DEPLOY_USER@$DEPLOY_IP:/var/www/$DEPLOY_DIR
   on:
-    branch: 1.0/release
+    branch: 1.1/release
 env:
   global:
   - secure: msCZwriBfTXEDkrxIDjM4/gYY/PLszi7cKw19OUaOx7HFQ94GNdkHlINOu+s7jmrFA3WGh5di4+obuHitZjRiOCuNcb7bAP8NI2PQybDnx2KWdCxsU/E7c3I9IesDq35txALSTixI7rMU1tuyRu+nI9DyFogy2Bv/10hHmA0aFN1O1tp1/FIS0FGv/H8yAtxeWgiyPLP3AC615qQpPIyR8DX9FrXBFmVEkw3ZprCaLBY++YLjK+3aN8tduOf57yIfjNN4j0vAavGJwI4GhuoBYSWNLKAIxNkTe7mpaROyCKRWrtOUet2MEC/oqcKmI+61/n4TgISUeR2HTMB41FrZMa+fZzk3qf/iBSc94AgY2Wr7vLh9SJQHpnFOpYOYQ/D6FRJ6F8W5b155o3muz27fWqbnPbqmfbN+YXq9TnLG6TlLvFtqNcjr2rpcmEKTe70OYO5+TuFlELGmXRYf9K5UGbXz4dWNvCHSsIZpv0thyvAIQtA9BqnEOjBO+VQSMC4RH94exWy9X8ic9l4A9BuS202xYCNRkpMBS4OTEZDg0y2hncGB/q769CjPT3q7L5HMuT5C+UQVsc1rrW4Kfe7dLI86RkDH+k+TD1cUsYt4XteitfVFw/PzR0xB/frCFcVPvEkifp7XjV96X5eSCuKlUtGyG7AUt6yfEFakJ7FisM=
