@@ -10,8 +10,7 @@ var store = {
         id: null,
         pendedVouchers: [],
         vouchers: [],
-        recVouchers: [],
-        market: {},
+        recVouchers: []
     },
     netMgr: NetMgr,
     auth: false,
@@ -32,8 +31,7 @@ store.resetStore = function() {
         id : null,
         pendedVouchers : [],
         vouchers: [],
-        recVouchers: [],
-        market: {},
+        recVouchers: []
     };
     this.trader.vouchers = this.trader.vouchers.splice(0, this.trader.vouchers.length);
     this.trader.recVouchers = this.trader.recVouchers.splice(0, this.trader.recVouchers.length);
@@ -142,7 +140,6 @@ store.setUserTrader = function(id) {
     this.trader.pendedVouchers = [];
     this.trader.vouchers = [];
     this.trader.recVouchers = [];
-    this.trader.market = {};
 
     this.setLocalStorageFromUserTraders();
 
@@ -207,18 +204,6 @@ store.getVoucherPaymentState = function () {
         );
     }.bind(this));
     return true;
-};
-
-store.getMarketInfo = function() {
-    this.netMgr.apiGet('/traders/' + this.trader.id + '/market', function(response) {
-        if(response.data) {
-            for(var i in response.data) {
-                this.trader.market[i] = response.data[i];
-            }
-
-            this.setLocalStorageFromUserTraders();
-        }
-    }.bind(this));
 };
 
 /**

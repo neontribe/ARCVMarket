@@ -149,7 +149,6 @@
             var message = this.$router.message;
             if(message) {
                 this.setMessage(message.text, message.state);
-                this.$router.message = {};
             }
         }
     }

@@ -245,7 +245,6 @@ export default {
     },
     mounted: function() {
         Store.getRecVouchers();
-        Store.getMarketInfo();
     }
 }
 </script>
