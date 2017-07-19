@@ -220,4 +220,36 @@ test('Voucher link is working', async t => {
     ;
     const pagePath = await t.eval(() => window.location);
     expect(pagePath.pathname).eql('/payment');
-})
+});
+
+test('The correct sponsor code for the selected trader is loaded', async t => {
+    await t
+        .typeText('#userName', 'email@example.co.uk')
+        .typeText('#userPassword', 'secretpass')
+        .click('button')
+        .click('input#radio-0')
+        .pressKey('enter')
+    ;
+
+    // Check the sponsor code for the first user (RVNT: see fixtures).
+    const sponsorCode = await el('#sponsorBox').value;
+    expect(sponsorCode).eql('RVNT');
+
+    // Switch trader.
+    const traderLink = await el('.profile-bar a');
+
+    await t
+        .click(traderLink)
+    ;
+    const secondTrader = await el('input#radio-1');
+
+    await t
+        .click(secondTrader)
+        .pressKey('enter')
+    ;
+
+    // Check the sponsor code for the second user (KMJG: see fixtures).
+    const secondUserSponsorCode = await el('#sponsorBox').value;
+    expect(secondUserSponsorCode).eql('KMJG');
+
+});
