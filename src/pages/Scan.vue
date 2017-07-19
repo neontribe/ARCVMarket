@@ -81,7 +81,7 @@ export default {
     },
     data: function() {
         return {
-            sponsorCode : Store.trader.market.sponsor_shortcode,
+            sponsorCode : "",
             voucherCode : "",
             vouchers : Store.trader.vouchers,
             recVouchers : Store.trader.recVouchers,
