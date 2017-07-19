@@ -82,11 +82,15 @@ export default {
                 this.voucherCount = this.recVouchers[0].length;
                 return true;
             }
+        },
+        paymentMessage: function() {
+            return (Store.trader.market.payment_message)
+                ? Store.trader.market.payment_message : constants.copy.PAYMENT_REQUEST_DEFAULT;
         }
     },
     methods: {
         showConfirmation: function() {
-            this.setMessage("Thanks, your payment request has been sent. Please take your vouchers to your market representative for them to be sent off.", constants.MESSAGE_SUCCESS);
+            this.setMessage(this.paymentMessage, constants.MESSAGE_SUCCESS);
             this.$router.message = this.message;
             this.$router.push('/account');
         },
@@ -98,7 +102,7 @@ export default {
                 }.bind(this),
                 // on Failure... hook for an alert?
                 function(error) {
-                    this.setMessage("There was a problem with your payment request, please try again later.", constants.MESSAGE_ERROR);
+                    this.setMessage(constants.copy.PAYMENT_REQUEST_ERROR, constants.MESSAGE_ERROR);
                 }.bind(this)
             );
         }
