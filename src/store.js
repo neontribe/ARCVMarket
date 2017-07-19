@@ -10,7 +10,11 @@ var store = {
         id: null,
         pendedVouchers: [],
         vouchers: [],
-        recVouchers: []
+        recVouchers: [],
+        market: {
+            payment_message: '',
+            sponsor_shortcode: '',
+        }
     },
     netMgr: NetMgr,
     auth: false,
@@ -31,7 +35,11 @@ store.resetStore = function() {
         id : null,
         pendedVouchers : [],
         vouchers: [],
-        recVouchers: []
+        recVouchers: [],
+        market: {
+            payment_message: '',
+            sponsor_shortcode: '',
+        }
     };
     this.trader.vouchers = this.trader.vouchers.splice(0, this.trader.vouchers.length);
     this.trader.recVouchers = this.trader.recVouchers.splice(0, this.trader.recVouchers.length);

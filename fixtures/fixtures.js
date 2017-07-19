@@ -9,7 +9,18 @@ var Fixtures = {
                 "market_id": 2,
                 "created_at": "24-05-2017 14:19:22",
                 "updated_at": "24-05-2017 14:19:22",
-                "deleted_at": null
+                "deleted_at": null,
+                "market": {
+                    "id": 5,
+                    "name": "Cedar Terrace",
+                    "location": "68115-2529",
+                    "sponsor_id": 1,
+                    "created_at": "2017-07-19 10:25:48",
+                    "updated_at": "2017-07-19 10:25:48",
+                    "deleted_at": null,
+                    "payment_message": "Placeholder Payment Message: Error voluptatem repudiandae ut dolor repellendus quos ea maiores officiis.",
+                    "sponsor_shortcode": "RVNT"
+                }
             },
             {
                 "id": 2,
@@ -18,7 +29,18 @@ var Fixtures = {
                 "market_id": 5,
                 "created_at": "24-05-2017 14:19:22",
                 "updated_at": "24-05-2017 14:19:22",
-                "deleted_at": null
+                "deleted_at": null,
+                "market": {
+                    "id": 5,
+                    "name": "Beechwood Hall",
+                    "location": "Sylvania",
+                    "sponsor_id": 2,
+                    "created_at": "2017-07-19 10:25:48",
+                    "updated_at": "2017-07-19 10:25:48",
+                    "deleted_at": null,
+                    "payment_message": "Placeholder Payment Message: Veritatis veniam aut autem sed voluptatem non officia dignissimos ipsum quo.",
+                    "sponsor_shortcode": "KMJG",
+                }
             }
         ]
     },
