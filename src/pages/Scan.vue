@@ -26,7 +26,6 @@
                             v-bind:class="{ 'input-text-hidden': queued }"
                         >
                         <input id="voucherBox"
-                            @keydown.enter.prevent
                             v-on:keyup.delete='onDelVoucherBox'
                             @keypress='onKeypressVoucherBox'
                             type="tel"
@@ -90,15 +89,6 @@ export default {
             validate: false,
             fail: false,
             queued: false,
-        }
-    },
-    watch: {
-        voucherCode : function(code) {
-            if (code.length === parseInt(this.$refs.voucherBox.getAttribute("maxlength"))) {
-                this.showQueued(function() {
-                    this.onRecordVoucher();
-                });
-            }
         }
     },
     methods:  {
