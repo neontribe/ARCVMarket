@@ -101,7 +101,7 @@ export default {
             }
         }
     },
-    methods:  {
+    methods: {
         onRecordVoucher: function(event) {
             //TODO: some proper validation
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
@@ -109,19 +109,13 @@ export default {
                 Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
                     // Success function
                     function(response) {
-                        // Add error message for invalid and fail codes.
-                        var data = response.data;
+                        if (response.error) {
+                            this.showFail();
+                            this.setMessage(response.error, constants.MESSAGE_ERROR);
 
-                        if (data.invalid.length + data.fail.length === 1) {
-                            // single mismatch handler;
-                            if (data.invalid.length > 0) {
-                                this.showFail();
-                                this.setMessage("Please enter a valid voucher code.", constants.MESSAGE_ERROR);
-
-                            } else if (data.fail.length > 0) {
-                                this.showFail();
-                                this.setMessage("[xXx]It looks like this code has already been added, please double check and try again. If you are still unable to add the voucher code, don\'t worry - you will still receive payment if you send it in with your other vouchers.", constants.MESSAGE_WARNING);
-                            }
+                        } else if (response.warning) {
+                              this.showFail();
+                              this.setMessage(response.warning, constants.MESSAGE_WARNING);
 
                         } else {
                             // all in!
@@ -138,17 +132,15 @@ export default {
                     function(error) {
                         if (!Store.netMgr.online) {
                             this.showQueued();
-                            this.setMessage("Not enough signal, voucher queued.", constants.MESSAGE_ERROR);
+                            this.setMessage("Not enough signal, voucher queued.", constants.MESSAGE_WARNING);
                         }
                     }.bind(this));
 
                 // Do anyway.
                 this.voucherCode = "";
-                this.sponsorCode = "";
-                this.$refs.sponsorBox.focus();
             } else {
-              this.showFail();
-              this.setMessage("Please enter a valid voucher code.", constants.MESSAGE_ERROR);
+                this.showFail();
+                this.setMessage(response.error, constants.MESSAGE_ERROR);
             }
         },
 
