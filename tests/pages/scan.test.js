@@ -71,6 +71,7 @@ test('I can scan and submit a voucher code', async t => {
     ;
 
     const sponsorBox = await Selector('#sponsorBox');
+    const voucherBox = await Selector('#voucherBox');
 
     // Scan a code and submit.
     // Check the sponsor and voucher boxes aren't cleared immediately.
@@ -80,6 +81,7 @@ test('I can scan and submit a voucher code', async t => {
         .typeText(sponsorBox, 'NEW12345678')
         .expect(el('#sponsorBox').value).eql('NEW')
         .expect(el('#voucherBox').value).eql('12345678')
+        .typeText(voucherBox, '\r')
         .wait(1000)
         // Check the sponsor and voucher boxes are clear again after one second.
         .expect(el('#sponsorBox').value).eql('')
