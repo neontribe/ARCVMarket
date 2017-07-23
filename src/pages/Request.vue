@@ -11,6 +11,7 @@
 
                 <div>
                     <form id="requestPassword" v-on:submit.prevent>
+                        <message v-bind:text="message.text" v-bind:state="message.state"></message>
                         <label for="userName">Your email address</label>
                         <input type="text" v-model="username" id="userName" required>
                         <button type="submit" value="Request new password" v-on:click="onRequestResetEmail">Request new password</button>
@@ -27,24 +28,46 @@
 <script>
     import Config from '../config.js';
     import Store from '../store.js';
+
+    import mixin from '../mixins/mixins';
+    import constants from "../constants";
+
     export default {
         name: 'request',
+        mixins: [
+            mixin.messages
+        ],
         data: function () {
             return {
                 username: null,
-                netMgr: Store.netMgr
+                netMgr: Store.netMgr,
+                emailError: ""
             }
         },
         methods: {
+            isEmailValid: function (email) {
+                var re = /\S+@\S+/;
+                return re.test(email);
+            },
             onRequestResetEmail: function () {
-                return this.netMgr.apiPost('user/lost_password', {'email' : this.username},
-                    function (response) {
-                        if (success) {success(response)}
-                    },
-                    function (error) {
-                        if (failure) {failure(error)}
-                    }
-                );
+                if (this.isEmailValid(this.username)) {
+                    return this.netMgr.apiPost('user/lost_password', {'email' : this.username},
+                        function (response) {
+                            if (success) {
+                                success(response),
+                                this.setMessage("[xXx] Thank you for your request. You should recieve your new password soon.", constants.MESSAGE_SUCCESS)
+                            }
+                        },
+                        function (error) {
+                            if (failure) {
+                                failure(error),
+                                this.setMessage("[xXx] Something unusual has happened.", constants.MESSAGE_ERROR)
+                            }
+                        }
+                    )
+                } else {
+                    this.setMessage("[xXx] Please enter a valid email address.", constants.MESSAGE_ERROR)
+                }
             }
         }
     }
