@@ -105,7 +105,7 @@ export default {
 
                             } else if (data.fail.length > 0) {
                                 this.showFail();
-                                this.setMessage("[xXx]It looks like this code has already been added, please double check and try again. If you are still unable to add the voucher code, don't worry - you will still receive payment if you send it in with your other vouchers.", constants.MESSAGE_WARNING);
+                                this.setMessage("It looks like this code has already been added, please double check and try again. If you are still unable to add the voucher code, don't worry - you will still receive payment if you send it in with your other vouchers.", constants.MESSAGE_WARNING);
                             }
 
                         } else {
