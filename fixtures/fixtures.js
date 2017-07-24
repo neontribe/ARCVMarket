@@ -18,7 +18,7 @@ var Fixtures = {
                     "created_at": "2017-07-19 10:25:48",
                     "updated_at": "2017-07-19 10:25:48",
                     "deleted_at": null,
-                    "payment_message": "Thanks, your payment request has been accepted. Please mark your vouchers with the current date and return to the office.",
+                    "payment_message": "Thanks, your payment request has been accepted. Please mark your vouchers with the current date and return them to the office.",
                     "sponsor_shortcode": "RVNT"
                 }
             },
