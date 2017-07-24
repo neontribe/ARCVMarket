@@ -40,8 +40,7 @@
         data: function () {
             return {
                 username: null,
-                netMgr: Store.netMgr,
-                emailError: ""
+                netMgr: Store.netMgr
             }
         },
         methods: {
