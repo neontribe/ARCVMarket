@@ -15,8 +15,8 @@
                         <label for="resetPassword">Reset password</label>
                         <input type="text" id="resetPassword" v-model="pwd" required>
                         <label for="confirmPassword">Confirm password</label>
-                        <input type="text" id="confirmPassword" required>
-                        <button type="submit" value="Request new password" v-model="pwdConfirm" v-on:click="onRequestChangePassword">Reset password</button>
+                        <input type="text" id="confirmPassword" v-model="pwdConfirm" required>
+                        <button type="submit" value="Request new password" v-on:click="onRequestChangePassword">Reset password</button>
                     </form>
                 </div>
 
@@ -48,20 +48,20 @@
         },
         methods: {
             onRequestChangePassword: function () {
-                return this.netMgr.apiPost('user/lost_password/reset', {'password' : this.pwd},
+                console.log(this.pwd, this.pwdConfirm);
+                return this.netMgr.apiPost('user/lost_password/reset', {'password' : this.pwd, 'pasword-confirm' : this.pwd.confirm}, 
                     function (response) {
-                        this.setMessage(response, constants.MESSAGE_SUCCESS)
+                        this.setMessage(response.success, constants.MESSAGE_SUCCESS)
                     }.bind(this),
                     function (error) {
-                        switch(this.pwd) {
-                            case this.pwd.length < 6: 
-                                this.setMessage(error.response.data.password[1], constants.MESSAGE_ERROR);
-                                break;
-                            case this.pwd !== this.pwdConfirm:
-                                this.setMessage(error.response.data.password[0], constants.MESSAGE_ERROR);
-                                break;
-                            default:
-                                this.setMessage("");
+                        if(this.pwd.length < 6) {
+                            this.setMessage(error.response.data.password[1], constants.MESSAGE_ERROR);
+                        } 
+                        else if (this.pwd !== this.pwdConfirm) {
+                            this.setMessage(error.response.data.password[0], constants.MESSAGE_ERROR);
+                        }
+                        else {
+                            this.setMessage("");
                         }
                     }.bind(this)
                 )
