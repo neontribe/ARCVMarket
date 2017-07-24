@@ -83,7 +83,7 @@ export default {
                 // so that we can reflect any changes in the Queue component.
                 var queueState = val.sendingStatus;
                 if(!queueState && val.sentData) {
-                    var message = this.genQueueSuccessMessage(val.sentData);
+                    var message = this.queueSuccessMessage(val.sentData);
                     this.emitMessage(message, constants.MESSAGE_SUCCESS);
                     this.showValidate();
                 } else if(!queueState) {
@@ -143,39 +143,8 @@ export default {
             }.bind(this), RESULT_TIMER);
         },
 
-        genQueueSuccessMessage: function(response) {
-            var data = response.data;
-            var success = '';
-            var fail = '';
-            var invalid = '';
-
-            // Construct the feedback message.
-            if (data.success.length === 1) {
-                success = "1 voucher was accepted, ";
-            } else {
-                success = data.success.length + " vouchers were accepted, ";
-            }
-
-            if (data.fail.length === 1) {
-                fail = " 1 was a duplicate ";
-            } else {
-                fail = data.fail.length + " were duplicates ";
-            }
-
-            if (data.invalid.length === 1) {
-                invalid = "and 1 was invalid.";
-            } else {
-                invalid = "and " + data.invalid.length + " were invalid.";
-            }
-
-            var message
-                = "Thanks! Your queue has been successfully submitted. "
-                + success
-                + fail
-                + invalid
-            ;
-
-            return message;
+        queueSuccessMessage: function(response) {
+            return response.message;
         },
 
         onSubmitQueue: function() {
@@ -187,7 +156,7 @@ export default {
                     Store.clearVouchers();
                     Store.getRecVouchers();
 
-                    var message = this.genQueueSuccessMessage(response);
+                    var message = this.queueSuccessMessage(response);
 
                     this.emitMessage(message, constants.MESSAGE_SUCCESS);
                     this.showValidate();
