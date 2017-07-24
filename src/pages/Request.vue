@@ -58,11 +58,12 @@
                             this.setMessage(response.data[1], constants.MESSAGE_SUCCESS)
                         }.bind(this),
                         function (error) {
-                            this.setMessage(error.response.data.email, constants.MESSAGE_ERROR);
+                            // toString added as some strings returned enclosed in brackets.
+                            this.setMessage(error.response.data.email.toString(), constants.MESSAGE_ERROR);
                         }.bind(this)
                     )
                 } else {
-                    this.setMessage("[xXx] Please enter a valid email address.", constants.MESSAGE_ERROR)
+                    this.setMessage("Please enter a valid email address.", constants.MESSAGE_ERROR)
                 }
             }
         }
