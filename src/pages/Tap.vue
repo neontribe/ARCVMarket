@@ -97,11 +97,9 @@ export default {
                         if (response.error) {
                             this.showFail();
                             this.setMessage(response.error, constants.MESSAGE_ERROR);
-
                         } else if (response.warning) {
                               this.showFail();
                               this.setMessage(response.warning, constants.MESSAGE_WARNING);
-
                         } else {
                             // all in!
                             this.showValidate();

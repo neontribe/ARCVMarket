@@ -111,7 +111,7 @@ export default {
         },
         queueStatus: function() {
             var pluralise = (this.vouchers.length > 1 || this.vouchers.length === 0) ? 's' : '';
-            var status = '[xXx]You have <strong>' + this.vouchers.length + '</strong> voucher'
+            var status = 'You have <strong>' + this.vouchers.length + '</strong> voucher'
                 + pluralise
                 + ' in your queue.'
                 + ' Queued vouchers will be checked when you submit your queue.'
