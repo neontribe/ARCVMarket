@@ -51,19 +51,15 @@
             },
             onRequestResetEmail: function () {
                 if (this.isEmailValid(this.username)) {
+
                     return this.netMgr.apiPost('user/lost_password', {'email' : this.username},
+
                         function (response) {
-                            if (success) {
-                                success(response),
-                                this.setMessage("[xXx] Thank you for your request. You should recieve your new password soon.", constants.MESSAGE_SUCCESS)
-                            }
-                        },
+                            this.setMessage(response.data[1], constants.MESSAGE_SUCCESS)
+                        }.bind(this),
                         function (error) {
-                            if (failure) {
-                                failure(error),
-                                this.setMessage("[xXx] Something unusual has happened.", constants.MESSAGE_ERROR)
-                            }
-                        }
+                            this.setMessage(error.response.data.email, constants.MESSAGE_ERROR);
+                        }.bind(this)
                     )
                 } else {
                     this.setMessage("[xXx] Please enter a valid email address.", constants.MESSAGE_ERROR)
