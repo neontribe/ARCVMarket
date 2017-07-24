@@ -127,6 +127,8 @@ export default {
 
                 // Do anyway.
                 this.voucherCode = "";
+                this.sponsorCode = "";
+                this.$refs.sponsorBox.focus();
             } else {
                 this.showFail();
                 this.setMessage(response.error, constants.MESSAGE_ERROR);
