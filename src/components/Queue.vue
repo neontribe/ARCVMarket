@@ -83,7 +83,7 @@ export default {
                 // so that we can reflect any changes in the Queue component.
                 var queueState = val.sendingStatus;
                 if(!queueState && val.sentData) {
-                    var message = this.queueSuccessMessage(val.sentData);
+                    var message = val.sentData.data.message;
                     this.emitMessage(message, constants.MESSAGE_SUCCESS);
                     this.showValidate();
                 } else if(!queueState) {
@@ -143,10 +143,6 @@ export default {
             }.bind(this), RESULT_TIMER);
         },
 
-        queueSuccessMessage: function(response) {
-            return response.message;
-        },
-
         onSubmitQueue: function() {
             this.startSpinner();
 
@@ -156,7 +152,7 @@ export default {
                     Store.clearVouchers();
                     Store.getRecVouchers();
 
-                    var message = this.queueSuccessMessage(response);
+                    var message = response.data.message || '';
 
                     this.emitMessage(message, constants.MESSAGE_SUCCESS);
                     this.showValidate();

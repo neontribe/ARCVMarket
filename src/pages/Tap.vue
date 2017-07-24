@@ -115,11 +115,10 @@ export default {
                     // Network error of some kind;
                     // Don't clear the voucherlist!
                     function(response) {
-                        var responseData = response.data;
                         if (!Store.netMgr.online) {
                             this.showQueued();
                             this.setMessage(constants.copy.VOUCHER_LOST_SIGNAL, constants.MESSAGE_WARNING);
-                        } else if(responseData.error) {
+                        } else if(response.error) {
                             this.showQueued();
                             this.setMessage(responseData.error, constants.MESSAGE_WARNING);
                         }
