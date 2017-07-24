@@ -100,17 +100,19 @@ export default {
                 Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
                     // Success function
                     function(response) {
-                        if (response.error) {
+                        var responseData = response.data;
+                        if (responseData.error) {
                             this.showFail();
-                            this.setMessage(response.error, constants.MESSAGE_ERROR);
-                        } else if (response.warning) {
-                              this.showFail();
-                              this.setMessage(response.warning, constants.MESSAGE_WARNING);
+                            this.setMessage(responseData.error, constants.MESSAGE_ERROR);
+                        } else if (responseData.warning) {
+                            this.showFail();
+                            this.setMessage(responseData.warning, constants.MESSAGE_WARNING);
                         } else {
                             // all in!
                             this.showValidate();
-                            this.setMessage("", constants.MESSAGE_STATUS);
+                            this.setMessage(responseData.message, constants.MESSAGE_SUCCESS);
                         }
+
                         // The server has processed our list, clear it.
                         Store.clearVouchers();
                         Store.getRecVouchers();
@@ -118,10 +120,14 @@ export default {
                     // Failure function, hook for error message
                     // Network error of some kind;
                     // Don't clear the voucherlist!
-                    function(error) {
+                    function(response) {
+                        var responseData = response.data;
                         if (!Store.netMgr.online) {
                             this.showQueued();
-                            this.setMessage("Not enough signal, voucher queued.", constants.MESSAGE_WARNING);
+                            this.setMessage(constants.copy.VOUCHER_LOST_SIGNAL, constants.MESSAGE_WARNING);
+                        } else if(responseData.error) {
+                            this.showQueued();
+                            this.setMessage(responseData.error, constants.MESSAGE_WARNING);
                         }
                     }.bind(this));
 
