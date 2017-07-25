@@ -160,7 +160,7 @@ export default {
 
                 function() {
                     this.emitMessage(
-                        "Whoops! There may be a network problem. When you have a better signal, click 'Submit queued vouchers' to retry.",
+                        constants.copy.QUEUE_NETWORK_ERROR,
                         constants.MESSAGE_ERROR,
                     );
 

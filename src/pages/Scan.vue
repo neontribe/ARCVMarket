@@ -120,14 +120,10 @@ export default {
                     // Failure function, hook for error message
                     // Network error of some kind;
                     // Don't clear the voucherlist!
-                    function(response) {
-                        var responseData = response.data;
+                    function(error) {
                         if (!Store.netMgr.online) {
                             this.showQueued();
                             this.setMessage(constants.copy.VOUCHER_LOST_SIGNAL, constants.MESSAGE_WARNING);
-                        } else if(responseData.error) {
-                            this.showQueued();
-                            this.setMessage(responseData.error, constants.MESSAGE_WARNING);
                         }
                     }.bind(this));
 
@@ -137,7 +133,7 @@ export default {
                 this.$refs.sponsorBox.focus();
             } else {
                 this.showFail();
-                this.setMessage(response.error, constants.MESSAGE_ERROR);
+                this.setMessage(constants.copy.VOUCHER_SUBMIT_INVALID, constants.MESSAGE_ERROR);
             }
         },
 
