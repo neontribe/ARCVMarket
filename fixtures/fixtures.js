@@ -56,7 +56,7 @@ var Fixtures = {
     },
     voucherStatus: {
         "success":
-            {"success":["RVNT12345678"], "fail":[], "invalid":[], "message": 'test'},
+            {"success":["RVNT12345678"], "fail":[], "invalid":[], "message": 'Voucher is valid'},
         "fail":
             {"success":[], "fail":["FAL11111111"], "invalid":[], "message": "It looks like this code"
                 + " has already been added, please double check and try again. If you"
