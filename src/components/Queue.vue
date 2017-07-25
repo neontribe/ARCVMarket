@@ -152,9 +152,18 @@ export default {
                     Store.clearVouchers();
                     Store.getRecVouchers();
 
-                    var message = response.data.message;
+                    var message = '';
+                    var messageType = constants.MESSAGE_SUCCESS;
 
-                    this.emitMessage(message, constants.MESSAGE_SUCCESS);
+                    // We need to check warning because a queue can contain just one voucher.
+                    if(response.data.warning) {
+                        message = response.data.warning;
+                        messageType = constants.MESSAGE_WARNING;
+                    } else if(response.data.message) {
+                        message = response.data.message;
+                    }
+
+                    this.emitMessage(message, messageType);
                     this.showValidate();
                 }.bind(this),
 
