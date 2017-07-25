@@ -152,7 +152,7 @@ export default {
                     Store.clearVouchers();
                     Store.getRecVouchers();
 
-                    var message = response.data.message || '';
+                    var message = response.data.message;
 
                     this.emitMessage(message, constants.MESSAGE_SUCCESS);
                     this.showValidate();
