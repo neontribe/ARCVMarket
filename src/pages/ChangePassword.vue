@@ -52,7 +52,7 @@
             onRequestChangePassword: function () {
                 return this.netMgr.apiPost('user/lost_password/reset', {
                     'password' : this.pwd,
-                    'pasword_confirmation' : this.pwdConfirm,
+                    'password_confirmation' : this.pwdConfirm,
                     'email' : this.email,
                     'token' : this.token
                 }, 
