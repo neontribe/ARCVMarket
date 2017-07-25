@@ -56,14 +56,14 @@ var Fixtures = {
     },
     voucherStatus: {
         "success":
-            {"success":["RVNT12345678"], "fail":[], "invalid":[], "message": 'Voucher is valid'},
+            {"message": 'Voucher is valid'},
         "fail":
-            {"success":[], "fail":["FAL11111111"], "invalid":[], "message": "It looks like this code"
+            {"message": "It looks like this code"
                 + " has already been added, please double check and try again. If you"
                 + " are still unable to add the voucher code, don\'t worry - you will"
                 + " still receive payment if you send it in with your other vouchers."},
         "invalid":
-            {"success":[], "fail":[], "invalid":["INV1"], "message": "Please enter a valid voucher code."},
+            {"message": "Please enter a valid voucher code."},
     },
     traderVoucherHistory: {
         "1": [
