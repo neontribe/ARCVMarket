@@ -43,13 +43,19 @@
             return {
                 netMgr : Store.netMgr,
                 pwd : "",
-                pwdConfirm: ""
+                pwdConfirm: "",
+                email: this.$route.params.email,
+                token: this.$route.params.token
             }
         },
         methods: {
             onRequestChangePassword: function () {
-                console.log(this.pwd, this.pwdConfirm);
-                return this.netMgr.apiPost('user/lost_password/reset', {'password' : this.pwd, 'pasword-confirm' : this.pwd.confirm}, 
+                return this.netMgr.apiPost('user/lost_password/reset', {
+                    'password' : this.pwd,
+                    'pasword_confirmation' : this.pwdConfirm,
+                    'email' : this.email,
+                    'token' : this.token
+                }, 
                     function (response) {
                         this.setMessage(response.success, constants.MESSAGE_SUCCESS)
                     }.bind(this),
