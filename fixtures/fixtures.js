@@ -58,10 +58,11 @@ var Fixtures = {
         "success": [{"message": 'Voucher is valid'}],
         "warning": [
             {"warning": "You have already submitted voucher code (#vouchercode)."},
-            {"warning": "It looks like this code"
-            + " has already been added, please double check and try again. If you"
-            + " are still unable to add the voucher code, don\'t worry - you will"
-            + " still receive payment if you send it in with your other vouchers."}
+            {"warning": "It looks like the code"
+                + " has already been added, please double check and try again. If you"
+                + " are still unable to add the voucher code, don\'t worry - you will"
+                + " still receive payment if you send it in with your other vouchers."
+            }
         ],
         "error": [{"error": "Please enter a valid voucher code."}],
     },
