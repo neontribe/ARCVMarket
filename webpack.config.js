@@ -122,15 +122,10 @@ if (process.env.NODE_ENV === 'production') {
         new webpack.LoaderOptionsPlugin({
             minimize: true
         }),
-	    new CopyWebpackPlugin([
-	        {
+        new CopyWebpackPlugin([
+            {
                 from: 'src/assets',
                 to: '[name].[ext]?[hash]'
-            },
-            //.htacess for apache installs
-            {
-                from: 'src/.htaccess',
-                to: '[name].[ext]'
             },
         ])
     ])
