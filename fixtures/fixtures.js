@@ -59,8 +59,9 @@ var Fixtures = {
         "warning": [
             {"warning": "You have already submitted voucher code :code."},
             {"warning": "It looks like the code (:code) has been used already, please double check and try again. "
-            + "If you are still unable to add the voucher code, don't worry - mark it as \"unrecorded\", "
-            + "send it in with your other vouchers and you will still be paid when we receive it."}
+                + "If you are still unable to add the voucher code, don't worry - mark it as \"unrecorded\", "
+                + "send it in with your other vouchers and you will still be paid when we receive it."
+            }
         ],
         "error": [{"error": "Please enter a valid voucher code."}],
     },
