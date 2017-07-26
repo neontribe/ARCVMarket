@@ -20,6 +20,7 @@ before_script:
 before_deploy:
 - npm run build
 - cp src/robots.txt dist/
+- cp src/.htaccess dist/ # We are copying the `.htaccess` file here because webpack-copy didn't function correctly.
 deploy:
   provider: script
   skip_cleanup: true
