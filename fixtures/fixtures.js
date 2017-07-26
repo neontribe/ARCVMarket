@@ -55,15 +55,15 @@ var Fixtures = {
         ]
     },
     voucherStatus: {
-        "success":
-            {"message": 'Voucher is valid'},
-        "fail":
-            {"message": "It looks like this code"
-                + " has already been added, please double check and try again. If you"
-                + " are still unable to add the voucher code, don\'t worry - you will"
-                + " still receive payment if you send it in with your other vouchers."},
-        "invalid":
-            {"message": "Please enter a valid voucher code."},
+        "success": {"message": 'Voucher is valid'},
+        "warning": [
+            {"warning": "You have already submitted voucher code (#vouchercode)."},
+            {"warning": "It looks like this code"
+            + " has already been added, please double check and try again. If you"
+            + " are still unable to add the voucher code, don\'t worry - you will"
+            + " still receive payment if you send it in with your other vouchers."}
+        ],
+        "error": {"error": "Please enter a valid voucher code."} ,
     },
     traderVoucherHistory: {
         "1": [
@@ -118,15 +118,15 @@ Fixtures.apply = function (mock) {
         if (voucherPayload.length > 1) {
             // This is a list of vouchers from an offline session.
             // Build response. For now, just return fail fixture.
-            response = this.voucherStatus["fail"];
+            response = this.voucherStatus["warning"][1];
         } else {
             // We can use our single value fixtures. Response by sponsor code.
             switch(voucherPayload[0].substring(0,3)) {
                 case 'FAL':
-                    response = this.voucherStatus["fail"];
+                    response = this.voucherStatus["warning"][0];
                     break;
                 case 'INV':
-                    response = this.voucherStatus["invalid"];
+                    response = this.voucherStatus["error"][0];
                     break;
                 default:
                     response = this.voucherStatus["success"];
