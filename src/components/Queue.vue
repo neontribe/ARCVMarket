@@ -82,7 +82,7 @@ export default {
                 // Because we submit cached queued vouchers on reload in store we need to watch the status of this..
                 // so that we can reflect any changes in the Queue component.
                 var queueState = val.sendingStatus;
-                if(!queueState && val.sentData) {
+                if (!queueState && val.sentData) {
                     var message = val.sentData.data.message;
                     this.emitMessage(message, constants.MESSAGE_SUCCESS);
                     this.showValidate();
@@ -155,10 +155,10 @@ export default {
                     var messageType = constants.MESSAGE_SUCCESS;
 
                     // We need to check warning because a queue can contain just one voucher.
-                    if(response.data.warning) {
+                    if (response.data.warning) {
                         message = response.data.warning;
                         messageType = constants.MESSAGE_WARNING;
-                    } else if(response.data.message) {
+                    } else if (response.data.message) {
                         message = response.data.message;
                     }
 
