@@ -130,7 +130,7 @@ test('Correct error appears when I submit a duplicate voucher', async t => {
     ;
     const errorMessage = await el('.message').innerText;
     expect(errorMessage).to.contain("It looks like the code (:code) has been used already, please double check and try again. "
-        + "If you are still unable to add the voucher code, don't worry - mark it as \"unrecorded\", "
+        + "If you are still unable to add the voucher code, don't worry - mark it as \"already used\", "
         + "send it in with your other vouchers and you will still be paid when we receive it."
     );
 });
