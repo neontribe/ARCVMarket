@@ -44,8 +44,8 @@
                 netMgr : Store.netMgr,
                 pwd : "",
                 pwdConfirm: "",
-                email: this.$route.params.email,
-                token: this.$route.params.token
+                email: this.$route.query.email,
+                token: this.$route.query.token,
             }
         },
         methods: {
