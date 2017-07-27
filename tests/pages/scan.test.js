@@ -71,6 +71,7 @@ test('I can scan and submit a voucher code', async t => {
     ;
 
     const sponsorBox = await Selector('#sponsorBox');
+    const voucherBox = await Selector('#voucherBox');
 
     // Scan a code and submit.
     // Check the sponsor and voucher boxes aren't cleared immediately.
@@ -80,6 +81,7 @@ test('I can scan and submit a voucher code', async t => {
         .typeText(sponsorBox, 'NEW12345678')
         .expect(el('#sponsorBox').value).eql('NEW')
         .expect(el('#voucherBox').value).eql('12345678')
+        .typeText(voucherBox, '\r')
         .wait(1000)
         // Check the sponsor and voucher boxes are clear again after one second.
         .expect(el('#sponsorBox').value).eql('')
@@ -139,7 +141,10 @@ test('Correct error appears when I submit a duplicate voucher', async t => {
         .click(submitButton)
     ;
     const errorMessage = await el('.message').innerText;
-    expect(errorMessage).to.contain('[xXx]It looks like this code has already been added, please double check and try again. If you are still unable to add the voucher code, don\'t worry - you will still receive payment if you send it in with your other vouchers.');
+    expect(errorMessage).to.contain("It looks like the code (:code) has been used already, please double check and try again. "
+        + "If you are still unable to add the voucher code, don't worry - mark it as \"unrecorded\", "
+        + "send it in with your other vouchers and you will still be paid when we receive it."
+    );
 });
 
 test('Page displays number of recorded vouchers', async t => {

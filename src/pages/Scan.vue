@@ -26,7 +26,6 @@
                             v-bind:class="{ 'input-text-hidden': queued }"
                         >
                         <input id="voucherBox"
-                            @keydown.enter.prevent
                             v-on:keyup.delete='onDelVoucherBox'
                             @keypress='onKeypressVoucherBox'
                             type="tel"
@@ -92,15 +91,7 @@ export default {
             queued: false,
         }
     },
-    watch: {
-        voucherCode : function(code) {
-            if (code.length === parseInt(this.$refs.voucherBox.getAttribute("maxlength"))) {
-                this.showQueued(function() {
-                    this.onRecordVoucher();
-                });
-            }
-        }
-    },
+
     methods:  {
         onRecordVoucher: function(event) {
             //TODO: some proper validation
@@ -109,25 +100,19 @@ export default {
                 Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
                     // Success function
                     function(response) {
-                        // Add error message for invalid and fail codes.
-                        var data = response.data;
-
-                        if (data.invalid.length + data.fail.length === 1) {
-                            // single mismatch handler;
-                            if (data.invalid.length > 0) {
-                                this.showFail();
-                                this.setMessage("Please enter a valid voucher code.", constants.MESSAGE_ERROR);
-
-                            } else if (data.fail.length > 0) {
-                                this.showFail();
-                                this.setMessage("[xXx]It looks like this code has already been added, please double check and try again. If you are still unable to add the voucher code, don\'t worry - you will still receive payment if you send it in with your other vouchers.", constants.MESSAGE_WARNING);
-                            }
-
+                        var responseData = response.data;
+                        if (responseData.error) {
+                            this.showFail();
+                            this.setMessage(responseData.error, constants.MESSAGE_ERROR);
+                        } else if (responseData.warning) {
+                            this.showFail();
+                            this.setMessage(responseData.warning, constants.MESSAGE_WARNING);
                         } else {
                             // all in!
                             this.showValidate();
-                            this.setMessage("", constants.MESSAGE_STATUS);
+                            this.setMessage(responseData.message, constants.MESSAGE_SUCCESS);
                         }
+
                         // The server has processed our list, clear it.
                         Store.clearVouchers();
                         Store.getRecVouchers();
@@ -138,7 +123,7 @@ export default {
                     function(error) {
                         if (!Store.netMgr.online) {
                             this.showQueued();
-                            this.setMessage("Not enough signal, voucher queued.", constants.MESSAGE_ERROR);
+                            this.setMessage(constants.copy.VOUCHER_LOST_SIGNAL, constants.MESSAGE_WARNING);
                         }
                     }.bind(this));
 
@@ -147,8 +132,8 @@ export default {
                 this.sponsorCode = "";
                 this.$refs.sponsorBox.focus();
             } else {
-              this.showFail();
-              this.setMessage("Please enter a valid voucher code.", constants.MESSAGE_ERROR);
+                this.showFail();
+                this.setMessage(constants.copy.VOUCHER_SUBMIT_INVALID, constants.MESSAGE_ERROR);
             }
         },
 
