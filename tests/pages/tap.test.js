@@ -158,7 +158,7 @@ test('Correct error appears when I submit an invalid voucher', async t => {
         .click(submitVoucher)
     ;
     const errorMessage = await el('.message').innerText;
-    expect(errorMessage).to.contain('Please enter a valid voucher code.');
+    expect(errorMessage).to.contain("That isn't a valid voucher code, please check the number and try again.");
 });
 
 test('I cannot type letters into the voucher input', async t => {

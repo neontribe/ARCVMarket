@@ -114,7 +114,7 @@ test('Correct error appears when I submit an invalid voucher', async t => {
         .click(submitButton)
     ;
     const errorMessage = await el('.content div.message').innerText;
-    expect(errorMessage).to.contain('Please enter a valid voucher code.');
+    expect(errorMessage).to.contain("That isn't a valid voucher code, please check the number and try again.");
 });
 
 test('Correct error appears when I submit a duplicate voucher', async t => {
