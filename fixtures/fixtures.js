@@ -55,12 +55,15 @@ var Fixtures = {
         ]
     },
     voucherStatus: {
-        "success":
-            {"success":["RVNT12345678"], "fail":[], "invalid":[]},
-        "fail":
-            {"success":[], "fail":["FAL11111111"], "invalid":[]},
-        "invalid":
-            {"success":[], "fail":[], "invalid":["INV1"]},
+        "success": [{"message": 'Voucher is valid'}],
+        "warning": [
+            {"warning": "You have already submitted voucher code XXX00000."},
+            {"warning": "It looks like the code (:code) has been used already, please double check and try again. "
+                + "If you are still unable to add the voucher code, don't worry - mark it as \"unrecorded\", "
+                + "send it in with your other vouchers and you will still be paid when we receive it."
+            }
+        ],
+        "error": [{"error": "Please enter a valid voucher code."}],
     },
     traderVoucherHistory: {
         "1": [
@@ -115,18 +118,18 @@ Fixtures.apply = function (mock) {
         if (voucherPayload.length > 1) {
             // This is a list of vouchers from an offline session.
             // Build response. For now, just return fail fixture.
-            response = this.voucherStatus["fail"];
+            response = this.voucherStatus["warning"][0];
         } else {
             // We can use our single value fixtures. Response by sponsor code.
             switch(voucherPayload[0].substring(0,3)) {
                 case 'FAL':
-                    response = this.voucherStatus["fail"];
+                    response = this.voucherStatus["warning"][1];
                     break;
                 case 'INV':
-                    response = this.voucherStatus["invalid"];
+                    response = this.voucherStatus["error"][0];
                     break;
                 default:
-                    response = this.voucherStatus["success"];
+                    response = this.voucherStatus["success"][0];
                     break;
             }
 
