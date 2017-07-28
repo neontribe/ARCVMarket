@@ -110,6 +110,7 @@ export default {
                         } else {
                             // all in!
                             this.showValidate();
+                            this.message = {};
                             // We're intentionally not setting to responseData.message here.
                         }
 
