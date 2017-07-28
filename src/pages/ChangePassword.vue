@@ -13,9 +13,9 @@
                     <form id="resetPassword" v-on:submit.prevent>
                         <message v-bind:text="message.text" v-bind:state="message.state"></message>
                         <label for="resetPassword">Reset password</label>
-                        <input type="text" id="resetPassword" v-model="pwd" required>
+                        <input type="password" id="resetPassword" v-model="pwd" required>
                         <label for="confirmPassword">Confirm password</label>
-                        <input type="text" id="confirmPassword" v-model="pwdConfirm" required>
+                        <input type="password" id="confirmPassword" v-model="pwdConfirm" required>
                         <button type="submit" value="Request new password" v-on:click="onRequestChangePassword">Reset password</button>
                     </form>
                 </div>
@@ -57,18 +57,17 @@
                     'token' : this.token
                 }, 
                     function (response) {
-                        this.setMessage(response.success, constants.MESSAGE_SUCCESS)
+                        switch (response.status) {
+                            case 200 :
+                                this.$router.replace({ path : '/' });
+                                break;
+                            default   :
+                                // something other than a 200 (202?)
+                                this.setMessage(response.data.status.join(' '), constants.MESSAGE_STATUS);
+                        }
                     }.bind(this),
                     function (error) {
-                        if(this.pwd.length < 6) {
-                            this.setMessage(error.response.data.password[1], constants.MESSAGE_ERROR);
-                        } 
-                        else if (this.pwd !== this.pwdConfirm) {
-                            this.setMessage(error.response.data.password[0], constants.MESSAGE_ERROR);
-                        }
-                        else {
-                            this.setMessage("");
-                        }
+                        this.setMessage(error.response.data.password.join(' '), constants.MESSAGE_ERROR );
                     }.bind(this)
                 )
             }
