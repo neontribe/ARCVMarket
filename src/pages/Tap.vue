@@ -104,7 +104,8 @@ export default {
                         } else {
                             // all in!
                             this.showValidate();
-                            this.setMessage(responseData.message, constants.MESSAGE_SUCCESS);
+                            this.message = {};
+                            // We're intentionally not setting to responseData.message here.
                         }
 
                         // The server has processed our list, clear it.
