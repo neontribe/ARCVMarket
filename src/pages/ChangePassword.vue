@@ -50,12 +50,14 @@
         },
         methods: {
             onRequestChangePassword: function () {
-                return this.netMgr.apiPost('user/lost_password/reset', {
-                    'password' : this.pwd,
-                    'password_confirmation' : this.pwdConfirm,
-                    'email' : this.email,
-                    'token' : this.token
-                }, 
+                return this.netMgr.apiPost(
+                    'user/lost_password/reset',
+                    {
+                        'password' : this.pwd,
+                        'password_confirmation' : this.pwdConfirm,
+                        'email' : this.email,
+                        'token' : this.token
+                    },
                     function (response) {
                         switch (response.status) {
                             case 200 :

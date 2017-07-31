@@ -40,7 +40,7 @@ const routes = [
     { path: '/payment', component: Payment, meta: { auth: true }  },
     { path: '/login', component: Login, meta: { auth: false }  },
     { path: '/request', component: Request, meta: { auth: false }  },
-    { path: '/change-password', component: ChangePassword,  meta: { auth: false } },
+    { path: '/change-password', component: ChangePassword, meta: { auth: false } },
     { path: '/user', component: User, meta: { auth : true } },
     { path: '/privacy-policy', component: Privacy, meta: { auth : false } },
     { path: '*', redirect : "/" }
