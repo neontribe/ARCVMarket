@@ -61,7 +61,7 @@
                     function (response) {
                         switch (response.status) {
                             case 200 :
-                                this.$router.replace({ path : '/' });
+                                this.$router.push('/');
                                 break;
                             default   :
                                 // something other than a 200 (202?)
