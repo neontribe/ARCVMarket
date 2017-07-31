@@ -45,7 +45,8 @@
         },
         methods: {
             isEmailValid: function (email) {
-                var re = /\S+@\S+/;
+                // Email address regex.
+                var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
                 return re.test(email);
             },
             onRequestResetEmail: function () {
@@ -54,10 +55,10 @@
                     return this.netMgr.apiPost('user/lost_password', {'email' : this.username},
 
                         function (response) {
-                            this.setMessage(response.data[1], constants.MESSAGE_SUCCESS)
+                            this.setMessage(response.data.status, constants.MESSAGE_SUCCESS)
                         }.bind(this),
                         function (error) {
-                            // toString added as some strings returned enclosed in brackets.
+                            // "Invalid email addresses" errors come back as an array, for some reason.
                             this.setMessage(error.response.data.email.toString(), constants.MESSAGE_ERROR);
                         }.bind(this)
                     )
