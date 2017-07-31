@@ -65,11 +65,11 @@
                                 break;
                             default   :
                                 // something other than a 200 (202?)
-                                this.setMessage(response.data.status.join(' '), constants.MESSAGE_STATUS);
+                                this.setMessage(response.data.status[0], constants.MESSAGE_STATUS);
                         }
                     }.bind(this),
                     function (error) {
-                        this.setMessage(error.response.data.password.join(' '), constants.MESSAGE_ERROR );
+                        this.setMessage(error.response.data.password[0], constants.MESSAGE_ERROR );
                     }.bind(this)
                 )
             }
