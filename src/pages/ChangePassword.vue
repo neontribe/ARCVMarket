@@ -59,16 +59,11 @@
                         'token' : this.token
                     },
                     function (response) {
-                        switch (response.status) {
-                            case 200 :
-                                this.$router.push('/');
-                                break;
-                            default   :
-                                // something other than a 200 (202?)
-                                this.setMessage(response.data.status[0], constants.MESSAGE_STATUS);
-                        }
+                        // Assumes this is a success.
+                        this.$router.push('/');
                     }.bind(this),
                     function (error) {
+                        // This only shows the *first* error. User will have to resolve multiple errors in turn.
                         this.setMessage(error.response.data.password[0], constants.MESSAGE_ERROR );
                     }.bind(this)
                 )
