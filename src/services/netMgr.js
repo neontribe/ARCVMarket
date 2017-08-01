@@ -265,7 +265,10 @@ NetMgr.axiosInstance.interceptors.response.use(
                                 // Set new authorisation header.
                                 origCfg.headers.Authorization = NetMgr.axiosInstance.defaults.headers.common['Authorization'];
                                 // Valid refresh_token, reset and retry.
-                                NetMgr.axiosInstance(origCfg);
+                                NetMgr.axiosInstance(origCfg).catch(function(err) {
+                                    NetMgr.setToken(null);
+                                    EventBus.$emit('NetMgr.logout', err);
+                                });
                                 // Remove the promise so we're ready for the next time.
                                 NetMgr.api_post_progress = null;
                             })
