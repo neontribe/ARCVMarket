@@ -277,7 +277,6 @@ NetMgr.axiosInstance.interceptors.response.use(
 
                     break;
                 default :
-                    console.log("fallen");
                 // Fall through...
             }
         }
