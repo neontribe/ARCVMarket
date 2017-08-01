@@ -252,36 +252,36 @@ NetMgr.axiosInstance.interceptors.response.use(
             switch (origResp.data.error) {
                 case "invalid_token"    : // oAuth2 token invalid.
                 case "Unauthenticated." : // User not logged on.
-                    origCfg._retry = true; // Set so we don't hit this one again.
-
                     let lsToken = NetMgr.getTokenFromLocalStorage() || NetMgr.token;
 
-                    // Let's hit the refresh with the refresh token
-                    //Passport is returning the tokens in "data.orginal" on this endpoint. Odd.
-                    return NetMgr.apiPost('/login/refresh', { refresh_token: lsToken.refresh_token },
-                        function (refreshData) {
-                            let newTokenData = refreshData.data.original || null;
-
-                            if(newTokenData) {
-                                NetMgr.setToken(newTokenData); // Set the token.
+                    if(!NetMgr.api_post_progress) {
+                        NetMgr.api_post_progress = NetMgr.apiPost('/login/refresh', {refresh_token: lsToken.refresh_token});
+                    } else {
+                        NetMgr.api_post_progress
+                            .then(function(newTokenData) {
+                                newTokenData = newTokenData.data.original || null;
+                                // Set the token.
+                                NetMgr.setToken(newTokenData);
+                                // Set new authorisation header.
+                                origCfg.headers.Authorization = NetMgr.axiosInstance.defaults.headers.common['Authorization'];
                                 // Valid refresh_token, reset and retry.
-                                return NetMgr.axiosInstance(origCfg) // Retry the request that errored out.
-                            } else {
+                                NetMgr.axiosInstance(origCfg).catch(function(err) {
+                                    NetMgr.setToken(null);
+                                    EventBus.$emit('NetMgr.logout', err);
+                                });
+                                // Remove the promise so we're ready for the next time.
+                                NetMgr.api_post_progress = null;
+                            })
+                            .catch(function(err) {
                                 NetMgr.setToken(null);
-
-                                EventBus.$emit('NetMgr.logout', origResp.data.error);
-                            }
-                        },
-                        function (refreshErr) {
-                            // Invalid refresh token, pass that back as a failure, so someone else deals with it.
-                            return Promise.reject(refreshErr);
-                        });
+                                EventBus.$emit('NetMgr.logout', err);
+                            });
+                    }
 
                     break;
                 default :
                 // Fall through...
             }
-
         }
 
         // So all other errors returned to api get/post.
