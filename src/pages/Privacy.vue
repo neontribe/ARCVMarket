@@ -79,7 +79,7 @@
 
                   <h3>Cookie Consent</h3>
 
-                  <p>To comply with the law, we need to ask for your consent to set the Cookies described above. The first time you use Rosie, a pop-up message will appear asking for your consent to place cookies on your device.  In order to provide your consent, please click ‘continue’.  Once your consent has been provided, this message will not appear again, unless we make any changes to our practices and need to ask for your consent.  If you want to withdraw your consent, you can do so by altering the browser settings on your device. For more information about cookies, go to <a href="http://www.allaboutcookies.org" class="info" target="_blank">www.allaboutcookies.org</a> and <a href="www.youronlinechoices.com/uk" class="info" target="_blank">www.youronlinechoices.com/uk</a></p>
+                  <p>To comply with the law, we need to ask for your consent to set the Cookies described above. The first time you use Rosie, a pop-up message will appear asking for your consent to place cookies on your device.  In order to provide your consent, please click ‘continue’.  Once your consent has been provided, this message will not appear again, unless we make any changes to our practices and need to ask for your consent.  If you want to withdraw your consent, you can do so by altering the browser settings on your device. For more information about cookies, go to <a href="http://www.allaboutcookies.org" class="info" target="_blank">www.allaboutcookies.org</a> and <a href="http://www.youronlinechoices.com/uk" class="info" target="_blank">www.youronlinechoices.com/uk</a></p>
 
                   <h3>Notification of Changes to this Privacy Policy</h3>
 
