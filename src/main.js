@@ -65,14 +65,31 @@ router.beforeEach((to, from, next) => {
     var auth = Store.netMgr.isAuth();
 
     if (!auth && to.meta.auth) {
-        Store.netMgr.setTokenFromLocalStorage();
+        if(!Store.netMgr.token) {
+            Store.netMgr.setTokenFromLocalStorage();
+        }
         Store.setUserTradersFromLocalStorage();
 
-        // not auth'd, accessing friends-only page, go to /login
-        next({
-            path: '/login',
-            query: {redirect: to.fullPath}
-        });
+        // attempt to refresh token.
+        let refresh = Store.netMgr.attemptTokenRefresh();
+        if(refresh) {
+            refresh.then(function() {
+                if(!Store.netMgr.isAuth()) {
+                    // not auth'd, accessing friends-only page, go to /login
+                    next({
+                        path: '/login',
+                        query: {redirect: to.fullPath}
+                    });
+                }
+            })
+        } else {
+            // not auth'd, accessing friends-only page, go to /login
+            next({
+                path: '/login',
+                query: {redirect: to.fullPath}
+            });
+        }
+
     } else if (auth) {
         if (!Store.trader.id && to.path != "/user") {
             // No trader? We need to go to the trader chooser next, then on to where-ever.

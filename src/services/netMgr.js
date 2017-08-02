@@ -220,6 +220,39 @@ NetMgr.setLocalStorageFromToken = function(token) {
     localStorage['NetMgr.token'] = JSON.stringify(token);
 };
 
+NetMgr.attemptTokenRefresh = function(axiosConfig) {
+    let lsToken = NetMgr.getTokenFromLocalStorage() || NetMgr.token;
+    let refreshToken = lsToken.refresh_token;
+    if(!refreshToken) return false;
+
+    if(!NetMgr.token_refresh_progress) {
+        NetMgr.token_refresh_progress = NetMgr.apiPost('/login/refresh', {refresh_token: lsToken.refresh_token});
+    } else {
+        NetMgr.token_refresh_progress
+            .then(function(newTokenData) {
+                newTokenData = newTokenData.data.original || null;
+                // Set the token.
+                NetMgr.setToken(newTokenData);
+                // Set new authorisation header.
+                if(axiosConfig) {
+                    axiosConfig.headers.Authorization = NetMgr.axiosInstance.defaults.headers.common['Authorization'];
+                    // Valid refresh_token, reset and retry.
+                    NetMgr.axiosInstance(axiosConfig);
+                }
+
+
+                // Remove the promise so we're ready for the next time.
+                NetMgr.token_refresh_progress = null;
+            })
+            .catch(function(err) {
+                NetMgr.setToken(null);
+                EventBus.$emit('NetMgr.logout', err);
+            });
+    }
+
+    return NetMgr.token_refresh_progress;
+};
+
 // Add interceptor to detect an expired access_token and refresh;
 NetMgr.axiosInstance.interceptors.response.use(
     function(response) {
@@ -248,36 +281,11 @@ NetMgr.axiosInstance.interceptors.response.use(
         }
 
         // Is it a 401 we havn't seen before? (and do we have an old token set)
-        if (origResp.status === 401 && !origCfg._retry && NetMgr.token) {
+        if (origResp.status === 401 && NetMgr.token) {
             switch (origResp.data.error) {
                 case "invalid_token"    : // oAuth2 token invalid.
                 case "Unauthenticated." : // User not logged on.
-                    let lsToken = NetMgr.getTokenFromLocalStorage() || NetMgr.token;
-
-                    if(!NetMgr.api_post_progress) {
-                        NetMgr.api_post_progress = NetMgr.apiPost('/login/refresh', {refresh_token: lsToken.refresh_token});
-                    } else {
-                        NetMgr.api_post_progress
-                            .then(function(newTokenData) {
-                                newTokenData = newTokenData.data.original || null;
-                                // Set the token.
-                                NetMgr.setToken(newTokenData);
-                                // Set new authorisation header.
-                                origCfg.headers.Authorization = NetMgr.axiosInstance.defaults.headers.common['Authorization'];
-                                // Valid refresh_token, reset and retry.
-                                NetMgr.axiosInstance(origCfg).catch(function(err) {
-                                    NetMgr.setToken(null);
-                                    EventBus.$emit('NetMgr.logout', err);
-                                });
-                                // Remove the promise so we're ready for the next time.
-                                NetMgr.api_post_progress = null;
-                            })
-                            .catch(function(err) {
-                                NetMgr.setToken(null);
-                                EventBus.$emit('NetMgr.logout', err);
-                            });
-                    }
-
+                    NetMgr.attemptTokenRefresh(origCfg);
                     break;
                 default :
                 // Fall through...
