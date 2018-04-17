@@ -14,23 +14,21 @@
 
                   <p>Rosie is owned by Alexandra Rose Charity (referred to here as ARC or “we”) whose registered office is Suite 5B, The Oast House, 5 Mead Lane, Farnham, Surrey, GU9 7DY.  ARC is registered with the Charity Commission for England &amp; Wales – Charity Number 211535.</p>
 
-                  <p>ARC takes your privacy very seriously. The policies and procedures we have in place are to protect the integrity and confidentiality of personal information, to comply with the Data Protection Act 1998 and other UK and EU regulations.</p>
+                  <p>ARC takes your privacy very seriously. The policies and procedures we have in place are to protect the integrity and confidentiality of personal data, to comply with the Data Protection Act 1998 and other UK and EU regulations, including the EU General Data Protection Regulation (GDPR) which will supersede the Data Protection Act 1998 from 25th May 2018</p>
 
-                  <p>Within the Data Protection Act 1998, Personal Data is defined as data that relates to a living individual who can be identified:</p>
+                  <p>The GDPR applies to ‘personal data’ meaning any information relating to an identifiable person who can be directly or indirectly identified in particular by reference to an identifier.</p>
 
-                  <ul>
-                      <li>from the data, or</li>
-                      <li>from the data and other information which is in the possession of, or likely to come into the possession of, the Data Controller, and includes any expression of opinion about the individual, and/or any indication of the intentions of the Data Controller or any other person in respect of the individual.</li>
-                  </ul>
+                  <p>This definition provides for a wide range of personal identifiers to constitute personal data, including name, identification number, location data or online identifier, reflecting changes in technology and the way organisations collect information about people.</p>
 
                   <p>By providing us with your Personal Data when using Rosie, or setting up an account to use Rosie, you give your consent that all Personal Data that you submit may be processed by us in the manner and for the purposes described below.  This Privacy Policy also forms part of our Terms of Use.</p>
 
-                  <p>Rosie has three user-categories to which this Privacy Policy applies:</p>
+                  <p>Rosie has four user-categories to which this Privacy Policy applies:</p>
 
                   <ul>
                       <li>Trader - People or Organisations which operate market stalls or other retail outlets</li>
                       <li>User - People who can log in to the site &amp; are authorised to use it on behalf of Traders</li>
                       <li>Admin - staff from ARC and its technology partners who will support Rosie</li>
+                      <li>System Administrator – staff from technology services that maintain our data servers</li>
                   </ul>
 
                   <h3>How and Why We Collect Personal Data</h3>
@@ -46,9 +44,28 @@
                       <li>Telephone number</li>
                   </ul>
 
-                  <p>Providing this information means that ARC can effectively manage and develop Rosie and keep users up-to-date with useful reminders and notifications. Providing an email address also means that users have a means of resetting their password. Personal financial information such as bank account details will not be gathered or stored in Rosie.</p>
+                  <p>Providing this information means that ARC and its technology partners can effectively manage and develop Rosie and keep users up-to-date with useful reminders and notifications. Providing an email address also means that users have a means of resetting their password. Personal financial information such as bank account details will not be gathered or stored in Rosie.</p>
 
-                  <p>You have a right to see any information about you held by us. To request to see it, please email <a href="mailto:info@alexandrarose.org.uk" class="info" target="_top">info@alexandrarose.org.uk</a></p>
+                  <h3>The GDPR contains important rights for individuals:</h3>
+
+                  <ul>
+                    <li><strong>The right to be informed</strong> – ARC has an obligation to provide ‘fair processing information’, typically through a Privacy Notice such as this document. This is about ARC being transparent about how we use people's personal data.</li>
+                    <li><strong>The right of access</strong> – ARC will provide, on request by an individual, a copy of the personal data ARC holds about them free of charge. This is called a ‘subject access request’ and ARC will respond as soon as we possibly can, but at the latest within one month of receipt of a request.</li>
+                    <li><strong>The right to rectification</strong> - Individuals are entitled to have personal data rectified if it is inaccurate or incomplete.</li>
+                    <li><strong>The right to erasure</strong> - This also known as ‘the right to be forgotten’. The broad principle underpinning this right is to enable an individual to request the entire deletion or removal of all personal data where there is no compelling reason for its continued processing. The right to erasure does not provide an absolute ‘right to be forgotten’, but individuals have a right to have personal data erased and to prevent processing in specific circumstances:
+                      <ul>
+                        <li>Where the personal data is no longer necessary in relation to the purpose for which it was originally collected/processed.</li>
+                        <li>When the individual withdraws consent.</li>
+                        <li>When the individual objects to the processing and there is no overriding legitimate interest for continuing the processing.</li>
+                      </ul>
+                    </li>
+                    <li><strong>The right to restrict processing</strong> - Individuals have a right to ‘block’ or suppress processing of personal data. When processing is restricted, ARC is permitted to store the personal data, but not further process it. ARC can retain just enough information about the individual to ensure that the restriction is respected in future.</li>
+                    <li><strong>The right to data portability</strong> – This allows individuals to obtain and reuse their personal data for their own purposes across different online services. It allows them to move, copy or transfer personal data easily from one IT environment to another in a safe and secure way, without hindrance to usability. To fulfil this, ARC will be able to provide an individual’s personal data in a structured, commonly used open format or machine readable form. "Open formats" include CSV files. "Machine readable" means that the information is structured so that software can extract specific elements of the data, thereby enabling other organisations to use the data.</li>
+                    <li><strong>The right to object</strong> - Individuals have the right to object to direct marketing (including profiling) and processing for purposes of historical research and statistics. The GDPR defines "profiling" as any form of automated processing intended to evaluate certain personal aspects of an individual, in particular to analyse or predict their economic situation, health, personal preferences, reliability, behaviour, location or movements.</li>
+                    <li><strong>Rights in relation to automated decision making and profiling</strong> - The GDPR provides safeguards for individuals against the risk that a potentially damaging decision is taken without human intervention.</li>
+                  </ul>
+
+                  <p>To contact ARC about exercising any of these rights, e.g. to make a subject access request or to rectify personal data that is inaccurate or incomplete, please email <a href="mailto:info@alexandrarose.org.uk" class="info" target="_top">info@alexandrarose.org.uk</a>. To find out more about your rights you can also visit <a href="https://ico.org.uk/for-the-public/" target="_blank">https://ico.org.uk/for-the-public/</a>.</p>
 
                   <h3>Surveys and Evaluation Activities</h3>
 
@@ -60,7 +77,7 @@
 
                   <h3>Disclosure and Transfer of Your Personal Data</h3>
 
-                  <p>We do not sell, rent or otherwise disclose personally identifiable information with any other parties other than as set out in this Privacy Policy. Your data is stored securely in line with data protection law. The Data Protection Act 1998 does however permit certain disclosures without consent when the information is requested for one or more of the following purposes:</p>
+                  <p>We do not sell, rent or otherwise disclose personally identifiable information with any other parties other than as set out in this Privacy Policy. Your data is stored securely in line with data protection law. Legislation does however permit certain disclosures without consent when the information is requested for one or more of the following purposes:</p>
 
                   <ul>
                       <li>To safeguard national security;</li>
@@ -72,14 +89,6 @@
                   </ul>
 
                   <p>All requests to provide personal data for one of the above reasons will be specifically authorised by ARC’s Business Administrator.</p>
-
-                  <h3>Use of Cookies and Other Technologies</h3>
-
-                  <p>A Cookie is a small piece of data containing a unique reference which is written to a web-enabled user device such as a computer, smartphone, tablet and/or other device running a web browser capable of connecting you to the internet. ARC uses this technology to collect information about Rosie users in order to provide them with a better experience by recognising each user and informing him/her of any new messages since their previous visit. ARC also uses Google Analytics to gather non-personally identifiable information on our visitors. This information helps us understand how Rosie is being used and is gathered through cookies and code embedded in Rosie.</p>
-
-                  <h3>Cookie Consent</h3>
-
-                  <p>To comply with the law, we need to ask for your consent to set the Cookies described above. The first time you use Rosie, a pop-up message will appear asking for your consent to place cookies on your device.  In order to provide your consent, please click ‘continue’.  Once your consent has been provided, this message will not appear again, unless we make any changes to our practices and need to ask for your consent.  If you want to withdraw your consent, you can do so by altering the browser settings on your device. For more information about cookies, go to <a href="http://www.allaboutcookies.org" class="info" target="_blank">www.allaboutcookies.org</a> and <a href="http://www.youronlinechoices.com/uk" class="info" target="_blank">www.youronlinechoices.com/uk</a></p>
 
                   <h3>Notification of Changes to this Privacy Policy</h3>
 
@@ -113,7 +122,7 @@
 
                   <h3>Limitation of Liability</h3>
 
-                  <p>Except for death or personal injury caused by our negligence, ARC, its officers, employees, contractors or content providers shall not be liable for any loss or damage arising from or otherwise in connection with your use of Rosie or any information, services or content on Rosie.  If you have a query about this policy please email <a href="mailto:info@alexandrarose.org.uk" class="info" target="_top">info@alexandrarose.org.uk</a></p>
+                  <p>Except for death or personal injury caused by our negligence, ARC, its officers, employees, contractors or content providers shall not be liable for any loss or damage arising from or otherwise in connection with your use of Rosie or any information, services or content on Rosie. If you have a query about this policy please email <a href="mailto:info@alexandrarose.org.uk" class="info" target="_top">info@alexandrarose.org.uk</a></p>
 
                 </section>
 
