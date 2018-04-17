@@ -12,7 +12,7 @@
 
                   <p>The Rose Voucher Recording System for Traders (hereby referred to as ‘Rosie’) is a Progressive Web Application (PWA) – for more information about PWAs, please see <a href="https://developers.google.com/web/progressive-web-apps" class="info" target="_blank">https://developers.google.com/web/progressive-web-apps/</a></p>
 
-                  <p>Rosie is owned by Alexandra Rose Charity (referred to here as ARC or “we”) whose registered office is Suite 5B, The Oast House, 5 Mead Lane, Farnham, and Surrey, GU9 7DY.  ARC is registered with the Charity Commission for England &amp; Wales – Charity Number 211535.</p>
+                  <p>Rosie is owned by Alexandra Rose Charity (referred to here as ARC or “we”) whose registered office is Suite 5B, The Oast House, 5 Mead Lane, Farnham, Surrey, GU9 7DY.  ARC is registered with the Charity Commission for England &amp; Wales – Charity Number 211535.</p>
 
                   <p>ARC takes your privacy very seriously. The policies and procedures we have in place are to protect the integrity and confidentiality of personal data, to comply with the Data Protection Act 1998 and other UK and EU regulations, including the EU General Data Protection Regulation (GDPR) which will supersede the Data Protection Act 1998 from 25th May 2018</p>
 
