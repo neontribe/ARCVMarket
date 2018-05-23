@@ -35,7 +35,7 @@
 
                   <p>Under GDPR, we have determined that the lawful basis for ARC processing Rosie users’ personal data is ‘Legitimate Interests’. Broadly speaking, Legitimate Interests means that we can process personal information of Rosie users if we have a genuine and legitimate reason and we are not harming any of their rights and interests.</p>
 
-                  <p>In practice, this means that when you provide your personal data to us for Rosie, we process your data as part of the day-to-day management the Rose Voucher Project, which is part of our legitimate business interests to carry out our charitable mission & purposes, including tackling poverty and diet related ill-health, strengthening local markets and helping to build more sustainable local food economies.</p>
+                  <p>In practice, this means that when you provide your personal data to us for Rosie, we process your data as part of the day-to-day management the Rose Voucher Project, which is part of our legitimate business interests to carry out our charitable mission &amp; purposes, including tackling poverty and diet related ill-health, strengthening local markets and helping to build more sustainable local food economies.</p>
 
                   <p>We also carefully consider your interests as a Rosie user and the impact of ARC processing your personal data, including how you benefit from Rosie, how important those benefits are and if the processing of your personal data is necessary, proportionate and reasonable.</p>
 
