@@ -39,7 +39,7 @@
 
                   <p>We also carefully consider your interests as a Rosie user and the impact of ARC processing your personal data, including how you benefit from Rosie, how important those benefits are and if the processing of your personal data is necessary, proportionate and reasonable.</p>
 
-                  <p>Our balanced assessment is that ARC processing the personal data of Rosie users is necessary, proportionate and reasonable, and is clearly in the interests of ARC for its charitable purposes and, crucially, it is clearly in the interests of Traders for the important economic benefits of the Rose Voucher Project, including increased income, customers & trade for their businesses.</p>
+                  <p>Our balanced assessment is that ARC processing the personal data of Rosie users is necessary, proportionate and reasonable, and is clearly in the interests of ARC for its charitable purposes and, crucially, it is clearly in the interests of Traders for the important economic benefits of the Rose Voucher Project, including increased income, customers &amp; trade for their businesses.</p>
 
                   <h3>How and Why We Collect Personal Data</h3>
 
