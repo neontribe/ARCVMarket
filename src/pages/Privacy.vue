@@ -14,13 +14,11 @@
 
                   <p>Rosie is owned by Alexandra Rose Charity (referred to here as ARC or “we”) whose registered office is Suite 5B, The Oast House, 5 Mead Lane, Farnham, Surrey, GU9 7DY.  ARC is registered with the Charity Commission for England &amp; Wales – Charity Number 211535.</p>
 
-                  <p>ARC takes your privacy very seriously. The policies and procedures we have in place are to protect the integrity and confidentiality of personal data, to comply with the Data Protection Act 1998 and other UK and EU regulations, including the EU General Data Protection Regulation (GDPR) which will supersede the Data Protection Act 1998 from 25th May 2018</p>
+                  <p>ARC takes your privacy very seriously. The policies and procedures we have in place are to protect the integrity and confidentiality of personal data, to comply with data protection legislation including the EU General Data Protection Regulation (GDPR) from 25th May 2018.</p>
 
                   <p>The GDPR applies to ‘personal data’ meaning any information relating to an identifiable person who can be directly or indirectly identified in particular by reference to an identifier.</p>
 
                   <p>This definition provides for a wide range of personal identifiers to constitute personal data, including name, identification number, location data or online identifier, reflecting changes in technology and the way organisations collect information about people.</p>
-
-                  <p>By providing us with your Personal Data when using Rosie, or setting up an account to use Rosie, you give your consent that all Personal Data that you submit may be processed by us in the manner and for the purposes described below.  This Privacy Policy also forms part of our Terms of Use.</p>
 
                   <p>Rosie has four user-categories to which this Privacy Policy applies:</p>
 
@@ -30,6 +28,18 @@
                       <li>Admin - staff from ARC and its technology partners who will support Rosie</li>
                       <li>System Administrator – staff from technology services that maintain our data servers</li>
                   </ul>
+
+                  <p>This Privacy Policy also forms part of our Terms of Use – please see section 2 below.</p>
+
+                  <h3>Legitimate Interests</h3>
+
+                  <p>Under GDPR, we have determined that the lawful basis for ARC processing Rosie users’ personal data is ‘Legitimate Interests’. Broadly speaking, Legitimate Interests means that we can process personal information of Rosie users if we have a genuine and legitimate reason and we are not harming any of their rights and interests.</p>
+
+                  <p>In practice, this means that when you provide your personal data to us for Rosie, we process your data as part of the day-to-day management the Rose Voucher Project, which is part of our legitimate business interests to carry out our charitable mission &amp; purposes, including tackling poverty and diet related ill-health, strengthening local markets and helping to build more sustainable local food economies.</p>
+
+                  <p>We also carefully consider your interests as a Rosie user and the impact of ARC processing your personal data, including how you benefit from Rosie, how important those benefits are and if the processing of your personal data is necessary, proportionate and reasonable.</p>
+
+                  <p>Our balanced assessment is that ARC processing the personal data of Rosie users is necessary, proportionate and reasonable, and is clearly in the interests of ARC for its charitable purposes and, crucially, it is clearly in the interests of Traders for the important economic benefits of the Rose Voucher Project, including increased income, customers &amp; trade for their businesses.</p>
 
                   <h3>How and Why We Collect Personal Data</h3>
 
@@ -44,7 +54,7 @@
                       <li>Telephone number</li>
                   </ul>
 
-                  <p>Providing this information means that ARC and its technology partners can effectively manage and develop Rosie and keep users up-to-date with useful reminders and notifications. Providing an email address also means that users have a means of resetting their password. Personal financial information such as bank account details will not be gathered or stored in Rosie.</p>
+                  <p>Providing this information means that ARC and its technology partners can effectively manage and develop Rosie and keep users up-to-date with useful reminders and notifications. Providing an email address also means that users have a means of resetting their password. Personal financial information such as bank account details are not gathered or stored in Rosie (although Traders need to supply bank account details separately to ARC, so they can receive payment for Rose Vouchers via BACS).</p>
 
                   <h3>The GDPR contains important rights for individuals:</h3>
 
@@ -65,15 +75,19 @@
                     <li><strong>Rights in relation to automated decision making and profiling</strong> - The GDPR provides safeguards for individuals against the risk that a potentially damaging decision is taken without human intervention.</li>
                   </ul>
 
+                  <p>Please note, the <strong>Right to data portability</strong> under GDPR does not apply when Legitimate Interests is used as the lawful basis for data processing.</p>
+
                   <p>To contact ARC about exercising any of these rights, e.g. to make a subject access request or to rectify personal data that is inaccurate or incomplete, please email <a href="mailto:info@alexandrarose.org.uk" class="info" target="_top">info@alexandrarose.org.uk</a>. To find out more about your rights you can also visit <a href="https://ico.org.uk/for-the-public/" target="_blank">https://ico.org.uk/for-the-public/</a>.</p>
 
                   <h3>Surveys and Evaluation Activities</h3>
 
                   <p>From time to time ARC may run surveys through Rosie. Surveys may offer you the option to provide your email address for further contact from ARC’s evaluation team.</p>
 
-                  <h3>Mailing Lists and Our Newsletter</h3>
+                  <h3>ARC Mailing Lists</h3>
 
-                  <p>You can subscribe to our mailing list by providing your email address at <a href="http://www.alexandrarose.org.uk" class="info" target="_blank">www.alexandrarose.org.uk</a> – ARC will only use email addresses to send relevant information. We will not pass your data on to third parties unconnected with ARC, and users may unsubscribe simply by clicking the link at the foot of our email to them or by requesting to do so by email to <a href="mailto:info@alexandrarose.org.uk" class="info" target="_top">info@alexandrarose.org.uk</a></p>
+                  <p>You can also subscribe to ARC's mailing list by providing us with your contact details via our website <a href="http://www.alexandrarose.org.uk" class="info" target="_blank">www.alexandrarose.org.uk</a> – If you choose to receive electronic communications from ARC (such as newsletters and fundraising information by email), then we will need your consent to communicate with you in this way. This is because such communications may be deemed to be ‘marketing’ for which your explicit consent would be required under the Privacy and Electronic Communications Regulations (PECR), which sit alongside the GDPR</p>
+
+                  <p>Our website contains all the necessary information regarding consent and opting in to receive electronic communications. ARC only uses email addresses to send relevant information. We do not pass on personal data to third parties unconnected with ARC. Recipients can unsubscribe simply by clicking the link at the foot of ARC’s emails or by emailing <a href="mailto:info@alexandrarose.org.uk" class="info" target="_top">info@alexandrarose.org.uk</a></p>
 
                   <h3>Disclosure and Transfer of Your Personal Data</h3>
 
@@ -92,7 +106,7 @@
 
                   <h3>Notification of Changes to this Privacy Policy</h3>
 
-                  <p>We may make changes to Rosie to add new features. As a result of these changes and if there are any changes in the law, we may make changes to how we process your Personal Data.  If and when we make such changes, we will update this Privacy Policy, so please check this Privacy Policy frequently.</p>
+                  <p>We may make changes to Rosie to add new features. As a result of these changes and if there are any changes in the law, we may make changes to how we process your Personal Data.  If and when we make such changes, we will update this Privacy Policy, so please check it regularly.</p>
 
               </section>
 
