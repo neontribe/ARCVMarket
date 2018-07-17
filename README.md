@@ -15,6 +15,9 @@ npm run dev
 npm run build
 ```
 
+## Deployment
+Due to `.app` now being a publicly available TLD, we suggest developing with a `.test` TLD.
+
 ## Testing
 Uses [Testcafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and [Chai](http://chaijs.com/)
 run with `npm test`

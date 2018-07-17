@@ -2,7 +2,7 @@
 // --- Defaults ---
 var env = 'production',
     apiBase = 'https://voucher-admin.alexandrarose.org.uk/api',
-    appVersion = 'v1.1.0';
+    appVersion = 'v1.2.0';
 
 // --- Env Specific ---
 if (location.hostname.match(/voucher-staging/)) {
@@ -10,9 +10,9 @@ if (location.hostname.match(/voucher-staging/)) {
     apiBase = 'https://voucher-admin-staging.alexandrarose.org.uk/api';
 }
 
-if (location.hostname.match(/localhost|(\.(dev|app))$/)) {
+if (location.hostname.match(/localhost|(\.(dev|test))$/)) {
     env = 'development';
-    apiBase = 'http://arcv-service.app/api';
+    apiBase = 'http://arcv-service.test/api';
 }
 
 export default {
