@@ -25,10 +25,15 @@
                             </div>
 
                             <!-- Tab row -->
-                            <div class="tab row" v-for="recVoucher in recVouchers[0]">
+                            <div class="tab row" v-for="(recVoucher, index) in recVouchers[0]">
                                 <label>
                                     <div class="row-code">
-                                        <div>{{ recVoucher.code }}</div>
+                                        <div>
+                                            {{ recVoucher.code }}
+                                            <div class="icon">
+                                                <a v-on:click.prevent="onDelete(index)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
                                         <div>{{ recVoucher.updated_at }}</div>
                                     </div>
                                 </label>
@@ -86,7 +91,11 @@ export default {
         paymentMessage: function() {
             return (Store.trader.market.payment_message)
                 ? Store.trader.market.payment_message : constants.copy.PAYMENT_REQUEST_DEFAULT;
-        }
+        },
+        deleteMessage: function() {
+            return (Store.trader.market.delete_voucher_message)
+                ? Store.trader.market.delete_voucher_message : constants.copy.DELETE_VOUCHER_SUCCESS;
+        },
     },
     methods: {
         showConfirmation: function() {
@@ -105,6 +114,10 @@ export default {
                     this.setMessage(constants.copy.PAYMENT_REQUEST_ERROR, constants.MESSAGE_ERROR);
                 }.bind(this)
             );
+        },
+        onDelete: function(index) {
+            this.$delete(Store.trader.recVouchers[0], index);
+            this.setMessage(this.deleteMessage, constants.MESSAGE_SUCCESS);
         }
     },
     mounted: function() {
