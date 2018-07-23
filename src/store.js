@@ -14,7 +14,6 @@ var store = {
         market: {
             payment_message: '',
             sponsor_shortcode: '',
-            delete_voucher_message: '',
         }
     },
     netMgr: NetMgr,
@@ -40,7 +39,6 @@ store.resetStore = function() {
         market: {
             payment_message: '',
             sponsor_shortcode: '',
-            delete_voucher_message: '',
         }
     };
     this.trader.vouchers = this.trader.vouchers.splice(0, this.trader.vouchers.length);

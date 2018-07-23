@@ -31,7 +31,7 @@
                                         <div>
                                             {{ recVoucher.code }}
                                             <div class="icon">
-                                                <a v-on:click.prevent="onDelete(index)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                <a v-on:click.prevent="onDelete(recVoucher, index)" title="Delete voucher code"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                             </div>
                                         </div>
                                         <div>{{ recVoucher.updated_at }}</div>
@@ -92,10 +92,6 @@ export default {
             return (Store.trader.market.payment_message)
                 ? Store.trader.market.payment_message : constants.copy.PAYMENT_REQUEST_DEFAULT;
         },
-        deleteMessage: function() {
-            return (Store.trader.market.delete_voucher_message)
-                ? Store.trader.market.delete_voucher_message : constants.copy.DELETE_VOUCHER_SUCCESS;
-        },
     },
     methods: {
         showConfirmation: function() {
@@ -115,9 +111,9 @@ export default {
                 }.bind(this)
             );
         },
-        onDelete: function(index) {
+        onDelete: function(recVoucher, index) {
             this.$delete(Store.trader.recVouchers[0], index);
-            this.setMessage(this.deleteMessage, constants.MESSAGE_SUCCESS);
+            this.setMessage(recVoucher.code + constants.copy.DELETE_VOUCHER_SUCCESS, constants.MESSAGE_SUCCESS);
         }
     },
     mounted: function() {
