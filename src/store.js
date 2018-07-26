@@ -55,7 +55,7 @@ store.resetStore = function() {
  * @returns {Array}
  */
 store.getTraderVoucherList = function(trader) {
-    return this.trader.vouchers.map((v) => v.code);
+    return this.trader.vouchers.map(function(v) { return v.code });
 };
 
 /**

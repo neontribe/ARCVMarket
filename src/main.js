@@ -102,7 +102,8 @@ router.afterEach(function(transition){
 
 var vm = new Vue({
     el: '#app',
-    render: h => h(App), // TODO: Make sure this builds down to ES5
+    // h is an alias to createElement
+    render: function(h) { return h(App) },
     data: function () {
         return {}
     },
@@ -125,7 +126,7 @@ var vm = new Vue({
  * @param err
  *   Logout reason.
  */
-EventBus.$on('NetMgr.logout', (err) => {
+EventBus.$on('NetMgr.logout', function(err) {
     Store.resetStore();
     router.push('login');
 });
