@@ -267,6 +267,24 @@ store.addVoucherCode = function (voucherCode, success, failure) {
 };
 
 /**
+ * informs the server we'v delted a voucher.
+ */
+store.delVoucher = function (voucherCode, success, failure)
+{
+    let transition = this.transitionVouchers('reject', [ voucherCode ], success, failure);
+
+    transition.then(function() {
+        let voucher = this.trader.vouchers[len - 1];
+        if(voucher) {
+            voucher.online = NetMgr.online;
+
+            // Store the whole trader again.
+            this.setLocalStorageFromUserTraders();
+        }
+    }.bind(this));
+};
+
+/**
  * Transition request the recorded vouchers list to pending
  */
 store.pendRecVouchers = function (success, failure) {

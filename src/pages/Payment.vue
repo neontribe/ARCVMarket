@@ -112,8 +112,16 @@ export default {
             );
         },
         onDelete: function(recVoucher, index) {
-            this.$delete(Store.trader.recVouchers[0], index);
-            this.setMessage(recVoucher.code + constants.copy.DELETE_VOUCHER_SUCCESS, constants.MESSAGE_SUCCESS);
+            Store.delVoucher(
+                recVoucher.code,
+                function() {
+                    this.$delete(Store.trader.recVouchers[0], index);
+                    this.setMessage(recVoucher.code + constants.copy.DELETE_VOUCHER_SUCCESS, constants.MESSAGE_SUCCESS);
+                }.bind(this),
+                function() {
+                    this.setMessage(recVoucher.code + constants.copy.DELETE_VOUCHER_FAIL, constants.MESSAGE_ERROR );
+                }.bind(this)
+            );
         }
     },
     mounted: function() {
