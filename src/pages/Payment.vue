@@ -25,10 +25,15 @@
                             </div>
 
                             <!-- Tab row -->
-                            <div class="tab row" v-for="recVoucher in recVouchers[0]">
+                            <div class="tab row" v-for="(recVoucher, index) in recVouchers[0]">
                                 <label>
                                     <div class="row-code">
-                                        <div>{{ recVoucher.code }}</div>
+                                        <div>
+                                            {{ recVoucher.code }}
+                                            <div class="icon">
+                                                <a v-on:click.prevent="onDelete(recVoucher, index)" title="Delete voucher code"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
                                         <div>{{ recVoucher.updated_at }}</div>
                                     </div>
                                 </label>
@@ -86,7 +91,7 @@ export default {
         paymentMessage: function() {
             return (Store.trader.market.payment_message)
                 ? Store.trader.market.payment_message : constants.copy.PAYMENT_REQUEST_DEFAULT;
-        }
+        },
     },
     methods: {
         showConfirmation: function() {
@@ -103,6 +108,18 @@ export default {
                 // on Failure... hook for an alert?
                 function(error) {
                     this.setMessage(constants.copy.PAYMENT_REQUEST_ERROR, constants.MESSAGE_ERROR);
+                }.bind(this)
+            );
+        },
+        onDelete: function(recVoucher, index) {
+            Store.delVoucher(
+                recVoucher.code,
+                function() {
+                    this.$delete(Store.trader.recVouchers[0], index);
+                    this.setMessage(recVoucher.code + constants.copy.DELETE_VOUCHER_SUCCESS, constants.MESSAGE_SUCCESS);
+                }.bind(this),
+                function() {
+                    this.setMessage(recVoucher.code + constants.copy.DELETE_VOUCHER_FAIL, constants.MESSAGE_ERROR );
                 }.bind(this)
             );
         }

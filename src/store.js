@@ -55,7 +55,7 @@ store.resetStore = function() {
  * @returns {Array}
  */
 store.getTraderVoucherList = function(trader) {
-    return this.trader.vouchers.map((v) => v.code);
+    return this.trader.vouchers.map(function(v) { return v.code });
 };
 
 /**
@@ -255,6 +255,24 @@ store.addVoucherCode = function (voucherCode, success, failure) {
     let transition = this.transitionVouchers('collect', this.getTraderVoucherList(), success, failure);
 
     // The online status may have changed by the time that the request has ended.
+    transition.then(function() {
+        let voucher = this.trader.vouchers[len - 1];
+        if(voucher) {
+            voucher.online = NetMgr.online;
+
+            // Store the whole trader again.
+            this.setLocalStorageFromUserTraders();
+        }
+    }.bind(this));
+};
+
+/**
+ * informs the server we'v delted a voucher.
+ */
+store.delVoucher = function (voucherCode, success, failure)
+{
+    let transition = this.transitionVouchers('reject', [ voucherCode ], success, failure);
+
     transition.then(function() {
         let voucher = this.trader.vouchers[len - 1];
         if(voucher) {

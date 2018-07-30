@@ -938,6 +938,15 @@ h1.expandable.queue {
     &:nth-child(1) {
       width: 50%;
       text-align: left;
+      .icon {
+        display: inline;
+        font-size: 0.6em;
+        padding-left: 0.5em;
+        color: $arc_dark_gray;
+        a:hover {
+          color: $arc_error;
+        }
+      }
     }
     &:nth-child(2) {
       width: 50%;
@@ -1248,11 +1257,12 @@ h1.expandable.queue {
       div {
         &:nth-child(1) {
           padding-left: 1.5em;
-          width: 40%;
+          .icon {
+            font-size: 0.9em;
+          }
         }
         &:nth-child(2) {
-          padding-right: 1em;
-          width: 60%;
+          padding-right: 1.5em;
         }
       }
     }
