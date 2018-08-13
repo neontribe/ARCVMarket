@@ -66,7 +66,7 @@ These are the languages and packages used to create ARCV Market and where availa
 ARCV Market 1.2
 
 Programming Language - JavaScript\
-Framework - vuejs https://github.com/vuejs\
+Framework - vuejs https://github.com/vuejs \
 Licence - MIT
 
 Third Party Packages
