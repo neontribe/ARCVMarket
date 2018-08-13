@@ -59,3 +59,21 @@ Farnham,
 Surrey, 
 England,
 GU9 7PT
+
+# Licensing and use of Third Party Applications
+These are the languages and packages used to create ARCV Market and where available the licences associated with them.
+
+ARCV Market 1.2
+
+Programming Language - JavaScript\
+Framework - vuejs https://github.com/vuejs \ 
+Licence - MIT
+
+Third Party Packages
+-https://github.com/axios/axios MIT Licence https://github.com/axios/axios/blob/master/LICENSE
+-https://github.com/ctimmerm/axios-mock-adapter MIT Licence https://github.com/ctimmerm/axios-mock-adapter/blob/master/LICENSE
+-https://github.com/babel/babel/tree/master/packages/babel-polyfill MIT Licence https://github.com/babel/babel/blob/master/LICENSE
+-https://github.com/necolas/normalize.css MIT Licence https://github.com/necolas/normalize.css/blob/master/LICENSE.md
+-https://github.com/rcs/route-parser MIT Licence https://github.com/rcs/route-parser/blob/master/LICENSE.md
+
+
