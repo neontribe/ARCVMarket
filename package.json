@@ -37,7 +37,7 @@
     "node-sass": "^4.5.0",
     "offline-plugin": "^4.8.1",
     "sass-loader": "^5.0.1",
-    "testcafe": "^0.15.0",
+    "testcafe": "^0.23.3",
     "testcafe-vue-selectors": "^1.0.3",
     "vue-loader": "^11.1.4",
     "vue-template-compiler": "^2.2.1",
@@ -45,13 +45,10 @@
     "webpack-dev-server": "^2.2.0"
   },
   "resolutions": {
-    "atob": "2.1.0",
     "deep-extend": "0.5.1",
     "js-yaml": "3.13.1",
-    "lodash": "4.17.12",
-    "mime": "2.0.3",
+    "lodash": "~4.17.12",
     "serialize-javascript": "2.1.1",
-    "tough-cookie": "2.3.3",
     "uglify-js": "2.6.0"
   }
 }
