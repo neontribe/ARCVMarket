@@ -3,6 +3,8 @@ node_js:
 - '7'
 sudo: required
 dist: trusty
+before_install:
+  - npx --version
 addons:
   firefox: '53.0'  # We are setting the version to 53 until TestCafe supports v54+
   chrome: stable
