@@ -1,12 +1,10 @@
 language: node_js
 node_js:
-- '7'
+- 'lts/*'
 sudo: required
 dist: trusty
-before_install:
-  - npx --version
 addons:
-  firefox: '53.0'  # We are setting the version to 53 until TestCafe supports v54+
+  firefox: latest  # We are setting the version to 53 until TestCafe supports v54+
   chrome: stable
   ssh_known_hosts: 46.101.18.83
   apt:
