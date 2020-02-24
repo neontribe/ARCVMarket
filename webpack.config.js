@@ -34,7 +34,7 @@ module.exports = {
             }
         }),
         new webpack.BannerPlugin({
-            banner: "Copyright (c) 2017, Alexandra Rose Charity (reg. in England and Wales, #00279157)",
+            banner: "Copyright (c) 2020, Alexandra Rose Charity (reg. in England and Wales, #00279157)",
         }),
         new OfflinePlugin({
         })
