@@ -40,23 +40,23 @@ For detailed explanation on how things work, consult the [docs for vue-loader](h
 # Copyright
 This project was developed by :
 
-Neontribe Ltd (registered in England and Wales #06165574) 
+Neontribe Ltd (registered in England and Wales #06165574)
 
 Under contract for
 
-Alexandra Rose Charity (registered in England and Wales #00279157) 
+Alexandra Rose Charity (registered in England and Wales #00279157)
 
-As such, unless otherwise specified in the appropriate component source, associated file or compiled asset, files in this project repository are Copyright &copy; (2017-2018), Alexandra Rose Charity. All rights reserved.
+As such, unless otherwise specified in the appropriate component source, associated file or compiled asset, files in this project repository are Copyright &copy; (2020), Alexandra Rose Charity. All rights reserved.
 
 If you wish to discuss copyright or licensing issues, please contact:
 
 Alexandra Rose Charity
 
-c/o Wise & Co, 
-Wey Court West, 
-Union Road, 
-Farnham, 
-Surrey, 
+c/o Wise & Co,
+Wey Court West,
+Union Road,
+Farnham,
+Surrey,
 England,
 GU9 7PT
 
