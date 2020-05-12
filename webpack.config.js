@@ -5,11 +5,11 @@ var GitRevisionPlugin = require('git-revision-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var OfflinePlugin = require('offline-plugin');
-
+var { VueLoaderPlugin } = require('vue-loader');
 var gitRevisionPlugin = new GitRevisionPlugin();
 
 module.exports = {
-    entry: ['babel-polyfill','./src/main.js'],
+    entry: ['@babel/polyfill','./src/main.js'],
     output: {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/',
@@ -22,6 +22,7 @@ module.exports = {
             'BRANCH': JSON.stringify(gitRevisionPlugin.branch()),
             'BUILDDATE': JSON.stringify(new Date()),
         }),
+        new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'index.html',
@@ -36,49 +37,50 @@ module.exports = {
         new webpack.BannerPlugin({
             banner: "Copyright (c) 2020, Alexandra Rose Charity (reg. in England and Wales, #00279157)",
         }),
-        new OfflinePlugin({
-        })
+        new OfflinePlugin()
     ],
     module: {
         rules: [
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',
-                options: {
-                    loaders: {
-                        // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-                        // the "scss" and "sass" values for the lang attribute to the right configs here.
-                        // other preprocessors should work out of the box, no loader config like this necessary.
-                        'scss': 'vue-style-loader!css-loader!sass-loader',
-                        'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-                    }
-                    // other vue-loader options go here
-                }
             },
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    'vue-style-loader',
+                    'css-loader',
+                    {
+                        loader: 'sass-loader',
+                    },
+                ],
             },
             {
                 test: /\.(png|jpg|gif|svg|ico)$/,
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]?[hash]'
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]?[hash]'
+                    }
                 }
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
-                loader: 'file-loader',
-                options: {
-                    name: './fonts/[name].[ext]?[hash]'
-                }
-            },
-            {
-                test: /manifest.json/,
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]?[hash]'
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: './fonts/[name].[ext]?[hash]'
+                    }
                 }
             }
         ]
@@ -127,6 +129,10 @@ if (process.env.NODE_ENV === 'production') {
                 from: 'src/assets',
                 to: '[name].[ext]?[hash]'
             },
+            {
+                from: '/manifest.json/',
+                to: '[name].[ext]?[hash]'
+            }
         ])
     ])
 }
