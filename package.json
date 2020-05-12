@@ -11,7 +11,7 @@
     "test": "testcafe chrome,firefox ./tests/*/*.test.js --app 'cross-env NODE_ENV=development webpack-dev-server'"
   },
   "dependencies": {
-    "axios": "^0.16.1",
+    "axios": "^0.19.2",
     "axios-mock-adapter": "^1.8.1",
     "babel-polyfill": "^6.23.0",
     "normalize.css": "^7.0.0",
@@ -40,6 +40,6 @@
     "vue-loader": "^11.1.4",
     "vue-template-compiler": "^2.2.1",
     "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0"
+    "webpack-dev-server": "^2.11.5"
   }
 }
