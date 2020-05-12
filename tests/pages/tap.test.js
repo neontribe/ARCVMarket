@@ -100,9 +100,11 @@ test('I can type and submit a voucher code', async t => {
         .typeText(el('#sponsorBox'), 'NEW')
         .typeText(el('#voucherBox'), '12345678')
         .click('#submitVoucher')
-        // Check the box is clear again.
-        .expect(el('#voucherBox').value, '')
     ;
+
+    // Check the box is clear again.
+    const voucherBoxValue = await el('#voucherBox').value;
+    expect(voucherBoxValue).eql('');
 
 });
 
@@ -173,8 +175,10 @@ test('I cannot type letters into the voucher input', async t => {
 
     await t
         .typeText(voucherBox, 'HELLO')
-        .expect(voucherBox.value, '')
     ;
+
+    const voucherBoxValue = await el('#voucherBox').value;
+    expect(voucherBoxValue).eql('');
 });
 
 test('I cannot type numbers into the sponsor input', async t => {
@@ -189,10 +193,13 @@ test('I cannot type numbers into the sponsor input', async t => {
 
     await t
         .click(sponsorBox)
-        .pressKey('backspace backspace backspace')
+        .pressKey('backspace backspace backspace backspace')
         .typeText(sponsorBox, '123')
-        .expect(sponsorBox.value, '')
     ;
+
+    const sponsorBoxValue = await el('#sponsorBox').value;
+    expect(sponsorBoxValue).eql('');
+
 });
 
 test('Page displays number of recorded vouchers', async t => {
