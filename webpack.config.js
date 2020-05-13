@@ -5,11 +5,19 @@ var GitRevisionPlugin = require('git-revision-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var OfflinePlugin = require('offline-plugin');
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 var { VueLoaderPlugin } = require('vue-loader');
 var gitRevisionPlugin = new GitRevisionPlugin();
 
 module.exports = {
     entry: ['@babel/polyfill','./src/main.js'],
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                sourceMap: false,
+            })
+        ],
+    },
     output: {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/',
@@ -115,12 +123,6 @@ if (process.env.NODE_ENV === 'production') {
                 NODE_ENV: '"production"'
             }
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            sourceMap: false,
-            compress: {
-                warnings: false
-            }
-        }),
         new webpack.LoaderOptionsPlugin({
             minimize: true
         }),
@@ -130,7 +132,7 @@ if (process.env.NODE_ENV === 'production') {
                 to: '[name].[ext]?[hash]'
             },
             {
-                from: '/manifest.json/',
+                from: 'src/manifest.json',
                 to: '[name].[ext]?[hash]'
             }
         ])
