@@ -1,27 +1,21 @@
 language: node_js
 node_js:
-- '7'
+- 12
 sudo: required
-dist: trusty
+dist: bionic
 addons:
-  firefox: '53.0'  # We are setting the version to 53 until TestCafe supports v54+
+  firefox: latest
   chrome: stable
   ssh_known_hosts: 46.101.18.83
-  apt:
-    sources:
-    - google-chrome
-    packages:
-    - fluxbox
+services:
+  - xvfb
 before_script:
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
-- sleep 3
-- stty cols 80
-- fluxbox >/dev/null 2>&1 &
+  - fluxbox >/dev/null 2>&1 &
+  - sleep 3
 before_deploy:
-- npm run build
-- cp src/robots.txt dist/
-- cp src/.htaccess dist/
+  - npm run build
+  - cp src/robots.txt dist/
+  - cp src/.htaccess dist/
 deploy:
   provider: script
   skip_cleanup: true
