@@ -133,7 +133,7 @@ test('Correct error appears when I submit a duplicate voucher', async t => {
     const errorMessage = await el('.message').innerText;
     expect(errorMessage).to.contain("A very very very very very very very very very very very very very very "
                 + "long long long long long long long long long long long long long long long long long "
-                + "warning messgage that should appear if the trader submits an unavailable voucher."
+                + "warning message that should appear if the trader submits an unavailable voucher."
     );
 });
 

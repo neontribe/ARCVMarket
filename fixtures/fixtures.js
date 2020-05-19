@@ -60,7 +60,7 @@ var Fixtures = {
             {"warning": "A warning message number one."},
             {"warning": "A very very very very very very very very very very very very very very "
                 + "long long long long long long long long long long long long long long long long long "
-                + "warning messgage that should appear if the trader submits an unavailable voucher."
+                + "warning message that should appear if the trader submits an unavailable voucher."
             }
         ],
         "error": [{"error": "An error message for invalid voucher code."}],
