@@ -55,15 +55,15 @@ var Fixtures = {
         ]
     },
     voucherStatus: {
-        "success": [{"message": 'Voucher is valid'}],
+        "success": [{"message": 'A success message for valid voucher.'}],
         "warning": [
-            {"warning": "You have already submitted voucher code XXX00000."},
-            {"warning": "It looks like the code (:code) has been used already, please double check and try again. "
-                + "If you are still unable to add the voucher code, don't worry - mark it as \"already used\", "
-                + "send it in with your other vouchers and you will still be paid when we receive it."
+            {"warning": "A warning message number one."},
+            {"warning": "A very very very very very very very very very very very very very very "
+                + "long long long long long long long long long long long long long long long long long "
+                + "warning messgage that should appear if the trader submits an unavailable voucher."
             }
         ],
-        "error": [{"error": "That isn't a valid voucher code, please check the number and try again."}],
+        "error": [{"error": "An error message for invalid voucher code."}],
     },
     traderVoucherHistory: {
         "1": [
