@@ -7,6 +7,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var OfflinePlugin = require('offline-plugin');
 var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 var { VueLoaderPlugin } = require('vue-loader');
+var WebpackPwaManifest = require('webpack-pwa-manifest');
 var gitRevisionPlugin = new GitRevisionPlugin();
 
 module.exports = {
@@ -45,7 +46,46 @@ module.exports = {
         new webpack.BannerPlugin({
             banner: "Copyright (c) 2020, Alexandra Rose Charity (reg. in England and Wales, #00279157)",
         }),
-        new OfflinePlugin()
+        new OfflinePlugin(),
+        new WebpackPwaManifest({
+            name : 'Rosie - Rose Voucher Records & Reimbursement',
+            short_name : 'Rosie',
+            display_name : 'Rosie - Rose Voucher Records & Reimbursement',
+            description : 'Record your Rose Vouchers.',
+            lang: 'en',
+            dir: 'ltr',
+            theme_color : '#a74e94',
+            background_color : '#fff',
+            orientation : 'natural',
+            scope : '/',
+            icons : [
+                {
+                    src: path.resolve('src/assets/launcher-48x48.png'),
+                    size: '48x48',
+                },
+                {
+                    src: path.resolve('src/assets/launcher-96x96.png'),
+                    size: '96x96',
+                },
+                {
+                    src: path.resolve('src/assets/launcher-144x144.png'),
+                    size: '144x144',
+                },
+                {
+                    src: path.resolve('src/assets/launcher-192x192.png'),
+                    size: '192x192',
+                },
+                {
+                    src: path.resolve('src/assets/icon.svg'),
+                    size: '193x193',
+                },
+                {
+                    src: path.resolve('src/assets/launcher-512x512.png'),
+                    size: '512x512',
+                }
+            ]
+
+        })
     ],
     module: {
         rules: [
@@ -78,7 +118,8 @@ module.exports = {
                 use: {
                     loader: 'file-loader',
                     options: {
-                        name: '[name].[ext]?[hash]'
+                        name: '[name].[ext]?[hash]',
+                        esModule: false // https://github.com/webpack-contrib/file-loader#esmodule
                     }
                 }
             },
@@ -129,10 +170,6 @@ if (process.env.NODE_ENV === 'production') {
         new CopyWebpackPlugin([
             {
                 from: 'src/assets',
-                to: '[name].[ext]?[hash]'
-            },
-            {
-                from: 'src/manifest.json',
                 to: '[name].[ext]?[hash]'
             }
         ])
