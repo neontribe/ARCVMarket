@@ -106,7 +106,7 @@ test('Correct error appears when I submit an invalid voucher', async t => {
         .click(sponsorBox)
         .pressKey('backspace')
         .typeText(sponsorBox, 'INV')
-        .typeText(el('#voucherBox'), '123')
+        .typeText(el('#voucherBox'), '1234')
     ;
     const submitButton = await el('#submitVoucher');
 
@@ -114,7 +114,7 @@ test('Correct error appears when I submit an invalid voucher', async t => {
         .click(submitButton)
     ;
     const errorMessage = await el('.content div.message').innerText;
-    expect(errorMessage).to.contain("That isn't a valid voucher code, please check the number and try again.");
+    expect(errorMessage).to.contain("An error message for invalid voucher code.");
 });
 
 test('Correct error appears when I submit a duplicate voucher', async t => {
@@ -133,7 +133,7 @@ test('Correct error appears when I submit a duplicate voucher', async t => {
         .click(sponsorBox)
         .pressKey('backspace')
         .typeText(el('#sponsorBox'), 'FAL')
-        .typeText(el('#voucherBox'), '111')
+        .typeText(el('#voucherBox'), '1111')
     ;
     const submitButton = await el('#submitVoucher');
 
@@ -141,10 +141,12 @@ test('Correct error appears when I submit a duplicate voucher', async t => {
         .click(submitButton)
     ;
     const errorMessage = await el('.message').innerText;
-    expect(errorMessage).to.contain("It looks like the code (:code) has been used already, please double check and try again. "
-        + "If you are still unable to add the voucher code, don't worry - mark it as \"already used\", "
-        + "send it in with your other vouchers and you will still be paid when we receive it."
+    expect(errorMessage).to.contain("A very very very very very very very very very very very very very very "
+                + "long long long long long long long long long long long long long long long long long "
+                + "warning message that should appear if the trader submits an unavailable voucher."
     );
+
+
 });
 
 test('Page displays number of recorded vouchers', async t => {
