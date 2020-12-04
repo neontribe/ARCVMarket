@@ -1,24 +1,21 @@
 /* "Copyright © 2020, Alexandra Rose Charity (reg. in England and Wales, #00279157)" */
-var path = require('path');
-var webpack = require('webpack');
-var GitRevisionPlugin = require('git-revision-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-var OfflinePlugin = require('offline-plugin');
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-var { VueLoaderPlugin } = require('vue-loader');
-var WebpackPwaManifest = require('webpack-pwa-manifest');
-var gitRevisionPlugin = new GitRevisionPlugin();
+const path = require('path');
+const webpack = require('webpack');
+const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const OfflinePlugin = require('offline-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const { VueLoaderPlugin } = require('vue-loader');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const gitRevisionPlugin = new GitRevisionPlugin();
 
 module.exports = {
     mode: 'none',
     entry: ['@babel/polyfill','./src/main.js'],
     optimization: {
-        minimizer: [
-            new UglifyJsPlugin({
-                sourceMap: false,
-            })
-        ],
+        minimize: true,
+        minimizer: [new TerserPlugin()],
     },
     output: {
         path: path.resolve(__dirname, './dist'),
