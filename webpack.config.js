@@ -14,7 +14,6 @@ module.exports = {
     mode: 'none',
     entry: ['@babel/polyfill','./src/main.js'],
     optimization: {
-        minimize: true,
         minimizer: [new TerserPlugin()],
     },
     output: {
@@ -102,12 +101,13 @@ module.exports = {
                 }
             },
             {
-                test: /\.scss$/,
+                test: /\.s[ac]ss$/i,
                 use: [
                     'vue-style-loader',
                     'css-loader',
                     {
                         loader: 'sass-loader',
+                        options: { sourceMap: true}
                     },
                 ],
             },
@@ -151,6 +151,7 @@ module.exports = {
 
 if (process.env.NODE_ENV === 'production') {
     module.exports.devtool = '#source-map';
+    module.exports.optimization.minimize = true;
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
