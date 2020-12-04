@@ -11,6 +11,7 @@ var WebpackPwaManifest = require('webpack-pwa-manifest');
 var gitRevisionPlugin = new GitRevisionPlugin();
 
 module.exports = {
+    mode: 'none',
     entry: ['@babel/polyfill','./src/main.js'],
     optimization: {
         minimizer: [
