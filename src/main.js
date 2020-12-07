@@ -61,33 +61,43 @@ const router = new VueRouter({
 });
 
 // Route Guard rules for directing users
-router.beforeEach((to, from, next) => {
-    var auth = Store.netMgr.isAuth();
+router.beforeEach(function (to, from, next) {
+    const auth = Store.netMgr.isAuth();
 
-    if (!auth && to.meta.auth) {
-        Store.netMgr.setTokenFromLocalStorage();
-        Store.setUserTradersFromLocalStorage();
-
-        // not auth'd, accessing friends-only page, go to /login
-        next({
-            path: '/login',
-            query: {redirect: to.fullPath}
-        });
-    } else if (auth) {
-        if (!Store.trader.id && to.path != "/user") {
-            // No trader? We need to go to the trader chooser next, then on to where-ever.
-            // "Wherever" will be dealt with *after* that page.
+    if (auth) {
+        // authenticated
+        if (!Store.trader.id && to.path !== "/user") {
+            // ... no trader and not picking one? go to the trader chooser next
+            // with a redirect for onward travel
             next({
                 path: '/user',
                 query: {redirect: to.path}
             });
+            return;
         }
         if (!to.meta.auth) {
-            // auth'd, trader'd but strangers-only page? Nope, go to '/'
-            next('/');
+            // ... but heading to an unguarded page?
+            // go to root.
+            next({ path: '/'});
+            return;
+        }
+    } else {
+        // not authenticated
+        if (to.meta.auth) {
+            // ... and accessing auth-guarded page
+            // clear your session
+            Store.netMgr.setTokenFromLocalStorage();
+            Store.setUserTradersFromLocalStorage();
+            // and go to login to try again.
+            // before going back to that page you wanted
+            next({
+                path: '/login',
+                query: {redirect: to.fullPath}
+            });
+            return;
         }
     }
-    // public || auth'd, trader'd+friends-only || unauth'd+strangers-only, go where they asked;
+    // business as usual, don't intercept the route, just move along
     next();
 });
 

@@ -153,11 +153,11 @@ module.exports = {
         hints: false
     },
 
-    devtool: '#eval-source-map'
+    devtool: 'eval-source-map'
 };
 
 if (process.env.NODE_ENV === 'production') {
-    module.exports.devtool = '#source-map';
+    module.exports.devtool = 'source-map';
     module.exports.optimization.minimize = true;
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
@@ -173,11 +173,13 @@ if (process.env.NODE_ENV === 'production') {
         new webpack.LoaderOptionsPlugin({
             minimize: true
         }),
-        new CopyWebpackPlugin([
-            {
-                from: 'src/assets',
-                to: '[name].[ext]?[hash]'
-            }
-        ])
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: 'src/assets',
+                    to: '[name].[ext]?[hash]'
+                }
+            ]
+        })
     ])
 }

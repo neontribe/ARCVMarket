@@ -44,6 +44,7 @@
 
     import mixin from '../mixins/mixins';
     import constants from "../constants";
+    import VueRouter from "vue-router";
 
     export default {
         name: 'login',
@@ -77,8 +78,20 @@
                         redirect = '/';
                     }
 
-                    this.$router.push({path: redirect});
-
+                    this
+                        .$router
+                        .push({path: redirect})
+                        .catch(function (e) {
+                            // Push can return an error promise if we jump around too much
+                            // this is usually expected on logins.
+                            // This is an inelegant catch of that.
+                            if (!VueRouter.isNavigationFailure(
+                                        e,
+                                        VueRouter.NavigationFailureType.redirected
+                                )) {
+                                Promise.reject(e)
+                            }
+                        });
                 }.bind(this),
                 function (errmsg) {
                     this.setMessage(errmsg, constants.MESSAGE_ERROR);
