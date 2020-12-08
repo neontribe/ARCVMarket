@@ -70,6 +70,7 @@
                     username: this.username,
                     password: this.password
                 };
+
                 Store.authenticate(userApiCreds, function () {
                     this.errorMessage = null;
                     // I don't like this here, but it's the only place it works for now.
@@ -78,24 +79,31 @@
                         redirect = '/';
                     }
 
-                    this
-                        .$router
+                    this.$router
                         .push({path: redirect})
                         .catch(function (e) {
-                            // Push can return an error promise if we jump around too much
+                            // Push can return an error to navigation promises
+                            // if we redirect or refresh in place
                             // this is usually expected on logins.
-                            // This is an inelegant catch of that.
-                            if (!VueRouter.isNavigationFailure(
-                                        e,
-                                        VueRouter.NavigationFailureType.redirected
-                                )) {
+                            // This is an inelegant catch and discard of that.
+
+                            // Get the error constants from deep inside the router
+                            const redirected = VueRouter.NavigationFailureType.redirected;
+                            const duplicated = VueRouter.NavigationFailureType.duplicated;
+                            if (
+                                    !VueRouter.isNavigationFailure(e,redirected) ||
+                                    !VueRouter.isNavigationFailure(e,duplicated)
+                            ) {
+                                // Show any errors we don't want to ignore
                                 Promise.reject(e)
                             }
                         });
                 }.bind(this),
+
                 function (errmsg) {
                     this.setMessage(errmsg, constants.MESSAGE_ERROR);
                 }.bind(this)
+
               );
 
             }
