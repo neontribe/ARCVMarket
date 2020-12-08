@@ -78,26 +78,8 @@
                     if (!redirect) {
                         redirect = '/';
                     }
-
                     this.$router
-                        .push({path: redirect})
-                        .catch(function (e) {
-                            // Push can return an error to navigation promises
-                            // if we redirect or refresh in place
-                            // this is usually expected on logins.
-                            // This is an inelegant catch and discard of that.
-
-                            // Get the error constants from deep inside the router
-                            const redirected = VueRouter.NavigationFailureType.redirected;
-                            const duplicated = VueRouter.NavigationFailureType.duplicated;
-                            if (
-                                    !VueRouter.isNavigationFailure(e,redirected) ||
-                                    !VueRouter.isNavigationFailure(e,duplicated)
-                            ) {
-                                // Show any errors we don't want to ignore
-                                Promise.reject(e)
-                            }
-                        });
+                        .push({path: redirect});
                 }.bind(this),
 
                 function (errmsg) {

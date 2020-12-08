@@ -60,6 +60,28 @@ const router = new VueRouter({
         join('/')+'/'
 });
 
+// Nasty hack to get round the new NavigationErrors
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(
+    location,
+    onResolve,
+    onReject
+) {
+    console.log("running error")
+    if (onResolve || onReject) {
+        return originalPush.call(this, location, onResolve, onReject);
+    }
+    return originalPush.call(this, location).catch(
+        function(e) {
+        if (VueRouter.isNavigationFailure(e)) {
+            // resolve err
+            return e;
+        }
+        // rethrow error
+        return Promise.reject(e)
+    })
+}
+
 // Route Guard rules for directing users
 router.beforeEach(function (to, from, next) {
     const auth = Store.netMgr.isAuth();
