@@ -67,7 +67,6 @@ VueRouter.prototype.push = function push(
     onResolve,
     onReject
 ) {
-    console.log("running error")
     if (onResolve || onReject) {
         return originalPush.call(this, location, onResolve, onReject);
     }
