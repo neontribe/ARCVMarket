@@ -42,6 +42,7 @@
                             <div
                                 class="tab row"
                                 v-for="(recVoucher, index) in recVouchers[0]"
+                                :key="recVoucher.code"
                             >
                                 <label>
                                     <div class="row-code">
@@ -97,6 +98,7 @@ import Store from "../store.js";
 import mixin from "../mixins/mixins";
 import Message from "../components/Message.vue";
 import constants from "../constants";
+
 export default {
     name: "payment",
     data() {

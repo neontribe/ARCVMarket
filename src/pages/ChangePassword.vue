@@ -7,7 +7,7 @@
                 <p>Please enter your new password below.</p>
 
                 <div>
-                    <form id="resetPassword" v-on:submit.prevent>
+                    <form id="resetPasswordForm" v-on:submit.prevent>
                         <message
                             v-bind:text="message.text"
                             v-bind:state="message.state"

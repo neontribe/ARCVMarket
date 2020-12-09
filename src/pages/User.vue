@@ -10,7 +10,10 @@
                     v-on:submit.prevent="onContinue"
                     @keyup.enter="onContinue"
                 >
-                    <div v-for="(trader, index) in this.userTraders[0]">
+                    <div
+                        v-for="(trader, index) in this.userTraders[0]"
+                        :key="trader.id"
+                    >
                         <div class="multiple-choice">
                             <input
                                 :id="'radio-' + index"

@@ -44,7 +44,11 @@
                     </div>
 
                     <!-- Tab row -->
-                    <div class="tab row" v-for="voucher in vouchers">
+                    <div
+                        class="tab row"
+                        v-for="voucher in vouchers"
+                        :key="voucher.code"
+                    >
                         <label>
                             <div class="row-code">
                                 <div>{{ voucher.code }}</div>

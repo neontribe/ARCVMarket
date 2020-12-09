@@ -42,6 +42,7 @@
                         <div
                             class="tab row"
                             v-for="(payment, index) in voucherPayments"
+                            :key="payment.pended_on"
                         >
                             <input
                                 :id="'tab-' + index"
@@ -83,7 +84,8 @@
                                 </div>
                                 <div
                                     class="tab"
-                                    v-for="voucher in payment.vouchers"
+                                    v-for="(voucher, index) in payment.vouchers"
+                                    :key="index"
                                 >
                                     <label>
                                         <div class="row-code">
