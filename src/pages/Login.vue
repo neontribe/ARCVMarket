@@ -44,6 +44,7 @@
 
     import mixin from '../mixins/mixins';
     import constants from "../constants";
+    import VueRouter from "vue-router";
 
     export default {
         name: 'login',
@@ -69,6 +70,7 @@
                     username: this.username,
                     password: this.password
                 };
+
                 Store.authenticate(userApiCreds, function () {
                     this.errorMessage = null;
                     // I don't like this here, but it's the only place it works for now.
@@ -76,13 +78,14 @@
                     if (!redirect) {
                         redirect = '/';
                     }
-
-                    this.$router.push({path: redirect});
-
+                    this.$router
+                        .push({path: redirect});
                 }.bind(this),
+
                 function (errmsg) {
                     this.setMessage(errmsg, constants.MESSAGE_ERROR);
                 }.bind(this)
+
               );
 
             }

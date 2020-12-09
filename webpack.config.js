@@ -1,23 +1,20 @@
 /* "Copyright © 2020, Alexandra Rose Charity (reg. in England and Wales, #00279157)" */
-var path = require('path');
-var webpack = require('webpack');
-var GitRevisionPlugin = require('git-revision-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-var OfflinePlugin = require('offline-plugin');
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-var { VueLoaderPlugin } = require('vue-loader');
-var WebpackPwaManifest = require('webpack-pwa-manifest');
-var gitRevisionPlugin = new GitRevisionPlugin();
+const path = require('path');
+const webpack = require('webpack');
+const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const OfflinePlugin = require('offline-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const { VueLoaderPlugin } = require('vue-loader');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const gitRevisionPlugin = new GitRevisionPlugin();
 
 module.exports = {
+    mode: 'none',
     entry: ['@babel/polyfill','./src/main.js'],
     optimization: {
-        minimizer: [
-            new UglifyJsPlugin({
-                sourceMap: false,
-            })
-        ],
+        minimizer: [new TerserPlugin()],
     },
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -104,12 +101,20 @@ module.exports = {
                 }
             },
             {
-                test: /\.scss$/,
+                test: /\.s[ac]ss$/i,
                 use: [
                     'vue-style-loader',
-                    'css-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            esModule: false
+                        }
+                    },
                     {
                         loader: 'sass-loader',
+                        options: {
+                            implementation: require('node-sass')
+                        }
                     },
                 ],
             },
@@ -148,11 +153,12 @@ module.exports = {
         hints: false
     },
 
-    devtool: '#eval-source-map'
+    devtool: 'eval-source-map'
 };
 
 if (process.env.NODE_ENV === 'production') {
-    module.exports.devtool = '#source-map';
+    module.exports.devtool = 'source-map';
+    module.exports.optimization.minimize = true;
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
@@ -167,11 +173,13 @@ if (process.env.NODE_ENV === 'production') {
         new webpack.LoaderOptionsPlugin({
             minimize: true
         }),
-        new CopyWebpackPlugin([
-            {
-                from: 'src/assets',
-                to: '[name].[ext]?[hash]'
-            }
-        ])
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: 'src/assets',
+                    to: '[name].[ext]?[hash]'
+                }
+            ]
+        })
     ])
 }
