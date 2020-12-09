@@ -16,6 +16,5 @@ module.exports = {
         "prettier/prettier": "error",
         curly: ["error", "all"],
         "no-confusing-arrow": ["error", { allowParens: false }],
-        "vue/html-self-closing": ["error", { html: { void: "any" } }],
     },
 };

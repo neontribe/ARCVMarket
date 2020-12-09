@@ -30,6 +30,8 @@
         "font-awesome": "^4.7.0",
         "git-revision-webpack-plugin": "^3.0.6",
         "html-webpack-plugin": "^4.5.0",
+        "husky": "^4.3.5",
+        "lint-staged": "^10.5.3",
         "node-sass": "^4.14.1",
         "offline-plugin": "^5.0.7",
         "prettier": "^2.2.1",
@@ -53,7 +55,18 @@
         "test": "testcafe chrome,firefox ./tests/*/*.test.js --app 'cross-env NODE_ENV=development webpack-dev-server' --app-init-delay 10000",
         "lint": "eslint --ext .js,.vue src tests",
         "lint-autofix": "eslint --ext .js,.vue src tests --fix",
-        "eslint-check": "eslint-config-prettier .eslintrc.js"
+        "lint-check": "eslint-config-prettier .eslintrc.js",
+        "postcommit": "git update-index --again"
     },
-    "version": "1.4.0-dev"
+    "version": "1.4.0-dev",
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{js,json,yaml,json,vue}": [
+            "eslint --ext .js,.vue src tests --fix --quiet --cache"
+        ]
+    }
 }
