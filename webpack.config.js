@@ -1,4 +1,4 @@
-/* "Copyright © 2020, Alexandra Rose Charity (reg. in England and Wales, #00279157)" */
+/* "Copyright © 2021, Alexandra Rose Charity (reg. in England and Wales, #00279157)" */
 const path = require('path');
 const webpack = require('webpack');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
@@ -41,7 +41,7 @@ module.exports = {
             }
         }),
         new webpack.BannerPlugin({
-            banner: "Copyright (c) 2020, Alexandra Rose Charity (reg. in England and Wales, #00279157)",
+            banner: "Copyright (c) 2021, Alexandra Rose Charity (reg. in England and Wales, #00279157)",
         }),
         new OfflinePlugin(),
         new WebpackPwaManifest({
