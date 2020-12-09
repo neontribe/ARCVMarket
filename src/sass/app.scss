@@ -196,7 +196,7 @@ input {
   }
   // get rid of pale yellow background in input fields
   &:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px $arc_white inset;
+    -webkit-box-shadow: 0 0 0 1000px $arc_white inset;
   }
 }
 
@@ -554,7 +554,7 @@ main > *:target ~ * {
       position: absolute;
       animation: fa-spin 2s infinite linear;
       top: 12px;
-      left: 0px;
+      left: 0;
       right: 0;
       margin: 0 auto;
       content: "\f013";
@@ -1048,8 +1048,7 @@ h1.expandable.queue {
 
   nav {
     position: relative;
-    margin: 0 auto;
-    margin-right: 0;
+    margin: 0 0 0 auto;
   }
 
   header {
