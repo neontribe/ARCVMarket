@@ -1,7 +1,7 @@
 <template id="toolbar">
     <div class="toolbar">
         <transition name="pulse">
-            <div :key="voucherCount" v-if="vouchersAdded" class="count">
+            <div v-if="vouchersAdded" class="count">
                 <router-link v-bind:to="'/payment'"
                     ><strong>{{ voucherCount }}</strong> voucher<span
                         v-if="voucherCount > 1"
@@ -37,20 +37,17 @@ export default {
     data: function () {
         return {
             recVouchers: Store.trader.recVouchers,
-            voucherCount: 0,
         };
     },
     mounted: function () {
         Store.getRecVouchers();
     },
     computed: {
+        voucherCount: function () {
+            return this.vouchersAdded ? this.recVouchers[0].length : 0;
+        },
         vouchersAdded: function () {
-            if (this.recVouchers[0] && this.recVouchers[0].length > 0) {
-                this.voucherCount = this.recVouchers[0].length;
-                return true;
-            } else {
-                return false;
-            }
+            return this.recVouchers[0] && this.recVouchers[0].length > 0;
         },
     },
 };

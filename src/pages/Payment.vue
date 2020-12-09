@@ -106,7 +106,6 @@ export default {
             recVouchers: Store.trader.recVouchers,
             netMgr: Store.netMgr,
             collapsed: true,
-            voucherCount: 0,
         };
     },
     mixins: [mixin.messages],
@@ -114,13 +113,11 @@ export default {
         Message,
     },
     computed: {
+        voucherCount: function () {
+            return this.vouchersAdded ? this.recVouchers[0].length : 0;
+        },
         vouchersAdded: function () {
-            if (this.recVouchers[0] && this.recVouchers[0].length > 0) {
-                this.voucherCount = this.recVouchers[0].length;
-                return true;
-            } else {
-                return false;
-            }
+            return this.recVouchers[0] && this.recVouchers[0].length > 0;
         },
         paymentMessage: function () {
             return Store.trader.market.payment_message
