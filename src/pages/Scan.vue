@@ -17,6 +17,7 @@
                         <input id="sponsorBox"
                             @keydown.enter.prevent
                             @keypress='onKeypressSponsorBox'
+                            v-on:paste.prevent
                             type="text"
                             v-model="sponsorCode"
                             ref="sponsorBox"
@@ -26,6 +27,7 @@
                             v-bind:class="{ 'input-text-hidden': queued }"
                         >
                         <input id="voucherBox"
+                            v-on:paste.prevent
                             v-on:keyup.delete='onDelVoucherBox'
                             @keypress='onKeypressVoucherBox'
                             type="tel"
@@ -209,6 +211,7 @@ export default {
                 event.preventDefault();
                 if (this.voucherCode.length < this.$refs.voucherBox.getAttribute("maxlength")) {
                     this.$refs.voucherBox.focus();
+                    console.log('no number');
                     this.voucherCode += char;
                 }
                 return false;

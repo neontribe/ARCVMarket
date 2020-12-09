@@ -15,6 +15,7 @@
 
                     <div class="input-box">
                         <input id="sponsorBox"
+                            v-on:paste.prevent
                             @keypress='onKeypressSponsorBox'
                             type="text"
                             v-model="sponsorCode"
@@ -23,6 +24,7 @@
                             maxlength="5"
                         >
                         <input id="voucherBox"
+                            v-on:paste.prevent
                             v-on:keyup.delete='onDelVoucherBox'
                             @keypress='onKeypressVoucherBox'
                             type="tel"
