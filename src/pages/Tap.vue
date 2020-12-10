@@ -26,7 +26,7 @@
                             ref="sponsorBox"
                             minlength="2"
                             maxlength="5"
-                        >
+                        />
                         <input id="voucherBox"
                             v-on:paste.prevent
                             v-on:keyup.delete='onDelVoucherBox'

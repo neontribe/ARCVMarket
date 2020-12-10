@@ -30,8 +30,8 @@
                             maxlength="5"
                             autofocus="autofocus"
                             v-bind:class="{ 'input-text-hidden': queued }"
-                        >
-                        <input 
+                        />
+                        <input
                             id="voucherBox"
                             v-on:paste.prevent
                             v-on:keyup.delete='onDelVoucherBox'
@@ -75,13 +75,6 @@ import Store from "../store.js";
 import mixin from "../mixins/mixins";
 import Queue from "../components/Queue.vue";
 import constants from "../constants.js";
-
-import Store from '../store.js';
-import mixin from '../mixins/mixins';
-import Profile from '../components/Profile.vue';
-import Queue from '../components/Queue.vue';
-import Message from '../components/Message.vue';
-import constants from '../constants.js';
 
 let RESULT_TIMER = 1000;
 let TIMER = null;
@@ -280,7 +273,7 @@ export default {
                 if (!TIMER) {
                     this.delay(() => {
                         // When the box gets full, cancel any timers, else remove input
-                        this.voucherCode.length === voucherBoxMaxLength ? TIMER=null : this.voucherCode = '';
+                        this.voucherCode.length === voucherBoxMaxLength ? TIMER = null : this.voucherCode = '';
                         TIMER = null;
                     }, 150);
 
