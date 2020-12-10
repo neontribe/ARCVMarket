@@ -1,23 +1,20 @@
 <template>
-
     <div id="app">
         <masthead></masthead>
         <transition name="fade"><router-view></router-view></transition>
     </div>
-
 </template>
 
 <script>
-import Masthead from './components/Masthead.vue';
-import Store from './store.js';
+import Masthead from "./components/Masthead.vue";
 export default {
-    name: 'app',
+    name: "app",
     components: {
-        Masthead
-    }
-}
+        Masthead,
+    },
+};
 </script>
 
 <style lang="scss">
-    @import "sass/app.scss";
+@import "sass/app.scss";
 </style>
