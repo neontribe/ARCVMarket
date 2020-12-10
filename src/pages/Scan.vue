@@ -226,13 +226,20 @@ export default {
             }
         },
         onKeypressVoucherBox : function(event) {
-            var rxNumber = /\d/;
-            var char = this.getKeyCharCode(event);
+            const rxNumber = /\d/;
+            const char = this.getKeyCharCode(event);
 
             if (char.match(rxNumber)) {
-                if (this.voucherCode.length < event.target.maxlength) {
-                    this.voucherCode += char;
-                }
+                this.delay(function() {
+                    if (this.voucherCode.length < event.target.maxlength) {
+                        console.log(event.target.value);
+                        console.log('too slow');
+                        this.voucherCode = '';
+                    }
+                }, 50);
+                // if (this.voucherCode.length < event.target.maxlength) {
+                //     this.voucherCode += char;
+                // }
                 return;
             }
             //allow enter key to submit
@@ -246,9 +253,16 @@ export default {
             // Try to cross platform catch the keycode
             // Note, there's also "event.which" (int)
             // There's also "event.key" (string), which MDN thinks is better;
-            var charCode = event.keyCode ? event.keyCode : event.charCode;
+            const charCode = event.keyCode ? event.keyCode : event.charCode;
             return String.fromCharCode(charCode);
-        }
+        },
+        delay : (function() {
+            let timer = 0;
+            return function(callback, ms) {
+                clearTimeout(timer);
+                timer = setTimeout(callback, ms);
+            }
+        })()
     },
     mounted: function() {
         Store.getRecVouchers();
