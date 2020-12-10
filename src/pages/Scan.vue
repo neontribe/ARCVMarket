@@ -69,8 +69,8 @@ import Queue from '../components/Queue.vue';
 import Message from '../components/Message.vue';
 import constants from '../constants.js';
 
-var RESULT_TIMER = 1000;
-var TIMER = null;
+let RESULT_TIMER = 1000;
+let TIMER = null;
 
 export default {
     name: 'scan',
@@ -119,6 +119,8 @@ export default {
                         // The server has processed our list, clear it.
                         Store.clearVouchers();
                         Store.getRecVouchers();
+                        // When the voucher has been submitted, cancel any timers
+                        TIMER = null;
                     }.bind(this),
                     // Failure function, hook for error message
                     // Network error of some kind;
@@ -228,20 +230,19 @@ export default {
         onKeypressVoucherBox : function(event) {
             const rxNumber = /\d/;
             const char = this.getKeyCharCode(event);
+            const voucherBoxMaxLength = parseInt(this.$refs.voucherBox.getAttribute('maxlength'));
 
             // If we have a number
             if (char.match(rxNumber)) {
-                // TODO : when the box gets full, cancel any timers
-                // TODO : when the voucher has been submitted, cancel any timers
-
                 if (!TIMER) {
                     this.delay(() => {
-                        console.log("expired");
-                        this.voucherCode = "";
+                        // When the box gets full, cancel any timers, else remove input
+                        this.voucherCode.length === voucherBoxMaxLength ? TIMER=null : this.voucherCode = '';
                         TIMER = null;
-                    }, 5000);
+                    }, 150);
+
                 }
-                if (this.voucherCode.length < event.target.maxlength){
+                if (this.voucherCode.length < event.target.maxlength) {
                     this.voucherCode += char;
                 }
                 return;
@@ -261,7 +262,6 @@ export default {
             return String.fromCharCode(charCode);
         },
         delay: function(callback, ms) {
-                console.log("timer set");
                 clearTimeout(TIMER);
                 TIMER = setTimeout(callback, ms);
         }
