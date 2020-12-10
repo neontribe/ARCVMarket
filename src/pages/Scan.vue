@@ -29,6 +29,7 @@
                             minlength="2"
                             maxlength="5"
                             autofocus="autofocus"
+                            autocomplete="off"
                             v-bind:class="{ 'input-text-hidden': queued }"
                         />
                         <input
@@ -42,6 +43,7 @@
                             ref="voucherBox"
                             minlength="4"
                             maxlength="8"
+                            autocomplete="off"
                             v-bind:class="{ 'input-text-hidden': queued }"
                         />
                     </div>
@@ -101,6 +103,8 @@ export default {
     methods:  {
         onRecordVoucher: function(event) {
             //TODO: some proper validation
+            // When the voucher is submitted, cancel the typing in voucher box timer
+            TIMER = null;
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
                 this.startSpinner();
                 Store.addVoucherCode(
@@ -130,8 +134,6 @@ export default {
                         // The server has processed our list, clear it.
                         Store.clearVouchers();
                         Store.getRecVouchers();
-                        // When the voucher has been submitted, cancel any timers
-                        TIMER = null;
                     }.bind(this),
                     // Failure function, hook for error message
                     // Network error of some kind;
@@ -246,7 +248,6 @@ export default {
                     this.$refs.voucherBox.getAttribute("maxlength")
                 ) {
                     this.$refs.voucherBox.focus();
-                    console.log('no number');
                     this.voucherCode += char;
                 }
                 return false;
@@ -272,14 +273,16 @@ export default {
             if (char.match(rxNumber)) {
                 if (!TIMER) {
                     this.delay(() => {
-                        // When the box gets full, cancel any timers, else remove input
-                        this.voucherCode.length === voucherBoxMaxLength ? TIMER = null : this.voucherCode = '';
+                        // When the box gets full, cancel any timers, else remove input and refocus
+                        if (this.voucherCode.length === voucherBoxMaxLength) {
+                            TIMER = null;
+                        } else {
+                            this.voucherCode = "";
+                            this.sponsorCode = "";
+                            this.$refs.sponsorBox.focus();
+                        }
                         TIMER = null;
-                    }, 150);
-
-                }
-                if (this.voucherCode.length < event.target.maxlength) {
-                    this.voucherCode += char;
+                    }, 200);
                 }
                 return;
             }
