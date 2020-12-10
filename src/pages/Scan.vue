@@ -70,6 +70,7 @@ import Message from '../components/Message.vue';
 import constants from '../constants.js';
 
 var RESULT_TIMER = 1000;
+var TIMER = null;
 
 export default {
     name: 'scan',
@@ -93,7 +94,6 @@ export default {
             queued: false,
         }
     },
-
     methods:  {
         onRecordVoucher: function(event) {
             //TODO: some proper validation
@@ -229,17 +229,21 @@ export default {
             const rxNumber = /\d/;
             const char = this.getKeyCharCode(event);
 
+            // If we have a number
             if (char.match(rxNumber)) {
-                this.delay(function() {
-                    if (this.voucherCode.length < event.target.maxlength) {
-                        console.log(event.target.value);
-                        console.log('too slow');
-                        this.voucherCode = '';
-                    }
-                }, 50);
-                // if (this.voucherCode.length < event.target.maxlength) {
-                //     this.voucherCode += char;
-                // }
+                // TODO : when the box gets full, cancel any timers
+                // TODO : when the voucher has been submitted, cancel any timers
+
+                if (!TIMER) {
+                    this.delay(() => {
+                        console.log("expired");
+                        this.voucherCode = "";
+                        TIMER = null;
+                    }, 5000);
+                }
+                if (this.voucherCode.length < event.target.maxlength){
+                    this.voucherCode += char;
+                }
                 return;
             }
             //allow enter key to submit
@@ -256,13 +260,11 @@ export default {
             const charCode = event.keyCode ? event.keyCode : event.charCode;
             return String.fromCharCode(charCode);
         },
-        delay : (function() {
-            let timer = 0;
-            return function(callback, ms) {
-                clearTimeout(timer);
-                timer = setTimeout(callback, ms);
-            }
-        })()
+        delay: function(callback, ms) {
+                console.log("timer set");
+                clearTimeout(TIMER);
+                TIMER = setTimeout(callback, ms);
+        }
     },
     mounted: function() {
         Store.getRecVouchers();
