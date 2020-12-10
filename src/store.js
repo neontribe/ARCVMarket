@@ -1,10 +1,10 @@
-import NetMgr from './services/netMgr.js';
+import NetMgr from "./services/netMgr.js";
 
 // TODO store.error needs store based setter.
-var store = {
+let store = {
     user: {
-        id : 1,
-        traders : []
+        id: 1,
+        traders: [],
     },
     trader: {
         id: null,
@@ -12,37 +12,43 @@ var store = {
         vouchers: [],
         recVouchers: [],
         market: {
-            payment_message: '',
-            sponsor_shortcode: '',
-        }
+            payment_message: "",
+            sponsor_shortcode: "",
+        },
     },
     netMgr: NetMgr,
     auth: false,
     error: null,
     queue: {
         sendingStatus: false,
-        sentData: null
+        sentData: null,
     },
 };
 
-store.resetStore = function() {
+store.resetStore = function () {
     // TODO : I'm thinking we need some user/trader objects that manage this.
     this.user = {
         id: null,
-        traders : []
+        traders: [],
     };
     this.trader = {
-        id : null,
-        pendedVouchers : [],
+        id: null,
+        pendedVouchers: [],
         vouchers: [],
         recVouchers: [],
         market: {
-            payment_message: '',
-            sponsor_shortcode: '',
-        }
+            payment_message: "",
+            sponsor_shortcode: "",
+        },
     };
-    this.trader.vouchers = this.trader.vouchers.splice(0, this.trader.vouchers.length);
-    this.trader.recVouchers = this.trader.recVouchers.splice(0, this.trader.recVouchers.length);
+    this.trader.vouchers = this.trader.vouchers.splice(
+        0,
+        this.trader.vouchers.length
+    );
+    this.trader.recVouchers = this.trader.recVouchers.splice(
+        0,
+        this.trader.recVouchers.length
+    );
     this.error = null;
     window.localStorage.clear();
 };
@@ -54,8 +60,10 @@ store.resetStore = function() {
  *   Currently not used. Will be needed when we support the storage of multiple traders.
  * @returns {Array}
  */
-store.getTraderVoucherList = function(trader) {
-    return this.trader.vouchers.map(function(v) { return v.code });
+store.getTraderVoucherList = function (trader) {
+    return this.trader.vouchers.map(function (v) {
+        return v.code;
+    });
 };
 
 /**
@@ -65,8 +73,8 @@ store.getTraderVoucherList = function(trader) {
  *
  * @returns {Boolean}
  */
-store.getVouchersOnlineStatus = function() {
-    // Loop through the voucher list. If we get to one that was added offine, return with false.
+store.getVouchersOnlineStatus = function () {
+    // Loop through the voucher list. If we get to one that was added off-line, return with false.
     for (let voucher in this.trader.vouchers) {
         if (!this.trader.vouchers[voucher].online) {
             return false;
@@ -77,24 +85,27 @@ store.getVouchersOnlineStatus = function() {
 };
 
 /**
- * Called from vue componenets, proxies logon process for them.
- * @param userApiCreds
+ * Called from vue components, proxies logon process for them.
+ * @param userApiCredentials
  * @param success
  * @param failure
  */
-store.authenticate = function (userApiCreds, success, failure) {
-    this.netMgr.apiPost('/login', userApiCreds,
+store.authenticate = function (userApiCredentials, success, failure) {
+    this.netMgr.apiPost(
+        "/login",
+        userApiCredentials,
         function (response) {
             this.netMgr.setToken(response.data);
             success();
         }.bind(this),
         function (error) {
-            var err = null;
+            let err;
             switch (error.response.status) {
-                case 401 :
-                    err = "The username and password combination entered was not recognised. Please check your details and try again.";
+                case 401:
+                    err =
+                        "The username and password combination entered was not recognised. Please check your details and try again.";
                     break;
-                default :
+                default:
                     err = "Something unusual has happened.";
             }
             if (failure) {
@@ -109,7 +120,9 @@ store.authenticate = function (userApiCreds, success, failure) {
  */
 store.unAuthenticate = function (success, failure) {
     // Hit the logout endpoint.
-    this.netMgr.apiPost('/logout', null,
+    this.netMgr.apiPost(
+        "/logout",
+        null,
         function (response) {
             if (success) {
                 success(response);
@@ -119,7 +132,8 @@ store.unAuthenticate = function (success, failure) {
             if (failure) {
                 failure(error);
             }
-        });
+        }
+    );
     // tidy up store stuff.
     this.resetStore();
     this.netMgr.setToken(null);
@@ -129,10 +143,17 @@ store.unAuthenticate = function (success, failure) {
  * Updates the current User's Traders
  * @returns {boolean}
  */
-store.getUserTraders = function() {
-    this.netMgr.apiGet('/traders', function(response) {
-        this.user.traders.splice(0, this.user.traders.length, response.data);
-    }.bind(this));
+store.getUserTraders = function () {
+    this.netMgr.apiGet(
+        "/traders",
+        function (response) {
+            this.user.traders.splice(
+                0,
+                this.user.traders.length,
+                response.data
+            );
+        }.bind(this)
+    );
     return true;
 };
 
@@ -141,8 +162,8 @@ store.getUserTraders = function() {
  * @param id
  * @returns {boolean}
  */
-store.setUserTrader = function(id) {
-    this.trader = this.user.traders[0].filter(function(userTrader) {
+store.setUserTrader = function (id) {
+    this.trader = this.user.traders[0].filter(function (userTrader) {
         return userTrader.id === id;
     })[0];
     this.trader.pendedVouchers = [];
@@ -151,7 +172,7 @@ store.setUserTrader = function(id) {
 
     this.setLocalStorageFromUserTraders();
 
-    return (this.trader.id === id);
+    return this.trader.id === id;
 };
 
 /**
@@ -159,9 +180,9 @@ store.setUserTrader = function(id) {
  *
  * Will throw a console error if the information stored is invalid JSON and default to the existing info in this case.
  */
-store.setUserTradersFromLocalStorage = function(submitVouchers = true) {
-    let user = localStorage['Store.user'];
-    let trader = localStorage['Store.trader'];
+store.setUserTradersFromLocalStorage = function (submitVouchers = true) {
+    let user = localStorage["Store.user"];
+    let trader = localStorage["Store.trader"];
 
     let parsedUser = this.user;
     let parsedTrader = this.trader;
@@ -170,35 +191,42 @@ store.setUserTradersFromLocalStorage = function(submitVouchers = true) {
         parsedUser = JSON.parse(user);
         parsedTrader = JSON.parse(trader);
     } catch (e) {
-        console.error('Invalid token stored in localstorage.');
+        console.error("Invalid token stored in localstorage.");
     }
 
     this.user = parsedUser;
     this.trader = parsedTrader;
 
-    if(submitVouchers && parsedTrader.vouchers && parsedTrader.vouchers.length > 0) {
+    if (
+        submitVouchers &&
+        parsedTrader.vouchers &&
+        parsedTrader.vouchers.length > 0
+    ) {
         this.queue.sendingStatus = true;
-        this.transitionVouchers('collect', this.getTraderVoucherList(), function(response) {
-            // The server has processed our list, clear it.
-            this.clearVouchers();
-            this.getRecVouchers();
+        this.transitionVouchers(
+            "collect",
+            this.getTraderVoucherList(),
+            function (response) {
+                // The server has processed our list, clear it.
+                this.clearVouchers();
+                this.getRecVouchers();
 
-            this.queue.sentData = response;
-            this.queue.sendingStatus = false;
-        }.bind(this),
-        function() {
-            this.queue.sendingStatus = false;
-        }.bind(this));
+                this.queue.sentData = response;
+                this.queue.sendingStatus = false;
+            }.bind(this),
+            function () {
+                this.queue.sendingStatus = false;
+            }.bind(this)
+        );
     }
 };
-
 
 /**
  * Manages all localStorage settings for the store object.
  */
-store.setLocalStorageFromUserTraders = function() {
-    localStorage['Store.user'] = JSON.stringify(this.user);
-    localStorage['Store.trader'] = JSON.stringify(this.trader);
+store.setLocalStorageFromUserTraders = function () {
+    localStorage["Store.user"] = JSON.stringify(this.user);
+    localStorage["Store.trader"] = JSON.stringify(this.trader);
 };
 
 /**
@@ -206,11 +234,15 @@ store.setLocalStorageFromUserTraders = function() {
  * @returns {boolean}
  */
 store.getVoucherPaymentState = function () {
-    this.netMgr.apiGet('traders/' + this.trader.id + '/voucher-history', function (response) {
-        this.trader.pendedVouchers.splice.apply(
-            this.trader.pendedVouchers, [0, this.trader.pendedVouchers.length].concat(response.data)
-        );
-    }.bind(this));
+    this.netMgr.apiGet(
+        "traders/" + this.trader.id + "/voucher-history",
+        function (response) {
+            this.trader.pendedVouchers.splice.apply(
+                this.trader.pendedVouchers,
+                [0, this.trader.pendedVouchers.length].concat(response.data)
+            );
+        }.bind(this)
+    );
     return true;
 };
 
@@ -218,23 +250,29 @@ store.getVoucherPaymentState = function () {
  * Gets the server's idea of a trader's recorder voucher list
  */
 store.getRecVouchers = function () {
-    this.netMgr.apiGet('/traders/' + this.trader.id + '/vouchers?status=unconfirmed',
+    this.netMgr.apiGet(
+        "/traders/" + this.trader.id + "/vouchers?status=unconfirmed",
         function (response) {
-            var newVouchers = Object.keys(response.data).map(function(k){
+            let newVouchers = Object.keys(response.data).map(function (k) {
                 return response.data[k];
             });
             this.mergeRecVouchers(newVouchers);
-        }.bind(this));
+        }.bind(this)
+    );
     return true;
 };
 
 /**
- * Vue's observation of arrays is tricky. This replaces the an array.
+ * Vue observation of arrays is tricky. This replaces the an array.
  * @param replacements
  */
 store.mergeRecVouchers = function (replacements) {
     // This zeros the array and re-add things in a vue-friendly way.
-    this.trader.recVouchers.splice(0, this.trader.recVouchers.length, replacements);
+    this.trader.recVouchers.splice(
+        0,
+        this.trader.recVouchers.length,
+        replacements
+    );
     // Changed the recVouchers! Quick, save them!
     this.setLocalStorageFromUserTraders();
 };
@@ -243,45 +281,56 @@ store.mergeRecVouchers = function (replacements) {
  * Adds a voucher code and submits it.
  */
 store.addVoucherCode = function (voucherCode, success, failure) {
-    let len = this.trader.vouchers.push(
-        {
-            code: voucherCode,
-            online: this.netMgr.online
-        }
-    );
+    let len = this.trader.vouchers.push({
+        code: voucherCode,
+        online: this.netMgr.online,
+    });
 
     // Store the whole trader
     this.setLocalStorageFromUserTraders();
-    let transition = this.transitionVouchers('collect', this.getTraderVoucherList(), success, failure);
+    let transition = this.transitionVouchers(
+        "collect",
+        this.getTraderVoucherList(),
+        success,
+        failure
+    );
 
     // The online status may have changed by the time that the request has ended.
-    transition.then(function() {
-        let voucher = this.trader.vouchers[len - 1];
-        if(voucher) {
-            voucher.online = NetMgr.online;
+    transition.then(
+        function () {
+            let voucher = this.trader.vouchers[len - 1];
+            if (voucher) {
+                voucher.online = NetMgr.online;
 
-            // Store the whole trader again.
-            this.setLocalStorageFromUserTraders();
-        }
-    }.bind(this));
+                // Store the whole trader again.
+                this.setLocalStorageFromUserTraders();
+            }
+        }.bind(this)
+    );
 };
 
 /**
- * informs the server we'v delted a voucher.
+ * informs the server we've deleted a voucher.
  */
-store.delVoucher = function (voucherCode, success, failure)
-{
-    let transition = this.transitionVouchers('reject', [ voucherCode ], success, failure);
+store.delVoucher = function (voucherCode, success, failure) {
+    let transition = this.transitionVouchers(
+        "reject",
+        [voucherCode],
+        success,
+        failure
+    );
 
-    transition.then(function() {
-        let voucher = this.trader.vouchers[len - 1];
-        if(voucher) {
-            voucher.online = NetMgr.online;
+    transition.then(
+        function () {
+            let voucher = this.trader.vouchers[len - 1];
+            if (voucher) {
+                voucher.online = NetMgr.online;
 
-            // Store the whole trader again.
-            this.setLocalStorageFromUserTraders();
-        }
-    }.bind(this));
+                // Store the whole trader again.
+                this.setLocalStorageFromUserTraders();
+            }
+        }.bind(this)
+    );
 };
 
 /**
@@ -289,11 +338,11 @@ store.delVoucher = function (voucherCode, success, failure)
  */
 store.pendRecVouchers = function (success, failure) {
     // The [0] is vue wierdness
-    var voucherCodes = this.trader.recVouchers[0].map(function(voucher) {
+    const voucherCodes = this.trader.recVouchers[0].map(function (voucher) {
         return voucher.code;
     });
     // Execute the transition
-    this.transitionVouchers('confirm', voucherCodes, success, failure);
+    this.transitionVouchers("confirm", voucherCodes, success, failure);
 };
 
 /**
@@ -311,17 +360,23 @@ store.clearVouchers = function () {
  * @returns {boolean}
  */
 store.transitionVouchers = function (transition, vouchers, success, failure) {
-    var postData = {
-        'transition' : transition,
-        'trader_id': this.trader.id,
-        'vouchers': vouchers
+    const postData = {
+        transition: transition,
+        trader_id: this.trader.id,
+        vouchers: vouchers,
     };
-    return this.netMgr.apiPost('vouchers', postData,
+    return this.netMgr.apiPost(
+        "vouchers",
+        postData,
         function (response) {
-            if (success) {success(response)}
+            if (success) {
+                success(response);
+            }
         },
         function (error) {
-            if (failure) {failure(error)}
+            if (failure) {
+                failure(error);
+            }
         }
     );
 };

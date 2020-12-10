@@ -1,106 +1,117 @@
 <template>
     <div>
         <main class="container" id="tap">
-
             <div class="content narrow">
-
                 <h1>Type a voucher code</h1>
 
                 <form id="textVoucher" v-on:submit.prevent>
+                    <message
+                        v-bind:text="message.text"
+                        v-bind:state="message.state"
+                    ></message>
 
-                    <message v-bind:text="message.text" v-bind:state="message.state"></message>
-
-                    <label for="sponsorBox" id="lblSponsorBox" class="hidden">Sponsor code</label>
-                    <label for="voucherBox" id="lblVoucherBox" class="hidden">Voucher code</label>
+                    <label for="sponsorBox" id="lblSponsorBox" class="hidden"
+                        >Sponsor code</label
+                    >
+                    <label for="voucherBox" id="lblVoucherBox" class="hidden"
+                        >Voucher code</label
+                    >
 
                     <div class="input-box">
-                        <input id="sponsorBox"
-                            @keypress='onKeypressSponsorBox'
+                        <input
+                            id="sponsorBox"
+                            @keypress="onKeypressSponsorBox"
                             type="text"
                             v-model="sponsorCode"
                             ref="sponsorBox"
                             minlength="2"
                             maxlength="5"
-                        >
-                        <input id="voucherBox"
-                            v-on:keyup.delete='onDelVoucherBox'
-                            @keypress='onKeypressVoucherBox'
+                        />
+                        <input
+                            id="voucherBox"
+                            v-on:keyup.delete="onDelVoucherBox"
+                            @keypress="onKeypressVoucherBox"
                             type="tel"
                             pattern="[0-9]*"
                             v-model="voucherCode"
                             ref="voucherBox"
                             minlength="4"
                             maxlength="8"
-                        >
+                        />
                     </div>
 
-                    <button id="submitVoucher"
+                    <button
+                        id="submitVoucher"
                         v-on:click="onRecordVoucher"
-                        v-bind:class="[{ spinner: this.spinner }, { validate: this.validate }, { fail: this.fail }, { queued: this.queued }]"
+                        v-bind:class="[
+                            { spinner: this.spinner },
+                            { validate: this.validate },
+                            { fail: this.fail },
+                            { queued: this.queued },
+                        ]"
                         class="cta"
-                    ><span class="hidden offscreen">Submit code</span></button>
-
+                    >
+                        <span class="hidden offscreen">Submit code</span>
+                    </button>
                 </form>
-
-           </div>
+            </div>
 
             <div>
                 <queue v-on:message-update="setMessage"></queue>
             </div>
-
         </main>
-
     </div>
 </template>
 
 <script>
-import Store from '../store.js';
-import mixin from '../mixins/mixins';
-import Profile from '../components/Profile.vue';
-import Queue from '../components/Queue.vue';
-import Message from '../components/Message.vue';
+import Store from "../store.js";
+import mixin from "../mixins/mixins";
+import Queue from "../components/Queue.vue";
+import constants from "../constants";
 
-import constants from '../constants';
-
-var RESULT_TIMER = 2000;
+const RESULT_TIMER = 2000;
 
 export default {
-    name: 'tap',
-    mixins: [
-        mixin.messages
-    ],
+    name: "tap",
+    mixins: [mixin.messages],
     components: {
-      Profile,
-      Queue
+        Queue,
     },
-    data: function() {
+    data: function () {
         return {
-            sponsorCode : Store.trader.market.sponsor_shortcode,
-            voucherCode : "",
-            vouchers : Store.trader.vouchers,
-            recVouchers : Store.trader.recVouchers,
-            netMgr : Store.netMgr,
+            sponsorCode: Store.trader.market.sponsor_shortcode,
+            voucherCode: "",
+            vouchers: Store.trader.vouchers,
+            recVouchers: Store.trader.recVouchers,
+            netMgr: Store.netMgr,
             spinner: false,
             validate: false,
             fail: false,
             queued: false,
-        }
+        };
     },
     methods: {
-        onRecordVoucher: function(event) {
+        onRecordVoucher: function () {
             //TODO: some proper validation
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
                 this.startSpinner();
-                Store.addVoucherCode(this.sponsorCode.toUpperCase()+this.voucherCode,
+                Store.addVoucherCode(
+                    this.sponsorCode.toUpperCase() + this.voucherCode,
                     // Success function
-                    function(response) {
-                        var responseData = response.data;
+                    function (response) {
+                        const responseData = response.data;
                         if (responseData.error) {
                             this.showFail();
-                            this.setMessage(responseData.error, constants.MESSAGE_ERROR);
+                            this.setMessage(
+                                responseData.error,
+                                constants.MESSAGE_ERROR
+                            );
                         } else if (responseData.warning) {
-                              this.showFail();
-                              this.setMessage(responseData.warning, constants.MESSAGE_WARNING);
+                            this.showFail();
+                            this.setMessage(
+                                responseData.warning,
+                                constants.MESSAGE_WARNING
+                            );
                         } else {
                             // all in!
                             this.showValidate();
@@ -114,55 +125,71 @@ export default {
                     }.bind(this),
                     // Failure function, hook for error message
                     // Network error of some kind;
-                    // Don't clear the voucherlist!
-                    function(error) {
+                    // Don't clear the voucher list!
+                    function () {
                         if (!Store.netMgr.online) {
                             this.showQueued();
-                            this.setMessage(constants.copy.VOUCHER_LOST_SIGNAL, constants.MESSAGE_WARNING);
+                            this.setMessage(
+                                constants.copy.VOUCHER_LOST_SIGNAL,
+                                constants.MESSAGE_WARNING
+                            );
                         }
-                    }.bind(this));
+                    }.bind(this)
+                );
 
                 // Do anyway.
                 this.voucherCode = "";
             } else {
                 this.showFail();
-                this.setMessage(constants.copy.VOUCHER_SUBMIT_INVALID, constants.MESSAGE_ERROR);
+                this.setMessage(
+                    constants.copy.VOUCHER_SUBMIT_INVALID,
+                    constants.MESSAGE_ERROR
+                );
             }
         },
 
-        startSpinner: function() {
+        startSpinner: function () {
             this.spinner = true;
         },
 
-        showValidate: function() {
+        showValidate: function () {
             this.spinner = false;
             this.validate = true;
-            setTimeout(function() {
-                this.validate = false;
-            }.bind(this), RESULT_TIMER);
+            setTimeout(
+                function () {
+                    this.validate = false;
+                }.bind(this),
+                RESULT_TIMER
+            );
         },
 
-        showFail: function() {
+        showFail: function () {
             this.spinner = false;
             this.fail = true;
-            setTimeout(function() {
-                this.fail = false;
-            }.bind(this), RESULT_TIMER);
+            setTimeout(
+                function () {
+                    this.fail = false;
+                }.bind(this),
+                RESULT_TIMER
+            );
         },
 
-        showQueued: function() {
+        showQueued: function () {
             this.spinner = false;
             this.queued = true;
-            setTimeout(function() {
-                this.queued = false;
-            }.bind(this), RESULT_TIMER);
+            setTimeout(
+                function () {
+                    this.queued = false;
+                }.bind(this),
+                RESULT_TIMER
+            );
         },
 
         /**
          * When the deleting an empty voucherCode,
          *  select the text in the other box
          */
-        onDelVoucherBox: function() {
+        onDelVoucherBox: function () {
             if (this.voucherCode === null || this.voucherCode.length === 0) {
                 this.$refs.sponsorBox.select();
             }
@@ -173,16 +200,19 @@ export default {
          *  have a number in it - switch to the voucherBox;
          *  have a smalls in it - caps it.
          */
-        onKeypressSponsorBox: function(event) {
-            var rxNumber = /\d/;
-            var rxSmalls = /^[a-z]$/;
-            var rxCaps = /^[A-Z]$/;
-            var rxSlash = /\//ig;
+        onKeypressSponsorBox: function (event) {
+            const rxNumber = /\d/;
+            const rxSmalls = /^[a-z]$/;
+            const rxCaps = /^[A-Z]$/;
+            const rxSlash = /\//gi;
 
             // There's also "event.key" (string), which MDN thinks is better;
-            var char = this.getKeyCharCode(event);
+            const char = this.getKeyCharCode(event);
 
-            if (this.sponsorCode.length < this.$refs.sponsorBox.getAttribute("maxlength")) {
+            if (
+                this.sponsorCode.length <
+                this.$refs.sponsorBox.getAttribute("maxlength")
+            ) {
                 if (char.match(rxCaps)) {
                     event.preventDefault();
                     this.sponsorCode += char;
@@ -195,7 +225,10 @@ export default {
 
             if (char.match(rxNumber)) {
                 event.preventDefault();
-                if (this.voucherCode.length < this.$refs.voucherBox.getAttribute("maxlength")) {
+                if (
+                    this.voucherCode.length <
+                    this.$refs.voucherBox.getAttribute("maxlength")
+                ) {
                     this.$refs.voucherBox.focus();
                     this.voucherCode += char;
                 }
@@ -204,15 +237,18 @@ export default {
 
             if (char.match(rxSlash)) {
                 event.preventDefault();
-                if (this.voucherCode.length < this.$refs.voucherBox.getAttribute("maxlength")) {
+                if (
+                    this.voucherCode.length <
+                    this.$refs.voucherBox.getAttribute("maxlength")
+                ) {
                     this.$refs.voucherBox.focus();
                 }
                 return false;
             }
         },
-        onKeypressVoucherBox : function(event) {
-            var rxNumber = /\d/;
-            var char = this.getKeyCharCode(event);
+        onKeypressVoucherBox: function (event) {
+            const rxNumber = /\d/;
+            const char = this.getKeyCharCode(event);
 
             //event.keycode 8 is backspace, dont want to prevent default
             if (event.keyCode !== 8) {
@@ -223,23 +259,23 @@ export default {
                     return;
                 }
                 //allow enter key to submit
-                if (event.key === 'Enter') {
+                if (event.key === "Enter") {
                     this.onRecordVoucher();
                 }
                 event.preventDefault();
                 return false;
             }
         },
-        getKeyCharCode : function(event) {
+        getKeyCharCode: function (event) {
             // Try to cross platform catch the keycode
             // Note, there's also "event.which" (int)
             // There's also "event.key" (string), which MDN thinks is better;
-            var charCode = event.keyCode ? event.keyCode : event.charCode;
+            const charCode = event.keyCode ? event.keyCode : event.charCode;
             return String.fromCharCode(charCode);
-        }
+        },
     },
-    mounted: function() {
+    mounted: function () {
         Store.getRecVouchers();
-    }
-}
+    },
+};
 </script>
