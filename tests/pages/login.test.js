@@ -49,7 +49,7 @@ test("Can log in", async (t) => {
     expect(pagePath).to.equal(url + "/");
 });
 
-test.only("Can log out", async (t) => {
+test("Can log out", async (t) => {
     await t
         .typeText("#userName", "email@example.com")
         .typeText("#userPassword", "secretpass")
