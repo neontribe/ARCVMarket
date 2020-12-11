@@ -137,7 +137,7 @@ test("Correct error appears when I submit a duplicate voucher", async (t) => {
     );
 });
 
-test.only('Sponsor box and voucher box inputs are cleared if typing too slow', async (t) => {
+test('Sponsor box and voucher box inputs are cleared if typing too slow', async (t) => {
     await t
         .typeText("#userName", "email@example.co.uk")
         .typeText("#userPassword", "secretpass")

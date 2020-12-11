@@ -39,10 +39,11 @@
                             >
                         </div>
                         <div>
-                            <router-link
-                                v-bind:to="'/privacy-policy'"
+                            <a
+                                href="https://www.alexandrarose.org.uk/privacy-policy-for-traders"
                                 class="secondary"
-                                >Privacy Policy</router-link
+                                id="privacy"
+                                >Privacy Policy</a
                             >
                         </div>
                     </div>
