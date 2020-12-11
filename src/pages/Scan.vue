@@ -282,7 +282,7 @@ export default {
                             this.$refs.sponsorBox.focus();
                         }
                         TIMER = null;
-                    }, 200);
+                    }, 400);
                 }
                 return;
             }

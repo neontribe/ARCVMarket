@@ -100,7 +100,7 @@ test("Correct error appears when I submit an invalid voucher", async (t) => {
         .click(sponsorBox)
         .pressKey("backspace")
         .typeText(sponsorBox, "INV")
-        .typeText(el("#voucherBox"), "1234");
+        .typeText(el("#voucherBox"), "1234", { speed: 1});
     const submitButton = await el("#submitVoucher");
 
     await t.click(submitButton);
@@ -125,7 +125,7 @@ test("Correct error appears when I submit a duplicate voucher", async (t) => {
         .click(sponsorBox)
         .pressKey("backspace")
         .typeText(el("#sponsorBox"), "FAL")
-        .typeText(el("#voucherBox"), "1111");
+        .typeText(el("#voucherBox"), "1111", { speed: 1 });
     const submitButton = await el("#submitVoucher");
 
     await t.click(submitButton);
@@ -136,6 +136,26 @@ test("Correct error appears when I submit a duplicate voucher", async (t) => {
             "warning message that should appear if the trader submits an unavailable voucher."
     );
 });
+
+test.only('Sponsor box and voucher box inputs are cleared if typing too slow', async (t) => {
+    await t
+        .typeText("#userName", "email@example.co.uk")
+        .typeText("#userPassword", "secretpass")
+        .click("button")
+        .click("input#radio-0")
+        .pressKey("enter")
+        .click("#scanTool");
+    const sponsorBox = await el("#sponsorBox");
+
+    // Added extra deletes due to unpredicatability where test runner clicks in sponsor box.
+    await t
+        .click(sponsorBox)
+        .pressKey("backspace")
+        .typeText(sponsorBox, "INV")
+        .typeText(el("#voucherBox"), "1234")
+        .expect(sponsorBox.innerText).eql("")
+        .expect(el('#voucherBox').value).eql("");
+})
 
 test("Page displays number of recorded vouchers", async (t) => {
     await t
