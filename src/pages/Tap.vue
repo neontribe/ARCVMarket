@@ -18,19 +18,19 @@
                     >
 
                     <div class="input-box">
-                        <input
-                            id="sponsorBox"
-                            @keypress="onKeypressSponsorBox"
+                        <input id="sponsorBox"
+                            v-on:paste.prevent
+                            @keypress='onKeypressSponsorBox'
                             type="text"
                             v-model="sponsorCode"
                             ref="sponsorBox"
                             minlength="2"
                             maxlength="5"
                         />
-                        <input
-                            id="voucherBox"
-                            v-on:keyup.delete="onDelVoucherBox"
-                            @keypress="onKeypressVoucherBox"
+                        <input id="voucherBox"
+                            v-on:paste.prevent
+                            v-on:keyup.delete='onDelVoucherBox'
+                            @keypress='onKeypressVoucherBox'
                             type="tel"
                             pattern="[0-9]*"
                             v-model="voucherCode"

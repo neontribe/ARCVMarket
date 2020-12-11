@@ -21,25 +21,29 @@
                         <input
                             id="sponsorBox"
                             @keydown.enter.prevent
-                            @keypress="onKeypressSponsorBox"
+                            @keypress='onKeypressSponsorBox'
+                            v-on:paste.prevent
                             type="text"
                             v-model="sponsorCode"
                             ref="sponsorBox"
                             minlength="2"
                             maxlength="5"
                             autofocus="autofocus"
+                            autocomplete="off"
                             v-bind:class="{ 'input-text-hidden': queued }"
                         />
                         <input
                             id="voucherBox"
-                            v-on:keyup.delete="onDelVoucherBox"
-                            @keypress="onKeypressVoucherBox"
+                            v-on:paste.prevent
+                            v-on:keyup.delete='onDelVoucherBox'
+                            @keypress='onKeypressVoucherBox'
                             type="tel"
                             pattern="[0-9]*"
                             v-model="voucherCode"
                             ref="voucherBox"
                             minlength="4"
                             maxlength="8"
+                            autocomplete="off"
                             v-bind:class="{ 'input-text-hidden': queued }"
                         />
                     </div>
@@ -74,7 +78,8 @@ import mixin from "../mixins/mixins";
 import Queue from "../components/Queue.vue";
 import constants from "../constants.js";
 
-const RESULT_TIMER = 1000;
+let RESULT_TIMER = 1000;
+let TIMER = null;
 
 export default {
     name: "scan",
@@ -95,10 +100,11 @@ export default {
             queued: false,
         };
     },
-
-    methods: {
-        onRecordVoucher: function () {
+    methods:  {
+        onRecordVoucher: function(event) {
             //TODO: some proper validation
+            // When the voucher is submitted, cancel the typing in voucher box timer
+            TIMER = null;
             if (this.voucherCode !== null && this.voucherCode.length > 0) {
                 this.startSpinner();
                 Store.addVoucherCode(
@@ -258,13 +264,25 @@ export default {
                 return false;
             }
         },
-        onKeypressVoucherBox: function (event) {
+        onKeypressVoucherBox : function(event) {
             const rxNumber = /\d/;
             const char = this.getKeyCharCode(event);
+            const voucherBoxMaxLength = parseInt(this.$refs.voucherBox.getAttribute('maxlength'));
 
+            // If we have a number
             if (char.match(rxNumber)) {
-                if (this.voucherCode.length < event.target.maxlength) {
-                    this.voucherCode += char;
+                if (!TIMER) {
+                    this.delay(() => {
+                        // When the box gets full, cancel any timers, else remove input and refocus
+                        if (this.voucherCode.length === voucherBoxMaxLength) {
+                            TIMER = null;
+                        } else {
+                            this.voucherCode = "";
+                            this.sponsorCode = "";
+                            this.$refs.sponsorBox.focus();
+                        }
+                        TIMER = null;
+                    }, 400);
                 }
                 return;
             }
@@ -282,6 +300,10 @@ export default {
             const charCode = event.keyCode ? event.keyCode : event.charCode;
             return String.fromCharCode(charCode);
         },
+        delay: function(callback, ms) {
+                clearTimeout(TIMER);
+                TIMER = setTimeout(callback, ms);
+        }
     },
     mounted: function () {
         Store.getRecVouchers();
