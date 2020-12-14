@@ -34,8 +34,7 @@ test('Privacy link navigates to right page', async (t) => {
         .navigateTo("https://www.alexandrarose.org.uk/privacy-policy-for-traders");
     const pagePath = await t.eval(() => window.location);
     expect(pagePath.href).to.not.equal(url);
-    expect(pagePath.href).to.equal("https://www.alexandrarose.org.uk/privacy-policy-for-traders")
-
+    expect(pagePath.href).to.equal("https://www.alexandrarose.org.uk/privacy-policy-for-traders");
 })
 
 test("Can log in", async (t) => {
@@ -49,7 +48,7 @@ test("Can log in", async (t) => {
     expect(pagePath).to.equal(url + "/");
 });
 
-test.only("Can log out", async (t) => {
+test("Can log out", async (t) => {
     await t
         .typeText("#userName", "email@example.com")
         .typeText("#userPassword", "secretpass")
