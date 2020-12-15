@@ -226,7 +226,41 @@ test("The correct sponsor code for the selected trader is loaded", async (t) => 
 
     await t.click(secondTrader).pressKey("enter");
 
-    // Check the sponsor code for the second user (KMJG: see fixtures).
+    // Check the sponsor code for the second user
+    // '' because second trader has a feature override that prevents him from acccessing tap page
     const secondUserSponsorCode = await el("#sponsorBox").value;
-    expect(secondUserSponsorCode).eql("KMJG");
+    expect(secondUserSponsorCode).eql("");
 });
+
+test("Can't reach tap page if the selected trader has a feature override property", async (t) => {
+    await t
+        .typeText("#userName", "email@example.co.uk")
+        .typeText("#userPassword", "secretpass")
+        .click("button");
+
+    // Second trader has this feature on, see fixtures file
+    const secondTraderName = await el("label[for=radio-1").innerText;
+    await t.click("input#radio-1").pressKey("enter");
+    const pagePath = await t.eval(() => window.location);
+    const currentTraderName = await el(".profile-bar div").child("strong")
+        .innerText;
+    expect(secondTraderName && currentTraderName).to.contain("Barry Thistlethorn");
+    expect(pagePath.href).to.not.equal(`${url}/`);
+    expect(pagePath.href).to.equal(`${url}/scan`);
+});
+
+test.only("Can reach tap page if the selected trader doesn't have a feature override property", async (t) => {
+    await t
+        .typeText("#userName", "email@example.co.uk")
+        .typeText("#userPassword", "secretpass")
+        .click("button");
+    // First trader doesn't have it, see fixtures file
+    const firstTraderName = await el("label[for=radio-0").innerText;
+    await t.click("input#radio-0").pressKey("enter");
+    const pagePath = await t.eval(() => window.location);
+    const currentTraderName = await el(".profile-bar div").child("strong")
+        .innerText;
+    expect(firstTraderName && currentTraderName).to.contain("Kristy Corntop");
+    expect(pagePath.href).to.equal(`${url}/`);
+    expect(pagePath.href).to.not.equal(`${url}/scan`);
+})

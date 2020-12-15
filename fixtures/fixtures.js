@@ -30,6 +30,11 @@ var Fixtures = {
                 "created_at": "24-05-2017 14:19:22",
                 "updated_at": "24-05-2017 14:19:22",
                 "deleted_at": null,
+                "featureOverride": {
+                    "pageAccess": {
+                        "tap": false
+                    }
+                },
                 "market": {
                     "id": 5,
                     "name": "Beechwood Hall",
