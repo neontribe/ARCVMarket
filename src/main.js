@@ -33,7 +33,24 @@ console.info(BUILDDATE + "\n" + BRANCH + "\n" + VERSION);
 
 // Define routes
 const routes = [
-    { path: "/", component: Tap, meta: { auth: true } },
+    {
+        path: "/",
+        component: Tap,
+        meta: { auth: true },
+        beforeEnter: function(to, from, next) {
+            console.log('before enter /');
+            if (Store.trader.hasOwnProperty("featureOverride")) {
+                const { tap } = Store.trader.featureOverride.pageAccess;
+                if (tap === false) {
+                    next({path: "/scan"});
+                } else {
+                    next();
+                }
+            } else {
+                next();
+            }
+        }
+    },
     { path: "/account", component: Account, meta: { auth: true } },
     { path: "/scan", component: Scan, meta: { auth: true } },
     { path: "/payment", component: Payment, meta: { auth: true } },
