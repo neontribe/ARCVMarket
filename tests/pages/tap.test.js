@@ -249,7 +249,7 @@ test("Can't reach tap page if the selected trader has a feature override propert
     expect(pagePath.href).to.equal(`${url}/scan`);
 });
 
-test.only("Can reach tap page if the selected trader doesn't have a feature override property", async (t) => {
+test("Can reach tap page if the selected trader doesn't have a feature override property", async (t) => {
     await t
         .typeText("#userName", "email@example.co.uk")
         .typeText("#userPassword", "secretpass")
