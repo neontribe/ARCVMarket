@@ -39,6 +39,38 @@ test("Page has masthead with logo, nav, profile bar and toolbar", async (t) => {
     expect(logo).to.be.ok;
 });
 
+test("Page has footer", async (t) => {
+    await t
+        .typeText("#userName", "email@example.com")
+        .typeText("#userPassword", "secretpass")
+        .click("button")
+        .click("#radio-0")
+        .pressKey("enter");
+
+    const footer = await el("footer");
+    const copyright = await el("footer p").innerText;
+    const year = new Date().getFullYear();
+    const privacy = await el("footer").child("a").innerText;
+    expect(footer).to.exist;
+    expect(copyright).to.equal(`\u00A9 Copyright ${year} Alexandra Rose Charity`);
+    expect(privacy).to.equal('Privacy Policy');
+});
+
+test("Page footer's privacy link works", async (t) => {
+    await t
+        .typeText("#userName", "email@example.com")
+        .typeText("#userPassword", "secretpass")
+        .click("button")
+        .click("#radio-0")
+        .pressKey("enter");
+    await t
+    .click(el("footer").child("a"))
+        .navigateTo("https://www.alexandrarose.org.uk/privacy-policy-for-traders");
+    const pagePath = await t.eval(() => window.location);
+    expect(pagePath.href).to.not.equal(url);
+    expect(pagePath.href).to.equal("https://www.alexandrarose.org.uk/privacy-policy-for-traders");
+});
+
 test("Traders name is present", async (t) => {
     await t
         .typeText("#userName", "email@example.co.uk")

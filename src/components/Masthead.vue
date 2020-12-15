@@ -64,7 +64,6 @@ export default {
                 "/user",
                 "/request",
                 "/change-password",
-                "/privacy-policy",
             ];
             return paths.indexOf(this.$route.path) === -1;
         },
