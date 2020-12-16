@@ -57,3 +57,37 @@ test("Payment button works", async (t) => {
     const pagePath = await t.eval(() => window.location);
     expect(pagePath.pathname).eql("/account");
 });
+
+test("Page has footer", async (t) => {
+    await t
+        .typeText("#userName", "email@example.com")
+        .typeText("#userPassword", "secretpass")
+        .click("button")
+        .click("#radio-0")
+        .click("button#continue");
+
+    const pagePath = await t.eval(() => window.location);
+    const footer = await el("footer");
+    const copyright = await el("footer p").innerText;
+    const year = new Date().getFullYear();
+    const privacy = await el("footer").child("a").innerText;
+    expect(pagePath.href).to.equal(url);
+    expect(footer).to.exist;
+    expect(copyright).to.equal(`\u00A9 Copyright ${year} Alexandra Rose Charity`);
+    expect(privacy).to.equal('Privacy Policy');
+});
+
+test("Page footer's privacy link works", async (t) => {
+    await t
+        .typeText("#userName", "email@example.com")
+        .typeText("#userPassword", "secretpass")
+        .click("button")
+        .click("#radio-0")
+        .click("button#continue");
+    await t
+        .click(el("footer").child("a"))
+        .navigateTo("https://www.alexandrarose.org.uk/privacy-policy-for-traders");
+    const pagePath = await t.eval(() => window.location);
+    expect(pagePath.href).to.not.equal(url);
+    expect(pagePath.href).to.equal("https://www.alexandrarose.org.uk/privacy-policy-for-traders");
+});

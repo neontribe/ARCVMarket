@@ -17,7 +17,7 @@ export default {
     },
     computed: {
         footerShow: function () {
-            const paths = ["/", "/scan"];
+            const paths = ["/", "/scan", "/payment", "/account"];
             return !(paths.indexOf(this.$route.path) === -1);
         },
     }
