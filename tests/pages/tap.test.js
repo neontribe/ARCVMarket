@@ -292,7 +292,9 @@ test("Can reach tap page if the selected trader doesn't have a feature override 
     const pagePath = await t.eval(() => window.location);
     const currentTraderName = await el(".profile-bar div").child("strong")
         .innerText;
+    const inputIcons = await el(".input-icons");
     expect(firstTraderName && currentTraderName).to.contain("Kristy Corntop");
+    expect(inputIcons).to.exist;
     expect(pagePath.href).to.equal(`${url}/`);
     expect(pagePath.href).to.not.equal(`${url}/scan`);
 })

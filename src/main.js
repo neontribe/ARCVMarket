@@ -38,7 +38,6 @@ const routes = [
         component: Tap,
         meta: { auth: true },
         beforeEnter: function(to, from, next) {
-            console.log('before enter /');
             if (Store.trader.hasOwnProperty("featureOverride")) {
                 const { tap } = Store.trader.featureOverride.pageAccess;
                 if (tap === false) {
