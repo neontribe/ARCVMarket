@@ -60,12 +60,15 @@ test("Page has footer", async (t) => {
         .typeText("#userPassword", "secretpass")
         .click("button")
         .click("#radio-0")
-        .pressKey("enter");
+        .pressKey("enter")
+        .click("#scanTool");
 
+    const pagePath = await t.eval(() => window.location);
     const footer = await el("footer");
     const copyright = await el("footer p").innerText;
     const year = new Date().getFullYear();
     const privacy = await el("footer").child("a").innerText;
+    expect(pagePath.href).to.equal(url);
     expect(footer).to.exist;
     expect(copyright).to.equal(`\u00A9 Copyright ${year} Alexandra Rose Charity`);
     expect(privacy).to.equal('Privacy Policy');
