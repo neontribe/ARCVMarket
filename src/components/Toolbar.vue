@@ -11,7 +11,7 @@
                 >
             </div>
         </transition>
-        <div class="input-icons">
+        <div class="input-icons" v-if="showIcon">
             <router-link v-bind:to="'/'"
                 ><i class="fa fa-keyboard-o" title="Type a voucher code"
                     ><span class="hidden offscreen"
@@ -36,7 +36,7 @@ export default {
     name: "toolbar",
     data: function () {
         return {
-            recVouchers: Store.trader.recVouchers,
+            recVouchers: Store.trader.recVouchers
         };
     },
     mounted: function () {
@@ -49,6 +49,13 @@ export default {
         vouchersAdded: function () {
             return this.recVouchers[0] && this.recVouchers[0].length > 0;
         },
+        showIcon: function () {
+            if (Store.trader.hasOwnProperty("featureOverride")) {
+                const { tap } = Store.trader.featureOverride.pageAccess;
+                return tap;
+            }
+            return true;
+        }
     },
 };
 </script>

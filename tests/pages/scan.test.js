@@ -219,3 +219,21 @@ test("Voucher link is working", async (t) => {
     const pagePath = await t.eval(() => window.location);
     expect(pagePath.pathname).eql("/payment");
 });
+
+test("Can't see input icons on toolbar if I can't reach tap page", async (t) => {
+    await t
+        .typeText("#userName", "email@example.co.uk")
+        .typeText("#userPassword", "secretpass")
+        .click("button");
+
+    // Second trader has this feature on, see fixtures file
+    const secondTraderName = await el("label[for=radio-1").innerText;
+    await t.click("input#radio-1").pressKey("enter");
+    const pagePath = await t.eval(() => window.location);
+    const inputIcons = await el(".input-icons");
+    const currentTraderName = await el(".profile-bar div").child("strong")
+        .innerText;
+    expect(pagePath.href).to.equal(url);
+    expect(secondTraderName && currentTraderName).to.contain("Barry Thistlethorn");
+    expect(inputIcons).to.not.exist;
+})
