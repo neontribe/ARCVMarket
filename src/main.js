@@ -6,7 +6,6 @@ import Config from "./config.js";
 import Store from "./store.js";
 import VueRouter from "vue-router";
 import { EventBus } from "./services/events";
-import constants from "./constants.js";
 // Import pages
 import Account from "./pages/Account.vue";
 import Tap from "./pages/Tap.vue";
