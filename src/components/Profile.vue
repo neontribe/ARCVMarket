@@ -28,7 +28,8 @@ export default {
     methods: {
         onLogout: function () {
             Store.unAuthenticate();
-            this.$router.push("/login");
+            const routeObj = { name: "login", params: { logoutReason: 200 } };
+            this.$router.push(routeObj);
         },
     },
     mounted: function () {

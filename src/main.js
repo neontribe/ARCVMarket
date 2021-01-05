@@ -1,17 +1,12 @@
 // Import Offline-Plugin storage client
 import * as OfflinePluginRuntime from "offline-plugin/runtime";
-// Enable caching now.
-OfflinePluginRuntime.install();
-
 import Vue from "vue";
 import App from "./App.vue";
 import Config from "./config.js";
 import Store from "./store.js";
 import VueRouter from "vue-router";
 import { EventBus } from "./services/events";
-
-Vue.use(VueRouter);
-
+import constants from "./constants.js";
 // Import pages
 import Account from "./pages/Account.vue";
 import Tap from "./pages/Tap.vue";
@@ -21,6 +16,10 @@ import Login from "./pages/Login.vue";
 import Request from "./pages/Request.vue";
 import ChangePassword from "./pages/ChangePassword.vue";
 import User from "./pages/User.vue";
+// Enable caching now.
+OfflinePluginRuntime.install();
+
+Vue.use(VueRouter);
 
 console.info(BUILDDATE + "\n" + BRANCH + "\n" + VERSION);
 
@@ -37,23 +36,29 @@ const routes = [
         path: "/",
         component: Tap,
         meta: { auth: true },
-        beforeEnter: function(to, from, next) {
+        beforeEnter: function (to, from, next) {
             if (Store.trader.hasOwnProperty("featureOverride")) {
                 const { tap } = Store.trader.featureOverride.pageAccess;
                 if (tap === false) {
-                    next({path: "/scan"});
+                    next({ path: "/scan" });
                 } else {
                     next();
                 }
             } else {
                 next();
             }
-        }
+        },
     },
     { path: "/account", component: Account, meta: { auth: true } },
     { path: "/scan", component: Scan, meta: { auth: true } },
     { path: "/payment", component: Payment, meta: { auth: true } },
-    { path: "/login", component: Login, meta: { auth: false } },
+    {
+        path: "/login",
+        name: "login",
+        component: Login,
+        meta: { auth: false },
+        props: true,
+    },
     { path: "/request", component: Request, meta: { auth: false } },
     {
         path: "/change-password",
@@ -171,11 +176,12 @@ let vm = new Vue({
 
 /**
  * Reset all stored information and redirect the user back to the login page when 'NetMgr.logout' is fired.
- *
- * @param err
- *   Logout reason.
  */
-EventBus.$on("NetMgr.logout", function () {
+EventBus.$on("NetMgr.logout", function (statusCode = null) {
+    let routeObj = { name: "login" };
+    if (statusCode) {
+        routeObj.params = { logoutReason: statusCode };
+    }
     Store.resetStore();
-    router.push("login");
+    router.push(routeObj);
 });
