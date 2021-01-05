@@ -1,3 +1,4 @@
+import Vue from "vue";
 import NetMgr from "./services/netMgr.js";
 
 // TODO store.error needs store based setter.
@@ -281,7 +282,7 @@ store.mergeRecVouchers = function (replacements) {
  * Adds a voucher code and submits it.
  */
 store.addVoucherCode = function (voucherCode, success, failure) {
-    let len = this.trader.vouchers.push({
+    Vue.set(this.trader.vouchers, 'addedVoucher', {
         code: voucherCode,
         online: this.netMgr.online,
     });
@@ -298,7 +299,7 @@ store.addVoucherCode = function (voucherCode, success, failure) {
     // The online status may have changed by the time that the request has ended.
     transition.then(
         function () {
-            let voucher = this.trader.vouchers[len - 1];
+            let voucher = this.trader.vouchers.addedVoucher;
             if (voucher) {
                 voucher.online = NetMgr.online;
 
@@ -323,6 +324,7 @@ store.delVoucher = function (voucherCode, success, failure) {
     transition.then(
         function () {
             let voucher = this.trader.vouchers[len - 1];
+            console.log(voucher);
             if (voucher) {
                 voucher.online = NetMgr.online;
 
