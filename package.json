@@ -65,8 +65,11 @@
         }
     },
     "lint-staged": {
-        "*.{js,json,yaml,json,vue}": [
-            "eslint --ext .js,.vue src tests --fix --quiet --cache"
+        "src/**/*.{js,json,yaml,vue}": [
+            "eslint --fix --quiet --cache"
+        ],
+        "tests/**/*.{js,json,yaml,vue}": [
+            "eslint --fix --quiet --cache"
         ]
     }
 }

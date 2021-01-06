@@ -13,14 +13,14 @@ export default {
     name: "app",
     components: {
         Masthead,
-        PrivacyLink
+        PrivacyLink,
     },
     computed: {
         footerShow: function () {
             const paths = ["/", "/scan", "/payment", "/account"];
             return !(paths.indexOf(this.$route.path) === -1);
         },
-    }
+    },
 };
 </script>
 
