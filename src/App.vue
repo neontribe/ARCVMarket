@@ -13,7 +13,7 @@ export default {
     name: "app",
     components: {
         Masthead,
-        PrivacyLink
+        PrivacyLink,
     },
     computed: {
         footerShow: function () {
