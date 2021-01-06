@@ -20,7 +20,7 @@ export default {
             const paths = ["/", "/scan", "/payment", "/account"];
             return !(paths.indexOf(this.$route.path) === -1);
         },
-    }
+    },
 };
 </script>
 
