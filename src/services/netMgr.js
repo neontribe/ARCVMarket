@@ -252,7 +252,7 @@ NetMgr.axiosInstance.interceptors.response.use(
             NetMgr.setOnlineStatus(false);
         }
 
-        // is it a 403? USer tried something bad, broadcast a Logout event, someone will deal.
+        // is it a 403? User tried something bad, broadcast a Logout event, someone will deal.
         if (origResp.status === 403) {
             NetMgr.setToken(null);
             EventBus.$emit("NetMgr.logout", 403);

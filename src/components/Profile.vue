@@ -28,6 +28,7 @@ export default {
     methods: {
         onLogout: function () {
             Store.unAuthenticate();
+            // Artificially using a HTTP code to set to 200 for "Ok, I did that"
             const routeObj = { name: "login", params: { logoutReason: 200 } };
             this.$router.push(routeObj);
         },
