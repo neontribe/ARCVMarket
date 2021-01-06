@@ -17,5 +17,12 @@ export default {
             " has been successfully removed from your list.",
         DELETE_VOUCHER_FAIL:
             " cannot be removed at this time, please try later.",
+        FORCED_LOGOUT:
+            "The system has logged you out, please login again in a little while.",
+        USER_LOGOUT: "You have logged out.",
+        TIMEOUT_LOGOUT: "Your session has timed out, please login again.",
+        UNKNOWN_EVENT: "Something unusual has happened.",
+        INVALID_CREDENTIALS:
+            "The username and password combination entered was not recognised. Please check your details and try again.",
     },
 };

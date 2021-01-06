@@ -1,4 +1,5 @@
 import NetMgr from "./services/netMgr.js";
+import constants from "./constants";
 
 // TODO store.error needs store based setter.
 let store = {
@@ -102,11 +103,10 @@ store.authenticate = function (userApiCredentials, success, failure) {
             let err;
             switch (error.response.status) {
                 case 401:
-                    err =
-                        "The username and password combination entered was not recognised. Please check your details and try again.";
+                    err = constants.copy.INVALID_CREDENTIALS;
                     break;
                 default:
-                    err = "Something unusual has happened.";
+                    err = constants.copy.UNKNOWN_EVENT;
             }
             if (failure) {
                 failure(err);

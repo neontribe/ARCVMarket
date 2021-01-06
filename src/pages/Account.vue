@@ -191,14 +191,7 @@ export default {
                         ? constants.MESSAGE_SUCCESS
                         : constants.MESSAGE_ERROR;
                     this.setMessage(mailMsg, state);
-                }.bind(this),
-                // failure function
-                function (error) {
-                    // at the moment, dump the error for analysis.
-                    if (error) {
-                        console.log(error);
-                    }
-                }
+                }.bind(this)
             );
         },
     },

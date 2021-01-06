@@ -63,12 +63,12 @@
 <script>
 import Config from "../config.js";
 import Store from "../store.js";
-
 import mixin from "../mixins/mixins";
 import constants from "../constants";
 
 export default {
     name: "login",
+    props: ["logoutReason"],
     mixins: [mixin.messages],
     data: function () {
         return {
@@ -79,6 +79,32 @@ export default {
             appV: Config.appVersion,
             env: Config.env,
         };
+    },
+    mounted: function () {
+        if (this.logoutReason) {
+            let msg = "";
+            let state = constants.MESSAGE_ERROR;
+            switch (this.logoutReason) {
+                // Normal logout
+                case 200:
+                    msg = constants.copy.USER_LOGOUT;
+                    state = constants.MESSAGE_SUCCESS;
+                    break;
+                // Refresh token failed
+                case 401:
+                    msg = constants.copy.TIMEOUT_LOGOUT;
+                    state = constants.MESSAGE_WARNING;
+                    break;
+                // Access forbidden, Trader probably disabled for that User
+                case 403:
+                    msg = constants.copy.FORCED_LOGOUT;
+                    state = constants.MESSAGE_WARNING;
+                    break;
+                default:
+                    msg = constants.copy.UNKNOWN_EVENT;
+            }
+            this.setMessage(msg, state);
+        }
     },
     methods: {
         /**

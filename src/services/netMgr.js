@@ -252,6 +252,12 @@ NetMgr.axiosInstance.interceptors.response.use(
             NetMgr.setOnlineStatus(false);
         }
 
+        // is it a 403? User tried something bad, broadcast a Logout event, someone will deal.
+        if (origResp.status === 403) {
+            NetMgr.setToken(null);
+            EventBus.$emit("NetMgr.logout", 403);
+        }
+
         // Is it a 401 we have not seen before? (and do we have an old token set)
         if (origResp.status === 401 && !origCfg._retry && NetMgr.token) {
             switch (origResp.data.error) {
@@ -277,11 +283,7 @@ NetMgr.axiosInstance.interceptors.response.use(
                                 return NetMgr.axiosInstance(origCfg); // Retry the request that errored out.
                             } else {
                                 NetMgr.setToken(null);
-
-                                EventBus.$emit(
-                                    "NetMgr.logout",
-                                    origResp.data.error
-                                );
+                                EventBus.$emit("NetMgr.logout", 401);
                             }
                         },
                         function (refreshErr) {
