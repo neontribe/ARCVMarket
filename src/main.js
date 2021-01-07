@@ -15,6 +15,7 @@ import Login from "./pages/Login.vue";
 import Request from "./pages/Request.vue";
 import ChangePassword from "./pages/ChangePassword.vue";
 import User from "./pages/User.vue";
+import constants from "./constants";
 // Enable caching now.
 OfflinePluginRuntime.install();
 
@@ -177,10 +178,29 @@ let vm = new Vue({
  * Reset all stored information and redirect the user back to the login page when 'NetMgr.logout' is fired.
  */
 EventBus.$on("NetMgr.logout", function (statusCode = null) {
-    let routeObj = { name: "login" };
-    if (statusCode) {
-        routeObj.params = { logoutReason: statusCode };
-    }
     Store.resetStore();
+
+    // Setup the route object
+    let routeObj = { name: "login" };
+    // Shall we prep a message for the login page
+    if (statusCode) {
+        let message = {};
+        switch (statusCode) {
+            // Refresh token failed
+            case 401:
+                message.text = constants.copy.TIMEOUT_LOGOUT;
+                message.state = constants.MESSAGE_WARNING;
+                break;
+            // Access forbidden, Trader probably disabled for that User
+            case 403:
+                message.text = constants.copy.FORCED_LOGOUT;
+                message.state = constants.MESSAGE_WARNING;
+                break;
+            default:
+                message.text = constants.copy.UNKNOWN_EVENT;
+                message.state = constants.MESSAGE_ERROR;
+        }
+        routeObj.params = { passedMessage: message };
+    }
     router.push(routeObj);
 });
