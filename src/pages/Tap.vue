@@ -231,7 +231,6 @@ export default {
 
             if (char.match(rxNumber)) {
                 event.preventDefault();
-                1;
                 if (
                     this.voucherCode.length <
                     this.$refs.voucherBox.getAttribute("maxlength")
