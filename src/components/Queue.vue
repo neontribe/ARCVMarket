@@ -124,17 +124,13 @@ export default {
             );
         },
         queueStatus: function () {
-            const pluralise =
-                this.vouchers.length > 1 || this.vouchers.length === 0
-                    ? "s"
-                    : "";
+            const pluralise = this.vouchers.length !== 1 ? "s" : "";
             return (
                 "You have <strong>" +
                 this.vouchers.length +
                 "</strong> voucher" +
                 pluralise +
-                " in your queue." +
-                " Queued vouchers will be checked when you submit your queue."
+                " in your queue. Queued vouchers will be checked when you submit your queue."
             );
         },
     },

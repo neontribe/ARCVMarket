@@ -70,8 +70,10 @@ test("Page has footer", async (t) => {
     const privacy = await el("footer").child("a").innerText;
     expect(pagePath.href).to.equal(url);
     expect(footer).to.exist;
-    expect(copyright).to.equal(`\u00A9 Copyright ${year} Alexandra Rose Charity`);
-    expect(privacy).to.equal('Privacy Policy');
+    expect(copyright).to.equal(
+        `\u00A9 Copyright ${year} Alexandra Rose Charity`
+    );
+    expect(privacy).to.equal("Privacy Policy");
 });
 
 test("Page footer's privacy link works", async (t) => {
@@ -83,10 +85,14 @@ test("Page footer's privacy link works", async (t) => {
         .pressKey("enter");
     await t
         .click(el("footer").child("a"))
-        .navigateTo("https://www.alexandrarose.org.uk/privacy-policy-for-traders");
+        .navigateTo(
+            "https://www.alexandrarose.org.uk/privacy-policy-for-traders"
+        );
     const pagePath = await t.eval(() => window.location);
     expect(pagePath.href).to.not.equal(url);
-    expect(pagePath.href).to.equal("https://www.alexandrarose.org.uk/privacy-policy-for-traders");
+    expect(pagePath.href).to.equal(
+        "https://www.alexandrarose.org.uk/privacy-policy-for-traders"
+    );
 });
 
 test("I can scan and submit a voucher code", async (t) => {
@@ -135,13 +141,13 @@ test("Correct error appears when I submit an invalid voucher", async (t) => {
         .click(sponsorBox)
         .pressKey("backspace")
         .typeText(sponsorBox, "INV")
-        .typeText(el("#voucherBox"), "1234", { speed: 1});
+        .typeText(el("#voucherBox"), "1234", { speed: 1 });
     const submitButton = await el("#submitVoucher");
 
     await t.click(submitButton);
     const errorMessage = await el(".content div.message").innerText;
     expect(errorMessage).to.contain(
-        "An error message for invalid voucher code."
+        "That isn't a valid voucher code, please check the number and try again."
     );
 });
 
@@ -172,7 +178,7 @@ test("Correct error appears when I submit a duplicate voucher", async (t) => {
     );
 });
 
-test('Sponsor box and voucher box inputs are cleared if typing too slow', async (t) => {
+test("Sponsor box and voucher box inputs are cleared if typing too slow", async (t) => {
     await t
         .typeText("#userName", "email@example.co.uk")
         .typeText("#userPassword", "secretpass")
@@ -188,9 +194,11 @@ test('Sponsor box and voucher box inputs are cleared if typing too slow', async 
         .pressKey("backspace")
         .typeText(sponsorBox, "INV")
         .typeText(el("#voucherBox"), "1234")
-        .expect(sponsorBox.innerText).eql("")
-        .expect(el('#voucherBox').value).eql("");
-})
+        .expect(sponsorBox.innerText)
+        .eql("")
+        .expect(el("#voucherBox").value)
+        .eql("");
+});
 
 test("Page displays number of recorded vouchers", async (t) => {
     await t
@@ -234,6 +242,8 @@ test("Can't see input icons on toolbar if I can't reach tap page", async (t) => 
     const currentTraderName = await el(".profile-bar div").child("strong")
         .innerText;
     expect(pagePath.href).to.equal(url);
-    expect(secondTraderName && currentTraderName).to.contain("Barry Thistlethorn");
+    expect(secondTraderName && currentTraderName).to.contain(
+        "Barry Thistlethorn"
+    );
     expect(inputIcons).to.not.exist;
-})
+});

@@ -26,12 +26,16 @@ let store = {
     },
 };
 
+/**
+ * Reset the store object
+ */
 store.resetStore = function () {
-    // TODO : I'm thinking we need some user/trader objects that manage this.
+    // Wipe the current user
     this.user = {
         id: null,
         traders: [],
     };
+    // Wipe the current trader details
     this.trader = {
         id: null,
         pendedVouchers: [],
@@ -42,6 +46,7 @@ store.resetStore = function () {
             sponsor_shortcode: "",
         },
     };
+    // Init the vouchers
     this.trader.vouchers = this.trader.vouchers.splice(
         0,
         this.trader.vouchers.length
@@ -51,6 +56,7 @@ store.resetStore = function () {
         this.trader.recVouchers.length
     );
     this.error = null;
+    // Clear local storage
     window.localStorage.clear();
 };
 
@@ -60,6 +66,7 @@ store.resetStore = function () {
  * @param trader
  *   Currently not used. Will be needed when we support the storage of multiple traders.
  * @returns {Array}
+ * @return {*[]}
  */
 store.getTraderVoucherList = function (trader) {
     return this.trader.vouchers.map(function (v) {
@@ -68,11 +75,8 @@ store.getTraderVoucherList = function (trader) {
 };
 
 /**
- * Indicates whether any vouchers have been added whilst the user was offline.
- *
  * Returns false if any of the vouchers were recorded whilst the user was offline.
- *
- * @returns {Boolean}
+ * @return {boolean}
  */
 store.getVouchersOnlineStatus = function () {
     // Loop through the voucher list. If we get to one that was added off-line, return with false.
@@ -81,7 +85,6 @@ store.getVouchersOnlineStatus = function () {
             return false;
         }
     }
-
     return true;
 };
 
@@ -117,6 +120,8 @@ store.authenticate = function (userApiCredentials, success, failure) {
 
 /**
  * Logs the user off
+ * @param success
+ * @param failure
  */
 store.unAuthenticate = function (success, failure) {
     // Hit the logout endpoint.
@@ -176,9 +181,8 @@ store.setUserTrader = function (id) {
 };
 
 /**
- * Attempts to set User and Trader information based off of information stored in localStorage.
- *
- * Will throw a console error if the information stored is invalid JSON and default to the existing info in this case.
+ * Try to set User and Trader from information stored in localStorage.
+ * @param submitVouchers
  */
 store.setUserTradersFromLocalStorage = function (submitVouchers = true) {
     let user = localStorage["Store.user"];
@@ -230,8 +234,7 @@ store.setLocalStorageFromUserTraders = function () {
 };
 
 /**
- *
- * @returns {boolean}
+ * @return {boolean}
  */
 store.getVoucherPaymentState = function () {
     this.netMgr.apiGet(
@@ -279,62 +282,44 @@ store.mergeRecVouchers = function (replacements) {
 
 /**
  * Adds a voucher code and submits it.
+ * @param voucherCode
+ * @param success
+ * @param failure
  */
 store.addVoucherCode = function (voucherCode, success, failure) {
-    let len = this.trader.vouchers.push({
+    // Add a voucher to the list
+    this.trader.vouchers.push({
         code: voucherCode,
         online: this.netMgr.online,
     });
 
     // Store the whole trader
     this.setLocalStorageFromUserTraders();
-    let transition = this.transitionVouchers(
+
+    // Post it to the backend
+    this.transitionVouchers(
         "collect",
         this.getTraderVoucherList(),
         success,
         failure
     );
-
-    // The online status may have changed by the time that the request has ended.
-    transition.then(
-        function () {
-            let voucher = this.trader.vouchers[len - 1];
-            if (voucher) {
-                voucher.online = NetMgr.online;
-
-                // Store the whole trader again.
-                this.setLocalStorageFromUserTraders();
-            }
-        }.bind(this)
-    );
 };
 
 /**
- * informs the server we've deleted a voucher.
+ * Informs the server we've deleted a voucher.
+ * @param voucherCode
+ * @param success
+ * @param failure
  */
 store.delVoucher = function (voucherCode, success, failure) {
-    let transition = this.transitionVouchers(
-        "reject",
-        [voucherCode],
-        success,
-        failure
-    );
-
-    transition.then(
-        function () {
-            let voucher = this.trader.vouchers[len - 1];
-            if (voucher) {
-                voucher.online = NetMgr.online;
-
-                // Store the whole trader again.
-                this.setLocalStorageFromUserTraders();
-            }
-        }.bind(this)
-    );
+    // POST to the server
+    this.transitionVouchers("reject", [voucherCode], success, failure);
 };
 
 /**
  * Transition request the recorded vouchers list to pending
+ * @param success
+ * @param failure
  */
 store.pendRecVouchers = function (success, failure) {
     // The [0] is vue wierdness
@@ -346,7 +331,7 @@ store.pendRecVouchers = function (success, failure) {
 };
 
 /**
- * empties the vouchers
+ * Empties the vouchers
  */
 store.clearVouchers = function () {
     // Alter current array, not swap for new one or vue gets sad!
@@ -357,7 +342,11 @@ store.clearVouchers = function () {
 
 /**
  * Post vouchers to api to start a transition.
- * @returns {boolean}
+ * @param transition
+ * @param vouchers
+ * @param success
+ * @param failure
+ * @return {Promise<TResult>}
  */
 store.transitionVouchers = function (transition, vouchers, success, failure) {
     const postData = {

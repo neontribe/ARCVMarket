@@ -1,55 +1,57 @@
 <template>
     <div>
-        <main class="container" id="tap">
+        <main id="tap" class="container">
             <div class="content narrow">
                 <h1>Type a voucher code</h1>
 
                 <form id="textVoucher" v-on:submit.prevent>
                     <message
-                        v-bind:text="message.text"
                         v-bind:state="message.state"
+                        v-bind:text="message.text"
                     ></message>
 
-                    <label for="sponsorBox" id="lblSponsorBox" class="hidden"
+                    <label id="lblSponsorBox" class="hidden" for="sponsorBox"
                         >Sponsor code</label
                     >
-                    <label for="voucherBox" id="lblVoucherBox" class="hidden"
+                    <label id="lblVoucherBox" class="hidden" for="voucherBox"
                         >Voucher code</label
                     >
 
                     <div class="input-box">
-                        <input id="sponsorBox"
-                            v-on:paste.prevent
-                            @keypress='onKeypressSponsorBox'
-                            type="text"
-                            v-model="sponsorCode"
+                        <input
+                            id="sponsorBox"
                             ref="sponsorBox"
-                            minlength="2"
+                            v-model="sponsorCode"
                             maxlength="5"
-                        />
-                        <input id="voucherBox"
+                            minlength="2"
+                            type="text"
+                            @keypress="onKeypressSponsorBox"
                             v-on:paste.prevent
-                            v-on:keyup.delete='onDelVoucherBox'
-                            @keypress='onKeypressVoucherBox'
-                            type="tel"
-                            pattern="[0-9]*"
-                            v-model="voucherCode"
+                        />
+                        <input
+                            id="voucherBox"
                             ref="voucherBox"
-                            minlength="4"
+                            v-model="voucherCode"
                             maxlength="8"
+                            minlength="4"
+                            pattern="[0-9]*"
+                            type="tel"
+                            @keypress="onKeypressVoucherBox"
+                            v-on:paste.prevent
+                            v-on:keyup.delete="onDelVoucherBox"
                         />
                     </div>
 
                     <button
                         id="submitVoucher"
-                        v-on:click="onRecordVoucher"
+                        class="cta"
                         v-bind:class="[
                             { spinner: this.spinner },
                             { validate: this.validate },
                             { fail: this.fail },
                             { queued: this.queued },
                         ]"
-                        class="cta"
+                        v-on:click="onRecordVoucher"
                     >
                         <span class="hidden offscreen">Submit code</span>
                     </button>
@@ -128,6 +130,10 @@ export default {
                     // Don't clear the voucher list!
                     function () {
                         if (!Store.netMgr.online) {
+                            // set that voucher offline so it goes in the queue
+                            this.vouchers[
+                                this.vouchers.length - 1
+                            ].online = false;
                             this.showQueued();
                             this.setMessage(
                                 constants.copy.VOUCHER_LOST_SIGNAL,
