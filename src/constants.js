@@ -24,5 +24,6 @@ export default {
         UNKNOWN_EVENT: "Something unusual has happened.",
         INVALID_CREDENTIALS:
             "The username and password combination entered was not recognised. Please check your details and try again.",
+        PASSWORD_RESET: "Your password has been reset.",
     },
 };

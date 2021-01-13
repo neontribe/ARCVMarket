@@ -12,6 +12,7 @@
 
 <script>
 import Store from "../store.js";
+import constants from "../constants";
 export default {
     name: "profile",
     data: function () {
@@ -28,8 +29,15 @@ export default {
     methods: {
         onLogout: function () {
             Store.unAuthenticate();
-            // Artificially using a HTTP code to set to 200 for "Ok, I did that"
-            const routeObj = { name: "login", params: { logoutReason: 200 } };
+            const routeObj = {
+                name: "login",
+                params: {
+                    passedMessage: {
+                        text: constants.copy.USER_LOGOUT,
+                        state: constants.MESSAGE_SUCCESS,
+                    },
+                },
+            };
             this.$router.push(routeObj);
         },
     },
