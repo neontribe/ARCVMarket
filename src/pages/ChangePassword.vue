@@ -68,8 +68,21 @@ export default {
                     token: this.token,
                 },
                 function () {
-                    // Assumes this is a success.
-                    this.$router.push("/");
+                    if (this.netMgr.isAuth()) {
+                        // If we are logged in, push to the default route
+                        this.$router.push("/");
+                    } else {
+                        // otherwise, push to the login page
+                        this.$router.push({
+                            name: "login",
+                            params: {
+                                passedMessage: {
+                                    text: constants.copy.PASSWORD_RESET,
+                                    state: constants.MESSAGE_SUCCESS,
+                                },
+                            },
+                        });
+                    }
                 }.bind(this),
                 function (error) {
                     // This only shows the *first* error. User will have to resolve multiple errors in turn.
