@@ -68,7 +68,7 @@ var Fixtures = {
                 + "warning message that should appear if the trader submits an unavailable voucher."
             }
         ],
-        "error": [{"error": "An error message for invalid voucher code."}],
+        "error": [{"error": "That isn't a valid voucher code, please check the number and try again."}],
     },
     traderVoucherHistory: {
         "1": [
