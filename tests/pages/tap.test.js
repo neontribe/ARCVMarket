@@ -52,8 +52,10 @@ test("Page has footer", async (t) => {
     const year = new Date().getFullYear();
     const privacy = await el("footer").child("a").innerText;
     expect(footer).to.exist;
-    expect(copyright).to.equal(`\u00A9 Copyright ${year} Alexandra Rose Charity`);
-    expect(privacy).to.equal('Privacy Policy');
+    expect(copyright).to.equal(
+        `\u00A9 Copyright ${year} Alexandra Rose Charity`
+    );
+    expect(privacy).to.equal("Privacy Policy");
 });
 
 test("Page footer's privacy link works", async (t) => {
@@ -64,11 +66,15 @@ test("Page footer's privacy link works", async (t) => {
         .click("#radio-0")
         .pressKey("enter");
     await t
-    .click(el("footer").child("a"))
-        .navigateTo("https://www.alexandrarose.org.uk/privacy-policy-for-traders");
+        .click(el("footer").child("a"))
+        .navigateTo(
+            "https://www.alexandrarose.org.uk/privacy-policy-for-traders"
+        );
     const pagePath = await t.eval(() => window.location);
     expect(pagePath.href).to.not.equal(url);
-    expect(pagePath.href).to.equal("https://www.alexandrarose.org.uk/privacy-policy-for-traders");
+    expect(pagePath.href).to.equal(
+        "https://www.alexandrarose.org.uk/privacy-policy-for-traders"
+    );
 });
 
 test("Traders name is present", async (t) => {
@@ -175,7 +181,7 @@ test("Correct error appears when I submit an invalid voucher", async (t) => {
     await t.click(submitVoucher);
     const errorMessage = await el(".message").innerText;
     expect(errorMessage).to.contain(
-        "An error message for invalid voucher code."
+        "That isn't a valid voucher code, please check the number and try again."
     );
 });
 
@@ -276,7 +282,9 @@ test("Can't reach tap page if the selected trader has a feature override propert
     const pagePath = await t.eval(() => window.location);
     const currentTraderName = await el(".profile-bar div").child("strong")
         .innerText;
-    expect(secondTraderName && currentTraderName).to.contain("Barry Thistlethorn");
+    expect(secondTraderName && currentTraderName).to.contain(
+        "Barry Thistlethorn"
+    );
     expect(pagePath.href).to.not.equal(`${url}/`);
     expect(pagePath.href).to.equal(`${url}/scan`);
 });
@@ -297,4 +305,4 @@ test("Can reach tap page if the selected trader doesn't have a feature override 
     expect(inputIcons).to.exist;
     expect(pagePath.href).to.equal(`${url}/`);
     expect(pagePath.href).to.not.equal(`${url}/scan`);
-})
+});
