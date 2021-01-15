@@ -1147,6 +1147,10 @@ h1.expandable.queue {
   .voucher-list .tab .row .total::before {
     content: "Total";
   }
+
+  footer {
+    flex-direction: column-reverse;
+  }
 }
 
 @media (max-width: 580px) {
@@ -1317,6 +1321,10 @@ h1.expandable.queue {
     font-size: 0.9rem;
   }
   .footer-links a {
+    font-size: 0.9em;
+  }
+
+  footer {
     font-size: 0.9em;
   }
 }
