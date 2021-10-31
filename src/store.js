@@ -64,12 +64,9 @@ store.resetStore = function () {
 /**
  * Returns a flat array of voucher codes.
  *
- * @param trader
- *   Currently not used. Will be needed when we support the storage of multiple traders.
- * @returns {Array}
  * @return {*[]}
  */
-store.getTraderVoucherList = function (trader) {
+store.getTraderVoucherList = function () {
     return this.trader.vouchers.map(function (v) {
         return v.code;
     });
@@ -335,7 +332,7 @@ store.delVoucher = function (voucherCode, success, failure) {
  * @param failure
  */
 store.pendRecVouchers = function (success, failure) {
-    // The [0] is vue wierdness
+    // The [0] is vue weirdness
     const voucherCodes = this.trader.recVouchers[0].map(function (voucher) {
         return voucher.code;
     });
