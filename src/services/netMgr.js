@@ -14,7 +14,7 @@ let NetMgr = {
     online: true,
     axiosInstance: Axios.create({
         baseURL: Config.apiBase,
-        timeout: 10000,
+        timeout: 20000,
         headers: {
             common: {
                 "X-Requested-With": "XMLHttpRequest", // for laravel
