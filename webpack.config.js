@@ -43,7 +43,12 @@ module.exports = {
         new webpack.BannerPlugin({
             banner: "Copyright (c) 2021, Alexandra Rose Charity (reg. in England and Wales, #00279157)",
         }),
-        new OfflinePlugin(),
+        new OfflinePlugin({
+            autoUpdate: 1000 * 60 * 60 * 48,
+            ServiceWorker: {
+                events: true,
+            },
+        }),
         new WebpackPwaManifest({
             name : 'Rosie - Rose Voucher Records & Reimbursement',
             short_name : 'Rosie',

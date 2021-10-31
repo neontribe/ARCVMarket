@@ -159,7 +159,6 @@ store.getUserTraders = function () {
             );
         }.bind(this)
     );
-    return true;
 };
 
 /**
@@ -246,7 +245,6 @@ store.getVoucherPaymentState = function () {
             );
         }.bind(this)
     );
-    return true;
 };
 
 /**
@@ -262,7 +260,6 @@ store.getRecVouchers = function () {
             this.mergeRecVouchers(newVouchers);
         }.bind(this)
     );
-    return true;
 };
 
 /**
