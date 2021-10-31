@@ -312,7 +312,7 @@ export default {
         },
     },
     mounted: function () {
-        Store.getRecVouchers();
+        Store.maybeGetRecVouchers();
         this.$refs.sponsorBox.focus();
     },
 };
