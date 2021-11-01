@@ -24,7 +24,7 @@ let store = {
         sendingStatus: false,
         sentData: null,
     },
-    gettingRecVouchers: false,
+    gettingRecVouchers: 0,
 };
 
 /**
@@ -249,7 +249,7 @@ store.getVoucherPaymentState = function () {
  * initialises a get IF one is not already in play.
  */
 store.maybeGetRecVouchers = function () {
-    if (this.gettingRecVouchers === false) {
+    if (this.gettingRecVouchers === 0) {
         this.getRecVouchers();
     }
 };
@@ -258,7 +258,8 @@ store.maybeGetRecVouchers = function () {
  * Gets the server's idea of a trader's recorder voucher list
  */
 store.getRecVouchers = function () {
-    this.gettingRecVouchers = true;
+    console.log(this.gettingRecVouchers);
+    this.gettingRecVouchers = this.gettingRecVouchers + 1;
     this.netMgr.apiGet(
         "/traders/" + this.trader.id + "/vouchers?status=unconfirmed",
         function (response) {
@@ -266,11 +267,13 @@ store.getRecVouchers = function () {
                 return response.data[k];
             });
             this.mergeRecVouchers(newVouchers);
-            this.gettingRecVouchers = false;
+            this.gettingRecVouchers = this.gettingRecVouchers - 1;
+            console.log(this.gettingRecVouchers);
         }.bind(this),
         function (error) {
             this.netMgr.logAJAXErrors(error);
-            this.gettingRecVouchers = false;
+            this.gettingRecVouchers = this.gettingRecVouchers - 1;
+            console.log(this.gettingRecVouchers);
         }.bind(this)
     );
 };
