@@ -73,8 +73,10 @@ test("Page has footer", async (t) => {
     const privacy = await el("footer").child("a").innerText;
     expect(pagePath.href).to.equal(url);
     expect(footer).to.exist;
-    expect(copyright).to.equal(`\u00A9 Copyright ${year} Alexandra Rose Charity`);
-    expect(privacy).to.equal('Privacy Policy');
+    expect(copyright).to.equal(
+        `\u00A9 Copyright ${year} Alexandra Rose Charity`
+    );
+    expect(privacy).to.equal("Privacy Policy");
 });
 
 test("Page footer's privacy link works", async (t) => {
@@ -86,8 +88,12 @@ test("Page footer's privacy link works", async (t) => {
         .click("button#continue");
     await t
         .click(el("footer").child("a"))
-        .navigateTo("https://www.alexandrarose.org.uk/privacy-policy-for-traders");
+        .navigateTo(
+            "https://www.alexandrarose.org.uk/privacy-policy-for-traders/"
+        );
     const pagePath = await t.eval(() => window.location);
     expect(pagePath.href).to.not.equal(url);
-    expect(pagePath.href).to.equal("https://www.alexandrarose.org.uk/privacy-policy-for-traders");
+    expect(pagePath.href).to.equal(
+        "https://www.alexandrarose.org.uk/privacy-policy-for-traders/"
+    );
 });
