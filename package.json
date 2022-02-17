@@ -58,7 +58,7 @@
         "lint-check": "eslint-config-prettier .eslintrc.js",
         "postcommit": "git update-index --again"
     },
-    "version": "1.4.0",
+    "version": "1.4.1",
     "husky": {
         "hooks": {
             "pre-commit": "lint-staged"
