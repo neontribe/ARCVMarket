@@ -14,7 +14,7 @@ test("Pending vouchers is consistent throughout app", async (t) => {
         .click("button")
         .click("#radio-0")
         .click("button#continue");
-    const paymentVoucherCount = await el("h1").child("strong").innerText;
+    const paymentVoucherCount = await el("a").child("strong");
     const addVoucherPage = await el("nav > ul").child(0).child("a");
 
     await t.click(addVoucherPage);
