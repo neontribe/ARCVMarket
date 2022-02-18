@@ -167,7 +167,7 @@ export default {
     },
     mounted: function () {
         // initialise the current vouchers list;
-        Store.getRecVouchers();
+        Store.maybeGetRecVouchers();
     },
 };
 </script>

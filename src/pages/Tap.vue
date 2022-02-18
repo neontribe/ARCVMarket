@@ -281,7 +281,7 @@ export default {
         },
     },
     mounted: function () {
-        Store.getRecVouchers();
+        Store.maybeGetRecVouchers();
     },
 };
 </script>
