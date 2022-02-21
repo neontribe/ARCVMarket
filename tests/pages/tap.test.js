@@ -68,12 +68,12 @@ test("Page footer's privacy link works", async (t) => {
     await t
         .click(el("footer").child("a"))
         .navigateTo(
-            "https://www.alexandrarose.org.uk/privacy-policy-for-traders"
+            "https://www.alexandrarose.org.uk/privacy-policy-for-traders/"
         );
     const pagePath = await t.eval(() => window.location);
     expect(pagePath.href).to.not.equal(url);
     expect(pagePath.href).to.equal(
-        "https://www.alexandrarose.org.uk/privacy-policy-for-traders"
+        "https://www.alexandrarose.org.uk/privacy-policy-for-traders/"
     );
 });
 
@@ -200,24 +200,6 @@ test("I cannot type letters into the voucher input", async (t) => {
     expect(voucherBoxValue).eql("");
 });
 
-test("I cannot type numbers into the sponsor input", async (t) => {
-    await t
-        .typeText("#userName", "email@example.co.uk")
-        .typeText("#userPassword", "secretpass")
-        .click("button")
-        .click("input#radio-0")
-        .pressKey("enter");
-    const sponsorBox = await el("#sponsorBox");
-
-    await t
-        .click(sponsorBox)
-        .pressKey("backspace backspace backspace backspace")
-        .typeText(sponsorBox, "1234");
-
-    const sponsorBoxValue = await el("#sponsorBox").value;
-    expect(sponsorBoxValue).eql("");
-});
-
 test("Page displays number of recorded vouchers", async (t) => {
     await t
         .typeText("#userName", "email@example.co.uk")
@@ -268,6 +250,24 @@ test("The correct sponsor code for the selected trader is loaded", async (t) => 
     // '' because second trader has a feature override that prevents him from acccessing tap page
     const secondUserSponsorCode = await el("#sponsorBox").value;
     expect(secondUserSponsorCode).eql("");
+});
+
+test("I cannot type numbers into the sponsor input", async (t) => {
+    await t
+        .typeText("#userName", "email@example.co.uk")
+        .typeText("#userPassword", "secretpass")
+        .click("button")
+        .click("input#radio-0")
+        .pressKey("enter");
+    const sponsorBox = await el("#sponsorBox");
+
+    await t
+        .click(sponsorBox)
+        .pressKey("backspace backspace backspace backspace")
+        .typeText(sponsorBox, "1234");
+
+    const sponsorBoxValue = await el("#sponsorBox").value;
+    expect(sponsorBoxValue).eql("");
 });
 
 test("Can't reach tap page if the selected trader has a feature override property", async (t) => {

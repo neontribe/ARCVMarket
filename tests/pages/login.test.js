@@ -28,14 +28,18 @@ test("Privacy policy link exists", async (t) => {
     expect(privacyLink).to.be.ok;
 });
 
-test('Privacy link navigates to right page', async (t) => {
+test("Privacy link navigates to right page", async (t) => {
     await t
         .click("#privacy")
-        .navigateTo("https://www.alexandrarose.org.uk/privacy-policy-for-traders");
+        .navigateTo(
+            "https://www.alexandrarose.org.uk/privacy-policy-for-traders/"
+        );
     const pagePath = await t.eval(() => window.location);
     expect(pagePath.href).to.not.equal(url);
-    expect(pagePath.href).to.equal("https://www.alexandrarose.org.uk/privacy-policy-for-traders");
-})
+    expect(pagePath.href).to.equal(
+        "https://www.alexandrarose.org.uk/privacy-policy-for-traders/"
+    );
+});
 
 test("Can log in", async (t) => {
     await t
