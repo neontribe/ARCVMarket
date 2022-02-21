@@ -14,7 +14,7 @@ let NetMgr = {
     online: true,
     axiosInstance: Axios.create({
         baseURL: Config.apiBase,
-        timeout: 10000,
+        timeout: 20000,
         headers: {
             common: {
                 "X-Requested-With": "XMLHttpRequest", // for laravel
@@ -32,9 +32,7 @@ let NetMgr = {
 NetMgr.isAuth = function () {
     if (this.token) {
         const expiryTime = this.token.requestTime + this.token.expires_in;
-        if (expiryTime > Math.floor(Date.now() / 1000)) {
-            return true;
-        }
+        return expiryTime > Math.floor(Date.now() / 1000);
     }
     return false;
 };
@@ -71,13 +69,12 @@ NetMgr.setAccept = function (format) {
  * @param route
  * @param cb
  * @param err
- * @returns {Promise.<TResult>}
  */
 NetMgr.apiGet = function (route, cb, err) {
     if (!route.match(/^\//)) {
         route = "/" + route;
     }
-    return this.axiosInstance
+    this.axiosInstance
         .get(route)
         .then(cb)
         .catch(err || this.logAJAXErrors);
@@ -90,13 +87,12 @@ NetMgr.apiGet = function (route, cb, err) {
  * @param postData
  * @param cb
  * @param err
- * @returns {Promise.<TResult>}
  */
 NetMgr.apiPost = function (route, postData, cb, err) {
     if (!route.match(/^\//)) {
         route = "/" + route;
     }
-    return this.axiosInstance
+    this.axiosInstance
         .post(route, postData)
         .then(cb)
         .catch(err || this.logAJAXErrors);

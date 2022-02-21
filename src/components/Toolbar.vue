@@ -36,11 +36,11 @@ export default {
     name: "toolbar",
     data: function () {
         return {
-            recVouchers: Store.trader.recVouchers
+            recVouchers: Store.trader.recVouchers,
         };
     },
     mounted: function () {
-        Store.getRecVouchers();
+        Store.maybeGetRecVouchers();
     },
     computed: {
         voucherCount: function () {
@@ -55,7 +55,7 @@ export default {
                 return tap;
             }
             return true;
-        }
+        },
     },
 };
 </script>
