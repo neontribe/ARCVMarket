@@ -1,7 +1,9 @@
+import pjson from '../package.json';
+
 // --- Defaults ---
 let env = "production",
     apiBase = "https://voucher-admin.alexandrarose.org.uk/api",
-    appVersion = "v1.5.0";
+    appVersion = pjson.version;
 
 // --- Env Specific ---
 if (location.hostname.match(/voucher-staging/)) {
