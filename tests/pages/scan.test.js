@@ -86,12 +86,12 @@ test("Page footer's privacy link works", async (t) => {
     await t
         .click(el("footer").child("a"))
         .navigateTo(
-            "https://www.alexandrarose.org.uk/privacy-policy-for-traders"
+            "https://www.alexandrarose.org.uk/privacy-policy-for-traders/"
         );
     const pagePath = await t.eval(() => window.location);
     expect(pagePath.href).to.not.equal(url);
     expect(pagePath.href).to.equal(
-        "https://www.alexandrarose.org.uk/privacy-policy-for-traders"
+        "https://www.alexandrarose.org.uk/privacy-policy-for-traders/"
     );
 });
 

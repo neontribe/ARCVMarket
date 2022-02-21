@@ -10,7 +10,7 @@ module.exports = {
     env: {
         browser: true,
     },
-    extends: ["plugin:vue/essential", "prettier", "prettier/standard"],
+    extends: ["plugin:vue/essential", "prettier"],
     plugins: ["vue", "prettier"],
     rules: {
         "prettier/prettier": "error",
