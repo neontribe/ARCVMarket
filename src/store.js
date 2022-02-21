@@ -258,7 +258,6 @@ store.maybeGetRecVouchers = function () {
  * Gets the server's idea of a trader's recorder voucher list
  */
 store.getRecVouchers = function () {
-    console.log(this.gettingRecVouchers);
     this.gettingRecVouchers = this.gettingRecVouchers + 1;
     this.netMgr.apiGet(
         "/traders/" + this.trader.id + "/vouchers?status=unconfirmed",
@@ -268,12 +267,10 @@ store.getRecVouchers = function () {
             });
             this.mergeRecVouchers(newVouchers);
             this.gettingRecVouchers = this.gettingRecVouchers - 1;
-            console.log(this.gettingRecVouchers);
         }.bind(this),
         function (error) {
             this.netMgr.logAJAXErrors(error);
             this.gettingRecVouchers = this.gettingRecVouchers - 1;
-            console.log(this.gettingRecVouchers);
         }.bind(this)
     );
 };
