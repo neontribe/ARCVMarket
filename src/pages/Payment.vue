@@ -132,6 +132,9 @@ export default {
             this.$router.push("/account");
         },
         onRequestPayment() {
+            document
+                .getElementById("requestPayment")
+                .setAttribute("disabled", "disabled");
             Store.pendRecVouchers(
                 // on Success, route to /account
                 function () {
