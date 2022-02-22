@@ -59,12 +59,7 @@ export default {
     },
     computed: {
         headerFull: function () {
-            const paths = [
-                "/login",
-                "/user",
-                "/request",
-                "/change-password",
-            ];
+            const paths = ["/login", "/user", "/request", "/change-password"];
             return paths.indexOf(this.$route.path) === -1;
         },
         toolbarShow: function () {
