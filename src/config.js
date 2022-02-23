@@ -1,4 +1,4 @@
-import pjson from '../package.json';
+import pjson from "../package.json";
 
 // --- Defaults ---
 let env = "production",

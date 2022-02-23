@@ -16,7 +16,7 @@ import Request from "./pages/Request.vue";
 import ChangePassword from "./pages/ChangePassword.vue";
 import User from "./pages/User.vue";
 import constants from "./constants";
-import pjson from '../package.json';
+import pjson from "../package.json";
 
 // Enable caching now.
 OfflinePluginRuntime.install({
@@ -44,7 +44,7 @@ OfflinePluginRuntime.install({
 Vue.use(VueRouter);
 
 console.info(BUILDDATE + "\n" + BRANCH + "\n" + VERSION);
-console.log('Version', pjson.version);
+console.log("Version", pjson.version);
 /*
  route access rules
  auth -> true, user MUST be authenticated - friends only
