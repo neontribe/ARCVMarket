@@ -132,6 +132,9 @@ export default {
             this.$router.push("/account");
         },
         onRequestPayment() {
+            document
+                .getElementById("requestPayment")
+                .setAttribute("disabled", "disabled");
             Store.pendRecVouchers(
                 // on Success, route to /account
                 function () {
@@ -139,6 +142,9 @@ export default {
                 }.bind(this),
                 // on Failure... hook for an alert?
                 function () {
+                    document
+                        .getElementById("requestPayment")
+                        .removeAttribute("disabled");
                     this.setMessage(
                         constants.copy.PAYMENT_REQUEST_ERROR,
                         constants.MESSAGE_ERROR

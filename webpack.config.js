@@ -1,4 +1,4 @@
-/* "Copyright © 2021, Alexandra Rose Charity (reg. in England and Wales, #00279157)" */
+/* "Copyright © 2022, Alexandra Rose Charity (reg. in England and Wales, #00279157)" */
 const path = require('path');
 const webpack = require('webpack');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
