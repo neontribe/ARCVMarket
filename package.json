@@ -32,7 +32,7 @@
         "html-webpack-plugin": "^4.5.0",
         "husky": "^4.3.5",
         "lint-staged": "^12.3.4",
-        "node-sass": "^4.14.1",
+        "node-sass": "^7.0.0",
         "offline-plugin": "^5.0.7",
         "prettier": "^2.5.1",
         "sass-loader": "^10.1",
