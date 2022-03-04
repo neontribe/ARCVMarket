@@ -1,5 +1,6 @@
 import NetMgr from "./services/netMgr.js";
 import constants from "./constants";
+import parseLinkHeader from "parse-link-header";
 
 // TODO store.error needs store based setter.
 let store = {
@@ -10,6 +11,7 @@ let store = {
     trader: {
         id: null,
         pendedVouchers: [],
+        pendedVoucherPagination: {},
         vouchers: [],
         recVouchers: [],
         market: {
@@ -231,17 +233,24 @@ store.setLocalStorageFromUserTraders = function () {
 };
 
 /**
- * @return {boolean}
+ *
+ * @param pageNum
  */
-store.getVoucherPaymentState = function () {
+store.getVoucherPaymentState = function (pageNum = 1) {
     this.netMgr.apiGet(
-        "traders/" + this.trader.id + "/voucher-history",
+        "traders/" + this.trader.id + "/voucher-history?page=" + pageNum,
         function (response) {
+            const headers = parseLinkHeader(response.headers["links"]) ?? {};
+            this.trader.pendedVoucherPagination = headers;
             this.trader.pendedVouchers.splice.apply(
                 this.trader.pendedVouchers,
                 [0, this.trader.pendedVouchers.length].concat(response.data)
             );
-        }.bind(this)
+        }.bind(this),
+        function (err) {
+            console.log("well, that didn't work...");
+            console.log(err);
+        }
     );
 };
 

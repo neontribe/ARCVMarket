@@ -142,6 +142,7 @@ export default {
     data() {
         return {
             voucherPayments: Store.trader.pendedVouchers,
+            voucherPagination: Store.trader.pendedVoucherPagination,
             errorMessage: Store.error,
             goodFeedback: false,
             selected: true,
