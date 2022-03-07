@@ -240,17 +240,13 @@ store.getVoucherPaymentState = function (pageNum = 1) {
     this.netMgr.apiGet(
         "traders/" + this.trader.id + "/voucher-history?page=" + pageNum,
         function (response) {
-            const headers = parseLinkHeader(response.headers["links"]) ?? {};
-            this.trader.pendedVoucherPagination = headers;
+            this.trader.pendedVoucherPagination =
+                parseLinkHeader(response.headers["links"]) ?? {};
             this.trader.pendedVouchers.splice.apply(
                 this.trader.pendedVouchers,
                 [0, this.trader.pendedVouchers.length].concat(response.data)
             );
-        }.bind(this),
-        function (err) {
-            console.log("well, that didn't work...");
-            console.log(err);
-        }
+        }.bind(this)
     );
 };
 

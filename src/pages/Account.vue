@@ -100,6 +100,25 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="tab row-pagination">
+                            <div>
+                                <button class="small-button">
+                                    &ltcc;&ltcc;
+                                </button>
+                            </div>
+                            <div>
+                                <button class="small-button">&ltcc;</button>
+                            </div>
+                            <div>
+                                <button class="small-button">&gtcc;</button>
+                            </div>
+                            <div>
+                                <button class="small-button">
+                                    &gtcc;&gtcc;
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="cta-buttons">
