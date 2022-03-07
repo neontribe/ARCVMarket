@@ -26,6 +26,7 @@ let store = {
         sentData: null,
     },
     gettingRecVouchers: 0,
+    pendedVoucherPagination: {},
 };
 
 /**
@@ -169,8 +170,8 @@ store.setUserTrader = function (id) {
     this.trader = this.user.traders[0].filter(function (userTrader) {
         return userTrader.id === id;
     })[0];
-    this.trader.pendedVoucherPagination = {};
     this.trader.pendedVouchers = [];
+    this.pendedVoucherPagination = {};
     this.trader.vouchers = [];
     this.trader.recVouchers = [];
 
@@ -241,9 +242,9 @@ store.getVoucherPaymentState = function (pageNum = 1) {
         "traders/" + this.trader.id + "/voucher-history?page=" + pageNum,
         function (response) {
             // update the voucherPagination tracker
-            let links = parseLinkHeader(response.headers["links"]) ?? {};
-            this.trader.pendedVoucherPagination = Object.assign(
-                this.trader.pendedVoucherPagination,
+            let links = parseLinkHeader(response.headers["links"]) || {};
+            this.pendedVoucherPagination = Object.assign(
+                this.pendedVoucherPagination,
                 links
             );
             this.trader.pendedVouchers.splice.apply(

@@ -188,6 +188,7 @@ export default {
     data() {
         return {
             voucherPayments: Store.trader.pendedVouchers,
+            voucherPagination: Store.pendedVoucherPagination,
             errorMessage: Store.error,
             goodFeedback: false,
             selected: true,
@@ -241,7 +242,7 @@ export default {
             );
         },
         pgBtnIsDisabled: function (key) {
-            const pg = this.voucherPagination;
+            const pg = this.voucherPagination || {};
             if (
                 pg.hasOwnProperty("first") &&
                 pg.hasOwnProperty("last") &&
@@ -263,14 +264,14 @@ export default {
             return true;
         },
         pageOfPages: function () {
-            const pg = this.voucherPagination;
+            const pg = this.voucherPagination || {};
             return pg.hasOwnProperty("current")
                 ? pg["current"].page + " of " + pg["last"].page
                 : "";
         },
         pgChangePage: function (event) {
             const key = event.target.id;
-            const pg = this.voucherPagination;
+            const pg = this.voucherPagination || {};
             const page = pg.hasOwnProperty(key) ? pg[key].page : 1;
             Store.getVoucherPaymentState(page);
         },
