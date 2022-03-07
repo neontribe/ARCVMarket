@@ -103,18 +103,45 @@
 
                         <div class="tab row-pagination">
                             <div>
-                                <button class="small-button">
+                                <button
+                                    id="first"
+                                    class="small-button"
+                                    @click="pgChangePage"
+                                    :disabled="pgBtnIsDisabled('first')"
+                                >
                                     &ltcc;&ltcc;
                                 </button>
                             </div>
                             <div>
-                                <button class="small-button">&ltcc;</button>
+                                <button
+                                    id="prev"
+                                    class="small-button"
+                                    @click="pgChangePage"
+                                    :disabled="pgBtnIsDisabled('prev')"
+                                >
+                                    &ltcc;
+                                </button>
                             </div>
                             <div>
-                                <button class="small-button">&gtcc;</button>
+                                <p class="page-of-pages">{{ pageOfPages() }}</p>
                             </div>
                             <div>
-                                <button class="small-button">
+                                <button
+                                    id="next"
+                                    class="small-button"
+                                    @click="pgChangePage"
+                                    :disabled="pgBtnIsDisabled('next')"
+                                >
+                                    &gtcc;
+                                </button>
+                            </div>
+                            <div>
+                                <button
+                                    id="last"
+                                    class="small-button"
+                                    @click="pgChangePage"
+                                    :disabled="pgBtnIsDisabled('last')"
+                                >
                                     &gtcc;&gtcc;
                                 </button>
                             </div>
@@ -161,7 +188,6 @@ export default {
     data() {
         return {
             voucherPayments: Store.trader.pendedVouchers,
-            voucherPagination: Store.trader.pendedVoucherPagination,
             errorMessage: Store.error,
             goodFeedback: false,
             selected: true,
@@ -213,6 +239,40 @@ export default {
                     this.setMessage(mailMsg, state);
                 }.bind(this)
             );
+        },
+        pgBtnIsDisabled: function (key) {
+            const pg = this.voucherPagination;
+            if (
+                pg.hasOwnProperty("first") &&
+                pg.hasOwnProperty("last") &&
+                pg.hasOwnProperty("current")
+            ) {
+                // check first and last aren't the same page
+                if (pg.first.page !== pg.last.page) {
+                    switch (key) {
+                        case "first":
+                            return pg[key].page === pg.current.page;
+                        case "last":
+                            return pg[key].page === pg.current.page;
+                        default:
+                            return pg[key].url === "";
+                    }
+                }
+            }
+            // tell it to disable.
+            return true;
+        },
+        pageOfPages: function () {
+            const pg = this.voucherPagination;
+            return pg.hasOwnProperty("current")
+                ? pg["current"].page + " of " + pg["last"].page
+                : "";
+        },
+        pgChangePage: function (event) {
+            const key = event.target.id;
+            const pg = this.voucherPagination;
+            const page = pg.hasOwnProperty(key) ? pg[key].page : 1;
+            Store.getVoucherPaymentState(page);
         },
     },
     mounted: function () {

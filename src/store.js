@@ -11,7 +11,6 @@ let store = {
     trader: {
         id: null,
         pendedVouchers: [],
-        pendedVoucherPagination: {},
         vouchers: [],
         recVouchers: [],
         market: {
@@ -170,6 +169,7 @@ store.setUserTrader = function (id) {
     this.trader = this.user.traders[0].filter(function (userTrader) {
         return userTrader.id === id;
     })[0];
+    this.trader.pendedVoucherPagination = {};
     this.trader.pendedVouchers = [];
     this.trader.vouchers = [];
     this.trader.recVouchers = [];
@@ -240,8 +240,12 @@ store.getVoucherPaymentState = function (pageNum = 1) {
     this.netMgr.apiGet(
         "traders/" + this.trader.id + "/voucher-history?page=" + pageNum,
         function (response) {
-            this.trader.pendedVoucherPagination =
-                parseLinkHeader(response.headers["links"]) ?? {};
+            // update the voucherPagination tracker
+            let links = parseLinkHeader(response.headers["links"]) ?? {};
+            this.trader.pendedVoucherPagination = Object.assign(
+                this.trader.pendedVoucherPagination,
+                links
+            );
             this.trader.pendedVouchers.splice.apply(
                 this.trader.pendedVouchers,
                 [0, this.trader.pendedVouchers.length].concat(response.data)
