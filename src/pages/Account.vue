@@ -101,7 +101,10 @@
                             </div>
                         </div>
 
-                        <div class="tab row-pagination">
+                        <div
+                            v-if="!pgBtnIsDisabled('current')"
+                            class="tab row-pagination"
+                        >
                             <div>
                                 <button
                                     id="first"
