@@ -104,10 +104,13 @@
                         <div
                             v-if="!pgBtnIsDisabled('current')"
                             class="tab row-pagination"
+                            aria-label="Pagination"
+                            aria-describedby="pagination-label"
                         >
                             <div>
                                 <button
                                     id="first"
+                                    aria-label="First Page"
                                     class="small-button"
                                     @click="pgChangePage"
                                     :disabled="pgBtnIsDisabled('first')"
@@ -118,6 +121,7 @@
                             <div>
                                 <button
                                     id="prev"
+                                    aria-label="Previous page"
                                     class="small-button"
                                     @click="pgChangePage"
                                     :disabled="pgBtnIsDisabled('prev')"
@@ -126,11 +130,14 @@
                                 </button>
                             </div>
                             <div>
-                                <p class="page-of-pages">{{ pageOfPages() }}</p>
+                                <p id="pagination-label" class="page-of-pages">
+                                    {{ pageOfPages() }}
+                                </p>
                             </div>
                             <div>
                                 <button
                                     id="next"
+                                    aria-label="Next Page"
                                     class="small-button"
                                     @click="pgChangePage"
                                     :disabled="pgBtnIsDisabled('next')"
@@ -141,6 +148,7 @@
                             <div>
                                 <button
                                     id="last"
+                                    aria-label="Last Page"
                                     class="small-button"
                                     @click="pgChangePage"
                                     :disabled="pgBtnIsDisabled('last')"
