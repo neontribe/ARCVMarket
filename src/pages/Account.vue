@@ -100,6 +100,75 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div
+                            v-if="!pgBtnIsDisabled('current')"
+                            class="tab row-pagination"
+                            aria-label="Pagination"
+                            aria-describedby="pagination-label"
+                        >
+                            <div>
+                                <button
+                                    id="first"
+                                    aria-label="First Page"
+                                    class="small-button"
+                                    @click="pgChangePage"
+                                    :disabled="pgBtnIsDisabled('first')"
+                                >
+                                    <i
+                                        class="fa fa-angle-double-left"
+                                        aria-hidden="true"
+                                    />
+                                </button>
+                            </div>
+                            <div>
+                                <button
+                                    id="prev"
+                                    aria-label="Previous page"
+                                    class="small-button"
+                                    @click="pgChangePage"
+                                    :disabled="pgBtnIsDisabled('prev')"
+                                >
+                                    <i
+                                        class="fa fa-angle-left"
+                                        aria-hidden="true"
+                                    />
+                                </button>
+                            </div>
+                            <div>
+                                <p id="pagination-label" class="page-of-pages">
+                                    {{ pageOfPages() }}
+                                </p>
+                            </div>
+                            <div>
+                                <button
+                                    id="next"
+                                    aria-label="Next Page"
+                                    class="small-button"
+                                    @click="pgChangePage"
+                                    :disabled="pgBtnIsDisabled('next')"
+                                >
+                                    <i
+                                        class="fa fa-angle-right"
+                                        aria-hidden="true"
+                                    />
+                                </button>
+                            </div>
+                            <div>
+                                <button
+                                    id="last"
+                                    aria-label="Last Page"
+                                    class="small-button"
+                                    @click="pgChangePage"
+                                    :disabled="pgBtnIsDisabled('last')"
+                                >
+                                    <i
+                                        class="fa fa-angle-double-right"
+                                        aria-hidden="true"
+                                    />
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="cta-buttons">
@@ -142,6 +211,7 @@ export default {
     data() {
         return {
             voucherPayments: Store.trader.pendedVouchers,
+            voucherPagination: Store.pendedVoucherPagination,
             errorMessage: Store.error,
             goodFeedback: false,
             selected: true,
@@ -193,6 +263,40 @@ export default {
                     this.setMessage(mailMsg, state);
                 }.bind(this)
             );
+        },
+        pgBtnIsDisabled: function (key) {
+            const pg = this.voucherPagination || {};
+            if (
+                pg.hasOwnProperty("first") &&
+                pg.hasOwnProperty("last") &&
+                pg.hasOwnProperty("current")
+            ) {
+                // check first and last aren't the same page
+                if (pg.first.page !== pg.last.page) {
+                    switch (key) {
+                        case "first":
+                            return pg[key].page === pg.current.page;
+                        case "last":
+                            return pg[key].page === pg.current.page;
+                        default:
+                            return pg[key].url === "";
+                    }
+                }
+            }
+            // tell it to disable.
+            return true;
+        },
+        pageOfPages: function () {
+            const pg = this.voucherPagination || {};
+            return pg.hasOwnProperty("current")
+                ? pg["current"].page + " of " + pg["last"].page
+                : "";
+        },
+        pgChangePage: function (event) {
+            const key = event.target.id;
+            const pg = this.voucherPagination || {};
+            const page = pg.hasOwnProperty(key) ? pg[key].page : 1;
+            Store.getVoucherPaymentState(page);
         },
     },
     mounted: function () {

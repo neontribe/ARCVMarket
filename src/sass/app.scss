@@ -121,7 +121,6 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 .fa {
   font-size: 2em;
-  padding-bottom: 8px;
 }
 
 .hidden {
@@ -261,6 +260,13 @@ button {
     transform: scale(0, 0);
     opacity: 0.2;
     transition: 0s;
+  }
+  .small-button {
+    width: 66%;
+    max-width: 50px;
+    margin: 20px;
+    font-size: 0.85em;
+    padding: 0 1.5em;
   }
 }
 
@@ -404,6 +410,7 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
+  z-index: 999;
   a:hover {
     text-decoration: underline;
   }
@@ -930,6 +937,27 @@ h1.expandable.queue {
   }
 }
 
+
+.row-pagination {
+  display: flex;
+  border-bottom: 1px solid $arc_border;
+  margin: 0 auto;
+  width: 100%;
+  &:last-child {
+    border-bottom: none;
+  }
+  div {
+    width: 20%;
+    text-align: center;
+    &:nth-child(3) {
+      text-align: center;
+      p {
+        line-height: 1.75;
+      }
+    }
+  }
+}
+
 .row-code {
   display: flex;
   border-bottom: 1px solid $arc_border;
@@ -1111,6 +1139,11 @@ h1.expandable.queue {
     width: 100%;
   }
 
+  button.small-button {
+    width: 66%;
+    padding:0;
+  }
+
   .content {
     width: 90%;
     &.narrow,
@@ -1234,6 +1267,10 @@ h1.expandable.queue {
       }
       button {
         width: 92%;
+      }
+      button.small-button {
+        width: 66%;
+        padding: 0;
       }
       .expandable {
         padding: 0 1em;
