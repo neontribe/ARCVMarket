@@ -121,7 +121,6 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 .fa {
   font-size: 2em;
-  padding-bottom: 8px;
 }
 
 .hidden {
@@ -411,6 +410,7 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
+  z-index: 999;
   a:hover {
     text-decoration: underline;
   }

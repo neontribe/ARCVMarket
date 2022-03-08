@@ -115,7 +115,10 @@
                                     @click="pgChangePage"
                                     :disabled="pgBtnIsDisabled('first')"
                                 >
-                                    &ltcc;&ltcc;
+                                    <i
+                                        class="fa fa-angle-double-left"
+                                        aria-hidden="true"
+                                    />
                                 </button>
                             </div>
                             <div>
@@ -126,7 +129,10 @@
                                     @click="pgChangePage"
                                     :disabled="pgBtnIsDisabled('prev')"
                                 >
-                                    &ltcc;
+                                    <i
+                                        class="fa fa-angle-left"
+                                        aria-hidden="true"
+                                    />
                                 </button>
                             </div>
                             <div>
@@ -142,7 +148,10 @@
                                     @click="pgChangePage"
                                     :disabled="pgBtnIsDisabled('next')"
                                 >
-                                    &gtcc;
+                                    <i
+                                        class="fa fa-angle-right"
+                                        aria-hidden="true"
+                                    />
                                 </button>
                             </div>
                             <div>
@@ -153,7 +162,10 @@
                                     @click="pgChangePage"
                                     :disabled="pgBtnIsDisabled('last')"
                                 >
-                                    &gtcc;&gtcc;
+                                    <i
+                                        class="fa fa-angle-double-right"
+                                        aria-hidden="true"
+                                    />
                                 </button>
                             </div>
                         </div>
