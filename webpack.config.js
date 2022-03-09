@@ -9,6 +9,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const { VueLoaderPlugin } = require("vue-loader");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const gitRevisionPlugin = new GitRevisionPlugin();
+const now = new Date();
 
 module.exports = {
     mode: "none",
@@ -26,7 +27,7 @@ module.exports = {
             VERSION: JSON.stringify(gitRevisionPlugin.version()),
             COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash()),
             BRANCH: JSON.stringify(gitRevisionPlugin.branch()),
-            BUILDDATE: JSON.stringify(new Date()),
+            BUILDDATE: JSON.stringify(now),
         }),
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
@@ -117,7 +118,10 @@ module.exports = {
                     {
                         loader: "sass-loader",
                         options: {
-                            implementation: require("node-sass"),
+                            implementation: require("sass"),
+                            sassOptions: {
+                                quietDeps: true,
+                            },
                         },
                     },
                 ],
@@ -173,7 +177,7 @@ if (process.env.NODE_ENV === "production") {
             VERSION: JSON.stringify(gitRevisionPlugin.version()),
             COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash()),
             BRANCH: JSON.stringify(gitRevisionPlugin.branch()),
-            BUILDDATE: JSON.stringify(new Date()),
+            BUILDDATE: JSON.stringify(now),
             "process.env": {
                 NODE_ENV: '"production"',
             },
