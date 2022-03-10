@@ -22,10 +22,10 @@ npm run build
 We suggest developing with a `.test` TLD.
 
 1. `npm run build`
-2. tar -cvzf ARCVMarket_v<x.y.z>(-[beta|RC]X) ./dist
+2. `tar -cvzf ARCVMarket_v<x.y.z>(-[beta|RC]X) ./dist`
 3. copy up to the server
-4. move in the correct directory
-5. `./deploy-market.sh` ARCVMarket_v<x.y.z>(-[beta|RC]X) market__v<x.y.z>(-[beta|RC]X)
+4. login and move in the correct directory
+5. `./deploy-market.sh ARCVMarket_v<x.y.z>(-[beta|RC]X) market__v<x.y.z>(-[beta|RC]X)`
 
 ## Testing
 Uses [Testcafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and [Chai](http://chaijs.com/)
