@@ -46,7 +46,7 @@ Neontribe Ltd (registered in England and Wales #06165574)
 
 Under contract for the Alexandra Rose Charity (registered in England and Wales #00279157)
 
-As such, unless otherwise specified in the appropriate component source, associated file or compiled asset, files in this project repository are Copyright &copy; (2022), Alexandra Rose Charity. All rights reserved.
+As such, unless otherwise specified in the appropriate component source, associated file or compiled asset, files in this project repository are Copyright &copy; (2023), Alexandra Rose Charity. All rights reserved.
 
 If you wish to discuss copyright or licensing issues, please contact:
 
@@ -63,7 +63,7 @@ GU9 7PT
 # Licensing and use of Third Party Applications
 These are the languages and packages used to create ARCV Market and where available the licences associated with them.
 
-ARCV Market 1.5
+ARCV Market 1.6
 
 Programming Language - JavaScript
 
