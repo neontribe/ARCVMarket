@@ -3,7 +3,7 @@
     "dependencies": {
         "@babel/polyfill": "^7.12.1",
         "axios": "^1.3.4",
-        "axios-mock-adapter": "^1.20.0",
+        "axios-mock-adapter": "^1.21.2",
         "babel-polyfill": "^6.26.0",
         "normalize.css": "^8.0.1",
         "parse-link-header": "^2.0.0",
@@ -30,7 +30,7 @@
         "font-awesome": "^4.7.0",
         "git-revision-webpack-plugin": "^3.0.6",
         "html-webpack-plugin": "^4.5.2",
-        "husky": "^4.3.5",
+        "husky": "^8.0.0",
         "lint-staged": "^12.3.4",
         "offline-plugin": "^5.0.7",
         "prettier": "^2.5.1",
@@ -56,14 +56,10 @@
         "lint-all": "eslint --ext .js,.vue src tests",
         "lint-all-autofix": "eslint --ext .js,.vue src tests --fix",
         "lint-check": "eslint-config-prettier .eslintrc.js",
-        "postcommit": "git update-index --again"
+        "postcommit": "git update-index --again",
+        "prepare": "husky install"
     },
     "version": "1.6.0-dev",
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
     "lint-staged": {
         "src/**/*.{js,json,yaml,vue}": [
             "eslint --fix --quiet --cache"
