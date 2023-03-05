@@ -17,7 +17,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "./dist"),
         publicPath: "/",
-        filename: "build.js?[hash]",
+        filename: "build.js?[contenthash]",
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -128,7 +128,7 @@ module.exports = {
                 use: {
                     loader: "file-loader",
                     options: {
-                        name: "[name].[ext]?[hash]",
+                        name: "[name].[ext]?[contenthash]",
                         esModule: false, // https://github.com/webpack-contrib/file-loader#esmodule
                     },
                 },
@@ -138,7 +138,7 @@ module.exports = {
                 use: {
                     loader: "file-loader",
                     options: {
-                        name: "./fonts/[name].[ext]?[hash]",
+                        name: "./fonts/[name].[ext]?[contenthash]",
                     },
                 },
             },
@@ -185,7 +185,7 @@ if (process.env.NODE_ENV === "production") {
             patterns: [
                 {
                     from: "src/assets",
-                    to: "[name].[ext]?[hash]",
+                    to: "[name].[contenthash][ext]",
                 },
             ],
         }),
