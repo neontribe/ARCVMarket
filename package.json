@@ -13,9 +13,9 @@
     },
     "description": "ARCV Market Tool",
     "devDependencies": {
-        "@babel/core": "^7.17.5",
-        "@babel/eslint-parser": "7.17.0",
-        "@babel/preset-env": "^7.16.11",
+        "@babel/core": "^7.21.0",
+        "@babel/eslint-parser": "7.19.1",
+        "@babel/preset-env": "^7.20.2",
         "babel-loader": "^8.2.3",
         "chai": "^4.3.6",
         "copy-webpack-plugin": "^6.3",
@@ -54,7 +54,7 @@
         "test": "testcafe chrome ./tests/*/*.test.js --app 'cross-env NODE_ENV=development webpack-dev-server' --app-init-delay 10000",
         "lint-all": "eslint --ext .js,.vue src tests",
         "lint-all-autofix": "eslint --ext .js,.vue src tests --fix",
-        "lint-check": "eslint-config-prettier .eslintrc.js",
+        "lint-check-conflicts": "eslint-config-prettier .eslintrc.js",
         "postcommit": "git update-index --again",
         "prepare": "husky install"
     },
