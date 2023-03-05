@@ -12,7 +12,8 @@ const now = new Date();
 
 module.exports = {
     mode: "none",
-    entry: ["@babel/polyfill", "./src/main.js"],
+    entry: ["./src/main.js"],
+    target: ["web", "es5"],
     output: {
         path: path.resolve(__dirname, "./dist"),
         publicPath: "/",
