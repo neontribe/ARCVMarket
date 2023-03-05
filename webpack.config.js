@@ -5,7 +5,6 @@ const GitRevisionPlugin = require("git-revision-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const OfflinePlugin = require("@lcdp/offline-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
 const { VueLoaderPlugin } = require("vue-loader");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const gitRevisionPlugin = new GitRevisionPlugin();
@@ -14,9 +13,6 @@ const now = new Date();
 module.exports = {
     mode: "none",
     entry: ["@babel/polyfill", "./src/main.js"],
-    optimization: {
-        minimizer: [new TerserPlugin()],
-    },
     output: {
         path: path.resolve(__dirname, "./dist"),
         publicPath: "/",
@@ -42,7 +38,7 @@ module.exports = {
             },
         }),
         new webpack.BannerPlugin({
-            banner: "Copyright (c) 2021, Alexandra Rose Charity (reg. in England and Wales, #00279157)",
+            banner: "Copyright (c) 2023, Alexandra Rose Charity (reg. in England and Wales, #00279157)",
         }),
         new OfflinePlugin({
             autoUpdate: 1000 * 60 * 60 * 48,
@@ -170,7 +166,6 @@ module.exports = {
 
 if (process.env.NODE_ENV === "production") {
     module.exports.devtool = "source-map";
-    module.exports.optimization.minimize = true;
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
