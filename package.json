@@ -9,7 +9,7 @@
         "parse-link-header": "^2.0.0",
         "route-parser": "0.0.5",
         "vue": "^2.7.14",
-        "vue-router": "^3.4"
+        "vue-router": "^3.6.5"
     },
     "description": "ARCV Market Tool",
     "devDependencies": {
@@ -36,7 +36,7 @@
         "sass": "^1.49.9",
         "sass-loader": "^10.2.1",
         "terser-webpack-plugin": "^4.2.3",
-        "testcafe": "^1.9.4",
+        "testcafe": "^2.3.1",
         "testcafe-vue-selectors": "^3.1.1",
         "vue-loader": "^15.9.8",
         "vue-template-compiler": "^2.6.12",
