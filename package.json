@@ -27,7 +27,7 @@
         "file-loader": "^6.2.0",
         "font-awesome": "^4.7.0",
         "git-revision-webpack-plugin": "^3.0.6",
-        "html-webpack-plugin": "^4.5.2",
+        "html-webpack-plugin": "^5.5.0",
         "husky": "^8.0.0",
         "lint-staged": "^13.1.2",
         "prettier": "^2.5.1",
