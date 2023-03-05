@@ -1,10 +1,10 @@
-/* "Copyright © 2022, Alexandra Rose Charity (reg. in England and Wales, #00279157)" */
+/* "Copyright © 2023, Alexandra Rose Charity (reg. in England and Wales, #00279157)" */
 const path = require("path");
 const webpack = require("webpack");
 const GitRevisionPlugin = require("git-revision-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const OfflinePlugin = require("offline-plugin");
+const OfflinePlugin = require("@lcdp/offline-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const { VueLoaderPlugin } = require("vue-loader");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
