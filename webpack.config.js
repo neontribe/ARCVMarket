@@ -1,7 +1,7 @@
 /* "Copyright © 2023, Alexandra Rose Charity (reg. in England and Wales, #00279157)" */
 const path = require("path");
 const webpack = require("webpack");
-const GitRevisionPlugin = require("git-revision-webpack-plugin");
+const { GitRevisionPlugin } = require("git-revision-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const OfflinePlugin = require("@lcdp/offline-plugin");
@@ -161,12 +161,13 @@ module.exports = {
     performance: {
         hints: false,
     },
-
-    devtool: "eval-source-map",
 };
 
+if (process.env.NODE_ENV === "development") {
+
+}
+
 if (process.env.NODE_ENV === "production") {
-    module.exports.devtool = "source-map";
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
@@ -177,9 +178,6 @@ if (process.env.NODE_ENV === "production") {
             "process.env": {
                 NODE_ENV: '"production"',
             },
-        }),
-        new webpack.LoaderOptionsPlugin({
-            minimize: true,
         }),
         new CopyWebpackPlugin({
             patterns: [
