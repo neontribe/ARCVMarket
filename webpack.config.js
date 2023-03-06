@@ -164,10 +164,22 @@ module.exports = {
 };
 
 if (process.env.NODE_ENV === "development") {
-
+    module.exports.mode = "development";
+    module.exports.plugins = (module.exports.plugins || []).concat([
+        new webpack.DefinePlugin({
+            VERSION: JSON.stringify(gitRevisionPlugin.version()),
+            COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash()),
+            BRANCH: JSON.stringify(gitRevisionPlugin.branch()),
+            BUILDDATE: JSON.stringify(now),
+            "process.env": {
+                NODE_ENV: '"development"',
+            },
+        }),
+    ]);
 }
 
 if (process.env.NODE_ENV === "production") {
+    module.exports.mode = "production";
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
