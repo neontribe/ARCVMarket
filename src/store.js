@@ -1,6 +1,6 @@
 import NetMgr from "./services/netMgr.js";
 import constants from "./constants";
-import parseLinkHeader from "parse-link-header";
+import { parseLinkHeader } from "@web3-storage/parse-link-header";
 
 // TODO store.error needs store based setter.
 let store = {

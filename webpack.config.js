@@ -1,11 +1,10 @@
-/* "Copyright © 2022, Alexandra Rose Charity (reg. in England and Wales, #00279157)" */
+/* "Copyright © 2023, Alexandra Rose Charity (reg. in England and Wales, #00279157)" */
 const path = require("path");
 const webpack = require("webpack");
-const GitRevisionPlugin = require("git-revision-webpack-plugin");
+const { GitRevisionPlugin } = require("git-revision-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const OfflinePlugin = require("offline-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
+const OfflinePlugin = require("@lcdp/offline-plugin");
 const { VueLoaderPlugin } = require("vue-loader");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const gitRevisionPlugin = new GitRevisionPlugin();
@@ -13,14 +12,12 @@ const now = new Date();
 
 module.exports = {
     mode: "none",
-    entry: ["@babel/polyfill", "./src/main.js"],
-    optimization: {
-        minimizer: [new TerserPlugin()],
-    },
+    entry: ["./src/main.js"],
+    target: ["web", "es5"],
     output: {
         path: path.resolve(__dirname, "./dist"),
         publicPath: "/",
-        filename: "build.js?[hash]",
+        filename: "build.js?[contenthash]",
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -42,7 +39,7 @@ module.exports = {
             },
         }),
         new webpack.BannerPlugin({
-            banner: "Copyright (c) 2021, Alexandra Rose Charity (reg. in England and Wales, #00279157)",
+            banner: "Copyright (c) 2023, Alexandra Rose Charity (reg. in England and Wales, #00279157)",
         }),
         new OfflinePlugin({
             autoUpdate: 1000 * 60 * 60 * 48,
@@ -131,7 +128,7 @@ module.exports = {
                 use: {
                     loader: "file-loader",
                     options: {
-                        name: "[name].[ext]?[hash]",
+                        name: "[name].[ext]?[contenthash]",
                         esModule: false, // https://github.com/webpack-contrib/file-loader#esmodule
                     },
                 },
@@ -141,7 +138,7 @@ module.exports = {
                 use: {
                     loader: "file-loader",
                     options: {
-                        name: "./fonts/[name].[ext]?[hash]",
+                        name: "./fonts/[name].[ext]?[contenthash]",
                     },
                 },
             },
@@ -164,13 +161,25 @@ module.exports = {
     performance: {
         hints: false,
     },
-
-    devtool: "eval-source-map",
 };
 
+if (process.env.NODE_ENV === "development") {
+    module.exports.mode = "development";
+    module.exports.plugins = (module.exports.plugins || []).concat([
+        new webpack.DefinePlugin({
+            VERSION: JSON.stringify(gitRevisionPlugin.version()),
+            COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash()),
+            BRANCH: JSON.stringify(gitRevisionPlugin.branch()),
+            BUILDDATE: JSON.stringify(now),
+            "process.env": {
+                NODE_ENV: '"development"',
+            },
+        }),
+    ]);
+}
+
 if (process.env.NODE_ENV === "production") {
-    module.exports.devtool = "source-map";
-    module.exports.optimization.minimize = true;
+    module.exports.mode = "production";
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
@@ -182,14 +191,11 @@ if (process.env.NODE_ENV === "production") {
                 NODE_ENV: '"production"',
             },
         }),
-        new webpack.LoaderOptionsPlugin({
-            minimize: true,
-        }),
         new CopyWebpackPlugin({
             patterns: [
                 {
                     from: "src/assets",
-                    to: "[name].[ext]?[hash]",
+                    to: "[name].[contenthash][ext]",
                 },
             ],
         }),

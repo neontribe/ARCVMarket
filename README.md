@@ -9,19 +9,19 @@ ARCV Market Tool designed to manage a voucher collector's interactions with the 
 nvm install && nvm use
 
 # install dependencies
-npm install
+yarn install
 
 # serve with hot reload at localhost:8081
-npm run dev
+yarn run dev
 
 # build for production with minification
-npm run build
+yarn run build
 ```
 
 ## Deployment
 We suggest developing with a `.test` TLD.
 
-1. `npm run build`
+1. `yarn run build`
 2. `tar -cvzf ARCVMarket_v<x.y.z>(-[beta|RC]X) ./dist`
 3. copy up to the server
 4. login and move in the correct directory
@@ -30,7 +30,7 @@ We suggest developing with a `.test` TLD.
 ## Testing
 Uses [Testcafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and [Chai](http://chaijs.com/)
 
-run with `npm run test`
+run with `yarn run test`
 
 ## Mocking
 In a development environment you can disable auto-mocks by adding a cookie in the console.
@@ -67,7 +67,7 @@ ARCV Market 1.6
 
 Programming Language - JavaScript
 
-Framework - vuejs 2 https://github.com/vuejs/vue/releases
+Framework - vuejs 2.7 https://github.com/vuejs/vue/releases
 
 Licence - MIT
 
