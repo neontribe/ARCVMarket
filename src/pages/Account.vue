@@ -1,5 +1,9 @@
 <template>
     <div>
+        <div id="look here">
+            <spinner v-bind:active="spinnerActive" text="Please wait" />
+        </div>
+
         <main class="container fullwidth" id="account">
             <div class="content fullwidth">
                 <h1>Requested Payments</h1>
@@ -207,7 +211,7 @@ import constants from "../constants";
 
 export default {
     name: "account",
-    mixins: [mixins.messages],
+    mixins: [mixins.messages, mixins.spinner],
     data() {
         return {
             voucherPayments: Store.trader.pendedVouchers,
@@ -298,8 +302,15 @@ export default {
             const page = pg.hasOwnProperty(key) ? pg[key].page : 1;
             Store.getVoucherPaymentState(page);
         },
+        loadData: function () {
+            this.showSpinner();
+            setTimeout(() => {
+                this.hideSpinner();
+            }, 5000);
+        },
     },
     mounted: function () {
+        this.showSpinner();
         Store.getVoucherPaymentState();
         // TODO: Have a standard way of having global router messages.
         const message = this.$router.message;
