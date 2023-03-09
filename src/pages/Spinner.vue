@@ -23,8 +23,7 @@ export default {
 };
 </script>
 
-<noscript>
-<style>
+<style lang="scss" scoped>
 p {
     font-size: 0.8em;
     font-weight: 300;
@@ -73,4 +72,3 @@ p {
     }
 }
 </style>
-</noscript>

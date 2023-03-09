@@ -1,7 +1,10 @@
 <template>
     <div>
         <div id="look here">
-            <spinner v-bind:active="spinnerActive" text="Please wait" />
+            <spinner
+                v-bind:active="spinnerActive"
+                text="Please wait, working on it..."
+            />
         </div>
 
         <main class="container fullwidth" id="account">
