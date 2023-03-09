@@ -1,12 +1,5 @@
 <template>
     <div>
-        <div id="look here">
-            <spinner
-                v-bind:active="spinnerActive"
-                text="Please wait, working on it..."
-            />
-        </div>
-
         <main class="container fullwidth" id="account">
             <div class="content fullwidth">
                 <h1>Requested Payments</h1>
@@ -17,189 +10,204 @@
                         v-bind:state="message.state"
                     ></message>
                 </transition>
-
-                <div v-if="voucherPayments.length > 0">
-                    <div>
-                        <p>
-                            Click the
-                            <span class="list-icon"
-                                ><i class="fa fa-list" aria-hidden="true"></i
-                            ></span>
-                            icon below to view a payment record in more detail.
-                        </p>
-                        <p>
-                            To email yourself a specific payment record from the
-                            table below, select it and click 'Email selected
-                            payment record'.
-                        </p>
-                    </div>
-
-                    <div class="accordion">
-                        <!-- Tab header -->
-                        <div class="tab thead">
-                            <div class="row">
-                                <div></div>
-                                <div class="date"></div>
-                                <div class="total"></div>
-                                <div>Amount</div>
-                                <div class="select-record"></div>
-                            </div>
+                <div v-if="spinnerActive">
+                    <spinner
+                        v-bind:active="spinnerActive"
+                        text="Please wait, working on it..."
+                    />
+                </div>
+                <div v-if="!spinnerActive">
+                    <div v-if="voucherPayments.length > 0">
+                        <div>
+                            <p>
+                                Click the
+                                <span class="list-icon"
+                                    ><i
+                                        class="fa fa-list"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
+                                icon below to view a payment record in more
+                                detail.
+                            </p>
+                            <p>
+                                To email yourself a specific payment record from
+                                the table below, select it and click 'Email
+                                selected payment record'.
+                            </p>
                         </div>
 
-                        <div
-                            class="tab row"
-                            v-for="(payment, index) in voucherPayments"
-                            :key="payment.pended_on"
-                        >
-                            <input
-                                :id="'tab-' + index"
-                                type="checkbox"
-                                name="tabs"
-                            />
-                            <div class="row">
-                                <div>
-                                    <label :for="'tab-' + index"
-                                        ><i
-                                            class="fa fa-list"
-                                            aria-hidden="true"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div>{{ payment.pended_on }}</div>
-                                <div class="count">
-                                    {{ payment.vouchers.length }}
-                                </div>
-                                <div class="amount">
-                                    &pound;{{ payment.vouchers.length }}
-                                </div>
-                                <div class="email">
-                                    <input
-                                        type="radio"
-                                        name="radio-group"
-                                        @click="recordSelect"
-                                        v-bind:id="payment.pended_on"
-                                    />
+                        <div class="accordion">
+                            <!-- Tab header -->
+                            <div class="tab thead">
+                                <div class="row">
+                                    <div></div>
+                                    <div class="date"></div>
+                                    <div class="total"></div>
+                                    <div>Amount</div>
+                                    <div class="select-record"></div>
                                 </div>
                             </div>
-                            <div class="tab-content">
-                                <div class="tab inner-thead">
-                                    <label></label>
-                                    <div class="row-code">
-                                        <div>Voucher code</div>
-                                        <div>Voucher added on</div>
+                            <div
+                                class="tab row"
+                                v-for="(payment, index) in voucherPayments"
+                                :key="payment.pended_on"
+                            >
+                                <input
+                                    :id="'tab-' + index"
+                                    type="checkbox"
+                                    name="tabs"
+                                />
+                                <div class="row">
+                                    <div>
+                                        <label :for="'tab-' + index"
+                                            ><i
+                                                class="fa fa-list"
+                                                aria-hidden="true"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div>{{ payment.pended_on }}</div>
+                                    <div class="count">
+                                        {{ payment.vouchers.length }}
+                                    </div>
+                                    <div class="amount">
+                                        &pound;{{ payment.vouchers.length }}
+                                    </div>
+                                    <div class="email">
+                                        <input
+                                            type="radio"
+                                            name="radio-group"
+                                            @click="recordSelect"
+                                            v-bind:id="payment.pended_on"
+                                        />
                                     </div>
                                 </div>
-                                <div
-                                    class="tab"
-                                    v-for="(voucher, index) in payment.vouchers"
-                                    :key="index"
-                                >
-                                    <label>
+                                <div class="tab-content">
+                                    <div class="tab inner-thead">
+                                        <label></label>
                                         <div class="row-code">
-                                            <div class="code">
-                                                {{ voucher.code }}
-                                            </div>
-                                            <div class="date">
-                                                {{ voucher.recorded_on }}
-                                            </div>
+                                            <div>Voucher code</div>
+                                            <div>Voucher added on</div>
                                         </div>
-                                    </label>
+                                    </div>
+                                    <div
+                                        class="tab"
+                                        v-for="(
+                                            voucher, index
+                                        ) in payment.vouchers"
+                                        :key="index"
+                                    >
+                                        <label>
+                                            <div class="row-code">
+                                                <div class="code">
+                                                    {{ voucher.code }}
+                                                </div>
+                                                <div class="date">
+                                                    {{ voucher.recorded_on }}
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                v-if="!pgBtnIsDisabled('current')"
+                                class="tab row-pagination"
+                                aria-label="Pagination"
+                                aria-describedby="pagination-label"
+                            >
+                                <div>
+                                    <button
+                                        id="first"
+                                        aria-label="First Page"
+                                        class="small-button"
+                                        @click="pgChangePage"
+                                        :disabled="pgBtnIsDisabled('first')"
+                                    >
+                                        <i
+                                            class="fa fa-angle-double-left"
+                                            aria-hidden="true"
+                                        />
+                                    </button>
+                                </div>
+                                <div>
+                                    <button
+                                        id="prev"
+                                        aria-label="Previous page"
+                                        class="small-button"
+                                        @click="pgChangePage"
+                                        :disabled="pgBtnIsDisabled('prev')"
+                                    >
+                                        <i
+                                            class="fa fa-angle-left"
+                                            aria-hidden="true"
+                                        />
+                                    </button>
+                                </div>
+                                <div>
+                                    <p
+                                        id="pagination-label"
+                                        class="page-of-pages"
+                                    >
+                                        {{ pageOfPages() }}
+                                    </p>
+                                </div>
+                                <div>
+                                    <button
+                                        id="next"
+                                        aria-label="Next Page"
+                                        class="small-button"
+                                        @click="pgChangePage"
+                                        :disabled="pgBtnIsDisabled('next')"
+                                    >
+                                        <i
+                                            class="fa fa-angle-right"
+                                            aria-hidden="true"
+                                        />
+                                    </button>
+                                </div>
+                                <div>
+                                    <button
+                                        id="last"
+                                        aria-label="Last Page"
+                                        class="small-button"
+                                        @click="pgChangePage"
+                                        :disabled="pgBtnIsDisabled('last')"
+                                    >
+                                        <i
+                                            class="fa fa-angle-double-right"
+                                            aria-hidden="true"
+                                        />
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                        <div
-                            v-if="!pgBtnIsDisabled('current')"
-                            class="tab row-pagination"
-                            aria-label="Pagination"
-                            aria-describedby="pagination-label"
-                        >
-                            <div>
-                                <button
-                                    id="first"
-                                    aria-label="First Page"
-                                    class="small-button"
-                                    @click="pgChangePage"
-                                    :disabled="pgBtnIsDisabled('first')"
-                                >
-                                    <i
-                                        class="fa fa-angle-double-left"
-                                        aria-hidden="true"
-                                    />
-                                </button>
-                            </div>
-                            <div>
-                                <button
-                                    id="prev"
-                                    aria-label="Previous page"
-                                    class="small-button"
-                                    @click="pgChangePage"
-                                    :disabled="pgBtnIsDisabled('prev')"
-                                >
-                                    <i
-                                        class="fa fa-angle-left"
-                                        aria-hidden="true"
-                                    />
-                                </button>
-                            </div>
-                            <div>
-                                <p id="pagination-label" class="page-of-pages">
-                                    {{ pageOfPages() }}
-                                </p>
-                            </div>
-                            <div>
-                                <button
-                                    id="next"
-                                    aria-label="Next Page"
-                                    class="small-button"
-                                    @click="pgChangePage"
-                                    :disabled="pgBtnIsDisabled('next')"
-                                >
-                                    <i
-                                        class="fa fa-angle-right"
-                                        aria-hidden="true"
-                                    />
-                                </button>
-                            </div>
-                            <div>
-                                <button
-                                    id="last"
-                                    aria-label="Last Page"
-                                    class="small-button"
-                                    @click="pgChangePage"
-                                    :disabled="pgBtnIsDisabled('last')"
-                                >
-                                    <i
-                                        class="fa fa-angle-double-right"
-                                        aria-hidden="true"
-                                    />
-                                </button>
-                            </div>
+                        <div class="cta-buttons">
+                            <button
+                                v-on:click="onRequestSubmissionEmail"
+                                :disabled="selected"
+                            >
+                                Email selected payment record
+                            </button>
+                            <button
+                                id="requestVoucherHistoryEmail"
+                                v-on:click="onRequestVoucherHistoryEmail"
+                            >
+                                Email all payment records
+                            </button>
                         </div>
                     </div>
 
-                    <div class="cta-buttons">
-                        <button
-                            v-on:click="onRequestSubmissionEmail"
-                            :disabled="selected"
-                        >
-                            Email selected payment record
-                        </button>
-                        <button
-                            id="requestVoucherHistoryEmail"
-                            v-on:click="onRequestVoucherHistoryEmail"
-                        >
-                            Email all payment records
-                        </button>
+                    <div v-else>
+                        <p>
+                            You don't have any payment records yet. Add some
+                            vouchers and request payment to see your payment
+                            records here.
+                        </p>
                     </div>
-                </div>
-
-                <div v-else>
-                    <p>
-                        You don't have any payment records yet. Add some
-                        vouchers and request payment to see your payment records
-                        here.
-                    </p>
                 </div>
             </div>
         </main>
@@ -300,20 +308,21 @@ export default {
                 : "";
         },
         pgChangePage: function (event) {
+            this.loadSpinner();
             const key = event.target.id;
             const pg = this.voucherPagination || {};
             const page = pg.hasOwnProperty(key) ? pg[key].page : 1;
             Store.getVoucherPaymentState(page);
         },
-        loadData: function () {
+        loadSpinner: function () {
             this.showSpinner();
             setTimeout(() => {
                 this.hideSpinner();
-            }, 5000);
+            }, 2000);
         },
     },
     mounted: function () {
-        this.showSpinner();
+        this.loadSpinner();
         Store.getVoucherPaymentState();
         // TODO: Have a standard way of having global router messages.
         const message = this.$router.message;
