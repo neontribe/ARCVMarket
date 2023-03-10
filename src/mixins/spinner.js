@@ -1,4 +1,4 @@
-import Spinner from "../pages/Spinner.vue";
+import Spinner from "../components/Spinner.vue";
 
 export default {
     data: () => {
