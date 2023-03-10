@@ -7,7 +7,7 @@ import Store from "./store.js";
 import VueRouter from "vue-router";
 import { EventBus } from "./services/events";
 // Import pages
-import Account from "./pages/Account.vue";
+import Account from "./components/Account.vue";
 import Tap from "./pages/Tap.vue";
 import Scan from "./pages/Scan.vue";
 import Payment from "./pages/Payment.vue";

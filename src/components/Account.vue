@@ -16,7 +16,7 @@
                         text="Please wait, working on it..."
                     />
                 </div>
-                <div v-if="!spinnerActive">
+                <div v-else>
                     <div v-if="voucherPayments.length > 0">
                         <div>
                             <p>
