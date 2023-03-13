@@ -216,13 +216,14 @@
 
 <script>
 import Store from "../store.js";
-import mixins from "../mixins/mixins";
 import NetMgr from "../services/netMgr.js";
 import constants from "../constants";
+import spinnerMix from "../mixins/spinnerMixin.js";
+import messageMix from "../mixins/messageMixin";
 
 export default {
     name: "account",
-    mixins: [mixins.messages, mixins.spinner],
+    mixins: [messageMix, spinnerMix],
     data() {
         return {
             voucherPayments: Store.trader.pendedVouchers,

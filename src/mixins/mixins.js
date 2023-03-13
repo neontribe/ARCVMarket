@@ -1,5 +1,5 @@
-import messages from "./messages";
-import spinner from "./spinner.js";
+import messages from "./messageMixin";
+import spinner from "./spinnerMixin";
 
 // This is the central file for all mixins.
 export default {

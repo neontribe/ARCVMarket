@@ -88,6 +88,7 @@
                         There are no vouchers to request payment for. Add some!
                     </h1>
                 </div>
+                <spinner v-bind:active="spinnerActive" />
             </div>
         </main>
     </div>
@@ -95,23 +96,18 @@
 
 <script>
 import Store from "../store.js";
-import mixin from "../mixins/mixins";
-import Message from "../components/Message.vue";
 import constants from "../constants";
+import spinnerMix from "../mixins/spinnerMixin";
+import messageMix from "../mixins/messageMixin";
 
 export default {
     name: "payment",
-    data() {
-        return {
-            recVouchers: Store.trader.recVouchers,
-            netMgr: Store.netMgr,
-            collapsed: true,
-        };
-    },
-    mixins: [mixin.messages],
-    components: {
-        Message,
-    },
+    mixins: [spinnerMix, messageMix],
+    data: () => ({
+        recVouchers: Store.trader.recVouchers,
+        netMgr: Store.netMgr,
+        collapsed: true,
+    }),
     computed: {
         voucherCount: function () {
             return this.vouchersAdded ? this.recVouchers[0].length : 0;
@@ -126,22 +122,22 @@ export default {
         },
     },
     methods: {
-        showConfirmation: function () {
-            this.setMessage(this.paymentMessage, constants.MESSAGE_SUCCESS);
-            this.$router.message = this.message;
-            this.$router.push("/account");
-        },
         onRequestPayment() {
             document
                 .getElementById("requestPayment")
                 .setAttribute("disabled", "disabled");
             Store.pendRecVouchers(
                 // on Success, route to /account
-                function () {
-                    this.showConfirmation();
-                }.bind(this),
+                () => {
+                    this.setMessage(
+                        this.paymentMessage,
+                        constants.MESSAGE_SUCCESS
+                    );
+                    this.$router.message = this.message;
+                    this.$router.push("/account");
+                },
                 // on Failure... hook for an alert?
-                function () {
+                () => {
                     document
                         .getElementById("requestPayment")
                         .removeAttribute("disabled");
@@ -149,31 +145,32 @@ export default {
                         constants.copy.PAYMENT_REQUEST_ERROR,
                         constants.MESSAGE_ERROR
                     );
-                }.bind(this)
+                }
             );
         },
         onDelete: function (recVoucher, index) {
             Store.delVoucher(
                 recVoucher.code,
-                function () {
+                () => {
                     this.$delete(Store.trader.recVouchers[0], index);
                     this.setMessage(
                         recVoucher.code + constants.copy.DELETE_VOUCHER_SUCCESS,
                         constants.MESSAGE_SUCCESS
                     );
-                }.bind(this),
-                function () {
+                },
+                () => {
                     this.setMessage(
                         recVoucher.code + constants.copy.DELETE_VOUCHER_FAIL,
                         constants.MESSAGE_ERROR
                     );
-                }.bind(this)
+                }
             );
         },
     },
     mounted: function () {
         // initialise the current vouchers list;
         Store.maybeGetRecVouchers();
+        this.showSpinner();
     },
 };
 </script>
