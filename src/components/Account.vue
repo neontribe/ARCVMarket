@@ -263,7 +263,7 @@ export default {
                     // write the response into the page
                     let mailMsg;
                     switch (response.status) {
-                        case 202:
+                        case 200:
                             this.goodFeedback = true;
                             mailMsg = response.data.message;
                             break;
