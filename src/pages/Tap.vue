@@ -67,15 +67,15 @@
 
 <script>
 import Store from "../store.js";
-import mixin from "../mixins/mixins";
 import Queue from "../components/Queue.vue";
 import constants from "../constants";
+import messageMix from "../mixins/messageMixin";
 
 const RESULT_TIMER = 2000;
 
 export default {
     name: "tap",
-    mixins: [mixin.messages],
+    mixins: [messageMix],
     components: {
         Queue,
     },
@@ -95,58 +95,57 @@ export default {
     methods: {
         onRecordVoucher: function () {
             //TODO: some proper validation
-            if (this.voucherCode !== null && this.voucherCode.length > 0) {
+            if (this.voucherCode?.length > 0) {
                 this.startSpinner();
                 Store.addVoucherCode(
                     this.sponsorCode.toUpperCase() + this.voucherCode,
                     // Success function
-                    function (response) {
+                    (response) => {
                         const responseData = response.data;
                         if (responseData.error) {
-                            this.showFail();
+                            this.updateOp(this.fail);
                             this.setMessage(
                                 responseData.error,
                                 constants.MESSAGE_ERROR
                             );
                         } else if (responseData.warning) {
-                            this.showFail();
+                            this.updateOp(this.fail);
                             this.setMessage(
                                 responseData.warning,
                                 constants.MESSAGE_WARNING
                             );
                         } else {
                             // all in!
-                            this.showValidate();
+                            this.updateOp(this.validate);
                             this.message = {};
                             // We're intentionally not setting to responseData.message here.
                         }
-
                         // The server has processed our list, clear it.
                         Store.clearVouchers();
                         Store.getRecVouchers();
-                    }.bind(this),
+                    },
                     // Failure function, hook for error message
-                    // Network error of some kind;
-                    // Don't clear the voucher list!
-                    function () {
-                        if (!Store.netMgr.online) {
+                    () => {
+                        // Network error of some kind;
+                        // Don't clear the voucher list!
+                        if (!this.netMgr.online) {
                             // set that voucher offline so it goes in the queue
                             this.vouchers[
                                 this.vouchers.length - 1
                             ].online = false;
-                            this.showQueued();
+                            this.updateOp(this.queued);
                             this.setMessage(
                                 constants.copy.VOUCHER_LOST_SIGNAL,
                                 constants.MESSAGE_WARNING
                             );
                         }
-                    }.bind(this)
+                    }
                 );
 
                 // Do anyway.
                 this.voucherCode = "";
             } else {
-                this.showFail();
+                this.updateOp(this.fail);
                 this.setMessage(
                     constants.copy.VOUCHER_SUBMIT_INVALID,
                     constants.MESSAGE_ERROR
@@ -158,37 +157,12 @@ export default {
             this.spinner = true;
         },
 
-        showValidate: function () {
+        updateOp: function (operation) {
+            operation = true;
             this.spinner = false;
-            this.validate = true;
-            setTimeout(
-                function () {
-                    this.validate = false;
-                }.bind(this),
-                RESULT_TIMER
-            );
-        },
-
-        showFail: function () {
-            this.spinner = false;
-            this.fail = true;
-            setTimeout(
-                function () {
-                    this.fail = false;
-                }.bind(this),
-                RESULT_TIMER
-            );
-        },
-
-        showQueued: function () {
-            this.spinner = false;
-            this.queued = true;
-            setTimeout(
-                function () {
-                    this.queued = false;
-                }.bind(this),
-                RESULT_TIMER
-            );
+            setTimeout(() => {
+                operation = false;
+            }, RESULT_TIMER);
         },
 
         /**
@@ -196,7 +170,7 @@ export default {
          *  select the text in the other box
          */
         onDelVoucherBox: function () {
-            if (this.voucherCode === null || this.voucherCode.length === 0) {
+            if (!this.voucherCode || this.voucherCode.length === 0) {
                 this.$refs.sponsorBox.select();
             }
         },
@@ -273,10 +247,10 @@ export default {
             }
         },
         getKeyCharCode: function (event) {
-            // Try to cross platform catch the keycode
+            // Try to cross-platform catch the keycode
             // Note, there's also "event.which" (int)
             // There's also "event.key" (string), which MDN thinks is better;
-            const charCode = event.keyCode ? event.keyCode : event.charCode;
+            const charCode = event.keyCode ?? event.charCode;
             return String.fromCharCode(charCode);
         },
     },

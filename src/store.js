@@ -268,25 +268,25 @@ store.maybeGetRecVouchers = function () {
  * Gets the server's idea of a trader's recorder voucher list
  */
 store.getRecVouchers = function () {
-    this.gettingRecVouchers = this.gettingRecVouchers + 1;
+    this.gettingRecVouchers += 1;
     this.netMgr.apiGet(
-        "/traders/" + this.trader.id + "/vouchers?status=unconfirmed",
-        function (response) {
-            let newVouchers = Object.keys(response.data).map(function (k) {
+        `/traders/${this.trader.id}/vouchers?status=unconfirmed`,
+        (response) => {
+            const newVouchers = Object.keys(response.data).map(function (k) {
                 return response.data[k];
             });
             this.mergeRecVouchers(newVouchers);
-            this.gettingRecVouchers = this.gettingRecVouchers - 1;
-        }.bind(this),
-        function (error) {
+            this.gettingRecVouchers -= 1;
+        },
+        (error) => {
             this.netMgr.logAJAXErrors(error);
-            this.gettingRecVouchers = this.gettingRecVouchers - 1;
-        }.bind(this)
+            this.gettingRecVouchers -= 1;
+        }
     );
 };
 
 /**
- * Vue observation of arrays is tricky. This replaces the an array.
+ * Vue observation of arrays is tricky. This replaces the array.
  * @param replacements
  */
 store.mergeRecVouchers = function (replacements) {
@@ -366,26 +366,31 @@ store.clearVouchers = function () {
  * @param vouchers
  * @param success
  * @param failure
- * @return {Promise<TResult>}
  */
-store.transitionVouchers = function (transition, vouchers, success, failure) {
+store.transitionVouchers = function (
+    transition,
+    vouchers,
+    // set some default functions
+    success = () => {
+        console.log("default success handler called");
+    },
+    failure = () => {
+        console.log("default failure handler called");
+    }
+) {
     const postData = {
         transition: transition,
         trader_id: this.trader.id,
         vouchers: vouchers,
     };
     return this.netMgr.apiPost(
-        "vouchers/transitions",
+        "vouchers",
         postData,
-        function (response) {
-            if (success) {
-                success(response);
-            }
+        (response) => {
+            success(response);
         },
-        function (error) {
-            if (failure) {
-                failure(error);
-            }
+        (error) => {
+            failure(error);
         }
     );
 };
