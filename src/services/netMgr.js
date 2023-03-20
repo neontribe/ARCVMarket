@@ -4,9 +4,6 @@ import Axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { EventBus } from "./events";
 
-// TODO: refactor into submodules for Auth, Axios and Mocks
-// TODO: have store listen for auth changes
-
 const NetMgrFactory = function (config) {
     return {
         token: null,
@@ -194,7 +191,7 @@ let NetMgr = NetMgrFactory({
  * Sets the online status. Defaults to true if nothing is provided as a param.
  *
  * Only modifies the internal online variable if there is a difference.
- * Also only fires the onlineStatusChange event if there is a difference.
+ * Also, only fires the onlineStatusChange event if there is a difference.
  *
  * @param onlineStatus
  *   Boolean indicating whether we are online or not.
@@ -213,43 +210,82 @@ NetMgr.axiosInstance.interceptors.response.use(
     responseErrorInterceptor
 );
 
-function responseSuccessInterceptor(response) {
+/**
+ * Handles succeses and 202 errors.
+ * @param origResponse
+ * @returns {Promise<axios.AxiosResponse<any>|*>}
+ */
+async function responseSuccessInterceptor(origResponse) {
     // If the request was successfully completed, always set the online status to true.
     NetMgr.setOnlineStatus(true);
-
-    if (response.status === 202) {
-        console.log(response);
-        // there _should be a location header and a retry-after
-        const monitorUrl = response.data["Location"];
-        const retryAfter = response.data["Retry-After"];
+    if (origResponse.status !== 202) {
+        // everything fine! return the response as-is
+        return origResponse;
+    } else {
+        console.log("original response", origResponse);
+        // there should be a location header and a retry-after
+        const monitorUrl = origResponse.data["location"];
+        const retryAfter = origResponse.data["retry-after"];
+        // setup a special polling config
         const pollConfig = {
             baseURL: null, // we're going wherever the backend says.
-            timeout: retryAfter * 5, // in case of problems
+            timeout: retryAfter * 5000, // in case of problems
             headers: {
                 common: {
                     "X-Requested-With": "XMLHttpRequest", // for laravel
                 },
             },
         };
-        // make an axios instance
+        // make an axios instance with it
         const pollMgr = NetMgrFactory(pollConfig);
-        // pull the current
+        // set the current token
         pollMgr.setTokenFromLocalStorage();
-        let pollingResponse = {};
-        setTimeout(function (monitorUrl) {
-            debugger;
-            pollingResponse = pollMgr.axiosInstance
-                .get(monitorUrl)
-                .then((response) => response);
-            //console.log(pollingResponse.data);
-        }, retryAfter * 1000);
-        //pollMgr.axiosInstance.get(monitorUrl).then((response) => response);
-    }
+        // add the interceptors for _this_ set of calls...
+        pollMgr.axiosInstance.use(
+            (response) => response,
+            responseErrorInterceptor
+        );
+        // first hit the queue
+        let pollingResponse = await pollMgr.axiosInstance.get(monitorUrl);
+        console.log("first...", pollingResponse);
+        while (
+            // if it says we're not finished
+            (pollingResponse.data.status !== "finished" ||
+                pollingResponse.data.status !== "failed") &&
+            // and we're still on the same page
+            pollingResponse.request.responseURL === monitorUrl
+        ) {
+            // make subsequent hits.
+            await new Promise((resolve) => {
+                setTimeout(resolve, retryAfter * 1000);
+            });
+            pollingResponse = await pollMgr.axiosInstance.get(monitorUrl);
+            console.log("Operation status", pollingResponse);
+        }
 
-    // everything fine! return the response
-    return response;
+        const { status } = pollingResponse.data;
+        switch (status) {
+            case "failed":
+                console.log("failed");
+                // TODO: set promise rejected.
+                break;
+            case "finished":
+                console.log("Operation succeeded, fetching!");
+                return await pollMgr.axiosInstance.get(
+                    pollingResponse.data.location
+                );
+            default:
+                console.log("Operation, succeeded, auto");
+                return pollingResponse;
+        }
+    }
 }
 
+/**
+ * Interceptor Handles errors
+ * @param error
+ * @returns {Promise<never>|void}
+ */
 function responseErrorInterceptor(error) {
     // Get the original request configuration.
     const origCfg = error.config;
@@ -261,12 +297,8 @@ function responseErrorInterceptor(error) {
     const errMsg = error.message || null;
 
     // Default to assuming we are online.
-    NetMgr.setOnlineStatus(true);
-
     // Set offline if a Network Error occurs. There should be a more specific error message but I couldn't find one.
-    if (errMsg === "Network Error") {
-        NetMgr.setOnlineStatus(false);
-    }
+    NetMgr.setOnlineStatus(errMsg !== "Network Error");
 
     // is it a 403? User tried something bad, broadcast a Logout event, someone will deal.
     if (origResp.status === 403) {
