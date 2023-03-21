@@ -88,7 +88,6 @@
                         There are no vouchers to request payment for. Add some!
                     </h1>
                 </div>
-                <spinner v-bind:active="spinnerActive" />
             </div>
         </main>
     </div>
@@ -97,12 +96,11 @@
 <script>
 import Store from "../store.js";
 import constants from "../constants";
-import spinnerMix from "../mixins/spinnerMixin";
 import messageMix from "../mixins/messageMixin";
 
 export default {
     name: "payment",
-    mixins: [spinnerMix, messageMix],
+    mixins: [messageMix],
     data: () => ({
         recVouchers: Store.trader.recVouchers,
         netMgr: Store.netMgr,
@@ -170,7 +168,6 @@ export default {
     mounted: function () {
         // initialise the current vouchers list;
         Store.maybeGetRecVouchers();
-        this.showSpinner();
     },
 };
 </script>

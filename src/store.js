@@ -338,8 +338,8 @@ store.pendRecVouchers = function (success, failure) {
     const voucherCodes = this.trader.recVouchers[0].map(function (voucher) {
         return voucher.code;
     });
-    // Execute the transition
-    this.transitionVouchers("confirm", voucherCodes, success, failure);
+    // Execute the transition using the queue.
+    this.transitionVouchers("confirm", voucherCodes, success, failure, true);
 };
 
 /**
