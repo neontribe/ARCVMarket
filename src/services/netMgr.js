@@ -13,7 +13,7 @@ const NetMgrFactory = function (config) {
         axiosInstance: Axios.create(config),
         /**
          * A function that works out if we really are Authenticated.
-         * Rather than what the Store.auth actually claims.
+         * Rather than what the `Store.auth` actually claims.
          * @returns {boolean}
          */
         isAuth: function () {
@@ -49,9 +49,9 @@ const NetMgrFactory = function (config) {
         /**
          * AXIOS get wrapper
          *
-         * @param route
-         * @param cb
-         * @param err
+         * @param {string} route
+         * @param {function} cb
+         * @param {function} err
          */
         apiGet: function (route, cb, err) {
             if (!route.match(/^\//)) {
@@ -66,10 +66,10 @@ const NetMgrFactory = function (config) {
         /**
          * AXIOS post wrapper;
          *
-         * @param route
+         * @param {string} route
          * @param postData
-         * @param cb
-         * @param err
+         * @param {function} cb
+         * @param {function} err
          */
         apiPost: function (route, postData, cb, err) {
             if (!route.match(/^\//)) {
@@ -140,7 +140,7 @@ const NetMgrFactory = function (config) {
          * Sets the internal token variable to the result of the NetMgr.getTokenFromLocalStorage function.
          */
         setTokenFromLocalStorage: function () {
-            let parsedLocalToken = this.getTokenFromLocalStorage();
+            const parsedLocalToken = this.getTokenFromLocalStorage();
             if (parsedLocalToken) {
                 this.setToken(parsedLocalToken);
             }
@@ -148,12 +148,11 @@ const NetMgrFactory = function (config) {
 
         /**
          * Retrieves the auth token object json from localStorage and attempts to parse the JSON string.
-         *
+         * Returns the parsed token object or null if it is invalid JSON.
          * @returns {Object|null}
-         *   Returns the parsed token object or null if it is invalid JSON.
          */
         getTokenFromLocalStorage: function () {
-            let localToken = localStorage["NetMgr.token"];
+            const localToken = localStorage["NetMgr.token"];
             let parsedLocalToken = null;
 
             try {
@@ -193,11 +192,11 @@ let NetMgr = NetMgrFactory({
  * Only modifies the internal online variable if there is a difference.
  * Also, only fires the onlineStatusChange event if there is a difference.
  *
- * @param onlineStatus
+ * @param {boolean} [onlineStatus=true]
  *   Boolean indicating whether we are online or not.
  */
 NetMgr.setOnlineStatus = function (onlineStatus = true) {
-    let diff = onlineStatus !== this.online;
+    const diff = onlineStatus !== this.online;
     if (diff) {
         this.online = onlineStatus;
         EventBus.$emit("NetMgr.onlineStatusChange", this.online);
@@ -211,7 +210,7 @@ NetMgr.axiosInstance.interceptors.response.use(
 );
 
 /**
- * Handles succeses and 202 errors.
+ * Handles successes and 202 errors.
  * @param origResponse
  * @returns {Promise<axios.AxiosResponse<any>|*>}
  */
@@ -297,7 +296,7 @@ function responseErrorInterceptor(error) {
     const errMsg = error.message || null;
 
     // Default to assuming we are online.
-    // Set offline if a Network Error occurs. There should be a more specific error message but I couldn't find one.
+    // Set offline if a Network Error occurs.
     NetMgr.setOnlineStatus(errMsg !== "Network Error");
 
     // is it a 403? User tried something bad, broadcast a Logout event, someone will deal.
@@ -313,7 +312,8 @@ function responseErrorInterceptor(error) {
             case "Unauthenticated.": // User not logged on.
                 origCfg._retry = true; // Set so we don't hit this one again.
 
-                let lsToken = NetMgr.getTokenFromLocalStorage() || NetMgr.token;
+                const lsToken =
+                    NetMgr.getTokenFromLocalStorage() || NetMgr.token;
 
                 // Let's hit the refresh with the refresh token
                 // Passport is returning the tokens in "data.original" on this endpoint. Odd.
@@ -321,7 +321,7 @@ function responseErrorInterceptor(error) {
                     "/login/refresh",
                     { refresh_token: lsToken.refresh_token },
                     (refreshData) => {
-                        let newTokenData = refreshData.data.original || null;
+                        const newTokenData = refreshData.data.original || null;
 
                         if (newTokenData) {
                             NetMgr.setToken(newTokenData); // Set the token.
