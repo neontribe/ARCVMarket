@@ -231,7 +231,7 @@ store.setLocalStorageFromUserTraders = function () {
  */
 store.getVoucherPaymentState = function (pageNum = 1) {
     this.netMgr.apiGet(
-        `"traders/${this.trader.id}/voucher-history?page=${pageNum}`,
+        `traders/${this.trader.id}/voucher-history?page=${pageNum}`,
         (response) => {
             // update the voucherPagination tracker
             let links = parseLinkHeader(response.headers["links"]) || {};
