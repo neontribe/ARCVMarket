@@ -1,14 +1,21 @@
 <template>
-    <button v-bind="$attrs" class="cta">
-        <span class=""><slot /></span>
+    <button
+        class="cta"
+        v-bind:class="state"
+        :disabled="state !== ''"
+        @click="onClick"
+    >
+        <span v-if="state === ''" class=""><slot /></span>
     </button>
 </template>
 
 <script>
 export default {
-    name: "AsyncButton",
-    // forward any props through to the button.
-    inheritAttrs: false,
+    name: "async-button",
+    props: {
+        onClick: { type: Function, required: true },
+        state: String,
+    },
     data: () => {
         return {};
     },
@@ -18,4 +25,47 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+@import "../sass/vars";
+.spinner,
+.validate,
+.fail,
+.queued {
+    color: $arc_white;
+    &:before {
+        font-size: 1.5em;
+        font-family: FontAwesome, serif;
+    }
+}
+.spinner {
+    position: relative;
+    background: $arc_rose;
+    &:before {
+        position: absolute;
+        animation: fa-spin 2s infinite linear;
+        top: 12px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        content: "\f013";
+    }
+}
+.validate {
+    background: $arc_success;
+    &:before {
+        content: "\f00c";
+    }
+}
+.fail {
+    background: $arc_error;
+    &:before {
+        content: "\f00d";
+    }
+}
+.queued {
+    background: $arc_warning;
+    &:before {
+        content: "\f017";
+    }
+}
+</style>

@@ -19,6 +19,7 @@ import constants from "./constants";
 import pjson from "../package.json";
 
 // Enable caching now.
+/*
 OfflinePluginRuntime.install({
     onInstalled: function () {
         console.log("App is ready for offline usage");
@@ -40,7 +41,7 @@ OfflinePluginRuntime.install({
         console.log("SW Event:", "onUpdateFailed");
     },
 });
-
+*/
 Vue.use(VueRouter);
 
 console.info(BUILDDATE + "\n" + BRANCH + "\n" + VERSION);

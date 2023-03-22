@@ -1,22 +1,23 @@
-const RESULT_TIMER = 2000;
+import AsyncButton from "../components/AsyncButton.vue";
+
+const RESULT_TIMER = 3000;
 
 export default {
     data: () => ({
-        spinner: false,
-        validate: false,
-        fail: false,
-        queued: false,
+        state: "",
     }),
+    components: {
+        AsyncButton,
+    },
     methods: {
         startSpinner: function () {
-            this.spinner = true;
+            this.state = "spinner";
         },
 
         updateOp: function (operation, timer = RESULT_TIMER) {
-            operation = true;
-            this.spinner = false;
+            this.state = operation;
             setTimeout(() => {
-                operation = false;
+                this.state = "";
             }, timer);
         },
     },

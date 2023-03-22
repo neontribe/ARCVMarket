@@ -1,6 +1,6 @@
-/* Copyright (c) 2022, Alexandra Rose Charity (reg. in England and Wales, #00279157) */
-@import "vars";
-
+/* Copyright (c) 2023, Alexandra Rose Charity (reg. in England and Wales, #00279157) */
+@import "./fonts";
+@import "./vars";
 /* --------------------------------------------------------------
 
    Layout
@@ -227,7 +227,7 @@ button {
   transform: translate3d(0, 0, 0);
   background-color: $arc_rose;
   color: $arc_white;
-  display: block;
+  // display: block;
   text-align: center;
   font-size: 1rem;
   height: 48px;
@@ -558,51 +558,6 @@ main > *:target ~ * {
   }
 }
 
-#textVoucher,
-.queuedVouchers {
-  .spinner,
-  .validate,
-  .fail,
-  .queued {
-    color: $arc_white;
-    &:before {
-      font-size: 1.5em;
-      font-family: FontAwesome;
-    }
-  }
-  .spinner {
-    position: relative;
-    background: $arc_rose;
-    &:before {
-      position: absolute;
-      animation: fa-spin 2s infinite linear;
-      top: 12px;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
-      content: "\f013";
-    }
-  }
-  .validate {
-    background: $arc_success;
-    &:before {
-      content: "\f00c";
-    }
-  }
-  .fail {
-    background: $arc_error;
-    &:before {
-      content: "\f00d";
-    }
-  }
-  .queued {
-    background: $arc_warning;
-    &:before {
-      content: "\f017";
-    }
-  }
-}
-
 #textVoucher {
   label {
     margin-bottom: 0;
@@ -611,15 +566,6 @@ main > *:target ~ * {
   .message {
     position: relative;
     padding-bottom: 1em;
-  }
-  // Animated submit code button
-  button {
-    margin: 20px auto;
-    cursor: pointer;
-    transition: all 0.5s ease;
-    &:before {
-      content: "Submit code";
-    }
   }
 }
 

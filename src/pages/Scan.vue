@@ -48,20 +48,13 @@
                         />
                     </div>
 
-                    <button
-                        id="submitVoucher"
-                        ref="submitVoucher"
-                        class="cta"
-                        v-bind:class="[
-                            { spinner: this.spinner },
-                            { validate: this.validate },
-                            { fail: this.fail },
-                            { queued: this.queued },
-                        ]"
-                        v-on:click="onRecordVoucher"
+                    <async-button
+                        id="submit-voucher"
+                        v-bind:state="state"
+                        :onClick="onRecordVoucher"
                     >
-                        <span class="hidden offscreen">Submit code</span>
-                    </button>
+                        Submit Code
+                    </async-button>
                 </form>
             </div>
 
@@ -110,20 +103,20 @@ export default {
                     (response) => {
                         const responseData = response.data;
                         if (responseData.error) {
-                            this.updateOp(this.fail, RESULT_TIMER);
+                            this.updateOp("fail", RESULT_TIMER);
                             this.setMessage(
                                 responseData.error,
                                 constants.MESSAGE_ERROR
                             );
                         } else if (responseData.warning) {
-                            this.updateOp(this.fail, RESULT_TIMER);
+                            this.updateOp("fail", RESULT_TIMER);
                             this.setMessage(
                                 responseData.warning,
                                 constants.MESSAGE_WARNING
                             );
                         } else {
                             // all in!
-                            this.updateOp(this.validate, RESULT_TIMER);
+                            this.updateOp("validate", RESULT_TIMER);
                             this.message = {};
                             // We're intentionally not setting to responseData.message here.
                         }
@@ -141,7 +134,7 @@ export default {
                             this.vouchers[
                                 this.vouchers.length - 1
                             ].online = false;
-                            this.updateOp(this.queued, RESULT_TIMER);
+                            this.updateOp("queued", RESULT_TIMER);
                             this.setMessage(
                                 constants.copy.VOUCHER_LOST_SIGNAL,
                                 constants.MESSAGE_WARNING
@@ -154,7 +147,7 @@ export default {
                 this.sponsorCode = "";
                 this.$refs.sponsorBox.focus();
             } else {
-                this.updateOp(this.fail, RESULT_TIMER);
+                this.updateOp("fail", RESULT_TIMER);
                 this.setMessage(
                     constants.copy.VOUCHER_SUBMIT_INVALID,
                     constants.MESSAGE_ERROR
