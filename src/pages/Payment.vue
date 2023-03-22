@@ -96,11 +96,11 @@
 <script>
 import Store from "../store.js";
 import constants from "../constants";
-import messageMix from "../mixins/messageMixin";
+import MessageMix from "../mixins/MessageMixin";
 
 export default {
     name: "payment",
-    mixins: [messageMix],
+    mixins: [MessageMix],
     data: () => ({
         recVouchers: Store.trader.recVouchers,
         netMgr: Store.netMgr,

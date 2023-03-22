@@ -63,19 +63,16 @@
 
 <script>
 import Store from "../store.js";
-import mixin from "../mixins/mixins";
-import Message from "./Message.vue";
 
 import constants from "../constants";
+import MessageMixin from "../mixins/MessageMixin";
+import AsyncButtonMixin from "../mixins/AsyncButtonMixin";
 
 const RESULT_TIMER = 5000;
 
 export default {
     name: "queue",
-    components: {
-        Message,
-    },
-    mixins: [mixin.messages],
+    mixins: [MessageMixin, AsyncButtonMixin],
     data: function () {
         return {
             queue: Store.queue,
@@ -83,9 +80,6 @@ export default {
             show: true,
             netMgr: Store.netMgr,
             vouchers: Store.trader.vouchers,
-            spinner: false,
-            validate: false,
-            fail: false,
         };
     },
     created: function () {
@@ -99,8 +93,8 @@ export default {
                 const queueState = val.sendingStatus;
                 if (!queueState && val.sentData) {
                     const message = val.sentData.data.message;
+                    this.updateOp(this.validate, RESULT_TIMER);
                     this.emitMessage(message, constants.MESSAGE_SUCCESS);
-                    this.showValidate();
                 } else if (!queueState) {
                     this.spinner = false;
                 }
@@ -135,41 +129,13 @@ export default {
         },
     },
     methods: {
-        startSpinner: function () {
-            this.spinner = true;
-        },
-
-        showValidate: function () {
-            this.spinner = false;
-            this.validate = true;
-
-            setTimeout(
-                function () {
-                    this.validate = false;
-                }.bind(this),
-                RESULT_TIMER
-            );
-        },
-
-        showFail: function () {
-            this.spinner = false;
-            this.fail = true;
-
-            setTimeout(
-                function () {
-                    this.fail = false;
-                }.bind(this),
-                RESULT_TIMER
-            );
-        },
-
         onSubmitQueue: function () {
             this.startSpinner();
 
             Store.transitionVouchers(
                 "collect",
                 Store.getTraderVoucherList(),
-                function (response) {
+                (response) => {
                     // The server has processed our list, clear it.
                     Store.clearVouchers();
                     Store.getRecVouchers();
@@ -184,19 +150,16 @@ export default {
                     } else if (response.data.message) {
                         message = response.data.message;
                     }
-
+                    this.updateOp(this.validate, RESULT_TIMER);
                     this.emitMessage(message, messageType);
-                    this.showValidate();
-                }.bind(this),
-
-                function () {
+                },
+                () => {
+                    this.updateOp(this.validate, RESULT_TIMER);
                     this.emitMessage(
                         constants.copy.QUEUE_NETWORK_ERROR,
                         constants.MESSAGE_ERROR
                     );
-
-                    this.showFail();
-                }.bind(this)
+                }
             );
         },
     },

@@ -69,13 +69,12 @@
 import Store from "../store.js";
 import Queue from "../components/Queue.vue";
 import constants from "../constants";
-import messageMix from "../mixins/messageMixin";
-
-const RESULT_TIMER = 2000;
+import MessageMix from "../mixins/MessageMixin";
+import AsyncButtonMixin from "../mixins/AsyncButtonMixin";
 
 export default {
     name: "tap",
-    mixins: [messageMix],
+    mixins: [MessageMix, AsyncButtonMixin],
     components: {
         Queue,
     },
@@ -86,10 +85,6 @@ export default {
             vouchers: Store.trader.vouchers,
             recVouchers: Store.trader.recVouchers,
             netMgr: Store.netMgr,
-            spinner: false,
-            validate: false,
-            fail: false,
-            queued: false,
         };
     },
     methods: {
@@ -152,19 +147,6 @@ export default {
                 );
             }
         },
-
-        startSpinner: function () {
-            this.spinner = true;
-        },
-
-        updateOp: function (operation) {
-            operation = true;
-            this.spinner = false;
-            setTimeout(() => {
-                operation = false;
-            }, RESULT_TIMER);
-        },
-
         /**
          * When the deleting an empty voucherCode,
          *  select the text in the other box

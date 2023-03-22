@@ -218,12 +218,12 @@
 import Store from "../store.js";
 import NetMgr from "../services/netMgr.js";
 import constants from "../constants";
-import spinnerMix from "../mixins/spinnerMixin.js";
-import messageMix from "../mixins/messageMixin";
+import SpinnerMix from "../mixins/SpinnerMixin.js";
+import MessageMix from "../mixins/MessageMixin";
 
 export default {
     name: "account",
-    mixins: [messageMix, spinnerMix],
+    mixins: [MessageMix, SpinnerMix],
     data() {
         return {
             voucherPayments: Store.trader.pendedVouchers,
@@ -256,29 +256,25 @@ export default {
         },
         requestEmailBeSent: function (url, data) {
             // This is a POST, look for the data as a JSON object
-            NetMgr.apiPost(
-                url,
-                data,
-                function (response) {
-                    // write the response into the page
-                    let mailMsg;
-                    switch (response.status) {
-                        case 200:
-                            this.goodFeedback = true;
-                            mailMsg = response.data.message;
-                            break;
-                        default:
-                            this.goodFeedback = false;
-                            mailMsg =
-                                "Something went wrong, please try again later.";
-                            console.log(response); // because we need to see what the server said somewhere.
-                    }
-                    const state = this.goodFeedback
-                        ? constants.MESSAGE_SUCCESS
-                        : constants.MESSAGE_ERROR;
-                    this.setMessage(mailMsg, state);
-                }.bind(this)
-            );
+            NetMgr.apiPost(url, data, (response) => {
+                // write the response into the page
+                let mailMsg;
+                switch (response.status) {
+                    case 200:
+                        this.goodFeedback = true;
+                        mailMsg = response.data.message;
+                        break;
+                    default:
+                        this.goodFeedback = false;
+                        mailMsg =
+                            "Something went wrong, please try again later.";
+                        console.log(response); // because we need to see what the server said somewhere.
+                }
+                const state = this.goodFeedback
+                    ? constants.MESSAGE_SUCCESS
+                    : constants.MESSAGE_ERROR;
+                this.setMessage(mailMsg, state);
+            });
         },
         pgBtnIsDisabled: function (key) {
             const pg = this.voucherPagination || {};
