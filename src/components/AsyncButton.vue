@@ -6,6 +6,7 @@
         @click="onClick"
     >
         <span v-if="state === ''" class=""><slot /></span>
+        <span v-if="state === 'spinner'" class="">Please wait...</span>
     </button>
 </template>
 
@@ -43,8 +44,8 @@ export default {
     &:before {
         position: absolute;
         animation: fa-spin 2s infinite linear;
-        top: 12px;
-        left: 0;
+        top: 11px;
+        left: 6em;
         right: 0;
         margin: 0 auto;
         content: "\f013";
