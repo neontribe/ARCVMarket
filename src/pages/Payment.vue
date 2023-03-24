@@ -10,6 +10,22 @@
                             >s</span
                         >.
                     </h1>
+                    <transition name="fade">
+                        <message
+                            v-bind:text="message.text"
+                            v-bind:state="message.state"
+                        ></message>
+                    </transition>
+
+                    <div class="content narrow">
+                        <async-button
+                            id="submit-voucher"
+                            v-bind:state="state"
+                            :onClick="onRequestPayment"
+                        >
+                            Request Payment
+                        </async-button>
+                    </div>
 
                     <div
                         v-on:click="collapsed = !collapsed"
@@ -70,17 +86,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <transition name="fade">
-                        <message
-                            v-bind:text="message.text"
-                            v-bind:state="message.state"
-                        ></message>
-                    </transition>
-
-                    <button id="requestPayment" v-on:click="onRequestPayment">
-                        Request payment
-                    </button>
                 </div>
 
                 <div v-else>
@@ -95,23 +100,18 @@
 
 <script>
 import Store from "../store.js";
-import mixin from "../mixins/mixins";
-import Message from "../components/Message.vue";
 import constants from "../constants";
+import MessageMix from "../mixins/MessageMixin";
+import AsyncButtonMixin from "../mixins/AsyncButtonMixin";
 
 export default {
     name: "payment",
-    data() {
-        return {
-            recVouchers: Store.trader.recVouchers,
-            netMgr: Store.netMgr,
-            collapsed: true,
-        };
-    },
-    mixins: [mixin.messages],
-    components: {
-        Message,
-    },
+    mixins: [MessageMix, AsyncButtonMixin],
+    data: () => ({
+        recVouchers: Store.trader.recVouchers,
+        netMgr: Store.netMgr,
+        collapsed: true,
+    }),
     computed: {
         voucherCount: function () {
             return this.vouchersAdded ? this.recVouchers[0].length : 0;
@@ -126,48 +126,45 @@ export default {
         },
     },
     methods: {
-        showConfirmation: function () {
-            this.setMessage(this.paymentMessage, constants.MESSAGE_SUCCESS);
-            this.$router.message = this.message;
-            this.$router.push("/account");
-        },
         onRequestPayment() {
-            document
-                .getElementById("requestPayment")
-                .setAttribute("disabled", "disabled");
+            this.startSpinner();
             Store.pendRecVouchers(
                 // on Success, route to /account
-                function () {
-                    this.showConfirmation();
-                }.bind(this),
+                () => {
+                    this.setMessage(
+                        this.paymentMessage,
+                        constants.MESSAGE_SUCCESS
+                    );
+                    this.updateOp("validate");
+                    this.$router.message = this.message;
+                    this.$router.push("/account");
+                },
                 // on Failure... hook for an alert?
-                function () {
-                    document
-                        .getElementById("requestPayment")
-                        .removeAttribute("disabled");
+                () => {
+                    this.updateOp("fail");
                     this.setMessage(
                         constants.copy.PAYMENT_REQUEST_ERROR,
                         constants.MESSAGE_ERROR
                     );
-                }.bind(this)
+                }
             );
         },
         onDelete: function (recVoucher, index) {
             Store.delVoucher(
                 recVoucher.code,
-                function () {
+                () => {
                     this.$delete(Store.trader.recVouchers[0], index);
                     this.setMessage(
                         recVoucher.code + constants.copy.DELETE_VOUCHER_SUCCESS,
                         constants.MESSAGE_SUCCESS
                     );
-                }.bind(this),
-                function () {
+                },
+                () => {
                     this.setMessage(
                         recVoucher.code + constants.copy.DELETE_VOUCHER_FAIL,
                         constants.MESSAGE_ERROR
                     );
-                }.bind(this)
+                }
             );
         },
     },

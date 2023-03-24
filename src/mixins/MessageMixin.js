@@ -3,14 +3,12 @@ import constants from "../constants";
 import Message from "../components/Message.vue";
 
 export default {
-    data() {
-        return {
-            message: {
-                state: constants.MESSAGE_STATUS,
-                text: "",
-            },
-        };
-    },
+    data: () => ({
+        message: {
+            state: constants.MESSAGE_STATUS,
+            text: "",
+        },
+    }),
 
     components: {
         Message,

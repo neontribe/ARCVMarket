@@ -91,8 +91,8 @@ store.getVouchersOnlineStatus = function () {
 /**
  * Called from vue components, proxies logon process for them.
  * @param userApiCredentials
- * @param success
- * @param failure
+ * @param {function} success
+ * @param {function} failure
  */
 store.authenticate = function (userApiCredentials, success, failure) {
     this.netMgr.apiPost(
@@ -120,20 +120,20 @@ store.authenticate = function (userApiCredentials, success, failure) {
 
 /**
  * Logs the user off
- * @param success
- * @param failure
+ * @param {function} success
+ * @param {function} failure
  */
 store.unAuthenticate = function (success, failure) {
     // Hit the logout endpoint.
     this.netMgr.apiPost(
         "/logout",
         null,
-        function (response) {
+        (response) => {
             if (success) {
                 success(response);
             }
-        }.bind(this),
-        function (error) {
+        },
+        (error) => {
             if (failure) {
                 failure(error);
             }
@@ -146,19 +146,11 @@ store.unAuthenticate = function (success, failure) {
 
 /**
  * Updates the current User's Traders
- * @returns {boolean}
  */
 store.getUserTraders = function () {
-    this.netMgr.apiGet(
-        "/traders",
-        function (response) {
-            this.user.traders.splice(
-                0,
-                this.user.traders.length,
-                response.data
-            );
-        }.bind(this)
-    );
+    this.netMgr.apiGet("/traders", (response) => {
+        this.user.traders.splice(0, this.user.traders.length, response.data);
+    });
 };
 
 /**
@@ -182,7 +174,7 @@ store.setUserTrader = function (id) {
 
 /**
  * Try to set User and Trader from information stored in localStorage.
- * @param submitVouchers
+ * @param {boolean} [submitVouchers=true]
  */
 store.setUserTradersFromLocalStorage = function (submitVouchers = true) {
     let user = localStorage["Store.user"];
@@ -210,17 +202,17 @@ store.setUserTradersFromLocalStorage = function (submitVouchers = true) {
         this.transitionVouchers(
             "collect",
             this.getTraderVoucherList(),
-            function (response) {
+            (response) => {
                 // The server has processed our list, clear it.
                 this.clearVouchers();
                 this.getRecVouchers();
 
                 this.queue.sentData = response;
                 this.queue.sendingStatus = false;
-            }.bind(this),
-            function () {
+            },
+            () => {
                 this.queue.sendingStatus = false;
-            }.bind(this)
+            }
         );
     }
 };
@@ -235,12 +227,12 @@ store.setLocalStorageFromUserTraders = function () {
 
 /**
  *
- * @param pageNum
+ * @param {int} [pageNum=1]
  */
 store.getVoucherPaymentState = function (pageNum = 1) {
     this.netMgr.apiGet(
-        "traders/" + this.trader.id + "/voucher-history?page=" + pageNum,
-        function (response) {
+        `traders/${this.trader.id}/voucher-history?page=${pageNum}`,
+        (response) => {
             // update the voucherPagination tracker
             let links = parseLinkHeader(response.headers["links"]) || {};
             this.pendedVoucherPagination = Object.assign(
@@ -251,7 +243,7 @@ store.getVoucherPaymentState = function (pageNum = 1) {
                 this.trader.pendedVouchers,
                 [0, this.trader.pendedVouchers.length].concat(response.data)
             );
-        }.bind(this)
+        }
     );
 };
 
@@ -268,26 +260,26 @@ store.maybeGetRecVouchers = function () {
  * Gets the server's idea of a trader's recorder voucher list
  */
 store.getRecVouchers = function () {
-    this.gettingRecVouchers = this.gettingRecVouchers + 1;
+    this.gettingRecVouchers += 1;
     this.netMgr.apiGet(
-        "/traders/" + this.trader.id + "/vouchers?status=unconfirmed",
-        function (response) {
-            let newVouchers = Object.keys(response.data).map(function (k) {
+        `/traders/${this.trader.id}/vouchers?status=unconfirmed`,
+        (response) => {
+            const newVouchers = Object.keys(response.data).map(function (k) {
                 return response.data[k];
             });
             this.mergeRecVouchers(newVouchers);
-            this.gettingRecVouchers = this.gettingRecVouchers - 1;
-        }.bind(this),
-        function (error) {
+            this.gettingRecVouchers -= 1;
+        },
+        (error) => {
             this.netMgr.logAJAXErrors(error);
-            this.gettingRecVouchers = this.gettingRecVouchers - 1;
-        }.bind(this)
+            this.gettingRecVouchers -= 1;
+        }
     );
 };
 
 /**
- * Vue observation of arrays is tricky. This replaces the an array.
- * @param replacements
+ * Vue observation of arrays is tricky. This replaces the array.
+ * @param  {array} replacements
  */
 store.mergeRecVouchers = function (replacements) {
     // This zeros the array and re-add things in a vue-friendly way.
@@ -302,9 +294,9 @@ store.mergeRecVouchers = function (replacements) {
 
 /**
  * Adds a voucher code and submits it.
- * @param voucherCode
- * @param success
- * @param failure
+ * @param {string} voucherCode
+ * @param {function} success
+ * @param {function} failure
  */
 store.addVoucherCode = function (voucherCode, success, failure) {
     // Add a voucher to the list
@@ -327,9 +319,9 @@ store.addVoucherCode = function (voucherCode, success, failure) {
 
 /**
  * Informs the server we've deleted a voucher.
- * @param voucherCode
- * @param success
- * @param failure
+ * @param {string} voucherCode
+ * @param {function} success
+ * @param {function} failure
  */
 store.delVoucher = function (voucherCode, success, failure) {
     // POST to the server
@@ -338,16 +330,16 @@ store.delVoucher = function (voucherCode, success, failure) {
 
 /**
  * Transition request the recorded vouchers list to pending
- * @param success
- * @param failure
+ * @param {function} success
+ * @param {function} failure
  */
 store.pendRecVouchers = function (success, failure) {
     // The [0] is vue weirdness
     const voucherCodes = this.trader.recVouchers[0].map(function (voucher) {
         return voucher.code;
     });
-    // Execute the transition
-    this.transitionVouchers("confirm", voucherCodes, success, failure);
+    // Execute the transition using the queue.
+    this.transitionVouchers("confirm", voucherCodes, success, failure, true);
 };
 
 /**
@@ -362,30 +354,38 @@ store.clearVouchers = function () {
 
 /**
  * Post vouchers to api to start a transition.
- * @param transition
- * @param vouchers
- * @param success
- * @param failure
- * @return {Promise<TResult>}
+ * @param {string} transition
+ * @param {array} vouchers
+ * @param {function} success
+ * @param {function} failure
+ * @param {boolean} queueAsync
  */
-store.transitionVouchers = function (transition, vouchers, success, failure) {
+store.transitionVouchers = function (
+    transition,
+    vouchers,
+    // set some default functions
+    success = () => {
+        console.log("default success handler called");
+    },
+    failure = () => {
+        console.log("default failure handler called");
+    },
+    queueAsync = false
+) {
     const postData = {
         transition: transition,
         trader_id: this.trader.id,
         vouchers: vouchers,
     };
+    const url = queueAsync ? "vouchers/transitions" : "vouchers";
     return this.netMgr.apiPost(
-        "vouchers",
+        url,
         postData,
-        function (response) {
-            if (success) {
-                success(response);
-            }
+        (response) => {
+            success(response);
         },
-        function (error) {
-            if (failure) {
-                failure(error);
-            }
+        (error) => {
+            failure(error);
         }
     );
 };

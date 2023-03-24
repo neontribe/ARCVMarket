@@ -18,29 +18,33 @@ import User from "./pages/User.vue";
 import constants from "./constants";
 import pjson from "../package.json";
 
-// Enable caching now.
-OfflinePluginRuntime.install({
-    onInstalled: function () {
-        console.log("App is ready for offline usage");
-    },
-    onUpdating: function () {
-        console.log("SW Event:", "onUpdating");
-    },
-    onUpdateReady: function () {
-        console.log("SW Event:", "onUpdateReady");
-        // Tells to new SW to take control immediately
-        OfflinePluginRuntime.applyUpdate();
-    },
-    onUpdated: function () {
-        console.log("SW Event:", "onUpdated");
-        // Reload the webpage to load into the new version
-        window.location.reload();
-    },
-    onUpdateFailed: function () {
-        console.log("SW Event:", "onUpdateFailed");
-    },
-});
-
+// Enable caching when not developing  to avoid webpack hot-reload problems.
+// see webpack,config.js
+if (process.env.NODE_ENV !== "development") {
+    OfflinePluginRuntime.install({
+        onInstalled: function () {
+            console.log("App is ready for offline usage");
+        },
+        onUpdating: function () {
+            console.log("SW Event:", "onUpdating");
+        },
+        onUpdateReady: function () {
+            console.log("SW Event:", "onUpdateReady");
+            // Tells to new SW to take control immediately
+            OfflinePluginRuntime.applyUpdate();
+        },
+        onUpdated: function () {
+            console.log("SW Event:", "onUpdated");
+            // Reload the webpage to load into the new version
+            window.location.reload();
+        },
+        onUpdateFailed: function () {
+            console.log("SW Event:", "onUpdateFailed");
+        },
+    });
+} else {
+    console.log("SPA refresh disabled for dev mode");
+}
 Vue.use(VueRouter);
 
 console.info(BUILDDATE + "\n" + BRANCH + "\n" + VERSION);

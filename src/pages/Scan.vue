@@ -48,20 +48,13 @@
                         />
                     </div>
 
-                    <button
-                        id="submitVoucher"
-                        ref="submitVoucher"
-                        class="cta"
-                        v-bind:class="[
-                            { spinner: this.spinner },
-                            { validate: this.validate },
-                            { fail: this.fail },
-                            { queued: this.queued },
-                        ]"
-                        v-on:click="onRecordVoucher"
+                    <async-button
+                        id="submit-voucher"
+                        v-bind:state="state"
+                        :onClick="onRecordVoucher"
                     >
-                        <span class="hidden offscreen">Submit code</span>
-                    </button>
+                        Submit Code
+                    </async-button>
                 </form>
             </div>
 
@@ -74,16 +67,17 @@
 
 <script>
 import Store from "../store.js";
-import mixin from "../mixins/mixins";
 import Queue from "../components/Queue.vue";
 import constants from "../constants.js";
+import AsyncButtonMixin from "../mixins/AsyncButtonMixin";
+import MessageMixin from "../mixins/MessageMixin";
 
-let RESULT_TIMER = 1000;
+const RESULT_TIMER = 1000;
 let TIMER = null;
 
 export default {
     name: "scan",
-    mixins: [mixin.messages],
+    mixins: [MessageMixin, AsyncButtonMixin],
     components: {
         Queue,
     },
@@ -94,10 +88,6 @@ export default {
             vouchers: Store.trader.vouchers,
             recVouchers: Store.trader.recVouchers,
             netMgr: Store.netMgr,
-            spinner: false,
-            validate: false,
-            fail: false,
-            queued: false,
         };
     },
     methods: {
@@ -110,23 +100,23 @@ export default {
                 Store.addVoucherCode(
                     this.sponsorCode.toUpperCase() + this.voucherCode,
                     // Success function
-                    function (response) {
+                    (response) => {
                         const responseData = response.data;
                         if (responseData.error) {
-                            this.showFail();
+                            this.updateOp("fail", RESULT_TIMER);
                             this.setMessage(
                                 responseData.error,
                                 constants.MESSAGE_ERROR
                             );
                         } else if (responseData.warning) {
-                            this.showFail();
+                            this.updateOp("fail", RESULT_TIMER);
                             this.setMessage(
                                 responseData.warning,
                                 constants.MESSAGE_WARNING
                             );
                         } else {
                             // all in!
-                            this.showValidate();
+                            this.updateOp("validate", RESULT_TIMER);
                             this.message = {};
                             // We're intentionally not setting to responseData.message here.
                         }
@@ -134,77 +124,35 @@ export default {
                         // The server has processed our list, clear it.
                         Store.clearVouchers();
                         Store.getRecVouchers();
-                    }.bind(this),
+                    },
                     // Failure function, hook for error message
                     // Network error of some kind;
                     // Don't clear the voucher list!
-                    function () {
+                    () => {
                         if (!Store.netMgr.online) {
                             // set that voucher offline sp it goes in a queue
                             this.vouchers[
                                 this.vouchers.length - 1
                             ].online = false;
-                            this.showQueued();
+                            this.updateOp("queued", RESULT_TIMER);
                             this.setMessage(
                                 constants.copy.VOUCHER_LOST_SIGNAL,
                                 constants.MESSAGE_WARNING
                             );
                         }
-                    }.bind(this)
+                    }
                 );
-
                 // Do anyway.
                 this.voucherCode = "";
                 this.sponsorCode = "";
                 this.$refs.sponsorBox.focus();
             } else {
-                this.showFail();
+                this.updateOp("fail", RESULT_TIMER);
                 this.setMessage(
                     constants.copy.VOUCHER_SUBMIT_INVALID,
                     constants.MESSAGE_ERROR
                 );
             }
-        },
-
-        startSpinner: function () {
-            this.spinner = true;
-        },
-
-        /**
-         * setTimeout is used in these showXYZ methods so the animation is displayed for a meaningful amount of time.
-         */
-        showValidate: function () {
-            this.spinner = false;
-            this.validate = true;
-            setTimeout(
-                function () {
-                    this.validate = false;
-                }.bind(this),
-                RESULT_TIMER
-            );
-        },
-
-        showFail: function () {
-            this.spinner = false;
-            this.fail = true;
-            setTimeout(
-                function () {
-                    this.fail = false;
-                }.bind(this),
-                RESULT_TIMER
-            );
-        },
-
-        showQueued: function (callback) {
-            this.spinner = false;
-            this.queued = true;
-            setTimeout(
-                function () {
-                    this.queued = false;
-                    callback.call(this);
-                }.bind(this),
-                RESULT_TIMER
-            );
         },
 
         /**
@@ -300,7 +248,7 @@ export default {
             return false;
         },
         getKeyCharCode: function (event) {
-            // Try to cross platform catch the keycode
+            // Try to cross-platform catch the keycode
             // Note, there's also "event.which" (int)
             // There's also "event.key" (string), which MDN thinks is better;
             const charCode = event.keyCode ? event.keyCode : event.charCode;

@@ -41,20 +41,13 @@
                             v-on:keyup.delete="onDelVoucherBox"
                         />
                     </div>
-
-                    <button
-                        id="submitVoucher"
-                        class="cta"
-                        v-bind:class="[
-                            { spinner: this.spinner },
-                            { validate: this.validate },
-                            { fail: this.fail },
-                            { queued: this.queued },
-                        ]"
-                        v-on:click="onRecordVoucher"
+                    <async-button
+                        id="submit-voucher"
+                        v-bind:state="state"
+                        :onClick="onRecordVoucher"
                     >
-                        <span class="hidden offscreen">Submit code</span>
-                    </button>
+                        Submit Code
+                    </async-button>
                 </form>
             </div>
 
@@ -67,15 +60,16 @@
 
 <script>
 import Store from "../store.js";
-import mixin from "../mixins/mixins";
 import Queue from "../components/Queue.vue";
 import constants from "../constants";
+import MessageMix from "../mixins/MessageMixin";
+import AsyncButtonMixin from "../mixins/AsyncButtonMixin";
 
 const RESULT_TIMER = 2000;
 
 export default {
     name: "tap",
-    mixins: [mixin.messages],
+    mixins: [MessageMix, AsyncButtonMixin],
     components: {
         Queue,
     },
@@ -86,117 +80,74 @@ export default {
             vouchers: Store.trader.vouchers,
             recVouchers: Store.trader.recVouchers,
             netMgr: Store.netMgr,
-            spinner: false,
-            validate: false,
-            fail: false,
-            queued: false,
         };
     },
     methods: {
         onRecordVoucher: function () {
             //TODO: some proper validation
-            if (this.voucherCode !== null && this.voucherCode.length > 0) {
+            if (this.voucherCode?.length > 0) {
                 this.startSpinner();
                 Store.addVoucherCode(
                     this.sponsorCode.toUpperCase() + this.voucherCode,
                     // Success function
-                    function (response) {
+                    (response) => {
                         const responseData = response.data;
                         if (responseData.error) {
-                            this.showFail();
+                            this.updateOp("fail", RESULT_TIMER);
                             this.setMessage(
                                 responseData.error,
                                 constants.MESSAGE_ERROR
                             );
                         } else if (responseData.warning) {
-                            this.showFail();
+                            this.updateOp("fail", RESULT_TIMER);
                             this.setMessage(
                                 responseData.warning,
                                 constants.MESSAGE_WARNING
                             );
                         } else {
                             // all in!
-                            this.showValidate();
+                            this.updateOp("validate", RESULT_TIMER);
                             this.message = {};
                             // We're intentionally not setting to responseData.message here.
                         }
-
                         // The server has processed our list, clear it.
                         Store.clearVouchers();
                         Store.getRecVouchers();
-                    }.bind(this),
+                    },
                     // Failure function, hook for error message
-                    // Network error of some kind;
-                    // Don't clear the voucher list!
-                    function () {
-                        if (!Store.netMgr.online) {
+                    () => {
+                        // Network error of some kind;
+                        // Don't clear the voucher list!
+                        if (!this.netMgr.online) {
                             // set that voucher offline so it goes in the queue
                             this.vouchers[
                                 this.vouchers.length - 1
                             ].online = false;
-                            this.showQueued();
+                            this.updateOp("queued", RESULT_TIMER);
                             this.setMessage(
                                 constants.copy.VOUCHER_LOST_SIGNAL,
                                 constants.MESSAGE_WARNING
                             );
                         }
-                    }.bind(this)
+                    }
                 );
 
                 // Do anyway.
                 this.voucherCode = "";
             } else {
-                this.showFail();
+                this.updateOp("fail", RESULT_TIMER);
                 this.setMessage(
                     constants.copy.VOUCHER_SUBMIT_INVALID,
                     constants.MESSAGE_ERROR
                 );
             }
         },
-
-        startSpinner: function () {
-            this.spinner = true;
-        },
-
-        showValidate: function () {
-            this.spinner = false;
-            this.validate = true;
-            setTimeout(
-                function () {
-                    this.validate = false;
-                }.bind(this),
-                RESULT_TIMER
-            );
-        },
-
-        showFail: function () {
-            this.spinner = false;
-            this.fail = true;
-            setTimeout(
-                function () {
-                    this.fail = false;
-                }.bind(this),
-                RESULT_TIMER
-            );
-        },
-
-        showQueued: function () {
-            this.spinner = false;
-            this.queued = true;
-            setTimeout(
-                function () {
-                    this.queued = false;
-                }.bind(this),
-                RESULT_TIMER
-            );
-        },
-
         /**
          * When the deleting an empty voucherCode,
          *  select the text in the other box
          */
         onDelVoucherBox: function () {
-            if (this.voucherCode === null || this.voucherCode.length === 0) {
+            if (!this.voucherCode || this.voucherCode.length === 0) {
                 this.$refs.sponsorBox.select();
             }
         },
@@ -273,10 +224,10 @@ export default {
             }
         },
         getKeyCharCode: function (event) {
-            // Try to cross platform catch the keycode
+            // Try to cross-platform catch the keycode
             // Note, there's also "event.which" (int)
             // There's also "event.key" (string), which MDN thinks is better;
-            const charCode = event.keyCode ? event.keyCode : event.charCode;
+            const charCode = event.keyCode ?? event.charCode;
             return String.fromCharCode(charCode);
         },
     },
