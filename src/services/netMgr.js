@@ -1,6 +1,7 @@
 import Config from "../config.js";
 import Fixtures from "../../fixtures/fixtures.js";
 import Axios from "axios";
+import { axiosETAGCache } from "axios-etag-cache";
 import MockAdapter from "axios-mock-adapter";
 import { EventBus } from "./events";
 
@@ -10,7 +11,7 @@ const NetMgrFactory = function (config) {
         mockAdapter: null,
         mocker: null,
         online: true,
-        axiosInstance: Axios.create(config),
+        axiosInstance: axiosETAGCache(Axios.create(config)),
         /**
          * A function that works out if we really are Authenticated.
          * Rather than what the `Store.auth` actually claims.
