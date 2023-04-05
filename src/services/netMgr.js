@@ -240,11 +240,10 @@ async function responseSuccessInterceptor(origResponse) {
         // set the current token
         pollMgr.setTokenFromLocalStorage();
         // add the interceptors for _this_ set of calls...
-        pollMgr.axiosInstance.use(
+        pollMgr.axiosInstance.interceptors.response.use(
             (response) => response,
             responseErrorInterceptor
         );
-        // first hit the queue
         let pollingResponse = await pollMgr.axiosInstance.get(monitorUrl);
         console.log("first...", pollingResponse);
         while (
