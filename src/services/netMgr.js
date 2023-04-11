@@ -11,6 +11,7 @@ const NetMgrFactory = function (config) {
         mockAdapter: null,
         mocker: null,
         online: true,
+        // this will, apparently, attach a magic etag/304 detector
         axiosInstance: axiosETAGCache(Axios.create(config)),
         /**
          * A function that works out if we really are Authenticated.
