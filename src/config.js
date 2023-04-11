@@ -2,13 +2,13 @@ import pjson from "../package.json";
 
 // --- Defaults ---
 let env = "production",
-    apiBase = "https://voucher-admin.alexandrarose.org.uk/api",
+    apiBase = "https://voucher-admin.neontribe.org/api",
     appVersion = pjson.version;
 
 // --- Env Specific ---
 if (location.hostname.match(/voucher-staging/)) {
     env = "staging";
-    apiBase = "https://voucher-admin-staging.alexandrarose.org.uk/api";
+    apiBase = "https://voucher-admin-staging.neontribe.org/api";
 }
 
 if (location.hostname.match(/localhost|(\.(dev|test))$/)) {
