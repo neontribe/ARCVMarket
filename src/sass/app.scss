@@ -406,7 +406,7 @@ footer {
   display: flex;
   font-size: 1em;
   justify-content: space-evenly;
-  padding: 1.2em 2em;
+  padding: 1em 2em;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -441,6 +441,7 @@ footer {
 .expandable {
   cursor: pointer;
   margin: 1em 0;
+  padding-bottom: 2em;
   font-weight: bold;
   text-decoration: underline;
   &:hover {
