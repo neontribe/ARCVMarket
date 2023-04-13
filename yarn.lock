@@ -2067,6 +2067,11 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
+axios-etag-cache@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/axios-etag-cache/-/axios-etag-cache-1.4.0.tgz#8d418370a1d362febfe76d27ffb4fd9c6f9b0c7f"
+  integrity sha512-EsCgszxRvJzUtFA9xIOzlRe5IctfpsIGuvIy7n8rIMyueyhVUOZPpvBnZ0LT9rv2RsBNlE/hL/k3G+SEtBpLew==
+
 axios-mock-adapter@^1.21.2:
   version "1.21.4"
   resolved "https://registry.yarnpkg.com/axios-mock-adapter/-/axios-mock-adapter-1.21.4.tgz#ced09b54b245b338422e3af425ae529bfa26e051"
