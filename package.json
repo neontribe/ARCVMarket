@@ -55,7 +55,7 @@
         "postcommit": "git update-index --again",
         "prepare": "husky install"
     },
-    "version": "1.6.0-dev",
+    "version": "1.6.0-beta3",
     "lint-staged": {
         "src/**/*.{js,json,yaml,vue}": [
             "eslint --fix --quiet --cache"
