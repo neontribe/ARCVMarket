@@ -249,11 +249,11 @@ async function responseSuccessInterceptor(origResponse) {
         let pollingResponse = await pollMgr.axiosInstance.get(monitorUrl);
         console.log("first...", pollingResponse);
         while (
-            // if it says we're not finished
+            // if it says we're not finished/failed
             (pollingResponse.data.status !== "finished" ||
                 pollingResponse.data.status !== "failed") &&
-            // and we're still on the same page
-            pollingResponse.request.responseURL === monitorUrl
+            // ... and we're being told to keep hitting the monitor
+            pollingResponse.data.location === monitorUrl
         ) {
             // make subsequent hits.
             await new Promise((resolve) => {
@@ -266,16 +266,16 @@ async function responseSuccessInterceptor(origResponse) {
         const { status } = pollingResponse.data;
         switch (status) {
             case "failed":
-                console.log("failed");
                 // TODO: set promise rejected.
-                break;
+                console.log("failed");
+                return pollingResponse;
             case "finished":
                 console.log("Operation succeeded, fetching!");
                 return await pollMgr.axiosInstance.get(
                     pollingResponse.data.location
                 );
             default:
-                console.log("Operation, succeeded, auto");
+                console.log("Operation halted unusually");
                 return pollingResponse;
         }
     }
