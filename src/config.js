@@ -2,7 +2,7 @@ import pjson from "../package.json";
 
 // --- Defaults ---
 let env = "production",
-    apiBase = "https://voucher-admin.neontribe.org/api",
+    apiBase = "https://voucher-admin.alexandrarose.org.uk/api",
     appVersion = pjson.version;
 
 // --- Env Specific ---
