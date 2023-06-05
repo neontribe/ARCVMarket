@@ -1,0 +1,21 @@
+# See Docker.md for more info...
+# docker compose run -u $(id -u):$(id -g) arcmarket
+
+version: '2.1'
+services:
+
+    arcmarket:
+        build:
+            context: .
+        image: neontribe/arcmarket:dev
+        environment:
+            API_BASE: "http://arcv-store.test:8000/"
+            CURRENT_UID: ${CURRENT_UID}
+        ports:
+            - "${ARC_PORT:-8081}:8081"
+        volumes:
+            - .:/opt/project
+#        tty: true
+#        stdin_open: true
+#        entrypoint: bash
+        restart: always
