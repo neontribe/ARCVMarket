@@ -13,7 +13,7 @@ if (location.hostname.match(/voucher-staging/)) {
 
 if (location.hostname.match(/localhost|(\.(dev|test))$/)) {
     env = "development";
-    apiBase = "http://arcv-service.test/api";
+    apiBase = process.env.API_BASE || "http://arcv-service.test/api";
 }
 
 export default {
