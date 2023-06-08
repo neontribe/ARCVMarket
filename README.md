@@ -63,7 +63,7 @@ GU9 7PT
 # Licensing and use of Third Party Applications
 These are the languages and packages used to create ARCV Market and where available the licences associated with them.
 
-ARCV Market 1.6
+ARCV Market 1.7
 
 Programming Language - JavaScript
 
