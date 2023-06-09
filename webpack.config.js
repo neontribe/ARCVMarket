@@ -12,7 +12,6 @@ const now = new Date();
 
 require("dotenv").config();
 const API_BASE = process.env.API_BASE || "http://arcv-service.test/api";
-console.log("API " + API_BASE);
 
 module.exports = {
     mode: "none",
@@ -177,7 +176,6 @@ if (process.env.NODE_ENV === "development") {
             BUILDDATE: JSON.stringify(now),
             "process.env": {
                 NODE_ENV: '"development"',
-                API_BASE: JSON.stringify(API_BASE),
             },
         }),
     ]);
