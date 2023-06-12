@@ -12,6 +12,7 @@ const now = new Date();
 
 require("dotenv").config();
 const API_BASE = process.env.API_BASE || "http://arcv-service.test/api";
+console.log(`API BASE=${API_BASE}`);
 
 module.exports = {
     mode: "none",
@@ -168,6 +169,7 @@ module.exports = {
 
 if (process.env.NODE_ENV === "development") {
     module.exports.mode = "development";
+    module.exports.devServer.allowedHosts = "all";
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
             VERSION: JSON.stringify(gitRevisionPlugin.version()),
@@ -176,6 +178,7 @@ if (process.env.NODE_ENV === "development") {
             BUILDDATE: JSON.stringify(now),
             "process.env": {
                 NODE_ENV: '"development"',
+                API_BASE: JSON.stringify(API_BASE),
             },
         }),
     ]);

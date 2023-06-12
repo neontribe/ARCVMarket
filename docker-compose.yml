@@ -9,7 +9,7 @@ services:
             context: .
         image: neontribe/arcmarket:dev
         environment:
-            API_BASE: "http://arcv-store.test:8000/"
+            API_BASE: "http://arcv-store.test:8000/api"
             CURRENT_UID: ${CURRENT_UID}
         ports:
             - "${ARC_PORT:-8081}:8081"

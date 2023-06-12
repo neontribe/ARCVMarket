@@ -38,7 +38,7 @@ modules by path ./node_modules/ 882 KiB 92 modules
 webpack 5.77.0 compiled successfully in 3315 ms
 ```
 
-If you are using Mac, Linux or WSL you can set the server to run as your user, this means that the file written by Laravel will be owned by you.
+If you are using Mac, Linux or WSL you can set the server to run as your user, this means that the files written by the project will be owned by you.
 
 ```bash
 CURRENT_UID=$(id -u) docker compose up --build
@@ -54,5 +54,6 @@ This ARCMarket can be wired up to the ARCVService. Just checkout and start ARCVS
 git clone git@github.com:neontribe/ARCVService.git
 CURRENT_UID=$(id -u) docker compose -f ARCVService/docker-compose.yml up --build -d
 git clone git@github.com:neontribe/ARCVMarket.git
+CURRENT_UID=$(id -u) docker compose -f ARCVMarket/docker-compose.yml up --build -d
 
 ```
