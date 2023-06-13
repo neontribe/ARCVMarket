@@ -347,13 +347,13 @@ function responseErrorInterceptor(error) {
     return Promise.reject(error);
 }
 
-// set cookie in devtools to ignore mocks in development and connect directly to local API
-// document.cookie = "arcv_ignore_mocks=true;max-age=" + 86400*30;
+// set cookie in devtools to enable mocks in development skipping the local API
+// document.cookie = "arcv_use_mocks=true;max-age=" + 86400*30;
 if (
     Config.env === "development" &&
-    document.cookie.indexOf("arcv_ignore_mocks=true") === -1
+    document.cookie.indexOf("arcv_use_mocks=true") >= 0
 ) {
-    //NetMgr.mockOn();
+    NetMgr.mockOn();
 }
 
 export default NetMgr;
