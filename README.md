@@ -30,7 +30,12 @@ We suggest developing with a `.test` TLD.
 ## Testing
 Uses [Testcafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and [Chai](http://chaijs.com/)
 
-run with `yarn run test`
+1. Stop market (this app) if it's running
+2. Set up [ARCVService](https://github.com/neontribe/ARCVService). These tests rely on a running service.
+3. Reseed the database in ARCVService `php ./artisan migrate:refresh --seed`
+4. Reset passport in ARCVService `php ./artisan passport:install`, see [points 8 - 10](https://github.com/neontribe/ARCVService#installation-of-development-instance)
+5. Disable the mocks by setting the cookie in your broeser console `document.cookie = "arcv_ignore_mocks=true;max-age=" + 86400*30;`
+6. Run with `yarn run test`
 
 ## Mocking
 In a development environment you can disable auto-mocks by adding a cookie in the console.
