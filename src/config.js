@@ -3,7 +3,8 @@ import pjson from "../package.json";
 // --- Defaults ---
 let env = "production",
     apiBase = "https://voucher-admin.alexandrarose.org.uk/api",
-    appVersion = pjson.version;
+    appVersion = pjson.version,
+    useMocks = false;
 
 // --- Env Specific ---
 if (location.hostname.match(/voucher-staging/)) {
@@ -14,10 +15,12 @@ if (location.hostname.match(/voucher-staging/)) {
 if (location.hostname.match(/localhost|(\.(dev|test))$/)) {
     env = "development";
     apiBase = process.env.API_BASE || "http://arcv-service.test/api";
+    useMocks = process.env.USE_MOCKS;
 }
 
 export default {
     apiBase: apiBase,
     env: env,
     appVersion: appVersion,
+    useMocks: useMocks,
 };
