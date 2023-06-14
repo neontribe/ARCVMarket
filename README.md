@@ -38,10 +38,10 @@ Uses [Testcafe](https://devexpress.github.io/testcafe/documentation/getting-star
 6. Run with `yarn run test`
 
 ## Mocking
-In a development environment you can disable auto-mocks by adding a cookie in the console.
+In a development environment you can enable auto-mocks by adding a cookie in the console.
 
 ``` js
-document.cookie = "arcv_ignore_mocks=true;max-age=" + 86400*30;
+document.cookie = "arcv_use_mocks=true;max-age=" + 86400*30;
 ```
 
 # Copyright

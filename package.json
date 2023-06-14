@@ -55,7 +55,7 @@
     "scripts": {
         "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development",
         "build": "cross-env NODE_ENV=production webpack --mode production --progress",
-        "test": "testcafe chrome ./tests/*/*.test.js --app 'cross-env NODE_ENV=development webpack-dev-server' --app-init-delay 10000",
+        "test": "testcafe chrome ./tests/*/*.test.js --app 'cross-env USE_MOCKS=true NODE_ENV=development webpack-dev-server' --app-init-delay 10000",
         "lint-all": "eslint --ext .js,.vue src tests",
         "lint-all-autofix": "eslint --ext .js,.vue src tests --fix",
         "lint-check-conflicts": "eslint-config-prettier .eslintrc.js",
