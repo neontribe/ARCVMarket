@@ -227,7 +227,6 @@ export default {
     mixins: [MessageMix, SpinnerMix],
     data() {
         return {
-            loading: false,
             voucherPayments: Store.trader.pendedVouchers,
             voucherPagination: Store.pendedVoucherPagination,
             errorMessage: Store.error,
@@ -315,7 +314,7 @@ export default {
                 : "";
         },
         pgChangePage: function (event) {
-            this.loading = true;
+            this.showSpinner();
             const key = event.target.id;
             const pg = this.voucherPagination || {};
             const page = pg.hasOwnProperty(key) ? pg[key].page : 1;
