@@ -220,12 +220,14 @@ import NetMgr from "../services/netMgr.js";
 import constants from "../constants";
 import SpinnerMix from "../mixins/SpinnerMixin.js";
 import MessageMix from "../mixins/MessageMixin";
+import { ref, watch, watchEffect } from "vue";
 
 export default {
     name: "account",
     mixins: [MessageMix, SpinnerMix],
     data() {
         return {
+            loading: false,
             voucherPayments: Store.trader.pendedVouchers,
             voucherPagination: Store.pendedVoucherPagination,
             errorMessage: Store.error,
@@ -233,6 +235,14 @@ export default {
             selected: true,
             selectedDate: null,
         };
+    },
+    watch: {
+        voucherPayments: {
+            handler(newValue, oldValue) {
+                this.hideSpinner();
+            },
+            deep: true,
+        },
     },
     methods: {
         recordSelect: function (event) {
@@ -305,21 +315,15 @@ export default {
                 : "";
         },
         pgChangePage: function (event) {
-            this.loadSpinner();
+            this.loading = true;
             const key = event.target.id;
             const pg = this.voucherPagination || {};
             const page = pg.hasOwnProperty(key) ? pg[key].page : 1;
             Store.getVoucherPaymentState(page);
         },
-        loadSpinner: function () {
-            this.showSpinner();
-            setTimeout(() => {
-                this.hideSpinner();
-            }, 2000);
-        },
     },
     mounted: function () {
-        this.loadSpinner();
+        this.showSpinner();
         Store.getVoucherPaymentState();
         // TODO: Have a standard way of having global router messages.
         const message = this.$router.message;
