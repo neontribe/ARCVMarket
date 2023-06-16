@@ -243,6 +243,9 @@ store.getVoucherPaymentState = function (pageNum = 1) {
                 this.trader.pendedVouchers,
                 [0, this.trader.pendedVouchers.length].concat(response.data)
             );
+        },
+        (error) => {
+            console.log("apiGet returned an error:", error);
         }
     );
 };

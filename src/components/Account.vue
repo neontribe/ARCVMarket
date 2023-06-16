@@ -234,6 +234,14 @@ export default {
             selectedDate: null,
         };
     },
+    watch: {
+        voucherPayments: {
+            handler(newValue, oldValue) {
+                this.hideSpinner();
+            },
+            deep: true,
+        },
+    },
     methods: {
         recordSelect: function (event) {
             this.selected = false;
@@ -305,21 +313,15 @@ export default {
                 : "";
         },
         pgChangePage: function (event) {
-            this.loadSpinner();
+            this.showSpinner();
             const key = event.target.id;
             const pg = this.voucherPagination || {};
             const page = pg.hasOwnProperty(key) ? pg[key].page : 1;
             Store.getVoucherPaymentState(page);
         },
-        loadSpinner: function () {
-            this.showSpinner();
-            setTimeout(() => {
-                this.hideSpinner();
-            }, 2000);
-        },
     },
     mounted: function () {
-        this.loadSpinner();
+        this.showSpinner();
         Store.getVoucherPaymentState();
         // TODO: Have a standard way of having global router messages.
         const message = this.$router.message;
