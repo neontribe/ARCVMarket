@@ -53,7 +53,7 @@
                         v-bind:state="state"
                         :onClick="onRecordVoucher"
                     >
-                        Submit Code
+                        Add Code
                     </async-button>
                 </form>
             </div>

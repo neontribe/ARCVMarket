@@ -209,7 +209,7 @@ test("Page displays number of recorded vouchers", async (t) => {
         .pressKey("enter");
     const voucherCount = await el(".count").innerText;
 
-    expect(voucherCount).to.contain("2 vouchers waiting");
+    expect(voucherCount).to.contain("2 vouchers successfully added");
 });
 
 test("Voucher link is working", async (t) => {

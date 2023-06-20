@@ -102,7 +102,7 @@ export default {
                     // I don't like this here, but it's the only place it works for now.
                     let redirect = this.$route.query.redirect;
                     if (!redirect) {
-                        redirect = "/";
+                        redirect = "/scan";
                     }
                     this.$router.push({ path: redirect });
                 }.bind(this),
