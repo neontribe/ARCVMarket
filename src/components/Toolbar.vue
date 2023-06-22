@@ -7,7 +7,7 @@
                         v-if="voucherCount > 1"
                         >s</span
                     >
-                    waiting</router-link
+                    successfully added</router-link
                 >
             </div>
         </transition>

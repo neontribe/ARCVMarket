@@ -458,10 +458,10 @@ footer {
     content: "Hide your voucher list";
   }
   &.queue:after {
-    content: "View your queued vouchers";
+    content: "View vouchers not added";
   }
   &.queue.expanded:after {
-    content: "Hide your queued vouchers";
+    content: "Hide vouchers not added";
   }
 }
 
@@ -576,7 +576,7 @@ button.queuedVouchers {
   cursor: pointer;
   transition: all 0.5s ease;
   &:before {
-    content: "Submit queued vouchers";
+    content: "Submit vouchers";
   }
 }
 
