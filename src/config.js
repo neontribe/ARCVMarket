@@ -19,6 +19,8 @@ if (location.hostname.match(/localhost|(\.(dev|test))$/)) {
         process.env.USE_MOCKS ||
         document.cookie.indexOf("arcv_use_mocks=true") >= 0;
     console.log("ENV: development");
+    console.log("apiBase", apiBase);
+    console.log("useMocks", useMocks);
 }
 
 export default {

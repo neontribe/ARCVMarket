@@ -234,14 +234,7 @@ export default {
             selectedDate: null,
         };
     },
-    watch: {
-        voucherPayments: {
-            handler(newValue, oldValue) {
-                this.hideSpinner();
-            },
-            deep: true,
-        },
-    },
+    watch: {},
     methods: {
         recordSelect: function (event) {
             this.selected = false;

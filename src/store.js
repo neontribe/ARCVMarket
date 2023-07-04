@@ -104,7 +104,7 @@ store.authenticate = function (userApiCredentials, success, failure) {
         }.bind(this),
         function (error) {
             let err;
-            switch (error.response?.status) {
+            switch (error?.response?.status) {
                 case 400: // Passport has started retuning a 400 for bad password
                 case 401:
                     err = constants.copy.INVALID_CREDENTIALS;

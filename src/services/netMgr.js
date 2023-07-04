@@ -57,6 +57,7 @@ const NetMgrFactory = function (config) {
          * @param {function} err
          */
         apiGet: function (route, cb, err) {
+            console.log("apiGet", route);
             if (!route.match(/^\//)) {
                 route = "/" + route;
             }
@@ -75,6 +76,7 @@ const NetMgrFactory = function (config) {
          * @param {function} err
          */
         apiPost: function (route, postData, cb, err) {
+            console.log("apiPost", route);
             if (!route.match(/^\//)) {
                 route = "/" + route;
             }
@@ -210,6 +212,7 @@ NetMgr.axiosInstance.interceptors.response.use(
 );
 
 function stash(response) {
+    console.log("stash", response.data);
     if (Config.env !== "production" && Config.env !== "test") {
         // don't bother logging in we aren't live
         return;

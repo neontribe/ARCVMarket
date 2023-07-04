@@ -185,7 +185,9 @@ let vm = new Vue({
         return h(App);
     },
     data: function () {
-        return {};
+        return {
+            queued: "",
+        };
     },
     mounted: function () {
         // Runs when app "ready";

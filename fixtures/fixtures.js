@@ -114,9 +114,9 @@ var Fixtures = {
 
 Fixtures.apply = function (mock) {
     // Using regex because url contains params as well. And this is shorter.
-    mock.onGet(/\/traders\/1\/vouchers/).reply(200, this.traderVouchers["1"]);
-    mock.onGet(/\/traders\/2\/vouchers/).reply(200, this.traderVouchers["2"]);
-
+    mock.onGet(/\/traders\/1\/vouchers-history/).reply(200, this.traderVouchers["1"]);
+    mock.onGet(/\/traders\/2\/vouchers-history/).reply(200, this.traderVouchers["2"]);
+    // traders/1/voucher-history?page=1
     mock.onPost('/vouchers').reply((request) => {
         const voucherPayload = JSON.parse(request.data).vouchers;
         var response = {};
