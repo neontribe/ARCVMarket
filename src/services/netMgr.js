@@ -210,6 +210,10 @@ NetMgr.axiosInstance.interceptors.response.use(
 );
 
 function stash(response) {
+    if (Config.env !== "production" && Config.env !== "test") {
+        // don't bother logging in we aren't live
+        return;
+    }
     response.created = Date.now();
     response.trader = Store.trader.id;
     const data = localStorage.getItem("arcLogs");
