@@ -220,6 +220,7 @@ import NetMgr from "../services/netMgr.js";
 import constants from "../constants";
 import SpinnerMix from "../mixins/SpinnerMixin.js";
 import MessageMix from "../mixins/MessageMixin";
+import { EventBus } from "../services/events";
 
 export default {
     name: "account",
@@ -305,23 +306,25 @@ export default {
                 ? pg["current"].page + " of " + pg["last"].page
                 : "";
         },
-        pgChangePage: function (event) {
+        pgChangePage: async function (event) {
             this.showSpinner();
             const key = event.target.id;
             const pg = this.voucherPagination || {};
             const page = pg.hasOwnProperty(key) ? pg[key].page : 1;
-            Store.getVoucherPaymentState(page);
+            await Store.getVoucherPaymentState(page);
+            this.hideSpinner();
         },
     },
-    mounted: function () {
+    mounted: async function () {
         this.showSpinner();
-        Store.getVoucherPaymentState();
+        await Store.getVoucherPaymentState();
         // TODO: Have a standard way of having global router messages.
         const message = this.$router.message;
         if (message) {
             this.setMessage(message.text, message.state);
             this.$router.message = {};
         }
+        this.hideSpinner();
     },
 };
 </script>
