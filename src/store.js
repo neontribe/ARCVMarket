@@ -230,8 +230,8 @@ store.setLocalStorageFromUserTraders = function () {
  *
  * @param {int} [pageNum=1]
  */
-store.getVoucherPaymentState = function (pageNum = 1) {
-    this.netMgr.apiGet(
+store.getVoucherPaymentState = async function (pageNum = 1) {
+    await this.netMgr.apiGet(
         `traders/${this.trader.id}/voucher-history?page=${pageNum}`,
         (response) => {
             // update the voucherPagination tracker
