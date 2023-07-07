@@ -9,7 +9,7 @@ let env = "production",
 // --- Env Specific ---
 if (location.hostname.match(/voucher-staging/)) {
     env = "staging";
-    apiBase = "https://voucher-admin-staging.neontribe.org/api";
+    apiBase = "https://voucher-admin-staging.alexandrarose.org.uk/api";
 }
 
 if (location.hostname.match(/localhost|(\.(dev|test))$/)) {
