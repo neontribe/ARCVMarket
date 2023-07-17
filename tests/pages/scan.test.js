@@ -142,9 +142,9 @@ test("Correct error appears when I submit an invalid voucher", async (t) => {
         .pressKey("backspace")
         .typeText(sponsorBox, "INV")
         .typeText(el("#voucherBox"), "1234", { speed: 1 });
-    const submitButton = await el("#submitVoucher");
+    const submit_button = await el("#submit-voucher");
 
-    await t.click(submitButton);
+    await t.click(submit_button);
     const errorMessage = await el(".content div.message").innerText;
     expect(errorMessage).to.contain(
         "That isn't a valid voucher code, please check the number and try again."
@@ -167,9 +167,9 @@ test("Correct error appears when I submit a duplicate voucher", async (t) => {
         .pressKey("backspace")
         .typeText(el("#sponsorBox"), "FAL")
         .typeText(el("#voucherBox"), "1111", { speed: 1 });
-    const submitButton = await el("#submitVoucher");
+    const submit_button = await el("#submit-voucher");
 
-    await t.click(submitButton);
+    await t.click(submit_button);
     const errorMessage = await el(".message").innerText;
     expect(errorMessage).to.contain(
         "A very very very very very very very very very very very very very very " +
