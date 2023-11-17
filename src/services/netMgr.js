@@ -4,6 +4,7 @@ import Axios from "axios";
 import { axiosETAGCache } from "axios-etag-cache";
 import MockAdapter from "axios-mock-adapter";
 import { EventBus } from "./events";
+import Store from "../store";
 
 const NetMgrFactory = function (config) {
     return {
@@ -95,11 +96,8 @@ const NetMgrFactory = function (config) {
                 console.log(error.response.headers);
             } else if (error.request) {
                 console.log(error.request);
-            } else {
-                // catchall
-                console.log("Error", error.message);
             }
-            console.log(error.config);
+            console.log(error);
         },
 
         /**
@@ -211,12 +209,71 @@ NetMgr.axiosInstance.interceptors.response.use(
     responseErrorInterceptor
 );
 
+function stash(response) {
+    if (Config.env !== "production" && Config.env !== "test") {
+        // don't bother logging in we aren't live
+        return;
+    }
+    response.created = Date.now();
+    response.trader = Store.trader.id;
+    const data = localStorage.getItem("arcLogs");
+    const logs = data ? JSON.parse(data) : {};
+    const json = JSON.stringify(response);
+    const encoder = new TextEncoder();
+    const plainText = encoder.encode(json);
+    crypto.subtle.digest("SHA-256", plainText).then((hash) => {
+        logs[
+            Array.prototype.map
+                .call(new Uint8Array(hash), (x) =>
+                    ("00" + x.toString(16)).slice(-2)
+                )
+                .join("")
+        ] = response;
+        localStorage.setItem("arcLogs", JSON.stringify(logs));
+
+        // We don't care if the logs send this time as they will be sent next time if they fail
+        try {
+            const token = JSON.parse(localStorage["NetMgr.token"]);
+            // we're going to use fetch here to bypass thew axios handlers that trigger this function
+            fetch(Config.apiBase + "/log", {
+                body: JSON.stringify(logs),
+                method: "PUT",
+                headers: {
+                    accept: "application/json, text/plain, */*",
+                    "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+                    "x-requested-with": "XMLHttpRequest",
+                    "Referrer-Policy": "strict-origin-when-cross-origin",
+                    authorization: "Bearer " + token.access_token,
+                },
+            }).then((r) => {
+                if (r.status === 200) {
+                    r.json().then((json) => {
+                        // TODO: abstract this, it's used above in this function too
+                        const data = localStorage.getItem("arcLogs");
+                        const logs = data ? JSON.parse(data) : {};
+                        let val;
+                        for (val of json) {
+                            delete logs[val];
+                        }
+                        localStorage.setItem("arcLogs", JSON.stringify(logs));
+                    });
+                }
+            });
+        } catch (e) {
+            console.error(
+                "Can't log right now, invalid token stored in localstorage."
+            );
+        }
+    });
+}
+
 /**
  * Handles successes and 202 errors.
  * @param origResponse
  * @returns {Promise<axios.AxiosResponse<any>|*>}
  */
 async function responseSuccessInterceptor(origResponse) {
+    stash(origResponse);
     // If the request was successfully completed, always set the online status to true.
     NetMgr.setOnlineStatus(true);
     if (origResponse.status !== 202) {
@@ -287,6 +344,7 @@ async function responseSuccessInterceptor(origResponse) {
  * @returns {Promise<never>|void}
  */
 function responseErrorInterceptor(error) {
+    stash(error);
     // Get the original request configuration.
     const origCfg = error.config;
 
@@ -347,13 +405,15 @@ function responseErrorInterceptor(error) {
     return Promise.reject(error);
 }
 
-// set cookie in devtools to ignore mocks in development and connect directly to local API
-// document.cookie = "arcv_ignore_mocks=true;max-age=" + 86400*30;
+// set cookie in devtools to enable mocks in development skipping the local API
+// document.cookie = "arcv_use_mocks=true;max-age=" + 86400*30;
 if (
-    Config.env === "development" &&
-    document.cookie.indexOf("arcv_ignore_mocks=true") === -1
+    Config.useMocks ||
+    (Config.env === "development" &&
+        document.cookie.indexOf("arcv_use_mocks=true") >= 0)
 ) {
-    //NetMgr.mockOn();
+    NetMgr.mockOn();
+    debugger;
 }
 
 export default NetMgr;

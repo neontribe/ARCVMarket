@@ -17,6 +17,48 @@ yarn run dev
 # build for production with minification
 yarn run build
 ```
+## Versioning, branching and tags
+
+Use [semver](https://semver.org/) for versioning. Each sprint is considered a minor release until the customer asks for a major, non backwardly compatible re-write.
+
+### Sprint development
+
+* Find the trello card and grab the URL, e.g. `https://trello.com/c/P5aKkOWJ/2056-market-roll-up-repo`
+* Create a branch off develop that uses the ticket number and title, e.g. `dev/2056-market-roll-up-repo`
+* Work on the ticket
+* Raise a PR into develop
+* Add a link to the PR into the Trello card
+* Wait for at least one approval on the PR
+* Merge and delete branch
+
+### Create a Release candidate
+
+* Tag develop with the incremented release number, e.g. `git checkout develop && git tag v1.16.0-rc.1`
+* Push the tag, `git push --tags`
+* Release to staging
+
+### Creating a Release
+
+* Merge `develop` into `main`
+* Tag main with a release, e.g. `git checkout main && git tag v1.16.0`
+* Push the tag, `git push --tags`
+* Release to live
+
+### Hotfix
+
+* Find the trello card and grab the URL, e.g. `https://trello.com/c/P5aKkOWJ/2099-HOTFIX-something-is-broken`
+* Create a branch off **main** that uses the ticket number and title, e.g. `hotfix/2099-HOTFIX-something-is-broken`
+* Work on the ticket
+* Raise a PR merging into **main**
+* Add a link to the PR into the Trello card
+* Wait for at least one approval on the PR
+* Merge and delete branch
+* Once testing is passed create a release with an incremented patch number e.g. `git checkout develop && git tag v1.16.1`
+* Release main to staging *This will change when we are containerised*
+* Test on staging *This will change when we are containerised*
+* Cherry-pick the hotfix commits back into develop
+* Release to live
+
 
 ## Deployment
 We suggest developing with a `.test` TLD.
@@ -30,13 +72,18 @@ We suggest developing with a `.test` TLD.
 ## Testing
 Uses [Testcafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and [Chai](http://chaijs.com/)
 
-run with `yarn run test`
+1. Stop market (this app) if it's running
+2. Set up [ARCVService](https://github.com/neontribe/ARCVService). These tests rely on a running service.
+3. Reseed the database in ARCVService `php ./artisan migrate:refresh --seed`
+4. Reset passport in ARCVService `php ./artisan passport:install`, see [points 8 - 10](https://github.com/neontribe/ARCVService#installation-of-development-instance)
+5. Disable the mocks by setting the cookie in your broeser console `document.cookie = "arcv_ignore_mocks=true;max-age=" + 86400*30;`
+6. Run with `yarn run test`
 
 ## Mocking
-In a development environment you can disable auto-mocks by adding a cookie in the console.
+In a development environment you can enable auto-mocks by adding a cookie in the console.
 
 ``` js
-document.cookie = "arcv_ignore_mocks=true;max-age=" + 86400*30;
+document.cookie = "arcv_use_mocks=true;max-age=" + 86400*30;
 ```
 
 # Copyright

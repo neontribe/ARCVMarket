@@ -105,6 +105,7 @@ store.authenticate = function (userApiCredentials, success, failure) {
         function (error) {
             let err;
             switch (error.response.status) {
+                case 400: // Passport has started retuning a 400 for bad password
                 case 401:
                     err = constants.copy.INVALID_CREDENTIALS;
                     break;
@@ -229,8 +230,8 @@ store.setLocalStorageFromUserTraders = function () {
  *
  * @param {int} [pageNum=1]
  */
-store.getVoucherPaymentState = function (pageNum = 1) {
-    this.netMgr.apiGet(
+store.getVoucherPaymentState = async function (pageNum = 1) {
+    await this.netMgr.apiGet(
         `traders/${this.trader.id}/voucher-history?page=${pageNum}`,
         (response) => {
             // update the voucherPagination tracker
@@ -243,6 +244,9 @@ store.getVoucherPaymentState = function (pageNum = 1) {
                 this.trader.pendedVouchers,
                 [0, this.trader.pendedVouchers.length].concat(response.data)
             );
+        },
+        (error) => {
+            console.log("apiGet returned an error:", error);
         }
     );
 };

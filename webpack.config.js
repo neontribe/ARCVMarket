@@ -1,6 +1,7 @@
 /* "Copyright © 2023, Alexandra Rose Charity (reg. in England and Wales, #00279157)" */
 const path = require("path");
 const webpack = require("webpack");
+const { SourceMapDevToolPlugin } = require("webpack");
 const { GitRevisionPlugin } = require("git-revision-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -13,6 +14,7 @@ const now = new Date();
 require("dotenv").config();
 const API_BASE = process.env.API_BASE || "http://arcv-service.test/api";
 console.log(`API BASE=${API_BASE}`);
+const USE_MOCKS = process.env.USE_MOCKS || false;
 
 module.exports = {
     mode: "none",
@@ -21,14 +23,14 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "./dist"),
         publicPath: "/",
-        filename: "build.js?[contenthash]",
+        filename: "build.js?[contenthash]"
     },
     plugins: [
         new webpack.DefinePlugin({
             VERSION: JSON.stringify(gitRevisionPlugin.version()),
             COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash()),
             BRANCH: JSON.stringify(gitRevisionPlugin.branch()),
-            BUILDDATE: JSON.stringify(now),
+            BUILDDATE: JSON.stringify(now)
         }),
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
@@ -39,17 +41,17 @@ module.exports = {
             minify: {
                 removeComments: true,
                 collapseWhitespace: false,
-                removeAttributeQuotes: true,
-            },
+                removeAttributeQuotes: true
+            }
         }),
         new webpack.BannerPlugin({
-            banner: "Copyright (c) 2023, Alexandra Rose Charity (reg. in England and Wales, #00279157)",
+            banner: "Copyright (c) 2023, Alexandra Rose Charity (reg. in England and Wales, #00279157)"
         }),
         new OfflinePlugin({
             autoUpdate: 1000 * 60 * 60 * 48,
             ServiceWorker: {
-                events: true,
-            },
+                events: true
+            }
         }),
         new WebpackPwaManifest({
             name: "Rosie - Rose Voucher Records & Reimbursement",
@@ -65,36 +67,36 @@ module.exports = {
             icons: [
                 {
                     src: path.resolve("src/assets/launcher-48x48.png"),
-                    size: "48x48",
+                    size: "48x48"
                 },
                 {
                     src: path.resolve("src/assets/launcher-96x96.png"),
-                    size: "96x96",
+                    size: "96x96"
                 },
                 {
                     src: path.resolve("src/assets/launcher-144x144.png"),
-                    size: "144x144",
+                    size: "144x144"
                 },
                 {
                     src: path.resolve("src/assets/launcher-192x192.png"),
-                    size: "192x192",
+                    size: "192x192"
                 },
                 {
                     src: path.resolve("src/assets/icon.svg"),
-                    size: "193x193",
+                    size: "193x193"
                 },
                 {
                     src: path.resolve("src/assets/launcher-512x512.png"),
-                    size: "512x512",
-                },
-            ],
-        }),
+                    size: "512x512"
+                }
+            ]
+        })
     ],
     module: {
         rules: [
             {
                 test: /\.vue$/,
-                loader: "vue-loader",
+                loader: "vue-loader"
             },
             {
                 test: /\.js$/,
@@ -102,9 +104,9 @@ module.exports = {
                 use: {
                     loader: "babel-loader",
                     options: {
-                        presets: ["@babel/preset-env"],
-                    },
-                },
+                        presets: ["@babel/preset-env"]
+                    }
+                }
             },
             {
                 test: /\.s[ac]ss$/i,
@@ -113,19 +115,19 @@ module.exports = {
                     {
                         loader: "css-loader",
                         options: {
-                            esModule: false,
-                        },
+                            esModule: false
+                        }
                     },
                     {
                         loader: "sass-loader",
                         options: {
                             implementation: require("sass"),
                             sassOptions: {
-                                quietDeps: true,
-                            },
-                        },
-                    },
-                ],
+                                quietDeps: true
+                            }
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(png|jpg|gif|svg|ico)$/,
@@ -133,38 +135,43 @@ module.exports = {
                     loader: "file-loader",
                     options: {
                         name: "[name].[ext]?[contenthash]",
-                        esModule: false, // https://github.com/webpack-contrib/file-loader#esmodule
-                    },
-                },
+                        esModule: false // https://github.com/webpack-contrib/file-loader#esmodule
+                    }
+                }
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
                 use: {
                     loader: "file-loader",
                     options: {
-                        name: "./fonts/[name].[ext]?[contenthash]",
-                    },
-                },
+                        name: "./fonts/[name].[ext]?[contenthash]"
+                    }
+                }
             },
-        ],
+            {
+                test: /\.(m|c)?js$/,
+                enforce: "pre",
+                use: ["source-map-loader"]
+            }
+        ]
     },
     resolve: {
         alias: {
-            vue$: "vue/dist/vue.esm.js",
-        },
+            vue$: "vue/dist/vue.esm.js"
+        }
     },
     devServer: {
         historyApiFallback: true,
         hot: true,
         open: true,
-        port: 8081,
+        port: 8081
     },
     infrastructureLogging: {
-        level: "info",
+        level: "info"
     },
     performance: {
-        hints: false,
-    },
+        hints: false
+    }
 };
 
 if (process.env.NODE_ENV === "development") {
@@ -177,10 +184,14 @@ if (process.env.NODE_ENV === "development") {
             BRANCH: JSON.stringify(gitRevisionPlugin.branch()),
             BUILDDATE: JSON.stringify(now),
             "process.env": {
-                NODE_ENV: '"development"',
+                NODE_ENV: "\"development\"",
                 API_BASE: JSON.stringify(API_BASE),
-            },
+                USE_MOCKS: JSON.stringify(USE_MOCKS)
+            }
         }),
+        new SourceMapDevToolPlugin({
+            filename: "[file].map",
+        })
     ]);
 }
 
@@ -194,16 +205,16 @@ if (process.env.NODE_ENV === "production") {
             BRANCH: JSON.stringify(gitRevisionPlugin.branch()),
             BUILDDATE: JSON.stringify(now),
             "process.env": {
-                NODE_ENV: '"production"',
-            },
+                NODE_ENV: "\"production\""
+            }
         }),
         new CopyWebpackPlugin({
             patterns: [
                 {
                     from: "src/assets",
-                    to: "[name].[contenthash][ext]",
-                },
-            ],
-        }),
+                    to: "[name].[contenthash][ext]"
+                }
+            ]
+        })
     ]);
 }

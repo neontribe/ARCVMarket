@@ -1,7 +1,7 @@
 <template id="queue">
     <transition name="fade" v-if="currentlyShown">
         <div class="content narrow queuedVouchers">
-            <h1>Queued vouchers</h1>
+            <h1>Voucher not added</h1>
 
             <message
                 v-bind:text="message.text"
@@ -12,7 +12,7 @@
                 v-bind:state="state"
                 :onClick="onSubmitQueue"
             >
-                Resubmit Queued Vouchers
+                Resubmit Vouchers
             </async-button>
             <div
                 v-on:click="collapsed = !collapsed"
@@ -115,7 +115,7 @@ export default {
                 this.vouchers.length +
                 "</strong> voucher" +
                 pluralise +
-                " in your queue. Queued vouchers will be checked when you submit your queue."
+                " not added. Press here to add."
             );
         },
     },

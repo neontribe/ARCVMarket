@@ -10,7 +10,7 @@ export default {
             "There was a problem with your payment request, please try again later.",
         VOUCHER_SUBMIT_INVALID:
             "That isn't a valid voucher code, please check the number and try again.",
-        VOUCHER_LOST_SIGNAL: "Not enough signal, voucher queued.",
+        VOUCHER_LOST_SIGNAL: "Not enough internet signal, voucher not added.",
         QUEUE_NETWORK_ERROR:
             "Whoops! There may be a network problem. When you have a better signal, click 'Submit queued vouchers' to retry.",
         DELETE_VOUCHER_SUCCESS:
