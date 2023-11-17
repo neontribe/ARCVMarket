@@ -13,5 +13,6 @@ FROM base as dev
 ENTRYPOINT yarn run dev
 
 FROM base as prod
-ENTRYPOINT yarn prod
+ENV CURRENT_UID 1000
+ENTRYPOINT /opt/project/.docker/docker-entrypoint.sh
 
