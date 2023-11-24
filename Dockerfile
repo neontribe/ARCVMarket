@@ -1,3 +1,6 @@
+LABEL licence="UNLICENSED"
+LABEL maintainer="tobias@neontribe.co.uk"
+
 ARG BRANCH="develop"
 
 FROM node:16.20.2 as base
