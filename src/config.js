@@ -22,7 +22,7 @@ if (location.hostname.match(/localhost|(\.(dev|test))$/)) {
     console.log("apiBase", apiBase);
     console.log("useMocks", useMocks);
 }
-console.log("config.js " + apiBase);
+
 export default {
     apiBase: apiBase,
     env: env,

@@ -175,7 +175,6 @@ module.exports = {
 
 if (process.env.NODE_ENV === "development") {
     module.exports.mode = "development";
-    module.exports.devServer.allowedHosts = "all";
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
             VERSION: JSON.stringify(gitRevisionPlugin.version()),
@@ -183,7 +182,7 @@ if (process.env.NODE_ENV === "development") {
             BRANCH: JSON.stringify(gitRevisionPlugin.branch()),
             BUILDDATE: JSON.stringify(now),
             "process.env": {
-                NODE_ENV: '"development"',
+                NODE_ENV: "\"development\"",
                 API_BASE: JSON.stringify(API_BASE),
                 USE_MOCKS: JSON.stringify(USE_MOCKS)
             }
@@ -204,8 +203,8 @@ if (process.env.NODE_ENV === "production") {
             BRANCH: JSON.stringify(gitRevisionPlugin.branch()),
             BUILDDATE: JSON.stringify(now),
             "process.env": {
-                NODE_ENV: '"production"',
-            },
+                NODE_ENV: "\"production\""
+            }
         }),
         new CopyWebpackPlugin({
             patterns: [
