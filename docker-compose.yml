@@ -13,8 +13,6 @@ services:
             CURRENT_UID: ${CURRENT_UID}
         ports:
             - "${ARC_PORT:-8081}:8081"
-        volumes:
-            - .:/opt/project
 #        tty: true
 #        stdin_open: true
 #        entrypoint: bash

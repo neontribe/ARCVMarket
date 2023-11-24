@@ -7,3 +7,4 @@ screenshots
 .idea
 .eslintcache
 .env
+*.swp

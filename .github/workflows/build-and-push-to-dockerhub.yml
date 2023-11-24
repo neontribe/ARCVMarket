@@ -1,9 +1,6 @@
 name: Build and Push to Docker Hub
 
 on:
-  merge:
-    branches:
-      - '*'
   push:
     branches:
       - '*'
@@ -30,5 +27,5 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t arcvouchers/service:$(echo ${GITHUB_REF#refs/heads/} | tr '/' '-') .
-        docker push arcvouchers/service:$(echo ${GITHUB_REF#refs/heads/} | tr '/' '-')
+        docker build -t arcvouchers/market:$(echo ${GITHUB_REF#refs/heads/} | tr '/' '-') .
+        docker push arcvouchers/market:$(echo ${GITHUB_REF#refs/heads/} | tr '/' '-')
