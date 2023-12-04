@@ -20,7 +20,7 @@ COPY --from=base /opt/project/dist /usr/share/nginx/html
 
 
 # docker build -t arcvouchers/market:develop --target=dev .
-# docker run -p 8081:8081 --name arcmarket --rm -v $(pwd)i/src:/opt/project/src arcvouchers/market:develop
+# docker run -p 8081:8081 --name arcmarket --rm arcvouchers/market:develop
 
 # docker build -t arcvouchers/market:prod .
-# docker run -p 80:80 arcvouchers/market:prod
+# docker run -p 80:80 --name arcmarket --rm  arcvouchers/market:prod
