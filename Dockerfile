@@ -1,9 +1,9 @@
-LABEL licence="UNLICENSED"
-LABEL maintainer="tobias@neontribe.co.uk"
-
 ARG BRANCH="develop"
 
 FROM node:16.20.2 as base
+LABEL licence="UNLICENSED"
+LABEL maintainer="tobias@neontribe.co.uk"
+
 ARG BRANCH
 
 RUN git clone --depth 1 --branch ${BRANCH} https://github.com/neontribe/ARCVMarket.git /opt/project && \
