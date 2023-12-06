@@ -1,6 +1,5 @@
 import pjson from "../package.json";
 
-debugger;
 // --- Defaults ---
 let env = "production",
     apiBase = "https://voucher-admin.alexandrarose.org.uk/api",
@@ -22,7 +21,6 @@ if (location.hostname.match(/localhost|(\.(dev|test))$/)) {
     console.log("ENV: development");
     console.log("apiBase", apiBase);
     console.log("useMocks", useMocks);
-    debugger;
 }
 
 export default {
