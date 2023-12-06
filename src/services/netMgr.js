@@ -413,7 +413,6 @@ if (
         document.cookie.indexOf("arcv_use_mocks=true") >= 0)
 ) {
     NetMgr.mockOn();
-    debugger;
 }
 
 export default NetMgr;

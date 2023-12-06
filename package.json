@@ -7,6 +7,7 @@
         "axios-mock-adapter": "^1.21.2",
         "crypto-js": "^4.1.1",
         "normalize.css": "^8.0.1",
+        "process": "^0.11.10",
         "route-parser": "0.0.5",
         "vue": "^2.7.14",
         "vue-router": "^3.6.5"

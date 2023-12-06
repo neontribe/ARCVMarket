@@ -47,8 +47,15 @@ if (process.env.NODE_ENV !== "development") {
 }
 Vue.use(VueRouter);
 
-console.info(BUILDDATE + "\n" + BRANCH + "\n" + VERSION);
-console.log("Version", pjson.version);
+console.info(
+    "Build date: " +
+        BUILDDATE +
+        "\nBranch: " +
+        BRANCH +
+        "\nGit commit: " +
+        VERSION
+);
+console.log("Package Version", pjson.version);
 /*
  route access rules
  auth -> true, user MUST be authenticated - friends only
