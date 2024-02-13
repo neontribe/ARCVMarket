@@ -13,7 +13,7 @@ ENV USE_MOCKS true
 ENTRYPOINT yarn dev
 
 FROM dev as prod_builder
-# The way the app is written prod is hard coded to the live server
+# The way the app is written prod is hard coded to the live server "https://voucher-admin.alexandrarose.org.uk/api",
 # ENV API_BASE="http://arcv-service.test:8000/api"
 ENV NODE_ENV production
 # Re-run the build as web pack sets the node env. Is that riuht?
@@ -25,17 +25,8 @@ ENV NODE_ENV production
 COPY .docker/nginx_default.conf /etc/nginx/conf.d/default.conf
 COPY --from=prod_builder /opt/project/dist /usr/share/nginx/html
 
-# docker build -t arcvouchers/market:develop --target=dev .
-# docker build -t arcvouchers/market:prod .
-
-# docker run -p 8081:8081 --name arcmarket --rm -e API_BASE="https://voucher-admin-staging.alexandrarose.org.uk/api" arcvouchers/market:develop
-# docker run -p 80:80 --name arcmarket --rm arcvouchers/market:prod
-
 # docker build -t 192.168.21.97:5000/arcvouchers/market:develop --target=dev .
 # docker build -t 192.168.21.97:5000/arcvouchers/market:prod .
 
 # docker push 192.168.21.97:5000/arcvouchers/market:develop
 # docker push 192.168.21.97:5000/arcvouchers/market:prod
-
-# docker run -p 8081:8081 --name arcmarket --rm -e API_BASE="https://voucher-admin-staging.alexandrarose.org.uk/api" 192.168.21.97:5000/arcvouchers/market:develop
-# docker run -p 80:80 --name arcmarket --rm 192.168.21.97:5000/arcvouchers/market:prod
