@@ -16,7 +16,7 @@ FROM dev as prod_builder
 # The way the app is written prod is hard coded to the live server "https://voucher-admin.alexandrarose.org.uk/api",
 # ENV API_BASE="http://arcv-service.test:8000/api"
 ENV NODE_ENV production
-# Re-run the build as web pack sets the node env. Is that riuht?
+# Re-run the build as web pack sets the node env. Is that right?
 RUN yarn build
 ENV USE_MOCKS=false
 
@@ -25,8 +25,6 @@ ENV NODE_ENV production
 COPY .docker/nginx_default.conf /etc/nginx/conf.d/default.conf
 COPY --from=prod_builder /opt/project/dist /usr/share/nginx/html
 
-# docker build -t 192.168.21.97:5000/arcvouchers/market:develop --target=dev .
-# docker build -t 192.168.21.97:5000/arcvouchers/market:prod .
+# docker build -t 192.168.21.97:5000/arcvouchers/market:develop --target=dev . && docker build -t 192.168.21.97:5000/arcvouchers/market:prod .
 
-# docker push 192.168.21.97:5000/arcvouchers/market:develop
-# docker push 192.168.21.97:5000/arcvouchers/market:prod
+# docker push 192.168.21.97:5000/arcvouchers/market:develop &&  docker push 192.168.21.97:5000/arcvouchers/market:prod
