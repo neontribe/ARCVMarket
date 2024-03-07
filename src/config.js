@@ -18,7 +18,7 @@ if (location.hostname.match(/localhost|(\.(dev|test))$/)) {
         process.env.API_BASE ||
         window.location.protocol + "//arcv-service.test/api";
     useMocks =
-        process.env.USE_MOCKS ||
+        process.env.USE_MOCKS === "true" ||
         document.cookie.indexOf("arcv_use_mocks=true") >= 0;
 }
 console.log(window.location);
